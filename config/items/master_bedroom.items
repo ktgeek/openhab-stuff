@@ -1,0 +1,3 @@
+Group    SF_MasterBedroom     "Master Bedroom" <bedroom>       (Home, SF)               ["MasterBedroom"]
+
+Switch MasterBedroom_Wall_Outlet "Master Bedroom Outlet" <poweroutlet_us> (SF_MasterBedroom) ["Switchable"] { channel="zwave:device:8c18403e:node3:switch_binary" }

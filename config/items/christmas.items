@@ -1,0 +1,3 @@
+// First Floor - Office
+// Switch Switch_Office_Windows "Office Windows" <switch> (FF_Office) ["Switchable"] { channel="wemo:socket:Socket-1_0-221625K01014A7:state" }
+

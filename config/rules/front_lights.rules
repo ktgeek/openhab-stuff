@@ -1,0 +1,28 @@
+rule "Front Yard Lights follow ON"
+when
+    Item FrontDoor_Lights_Switch changed from OFF to ON
+    or
+    Item Garage_OutdoorLights_Switch changed from OFF to ON
+then
+    if (FrontDoor_Lights_Switch.state != ON) {
+        FrontDoor_Lights_Switch.sendCommand(ON)
+    }
+    if (Garage_OutdoorLights_Switch.state != ON) {
+        Garage_OutdoorLights_Switch.sendCommand(ON)
+    }
+end
+
+
+rule "Front Yard Lights follow OFF"
+when
+    Item FrontDoor_Lights_Switch changed from ON to OFF
+    or
+    Item Garage_OutdoorLights_Switch changed from ON to OFF
+then
+    if (FrontDoor_Lights_Switch.state != OFF) {
+        FrontDoor_Lights_Switch.sendCommand(OFF)
+    }
+    if (Garage_OutdoorLights_Switch.state != OFF) {
+        Garage_OutdoorLights_Switch.sendCommand(OFF)
+    }
+end

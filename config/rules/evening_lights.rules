@@ -1,0 +1,32 @@
+rule "Night Lights On"
+when
+    Channel "astro:sun:shifted:set#event" triggered START
+then
+    FrontDoor_Lights_Switch.sendCommand(ON)
+    Garage_OutdoorLights_Switch.sendCommand(ON)
+    Switch_Entrance_Hall_Light.sendCommand(ON)
+    Upstairs_Hallway_Wall_Outlet_Switch.sendCommand(ON)
+end
+
+// seconds minutes hour day-of-month month day-of-week
+rule "Nights off at end of day"
+when
+    Time cron "0 30 22 ? * *"
+then
+    if (VisitorMode_Switch.state != ON) {
+        FrontDoor_Lights_Switch.sendCommand(OFF)
+        Garage_OutdoorLights_Switch.sendCommand(OFF)
+        Switch_Entrance_Hall_Light.sendCommand(OFF)
+        Upstairs_Hallway_Wall_Outlet_Switch.sendCommand(OFF)
+    }
+    else {
+      logInfo("Visitor mode on, not turning off lights")
+    }
+end
+
+rule "Reset Visitor Mode"
+when
+    Time cron "0 0 3 ? * *"
+then
+    VisitorMode_Switch.sendCommand(OFF)
+end

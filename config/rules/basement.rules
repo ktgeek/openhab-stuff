@@ -1,0 +1,54 @@
+rule "when movie mode is turned on"
+when
+    Item Basement_Movie_Mode_Switch received command ON
+then
+    Basement_Stairs_Switch.sendCommand(OFF)
+    Basement_Room_Lights_Switch.sendCommand(OFF)
+    Basement_Room_Theater_Lights.sendCommand(13)
+    Basement_Room_Bar_Lights.sendCommand(10)
+
+    createTimer(now.plusSeconds(10), [|
+        Basement_Movie_Mode_Switch.postUpdate(OFF)
+    ])
+end
+
+rule "when normal mode is turned on"
+when
+    Item Basement_Normal_Mode_Switch received command ON
+then
+    Basement_Stairs_Switch.sendCommand(ON)
+    Basement_Room_Theater_Lights.sendCommand(100)
+    Basement_Room_Bar_Lights.sendCommand(100)
+
+
+    createTimer(now.plusSeconds(10), [|
+        Basement_Normal_Mode_Switch.postUpdate(OFF)
+    ])
+end
+
+rule "when someone enters/leaves downstairs"
+when
+   Item Hiome_Basement_Occupancy_Count received update
+then
+   val occupancy_count = Hiome_Basement_Occupancy_Count.state
+
+   if (occupancy_count > 0) {
+     if (Basement_Stairs_Switch.state != ON) {
+       Basement_Stairs_Switch.sendCommand(ON)
+     }
+   } else {
+     if (Basement_Stairs_Switch.state != OFF) {
+       Basement_Stairs_Switch.sendCommand(OFF)
+     }
+     if (Basement_Room_Theater_Lights_OnOff.state != OFF) {
+       Basement_Room_Theater_Lights.sendCommand(0)
+     }
+     if (Basement_Room_Bar_Lights_OnOff.state != OFF) {
+       Basement_Room_Bar_Lights.sendCommand(0)
+     }
+     if (Basement_Room_Lights_Switch.state != OFF) {
+       Basement_Room_Lights_Switch.sendCommand(OFF)
+     }
+   }
+end
+

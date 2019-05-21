@@ -1,0 +1,26 @@
+rule "when the basement remote is used"
+when
+  Item NanomoteQuad_Scene received update
+then
+  val scene = NanomoteQuad_Scene.state as DecimalType
+
+  if (scene == 1.0) {
+    Basement_Normal_Mode_Switch.sendCommand(ON)
+  } else if (scene == 2.0) {
+    if (Basement_Stairs_Switch.state != ON) {
+        Basement_Stairs_Switch.sendCommand(ON)
+    } else {
+        Basement_Stairs_Switch.sendCommand(OFF)
+    }
+  } else if (scene == 3.0) {
+    if (Basement_Room_Theater_Lights_OnOff.state != ON) {
+        Basement_Room_Theater_Lights.sendCommand(100)
+	Basement_Room_Bar_Lights.sendCommand(100)
+    } else {
+        Basement_Room_Theater_Lights.sendCommand(0)
+	Basement_Room_Bar_Lights.sendCommand(0)
+    }
+  } else if (scene == 4.0) {
+    Basement_Movie_Mode_Switch.sendCommand(ON)
+  }
+end

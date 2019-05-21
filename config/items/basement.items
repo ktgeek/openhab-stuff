@@ -1,0 +1,17 @@
+Group    C_Basement           "Basement"       <cellar>        (Home, C)                ["Basement"]
+
+Switch Basement_Stairs_Switch "Basement Stairs Lights" <lightbulb> (C_Basement) ["Switchable"] { channel="zwave:device:8c18403e:node4:switch_binary" }
+
+Switch Basement_Room_Lights_Switch "Basement Room Lights" <lightbulb> (C_Basement) ["Lighting"] { channel="zwave:device:8c18403e:node14:switch_binary" }
+
+Dimmer Basement_Room_Bar_Lights "Basement Bar Lights" <lightbulb> (C_Basement) ["Lighting"] { channel="zwave:device:8c18403e:node35:switch_dimmer" }
+Switch Basement_Room_Bar_Lights_OnOff "Basement Bar Lights On/Off" <lightbulb> (C_Basement) { channel="zwave:device:8c18403e:node35:switch_dimmer" }
+
+Dimmer Basement_Room_Theater_Lights "Basement Theater Lights" <lightbulb> (C_Basement) ["Lighting"] { channel="zwave:device:8c18403e:node36:switch_dimmer" }
+Switch Basement_Room_Theater_Lights_OnOff "Basement Bar Lights On/Off" <lightbulb> (C_Basement) { channel="zwave:device:8c18403e:node36:switch_dimmer" }
+
+Switch Basement_Movie_Mode_Switch "Basement Movie Mode" <cinema> (C_Basement) ["Switchable"]
+Switch Basement_Normal_Mode_Switch "Basement Normal Mode" <smiley> (C_Basement) ["Switchable"]
+
+Number NanomoteQuad_Scene "Nanomote Quad Scene Number" (C_Basement) { channel="zwave:device:8c18403e:node34:scene_number" }
+Number:Dimensionless NanomoteQuad_BatteryLevel "Nanomote Quad Battery [%.1f %%]" (C_Basement) { channel="zwave:device:8c18403e:node34:battery-level" }

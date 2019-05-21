@@ -1,0 +1,35 @@
+rule "when family room lights turn on"
+when
+    Item FamilyRoom_Lights_Switch changed from OFF to ON
+    or
+    Item FamilyRoom_Fireplace_Lights_Switch changed from OFF to ON
+then
+    if (FamilyRoom_Fireplace_Lights_Switch.state == ON && FamilyRoom_Lights_Switch.state == ON) {
+        FamilyRoom_All_Lights.postUpdate(ON)
+    }
+end
+
+rule "when family room lights turn off"
+when
+    Item FamilyRoom_Lights_Switch changed from ON to OFF
+    or
+    Item FamilyRoom_Fireplace_Lights_Switch changed from ON to OFF
+then
+    FamilyRoom_All_Lights.postUpdate(OFF)
+end
+
+rule "when all family room lights turn on"
+when
+    Item FamilyRoom_All_Lights received command ON
+then
+    FamilyRoom_Lights_Switch.sendCommand(ON)
+    FamilyRoom_Fireplace_Lights_Switch.sendCommand(ON)
+end
+
+rule "when all family room lights turn off"
+when
+    Item FamilyRoom_All_Lights received command OFF
+then
+    FamilyRoom_Lights_Switch.sendCommand(OFF)
+    FamilyRoom_Fireplace_Lights_Switch.sendCommand(OFF)
+end

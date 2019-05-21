@@ -1,0 +1,27 @@
+rule "Backyard lights follow on"
+when
+    Item FamilyRoom_Backyard_Lights_Switch changed from OFF to ON
+    or
+    Item Kitchen_Backyard_Lights_Switch changed from OFF to ON
+then
+    if (FamilyRoom_Backyard_Lights_Switch.state != ON) {
+        FamilyRoom_Backyard_Lights_Switch.sendCommand(ON)
+    }
+    if (Kitchen_Backyard_Lights_Switch.state != ON) {
+        Kitchen_Backyard_Lights_Switch.sendCommand(ON)
+    }
+end
+
+rule "Backyard lights follow off"
+when
+    Item FamilyRoom_Backyard_Lights_Switch changed from ON to OFF
+    or
+    Item Kitchen_Backyard_Lights_Switch changed from ON to OFF
+then
+    if (FamilyRoom_Backyard_Lights_Switch.state != OFF) {
+        FamilyRoom_Backyard_Lights_Switch.sendCommand(OFF)
+    }
+    if (Kitchen_Backyard_Lights_Switch.state != OFF) {
+        Kitchen_Backyard_Lights_Switch.sendCommand(OFF)
+    }
+end

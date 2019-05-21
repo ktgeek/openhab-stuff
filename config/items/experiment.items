@@ -1,0 +1,3 @@
+Switch Keith_Home_Presence_Switch "Keith at Home" ["Switchable"]
+
+Number Hiome_Basement_Occupancy_Count "Basement Occupancy [%d]" <parents_1_1> (C_Basement) { channel="mqtt:topic:c0853ba2:1" }

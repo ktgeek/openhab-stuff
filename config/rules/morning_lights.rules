@@ -1,0 +1,15 @@
+rule "Morning Lights On"
+when
+    Time cron "0 30 5 ? * MON-FRI"
+then
+    FrontDoor_Lights_Switch.sendCommand(ON)
+    Garage_OutdoorLights_Switch.sendCommand(ON)
+end
+
+rule "Morning lights off"
+when
+    Channel "astro:sun:shifted:rise#event" triggered END
+then
+    FrontDoor_Lights_Switch.sendCommand(OFF)
+    Garage_OutdoorLights_Switch.sendCommand(OFF)
+end

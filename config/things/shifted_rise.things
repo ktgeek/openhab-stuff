@@ -1,0 +1,22 @@
+Thing astro:sun:shifted "Local Sun w/ Shifted Settings" [ geolocation="41.9596856,-88.18861950000002", interval=60 ] {
+    Channels:
+        Type start : set#start [
+	    offset=-20
+	]
+        Type end : set#end [
+	    offset=-20
+	]
+        Type rangeEvent : set#event [
+	    offset=-20
+	]
+
+	Type start : rise#start [
+	    offset=20
+	]
+	Type end : rise#end [
+	    offset=20
+	]
+	Type rangeEvent : rise#event [
+            offset=20
+        ]
+}

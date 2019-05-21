@@ -1,0 +1,7 @@
+Number:Temperature Basement_FloodSensor_Temperature "Basement Flood Sensor Temperature [%.1f %unit%]" (C_Basement) { channel="zwave:device:8c18403e:node37:sensor_temperature" }
+
+Number:Dimensionless Basement_FloodSensor_BatteryLevel "Basement Flood Sensor Battery Level [%.1f %%]" (C_Basement) { channel="zwave:device:8c18403e:node37:battery-level" }
+
+Switch Basement_FloodSensor_Flood_Alarm "Basement Flood Sensor Flood Alarm" (C_Basement) { channel="zwave:device:8c18403e:node37:alarm_flood" }
+
+Switch Basement_FloodSensor_Tamper_Alarm "Basement Flood Sensor Tamper Alarm" (C_Basement) { channel="zwave:device:8c18403e:node37:alarm_tamper" }

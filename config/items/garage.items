@@ -1,0 +1,11 @@
+Group    FF_Garage            "Garage"         <garage>        (Home, FF)               ["Garage"]
+
+Switch Garage_Outlet_Switch "Garage Outlet" <switch> (FF_Garage) ["Switchable"] { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_switch" }
+
+Number:ElectricPotential Garage_Outlet_Voltage "Garage Outlet Voltage [%.1f %unit%]" { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_voltage" }
+Number:ElectricCurrent Garage_Outlet_Current "Garage Outlet Current [%.1f %unit%]" { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_current" }
+Number:Energy Garage_Outlet_TotalActivePower "Garage Outlet Total Active Power [%.1f %unit%]" { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_activepower"} 
+
+Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights" <lightbulb> (FF_Garage) ["Switchable"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13008B6:state" }
+
+

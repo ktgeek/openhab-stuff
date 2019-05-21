@@ -1,0 +1,24 @@
+sitemap default label="Garner House" {
+    Frame label="Cellar" icon="cellar" {
+        Group item=C_Basement
+    }
+
+    Frame label="First Floor" icon="groundfloor" {
+    	Default item=VisitorMode_Switch label="Visitor Mode"
+	Group item=FF_Porch
+	Group item=FF_Entrance
+	Group item=FF_LivingRoom
+        Group item=FF_Office
+        Group item=FF_Garage
+    	Group item=FF_Kitchen
+        Group item=FF_Dining
+	Group item=FF_FamilyRoom
+    }
+
+    Frame label="Second Floor" icon="firstfloor" {
+        Group item=SF_Hallway
+	Group item=SF_MasterBedroom
+	Group item=SF_DinahsRoom
+    }
+
+}
