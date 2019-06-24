@@ -2,14 +2,20 @@ rule "Morning Lights On"
 when
     Time cron "0 30 5 ? * MON-FRI"
 then
-    FrontDoor_Lights_Switch.sendCommand(ON)
-    Garage_OutdoorLights_Switch.sendCommand(ON)
+    if (now.isBefore((LocalSunWShiftedSettings_Rise_StartTime.state as DateTimeType).zonedDateTime.timeInMillis)) {
+        FrontDoor_Lights_Switch.sendCommand(ON)
+        Garage_OutdoorLights_Switch.sendCommand(ON)
+    }
 end
 
 rule "Morning lights off"
 when
     Channel "astro:sun:shifted:rise#event" triggered END
 then
-    FrontDoor_Lights_Switch.sendCommand(OFF)
-    Garage_OutdoorLights_Switch.sendCommand(OFF)
+    if (FrontDoor_Lights_Switch.state != ON) {
+        FrontDoor_Lights_Switch.sendCommand(OFF)
+    }
+    if (Garage_OutdoorLights_Switch.state != ON) {
+        Garage_OutdoorLights_Switch.sendCommand(OFF)
+    }
 end

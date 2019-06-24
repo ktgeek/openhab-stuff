@@ -30,10 +30,11 @@ rule "when someone enters/leaves downstairs"
 when
    Item Hiome_Basement_Occupancy_Count received update
 then
+   val previous_count = Hiome_Basement_Occupancy_Count.previousState(true, "jdbc").state
    val occupancy_count = Hiome_Basement_Occupancy_Count.state
 
    if (occupancy_count > 0) {
-     if (Basement_Stairs_Switch.state != ON) {
+     if (Basement_Stairs_Switch.state != ON && previous_count < occupancy_count) {
        Basement_Stairs_Switch.sendCommand(ON)
      }
    } else {

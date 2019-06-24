@@ -1,0 +1,28 @@
+rule "Hall Lights follow ON"
+when
+    Item Switch_Entrance_Hall_Light changed from OFF to ON
+    or
+    Item Upstairs_Hallway_Wall_Outlet_Switch changed from OFF to ON
+then
+    if (Switch_Entrance_Hall_Light.state != ON) {
+        Switch_Entrance_Hall_Light.sendCommand(ON)
+    }
+    if (Upstairs_Hallway_Wall_Outlet_Switch.state != ON) {
+        Upstairs_Hallway_Wall_Outlet_Switch.sendCommand(ON)
+    }
+end
+
+
+rule "Hall Lights follow OFF"
+when
+    Item Switch_Entrance_Hall_Light changed from ON to OFF
+    or
+    Item Upstairs_Hallway_Wall_Outlet_Switch changed from ON to OFF
+then
+    if (Switch_Entrance_Hall_Light.state != OFF) {
+        Switch_Entrance_Hall_Light.sendCommand(OFF)
+    }
+    if (Upstairs_Hallway_Wall_Outlet_Switch.state != OFF) {
+        Upstairs_Hallway_Wall_Outlet_Switch.sendCommand(OFF)
+    }
+end
