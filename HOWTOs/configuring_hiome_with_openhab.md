@@ -23,3 +23,14 @@ Do not turn on TLS/SSL.
 7. Under MQTT state topic you will need to provide the MQTT path to the Hiome. `hiome/1/sensor/<room_id>:occupancy` substituting the room ID you found in step 1.
 8. Set "Absolute Minimum" to `0`
 9. Open the "Show More" and put `JSONPATH:$.val` in Incoming value transformations.
+
+## Configuring a door contact Thing
+1. Ensure you have the JSONPath Transformation installed.
+2. In Inbox in PaperUI manually add a Generic MQTT Thing and select the Hiome MQTT Broker as the bridge.
+3. In the Generic MQTT Thing you created click the `+` button to add a channel
+4. For "Channel Type" select `Contact`
+5. Provide a unique to your open hab Channel Id (if this is your first channel, you can just use 1.)
+6. Under MQTT state topic you will need to provide the MQTT path to the Hiome. `hiome/1/sensor/<sensor_id>`. The sensor id can be found on a sticker on top of your Hiome sensor.
+7. Set "Custom On/Open value" to "1"
+8. Set "Custom Off/Closed value" to "0"
+9. Open the "Show More" and put `JSONPATH:$.val` in Incoming value transformations.
