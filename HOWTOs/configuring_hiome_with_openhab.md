@@ -30,7 +30,7 @@ Do not turn on TLS/SSL.
 3. In the Generic MQTT Thing you created click the `+` button to add a channel
 4. For "Channel Type" select `Contact`
 5. Provide a unique to your open hab Channel Id (if this is your first channel, you can just use 1.)
-6. Under MQTT state topic you will need to provide the MQTT path to the Hiome. `hiome/1/sensor/<sensor_id>`. The sensor id can be found on a sticker on top of your Hiome sensor.
+6. Under MQTT state topic you will need to provide the MQTT path to the Hiome. `hiome/1/sensor/<sensor_id>:door`. The sensor id can be found on a sticker on top of your Hiome sensor, or by going to http://hiome.local/api/1/sensors.
 7. Set "Custom On/Open value" to "1"
 8. Set "Custom Off/Closed value" to "0"
 9. Open the "Show More" and put `JSONPATH:$.val` in Incoming value transformations.
