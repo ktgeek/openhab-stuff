@@ -1,69 +1,61 @@
 rule "when movie mode is turned on"
 when
-    Item Basement_Movie_Mode_Switch received command ON
+  Item Basement_Movie_Mode_Switch received command ON
 then
-    Basement_Stairs_Switch.sendCommand(OFF)
-    Basement_Room_Lights_Switch.sendCommand(OFF)
-    Basement_Room_Theater_Lights.sendCommand(9)
-    Basement_Room_Bar_Lights.sendCommand(10)
+  Basement_Stairs_Switch.sendCommand(OFF)
+  Basement_Room_Lights_Switch.sendCommand(OFF)
+  Basement_Room_Theater_Lights.sendCommand(9)
+  Basement_Room_Bar_Lights.sendCommand(10)
 
-    createTimer(now.plusSeconds(10), [|
-        Basement_Movie_Mode_Switch.postUpdate(OFF)
-    ])
+  createTimer(now.plusSeconds(10), [|
+    Basement_Movie_Mode_Switch.postUpdate(OFF)
+  ])
 end
 
 rule "when normal mode is turned on"
 when
-    Item Basement_Normal_Mode_Switch received command ON
+  Item Basement_Normal_Mode_Switch received command ON
 then
-    Basement_Stairs_Switch.sendCommand(ON)
-    Basement_Room_Theater_Lights.sendCommand(100)
-    Basement_Room_Bar_Lights.sendCommand(100)
+  Basement_Stairs_Switch.sendCommand(ON)
+  Basement_Room_Theater_Lights.sendCommand(100)
+  Basement_Room_Bar_Lights.sendCommand(100)
 
-    createTimer(now.plusSeconds(10), [|
-        Basement_Normal_Mode_Switch.postUpdate(OFF)
-    ])
+  createTimer(now.plusSeconds(10), [|
+    Basement_Normal_Mode_Switch.postUpdate(OFF)
+  ])
 end
 
 rule "when someone enters/leaves downstairs"
 when
    Item Hiome_Basement_Occupancy_Count received update
 then
-   val previous_count = Hiome_Basement_Occupancy_Count.previousState(true, "jdbc").state
-   val occupancy_count = Hiome_Basement_Occupancy_Count.state
-
-   if (occupancy_count > 0) {
-     if (Basement_Stairs_Switch.state != ON && previous_count < occupancy_count) {
-       Basement_Stairs_Switch.sendCommand(ON)
-     }
-   } else {
-     if (Basement_Stairs_Switch.state != OFF) {
-       Basement_Stairs_Switch.sendCommand(OFF)
-     }
-     if (Basement_Room_Theater_Lights_OnOff.state != OFF) {
-       Basement_Room_Theater_Lights.sendCommand(0)
-     }
-     if (Basement_Room_Bar_Lights_OnOff.state != OFF) {
-       Basement_Room_Bar_Lights.sendCommand(0)
-     }
-     if (Basement_Room_Lights_Switch.state != OFF) {
-       Basement_Room_Lights_Switch.sendCommand(OFF)
-     }
-   }
+  val previous_count = Hiome_Basement_Occupancy_Count.previousState(true, "jdbc").state
+  val occupancy_count = Hiome_Basement_Occupancy_Count.state
+  if (occupancy_count > 0) {
+    if (Basement_Stairs_Switch.state != ON && previous_count < occupancy_count) {
+      Basement_Stairs_Switch.sendCommand(ON)
+    }
+  } else {
+    C_All_Lights.members.forEach [ i |
+      if (i.state != OFF) {
+        i.sendCommand(OFF)
+      }
+    ]
+  }
 end
 
 rule "when the exersize room dimmer has a scene change"
 when
-    Item Exercise_Room_Dimmer_Scene_Number received update
+  Item Exercise_Room_Dimmer_Scene_Number received update
 then
-    var scene = Exercise_Room_Dimmer_Scene_Number.state as DecimalType
-    if (scene == 1.3) {
-      if (Basement_Stairs_Switch.state != ON) {
-        Basement_Stairs_Switch.sendCommand(ON)
-      }
-    } else if (scene == 2.3) {
-      if (Basement_Stairs_Switch.state != OFF) {
-        Basement_Stairs_Switch.sendCommand(OFF)
-      }
+  var scene = Exercise_Room_Dimmer_Scene_Number.state as DecimalType
+  if (scene == 1.3) {
+    if (Basement_Stairs_Switch.state != ON) {
+      Basement_Stairs_Switch.sendCommand(ON)
     }
+  } else if (scene == 2.3) {
+    if (Basement_Stairs_Switch.state != OFF) {
+      Basement_Stairs_Switch.sendCommand(OFF)
+    }
+  }
 end
