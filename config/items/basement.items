@@ -1,11 +1,11 @@
 Group    C_Basement           "Basement"       <cellar>        (Home, C)                ["Basement"]
 Group    C_Basement_Scene     "Basement Room Scene"  <cellar>  (C_Basement)
-Group:Number:SUM C_Total_Occupancy "Total Basement Occpancy" <cellar> (C)
 Group    C_All_Lights         "All basement lights" <cellar> (C)
 
-Number Hiome_Basement_Occupancy_Count "Basement Occupancy [%d]" <parents_1_1> (C_Basement, C_Total_Occupancy) { channel="mqtt:topic:c0853ba2:1" }
-Number Hiome_Exersize_Room_Occupancy_Count "Exercise Room Occupancy [%d]" <parents_1_1> (C_ExerciseRoom, C_Total_Occupancy) { channel="mqtt:topic:c0853ba2:2" }
-Contact Hiome_Exersize_Room_Door_Contact "Exercise Room Door Contact" (C_ExerciseRoom) { channel="mqtt:topic:c0853ba2:3" }
+Number Hiome_Basement_Occupancy_Count "Basement Occupancy [%d]" <parents_1_1> (C_Basement) { channel="mqtt:topic:c0853ba2:1" }
+Number Hiome_Exercise_Room_Occupancy_Count "Exercise Room Occupancy [%d]" <parents_1_1> (C_ExerciseRoom) { channel="mqtt:topic:c0853ba2:2" }
+Contact Hiome_Exercise_Room_Door_Contact "Exercise Room Door Contact" (C_ExerciseRoom) { channel="mqtt:topic:c0853ba2:3" }
+Number C_Total_Basement_Occupancy "Total Basement Occpancy" (C)
 
 Switch Basement_Stairs_Switch "Basement Stairs Lights" <lightbulb> (C_Basement, C_All_Lights) ["Switchable"] { channel="zwave:device:8c18403e:node4:switch_binary" }
 
