@@ -1,3 +1,29 @@
-// First Floor - Office
-// Switch Switch_Office_Windows "Office Windows" <switch> (FF_Office) ["Switchable"] { channel="wemo:socket:Socket-1_0-221625K01014A7:state" }
+Group Christmas "Christmas" <snow> ["Building"]
+Group Christmas_Inside <snow>
+Group Christmas_Outside <snow>
 
+// Second Floor - Dinah's Room
+Switch DinahsRoom_Window_Switch "Dinah's Room Windows" <poweroutlet_us> (SF_DinahsRoom, Christmas, Christmas_Outside) ["Switchable"] { channel="wemo:socket:Socket-1_0-221620K010056B:state" }
+Switch DinahsRoom_Hall_Switch "Dinah's Room Hall Lights" <poweroutlet_us> (SF_Hallway, Christmas, Christmas_Inside) ["Switchable"] { channel="wemo:socket:Socket-1_0-221620K0100444:state" }
+
+// First Floor - Office
+Switch Office_Windows_Switch "Office Windows" <poweroutlet_us> (FF_Office, Christmas, Christmas_Inside) ["Switchable"] { channel="wemo:socket:Socket-1_0-221625K01014A7:state" }
+
+// First Floor - Dining Room
+Group DiningRoom_Table (FF_DiningRoom)
+Switch DiningRoom_Table_Switch "Dining Room Globe" <poweroutlet_us> (FF_DiningRoom, Christmas, Christmas_Inside) ["Switchable"] { channel="wemo:insight:Insight-1_0-221437K1200024:state" }
+Number:Energy DiningRoom_Table_Watts "Dining Room Glome Power [%.1f Ws]" (FF_DiningRoom) { channel="wemo:insight:Insight-1_0-221437K1200024:currentPower" }
+
+Switch DiningRoom_Windows_Switch "Dining Room Windows" <poweroutlet_us> (FF_DiningRoom, Christmas, Christmas_Inside) ["Switchable"] { channel="wemo:socket:Socket-1_0-221336K01016D6:state" }
+
+// Second Floor - Master Bedroom
+Switch MasterBedroom_Windows_Switch "Master Bedroom Windows" <poweroutlet_us> (SF_MasterBedroom, Christmas, Christmas_Outside) ["Switchable"] { channel="wemo:socket:Socket-1_0-221333K010042E:state" }
+
+// Virtual switches
+Switch Christmas_Lights "Christmas Lights" <lightbulb> (Home, Christmas) ["Switchable"] { alexa="PowerController.powerState" }
+Switch Christmas_All_Lights "All Christmas Lights" <lightbulb> (Home, Christmas) ["Switchable"] { alexa="PowerController.powerState" }
+
+// Repeat of the Wall outlet channel so the christmas tree can be turned on by name
+Switch Basement_ChristmasTree_Switch "Basement Christmas Tree" <poweroutlet_us> (C_Basement, Christmas) ["Switchable"] { channel="zwave:device:8c18403e:node40:switch_binary" }
+Switch FamilyRoom_ChristmasTree_Switch "Family Room Christmas Tree" <poweroutlet_us> (FF_FamilyRoom, Christmas, Christmas_Inside) ["Switchable"] { channel="zwave:device:8c18403e:node11:switch_binary" }
+Switch LivingRoom_ChristmasTree_Switch "Living Room Christmas Tree" <poweroutlet_us> (FF_LivingRoom, Christmas_Inside) ["Switchable"] { channel="zwave:device:8c18403e:node15:switch_binary"}

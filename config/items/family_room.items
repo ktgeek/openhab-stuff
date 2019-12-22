@@ -1,6 +1,6 @@
 Group    FF_FamilyRoom        "Family Room"    <sofa>          (Home, FF)               ["Family Room"]
 
-Switch FamilyRoom_All_Lights "All Family Room Lights" <lightbulb> (FF_FamilyRoom) ["Switchable"]
+Switch FamilyRoom_All_Lights "All Family Room Lights" <lightbulb> (FF_FamilyRoom) ["Switchable"] { alexa="PowerController.powerState" }
 
 Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FF_FamilyRoom) ["Switchable"] { channel="zwave:device:8c18403e:node7:switch_binary" }
 

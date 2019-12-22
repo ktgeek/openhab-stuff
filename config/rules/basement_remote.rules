@@ -15,12 +15,40 @@ then
   } else if (scene == 3.0) {
     if (Basement_Room_Theater_Lights_OnOff.state != ON) {
         Basement_Room_Theater_Lights.sendCommand(100)
-	Basement_Room_Bar_Lights.sendCommand(100)
+	      Basement_Room_Bar_Lights.sendCommand(100)
     } else {
         Basement_Room_Theater_Lights.sendCommand(0)
-	Basement_Room_Bar_Lights.sendCommand(0)
+	      Basement_Room_Bar_Lights.sendCommand(0)
     }
   } else if (scene == 4.0) {
+    Basement_Movie_Mode_Switch.sendCommand(ON)
+  }
+end
+
+rule "when the basement switches have a scene change"
+when
+  Item Basement_Room_Bar_Lights_Scene_Number received update
+  or
+  Item Basement_Room_Theater_Lights_Scene_Number received update
+then
+  var scene = triggeringItem.state as DecimalType
+  // This is how to map actions to scenes for a the homeseer switch
+  // [Paddle Direction]
+  // 1.n = Top
+  // 2.n = Bottom
+
+  // [Action]
+  // n.0 = 1 Click
+  // n.1 = Release
+  // n.2 = Hold
+  // n.3 = 2 Clicks
+  // n.4 = 3 Clicks
+  // n.5 = 4 Clicks
+  // n.6 = 5 Clicks
+
+  if (scene == 1.3) {
+    Basement_Normal_Mode_Switch.sendCommand(ON)
+  } else if (scene == 2.3) {
     Basement_Movie_Mode_Switch.sendCommand(ON)
   }
 end

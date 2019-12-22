@@ -5,20 +5,21 @@ Group    FF                   "First Floor"    <groundfloor>   (Home)           
 Group    SF                   "Second Floor"    <firstfloor>    (Home)                   ["SecondFloor"]
 
 Group    FF_Porch             "Porch"          <frontdoor>     (Home, FF)               ["Porch"]
-Group	 FF_Entrance	      "Entrance"       <corridor>      (Home, FF)               ["Entrance"]
+Group	   FF_Entrance	      "Entrance"       <corridor>      (Home, FF)               ["Entrance"]
 Group    FF_Office            "Office"         <office>        (Home, FF)               ["Room"]
 Group    FF_Kitchen           "Kitchen"        <kitchen>       (Home, FF)               ["Kitchen"]
 Group    FF_Dining            "Dining Room"    <party>         (Home, FF)               ["Dining Room"]
 
 
 // First Floor - Porch
-Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (FF_Porch) ["Switchable"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13009CA:state" }
+Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (FF_Porch) ["Switchable"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13009CA:state", alexa="Switchable" }
 
 // First Floor - Entrance
-Switch Switch_Entrance_Hall_Light "Hall Light" <lightbulb> (FF_Entrance) ["Switchable"] { channel="zwave:device:8c18403e:node16:switch_binary" }
+Switch Switch_Entrance_Hall_Light "Hall Light" <lightbulb> (FF_Entrance) ["Switchable"] { channel="zwave:device:8c18403e:node16:switch_binary", alexa="Switchable" }
 
 // First FLoor - Kitchen
 String Kitchen_Echo_TTS "Kitchen Echo Text to Speech" (FF_Kitchen) {channel="amazonechocontrol:echo:41d92e02:G090L909702605D0:textToSpeech"}
-Switch Kitchen_Backyard_Lights_Switch "Backyard Lights Kitchen" <lightbulb> (FF_Kitchen) ["Switchable"] { channel="zwave:device:8c18403e:node6:switch_binary" }
+Switch Kitchen_Backyard_Lights_Switch "Backyard Lights Kitchen" <lightbulb> (FF_Kitchen) ["Switchable"] { channel="zwave:device:8c18403e:node6:switch_binary", alexa="Switchable" }
 
-Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF) ["Switchable"]
+// Virtual test
+Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF) ["Switchable"] { alexa="Switchable" }
