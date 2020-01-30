@@ -1,0 +1,50 @@
+rule "when the kitchen accent switches have a scene change"
+when
+  Member of FF_Kitchen_Accents_Scene received update
+then
+  var scene = triggeringItem.state as DecimalType
+  // This is how to map actions to scenes for a the homeseer switch
+  // [Paddle Direction]
+  // 1.n = Top
+  // 2.n = Bottom
+
+  // [Action]
+  // n.0 = 1 Click
+  // n.1 = Release
+  // n.2 = Hold
+  // n.3 = 2 Clicks
+  // n.4 = 3 Clicks
+  // n.5 = 4 Clicks
+  // n.6 = 5 Clicks
+
+  switch(scene) {
+    case 1.0: {
+      FF_Kitchen_Accents.members.forEach [ i |
+        if (i.state != 100) {
+          i.sendCommand(100)
+        }
+      ]
+    }
+    case 2.0: {
+      FF_Kitchen_Accents.members.forEach [ i |
+        if (i.state != 0) {
+          i.sendCommand(0)
+        }
+      ]
+    }
+  }
+end
+
+// rule "When dimmer value changes on kitchen accents"
+// when
+//   Member of FF_Kitchen_Accents changed
+// then
+//   var state = triggeringItem.state
+
+//   FF_Kitchen_Accents.members.forEach [ i |
+//     if (i.state != state) {
+//       i.sendCommand(state)
+//     }
+//   ]
+// end
+

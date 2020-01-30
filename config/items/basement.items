@@ -22,7 +22,7 @@ Number Basement_Room_Theater_Lights_Scene_Number "Basement Theater Lights Scene 
 Switch Basement_Movie_Mode_Switch "Basement Movie Mode" <cinema> (C_Basement) ["Switchable"]
 Switch Basement_Normal_Mode_Switch "Basement Normal Mode" <smiley> (C_Basement) ["Switchable"]
 
-Number NanomoteQuad_Scene "Nanomote Quad Scene Number" (C_Basement, C_Basement_Scene) { channel="zwave:device:8c18403e:node34:scene_number" }
+Number NanomoteQuad_Scene "Nanomote Quad Scene Number" (C_Basement) { channel="zwave:device:8c18403e:node34:scene_number" }
 Number:Dimensionless NanomoteQuad_BatteryLevel "Nanomote Quad Battery [%.1f %%]" (C_Basement) { channel="zwave:device:8c18403e:node34:battery-level" }
 
 Group Baesment_Wall_Outlet "Basement Wall Outlet Group" <poweroutlet_us> (C_Basement)
@@ -37,4 +37,7 @@ Dimmer Exercise_Room_Dimmer "Exercise Room Dimmer" <lightbulb> (C_ExerciseRoom) 
 Switch Exercise_Room_Dimmer_OnOff "Exercise Room Dinner On/Off" <lightbulb> (C_ExerciseRoom, C_All_Lights) { channel="zwave:device:8c18403e:node39:switch_dimmer" }
 Number Exercise_Room_Dimmer_Scene_Number "Scene number" (C_ExerciseRoom) {channel="zwave:device:8c18403e:node39:scene_number"}
 
-String Basement_Echo_TTS "Basement Echo Text to Speech" (C_Basement) {channel="amazonechocontrol:echo:41d92e02:G090LF1071771ESX:textToSpeech"}
+String Basement_Echo_TTS "Basement Echo Text to Speech" (C_Basement) {channel="amazonechocontrol:echo:XXXXXX:XXXXXX:textToSpeech"}
+
+String Basement_TV_Toast "Basement TV Toast" (C_Basement) {channel="lgwebos:WebOSTV:XXXXX:toast"}
+

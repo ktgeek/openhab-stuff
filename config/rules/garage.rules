@@ -1,0 +1,33 @@
+rule "when the large garage door changes status"
+when
+  Item Large_Garage_Door_Status changed
+then
+  if (Large_Garage_Door_Status.state != "closed") {
+    Large_Garage_Door_Open_LEDs.members.forEach [ i |
+      i.sendCommand(1)
+    ]
+    Basement_TV_Toast.sendCommand("Large Garage Door opened")
+  } else {
+    Large_Garage_Door_Open_LEDs.members.forEach [ i |
+      i.sendCommand(2)
+    ]
+    Basement_TV_Toast.sendCommand("Large Garage Door closed")
+  }
+end
+
+rule "when the small garage door changes status"
+when
+  Item Small_Garage_Door_Status changed
+then
+  if (Small_Garage_Door_Status.state != "closed") {
+    Small_Garage_Door_Open_LEDs.members.forEach [ i |
+      i.sendCommand(1)
+    ]
+    Baesment_TV_Toast.sendCommand("Small Garage Door opened")
+  } else {
+    Small_Garage_Door_Open_LEDs.members.forEach [ i |
+      i.sendCommand(2)
+    ]
+    Baesment_TV_Toast.sendCommand("Small Garage Door closed")
+  }
+end

@@ -4,34 +4,39 @@ when
 then
   val scene = NanomoteQuad_Scene.state as DecimalType
 
-  if (scene == 1.0) {
-    Basement_Normal_Mode_Switch.sendCommand(ON)
-  } else if (scene == 2.0) {
-    if (Basement_Stairs_Switch.state != ON) {
-        Basement_Stairs_Switch.sendCommand(ON)
-    } else {
-        Basement_Stairs_Switch.sendCommand(OFF)
+  switch(scene) {
+    case 1.0: {
+      Basement_Normal_Mode_Switch.sendCommand(ON)
     }
-  } else if (scene == 3.0) {
-    if (Basement_Room_Theater_Lights_OnOff.state != ON) {
-        Basement_Room_Theater_Lights.sendCommand(100)
-	      Basement_Room_Bar_Lights.sendCommand(100)
-    } else {
-        Basement_Room_Theater_Lights.sendCommand(0)
-	      Basement_Room_Bar_Lights.sendCommand(0)
+    case 2.0: {
+      if (Basement_Stairs_Switch.state != ON) {
+          Basement_Stairs_Switch.sendCommand(ON)
+      } else {
+          Basement_Stairs_Switch.sendCommand(OFF)
+      }
     }
-  } else if (scene == 4.0) {
-    Basement_Movie_Mode_Switch.sendCommand(ON)
+    case 3.0: {
+      if (Basement_Room_Theater_Lights_OnOff.state != ON) {
+          Basement_Room_Theater_Lights.sendCommand(100)
+          Basement_Room_Bar_Lights.sendCommand(100)
+      } else {
+          Basement_Room_Theater_Lights.sendCommand(0)
+          Basement_Room_Bar_Lights.sendCommand(0)
+      }
+    }
+    case 4.0: {
+      Basement_Movie_Mode_Switch.sendCommand(ON)
+    }
   }
 end
 
-rule "when the basement switches have a scene change"
+rule "when the basement theater switches have a scene change"
 when
-  Item Basement_Room_Bar_Lights_Scene_Number received update
-  or
-  Item Basement_Room_Theater_Lights_Scene_Number received update
+  Member of C_Basement_Scene received update
 then
   var scene = triggeringItem.state as DecimalType
+
+  // logInfo("basement_remote.rules", "The scene change number rule has fired.")
   // This is how to map actions to scenes for a the homeseer switch
   // [Paddle Direction]
   // 1.n = Top
@@ -46,9 +51,12 @@ then
   // n.5 = 4 Clicks
   // n.6 = 5 Clicks
 
-  if (scene == 1.3) {
-    Basement_Normal_Mode_Switch.sendCommand(ON)
-  } else if (scene == 2.3) {
-    Basement_Movie_Mode_Switch.sendCommand(ON)
+  switch(scene) {
+    case 1.3: {
+      Basement_Normal_Mode_Switch.sendCommand(ON)
+    }
+    case 2.3: {
+      Basement_Movie_Mode_Switch.sendCommand(ON)
+    }
   }
 end

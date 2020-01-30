@@ -1,0 +1,4 @@
+
+String MasterBedroom_Echo_TTS "Master Bedroom Echo Text to Speech" (FF_MasterBedroom) { channel="amazonechocontrol:echo:XXXXXXXX:XXXXXXXX:textToSpeech" }
+
+String Basement_Echo_TTS "Master Bedroom Echo Text to Speech" (FF_Basement) { channel="amazonechocontrol:echo:XXXXXXXX:XXXXXXXX:textToSpeech" }
