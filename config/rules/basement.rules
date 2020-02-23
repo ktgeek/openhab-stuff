@@ -116,7 +116,7 @@ then
       Exercise_Room_Light.sendCommand(ON)
     }
   } else {
-    Exersize_Room_Occupancy_Timer = createTimer(now.plusSeconds(90) [|
+    Exersize_Room_Occupancy_Timer = createTimer(now.plusSeconds(90), [|
       if (Exercise_Room_Light.state != OFF) {
         Exercise_Room_Light.sendCommand(OFF)
       }
