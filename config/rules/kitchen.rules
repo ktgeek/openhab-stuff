@@ -1,3 +1,8 @@
+import java.util.List
+
+// The room ids for the exersize room and basement respectively
+val List<String> basementHiomeRoomIds = newArrayList("1577046124", "1557680825")
+
 rule "when the kitchen accent switches have a scene change"
 when
   Member of FF_Kitchen_Accents_Scene received update
@@ -31,6 +36,23 @@ then
           i.sendCommand(0)
         }
       ]
+    }
+    case 2.3: {
+      if (C_Total_Basement_Occupancy.state > 0)
+      {
+        // Let's reset the basement count!
+        basementHiomeRoomIds.forEach [ i |
+          sendHttpPutRequest("http://hiome.local/api/1/rooms/" + i, "application/json", "{\"occupancy_count\": 0}")
+        ]
+
+        // Force off all lights in the basement. This is copied code from the basement rules, so there is probably a way
+        // to generisize this.  Maybe a proxy item and rules?
+        C_All_Lights.members.forEach [ i |
+          if (i.state != OFF) {
+            i.sendCommand(OFF)
+          }
+        ]
+      }
     }
   }
 end

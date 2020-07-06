@@ -17,12 +17,12 @@ when
     Time cron "0 30 5 ? * MON-FRI"
 then
     if (now.isBefore((LocalSunWShiftedSettings_Rise_StartTime.state as DateTimeType).zonedDateTime.toInstant.toEpochMilli)) {
-	if (FrontDoor_Lights_Switch.state != ON) {
-	    FrontDoor_Lights_Switch.sendCommand(ON)
-	}
-	if (Garage_OutdoorLights_Switch.state != ON) {
+        if (FrontDoor_Lights_Switch.state != ON) {
+            FrontDoor_Lights_Switch.sendCommand(ON)
+        }
+        if (Garage_OutdoorLights_Switch.state != ON) {
             Garage_OutdoorLights_Switch.sendCommand(ON)
-	}
+        }
     }
 end
 

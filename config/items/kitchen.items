@@ -2,10 +2,10 @@ Group    FF_Kitchen           "Kitchen"        <kitchen>       (Home, FF)       
 Group    FF_Kitchen_Accents      "Kitchen Accents"  <kitchen> (FF_Kitchen)
 Group    FF_Kitchen_Accents_Scene "Kitchen Accents Scene" <kitchen> (FF_Kitchen)
 
-String Kitchen_Echo_TTS "Kitchen Echo Text to Speech" (FF_Kitchen) { channel="amazonechocontrol:echo:XXXXX:XXXXX:textToSpeech" }
-Switch Kitchen_Backyard_Lights_Switch "Backyard Lights Kitchen" <lightbulb> (FF_Kitchen) ["Switchable"] { channel="zwave:device:8c18403e:node6:switch_binary", alexa="Switchable" }
+String Kitchen_Echo_TTS "Kitchen Echo Text to Speech" (FF_Kitchen) { channel="amazonechocontrol:echo:XX:XX:textToSpeech" }
+Switch Kitchen_Backyard_Lights_Switch "Backyard Lights" <lightbulb> (FF_Kitchen) { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node6:switch_binary" }
 
-Dimmer Kitchen_Accent_Desk_Dimmer "Kitchen Accent Lights (Desk)" <lightbulb> (FF_Kitchen_Accents) ["Lighting"] { channel="zwave:device:8c18403e:node42:switch_dimmer" }
+Dimmer Kitchen_Accent_Desk_Dimmer "Kitchen Accent Lights (Desk)" <lightbulb> (FF_Kitchen_Accents) { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node42:switch_dimmer" }
 Number Kitchen_Accent_Desk_Scene_Number "Kitchen Accent Desk Scene Number" (FF_Kitchen_Accents_Scene) { channel="zwave:device:8c18403e:node42:scene_number" }
 Number Kitchen_Accent_Desk_LED_1_Color "Kitchen Accent Desk Led 1 Color" { channel="zwave:device:8c18403e:node42:config_decimal_param21" }
 Number Kitchen_Accent_Desk_LED_2_Color "Kitchen Accent Desk Led 2 Color" { channel="zwave:device:8c18403e:node42:config_decimal_param22" }
@@ -15,7 +15,7 @@ Number Kitchen_Accent_Desk_LED_5_Color "Kitchen Accent Desk Led 5 Color" { chann
 Number Kitchen_Accent_Desk_LED_6_Color "Kitchen Accent Desk Led 6 Color" (Small_Garage_Door_Open_LEDs) { channel="zwave:device:8c18403e:node42:config_decimal_param26" }
 Number Kitchen_Accent_Desk_LED_7_Color "Kitchen Accent Desk Led 7 Color" (Large_Garage_Door_Open_LEDs) { channel="zwave:device:8c18403e:node42:config_decimal_param27" }
 
-Dimmer Kitchen_Accent_Sink_Dimmer "Kitchen Accent Lights (Sink)" <lightbulb> (FF_Kitchen_Accents) ["Lighting"] { channel="zwave:device:8c18403e:node41:switch_dimmer" }
+Dimmer Kitchen_Accent_Sink_Dimmer "Kitchen Accent Lights (Sink)" <lightbulb> (FF_Kitchen_Accents) { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node41:switch_dimmer" }
 Number Kitchen_Accent_Sink_Scene_Number "Kitchen Accent Sink Scene Number" (FF_Kitchen_Accents_Scene) {channel="zwave:device:8c18403e:node41:scene_number"}
 Number Kitchen_Accent_Sink_LED_1_Color "Kitchen Accent Sink Led 1 Color" {channel="zwave:device:8c18403e:node41:config_decimal_param21"}
 Number Kitchen_Accent_Sink_LED_2_Color "Kitchen Accent Sink Led 2 Color" {channel="zwave:device:8c18403e:node41:config_decimal_param22"}

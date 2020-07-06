@@ -10,11 +10,10 @@ Group    FF_Office            "Office"         <office>        (Home, FF)       
 Group    FF_Dining            "Dining Room"    <party>         (Home, FF)               ["Dining Room"]
 
 
-// First Floor - Porch
-Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (FF_Porch) ["Switchable"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13009CA:state", alexa="Switchable" }
+Switch FrontDoor_Lights_Switch "Front Yard Lights" <lightbulb> (FF_Porch) { homekit="Lighting", alexa="Lighting", channel="wemo:lightswitch:Lightswitch-1_0-221336K13009CA:state" }
 
 // First Floor - Entrance
-Switch Switch_Entrance_Hall_Light "Hall Light" <lightbulb> (FF_Entrance) ["Switchable"] { channel="zwave:device:8c18403e:node16:switch_binary", alexa="Switchable" }
+Switch Switch_Entrance_Hall_Light "Hall Light" <lightbulb> (FF_Entrance) { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node16:switch_binary" }
 
 // Virtual test
-Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF) ["Switchable"] { alexa="Switchable" }
+Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF) { alexa="Switchable", homekit="Switchable" }

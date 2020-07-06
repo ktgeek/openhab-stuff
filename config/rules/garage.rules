@@ -23,11 +23,11 @@ then
     Small_Garage_Door_Open_LEDs.members.forEach [ i |
       i.sendCommand(1)
     ]
-    Baesment_TV_Toast.sendCommand("Small Garage Door opened")
+    Basement_TV_Toast.sendCommand("Small Garage Door opened")
   } else {
     Small_Garage_Door_Open_LEDs.members.forEach [ i |
       i.sendCommand(2)
     ]
-    Baesment_TV_Toast.sendCommand("Small Garage Door closed")
+    Basement_TV_Toast.sendCommand("Small Garage Door closed")
   }
 end

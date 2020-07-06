@@ -37,6 +37,7 @@ then
 
   if (Total_Basement_Occupancy_Timer !== null) {
     Total_Basement_Occupancy_Timer.cancel()
+    Total_Basement_Occupancy_Timer = null
   }
 
   if (occupancy_count > 0) {
@@ -58,7 +59,7 @@ then
         }
       ]
     ])
-    
+
     if (Kitchen_Accent_Desk_LED_1_Color.state != 0) {
       Kitchen_Accent_Desk_LED_1_Color.sendCommand(0)
     }
@@ -75,7 +76,7 @@ when
   Item Hiome_Exercise_Room_Occupancy_Count received update
 then
   // Have a small delay while the hiome updates finish
-  createTimer(now.plusMillis(50), [|
+  createTimer(now.plusMillis(25), [|
     val new_total_occupancy = Hiome_Basement_Occupancy_Count.state as Number + Hiome_Exercise_Room_Occupancy_Count.state as Number
     C_Total_Basement_Occupancy.postUpdate(new_total_occupancy)
   ])
@@ -106,11 +107,12 @@ when
   Item Hiome_Exercise_Room_Occupancy_Count changed
 then
   val occupancy_count = Hiome_Exercise_Room_Occupancy_Count.state
-  
+
   if (Exersize_Room_Occupancy_Timer !== null) {
     Exersize_Room_Occupancy_Timer.cancel()
+    Exersize_Room_Occupancy_Timer = null
   }
-  
+
   if (occupancy_count > 0) {
     if (Exercise_Room_Light.state != ON) {
       Exercise_Room_Light.sendCommand(ON)

@@ -3,6 +3,6 @@ Group    SF_DinahsRoom        "Dinah's room"   <girl_2>        (Home, SF)       
 Group    SF_Hallway           "Hallway"        <corridor>      (Home, SF)               ["Corridor"]
 
 Group Upstairs_Hallway_Wall_Outlet "Upstairs Wall Outlet Group" <poweroutlet_us> (SF_Hallway)
-Switch Upstairs_Hallway_Wall_Outlet_Switch "Upstairs Wall Outlet" <poweroutlet_us> (SF_Hallway, Upstairs_Hallway_Wall_Outlet, Christmas_Inside) ["Switchable"] { channel="zwave:device:8c18403e:node12:switch_binary" }
+Switch Upstairs_Hallway_Wall_Outlet_Switch "Upstairs Wall Outlet" <poweroutlet_us> (SF_Hallway, Upstairs_Hallway_Wall_Outlet, Christmas_Inside) { homekit="Outlet", alexa="Outlet", channel="zwave:device:8c18403e:node12:switch_binary" }
 Number:Energy Upstairs_Hallway_Wall_Outlet_kWh "Upstairs Wall Outlet Power [%.1f kWh]" (Upstairs_Hallway_Wall_Outlet) { channel="zwave:device:8c18403e:node12:meter_kwh" }
 Number:Energy Upstairs_Hallway_Wall_Outlet_Watts "Upstairs Wall Outlet Power [%.1f Ws]" (Upstairs_Hallway_Wall_Outlet) { channel="zwave:device:8c18403e:node12:meter_watts" }
