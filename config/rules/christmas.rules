@@ -2,12 +2,15 @@
 // when
 //   Channel "astro:sun:shifted:set#event" triggered START
 // then
+//   if (Garage_Outlet_Switch.state != ON) {
+//     Garage_Outlet_Switch.sendCommand(ON)
+//   }
 //   Christmas_Outside.members.forEach [ i |
 //     if (i.state != ON) {
 //       i.sendCommand(ON)
 //     }
 //   ]
-
+//
 //   Christmas_Inside.members.forEach [ i |
 //     if (i.state != ON) {
 //       i.sendCommand(ON)
@@ -19,19 +22,22 @@
 // when
 //   Time cron "0 30 22 ? * *"
 // then
+//   if (Garage_Outlet_Switch.state != OFF) {
+//     Garage_Outlet_Switch.sendCommand(OFF)
+//   }
 //   if (VisitorMode_Switch.state != ON) {
 //     Christmas_Outside.members.forEach [ i |
 //       if (i.state != OFF) {
 //         i.sendCommand(OFF)
 //       }
 //     ]
-
+//
 //     Christmas_Inside.members.forEach [ i |
 //       if (i.state != OFF) {
 //         i.sendCommand(OFF)
 //       }
 //     ]
-
+//
 //     if (Basement_Wall_Outlet_Switch.state != OFF) {
 //       Basement_Wall_Outlet_Switch.sendCommand(OFF)
 //     }

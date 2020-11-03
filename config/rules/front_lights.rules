@@ -1,28 +1,48 @@
 rule "Front Yard Lights follow ON"
 when
-    Item FrontDoor_Lights_Switch changed from OFF to ON
-    or
-    Item Garage_OutdoorLights_Switch changed from OFF to ON
+    Member of Front_Yard_Lights changed
 then
-    if (FrontDoor_Lights_Switch.state != ON) {
-        FrontDoor_Lights_Switch.sendCommand(ON)
-    }
-    if (Garage_OutdoorLights_Switch.state != ON) {
-        Garage_OutdoorLights_Switch.sendCommand(ON)
-    }
+    Font_Yard_Lights.members.forEach [ SwitchItem i |
+        if (i.state != newState) {
+            i.sendCommand(newState)
+        }
+    ]
 end
 
 
-rule "Front Yard Lights follow OFF"
+// rule "Morning Lights On For Rides"
+// when
+//     Time cron "0 0 5 ? * TUE,THU"
+// then
+//     if (now.isBefore((LocalSunWShiftedSettings_Rise_StartTime.state as DateTimeType).zonedDateTime.toInstant.toEpochMilli)) {
+//         if (Front_Yard_Lights.state != ON) {
+//             Front_Yard_Lights.sendCommand(ON)
+//         }
+//     }
+// end
+
+rule "Morning Lights On"
 when
-    Item FrontDoor_Lights_Switch changed from ON to OFF
-    or
-    Item Garage_OutdoorLights_Switch changed from ON to OFF
+    Time cron "0 30 6 ? * MON-FRI"
 then
-    if (FrontDoor_Lights_Switch.state != OFF) {
-        FrontDoor_Lights_Switch.sendCommand(OFF)
+    if (now.isBefore((LocalSunWShiftedSettings_Rise_StartTime.state as DateTimeType).zonedDateTime.toInstant.toEpochMilli)) {
+        if (Front_Yard_Lights.state != ON) {
+            Front_Yard_Lights.sendCommand(ON)
+        }
+//        if (Garage_OutdoorLights_Switch.state != ON) {
+//            Garage_OutdoorLights_Switch.sendCommand(ON)
+//        }
     }
-    if (Garage_OutdoorLights_Switch.state != OFF) {
-        Garage_OutdoorLights_Switch.sendCommand(OFF)
+end
+
+rule "Morning lights off"
+when
+    Channel "astro:sun:shifted:rise#event" triggered END
+then
+    if (Front_Yard_Lights.state != OFF) {
+        Front_Yard_Lights.sendCommand(OFF)
     }
+//    if (Garage_OutdoorLights_Switch.state != OFF) {
+//        Garage_OutdoorLights_Switch.sendCommand(OFF)
+//    }
 end

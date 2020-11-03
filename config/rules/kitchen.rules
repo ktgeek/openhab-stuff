@@ -23,20 +23,6 @@ then
   // n.6 = 5 Clicks
 
   switch(scene) {
-    case 1.0: {
-      FF_Kitchen_Accents.members.forEach [ i |
-        if (i.state != 100) {
-          i.sendCommand(100)
-        }
-      ]
-    }
-    case 2.0: {
-      FF_Kitchen_Accents.members.forEach [ i |
-        if (i.state != 0) {
-          i.sendCommand(0)
-        }
-      ]
-    }
     case 2.3: {
       if (C_Total_Basement_Occupancy.state > 0)
       {
@@ -56,17 +42,3 @@ then
     }
   }
 end
-
-// rule "When dimmer value changes on kitchen accents"
-// when
-//   Member of FF_Kitchen_Accents changed
-// then
-//   var state = triggeringItem.state
-
-//   FF_Kitchen_Accents.members.forEach [ i |
-//     if (i.state != state) {
-//       i.sendCommand(state)
-//     }
-//   ]
-// end
-

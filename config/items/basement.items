@@ -11,11 +11,11 @@ Switch Basement_Stairs_Switch "Basement Stairs Lights" <lightbulb> (C_Basement, 
 
 Switch Basement_Room_Lights_Switch "Basement Room Lights" <lightbulb> (C_Basement, C_All_Lights) { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node14:switch_binary" }
 
-Dimmer Basement_Room_Bar_Lights "Basement Bar Lights" <lightbulb> (C_Basement) { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node35:switch_dimmer" }
+Dimmer Basement_Room_Bar_Lights "Basement Bar Lights" <lightbulb> (C_Basement) { homekit="Lighting, Lighting.Brightness, Lighting.OnState", alexa="Lighting", channel="zwave:device:8c18403e:node35:switch_dimmer" }
 Switch Basement_Room_Bar_Lights_OnOff "Basement Bar Lights On/Off" <lightbulb> (C_Basement, C_All_Lights) { channel="zwave:device:8c18403e:node35:switch_dimmer" }
 Number Basement_Room_Bar_Lights_Scene_Number "Basement Bar Lights Scene number" (C_Basement_Scene) { channel="zwave:device:8c18403e:node35:scene_number" }
 
-Dimmer Basement_Room_Theater_Lights "Basement Theater Lights" <lightbulb> (C_Basement) { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node36:switch_dimmer" }
+Dimmer Basement_Room_Theater_Lights "Basement Theater Lights" <lightbulb> (C_Basement) { homekit="Lighting, Lighting.Brightness, Lighting.OnState", alexa="Lighting", channel="zwave:device:8c18403e:node36:switch_dimmer" }
 Switch Basement_Room_Theater_Lights_OnOff "Basement Bar Lights On/Off" <lightbulb> (C_Basement, C_All_Lights) { channel="zwave:device:8c18403e:node36:switch_dimmer" }
 Number Basement_Room_Theater_Lights_Scene_Number "Basement Theater Lights Scene number" (C_Basement_Scene) {channel="zwave:device:8c18403e:node36:scene_number"}
 
@@ -25,10 +25,11 @@ Switch Basement_Normal_Mode_Switch "Basement Normal Mode" <smiley> (C_Basement) 
 Number NanomoteQuad_Scene "Nanomote Quad Scene Number" (C_Basement) { channel="zwave:device:8c18403e:node34:scene_number" }
 Number:Dimensionless NanomoteQuad_BatteryLevel "Nanomote Quad Battery [%.1f %%]" (C_Basement) { channel="zwave:device:8c18403e:node34:battery-level" }
 
-Group Baesment_Wall_Outlet "Basement Wall Outlet Group" <poweroutlet_us> (C_Basement)
-Switch Basement_Wall_Outlet_Switch "Basement Wall Outlet" <poweroutlet_us> (C_Basement, Basement_Wall_Outlet) { homekit="Outlet", alexa="Outlet", channel="zwave:device:8c18403e:node40:switch_binary" }
-Number:Energy Basement_Wall_Outlet_kWh "Baesment Wall Outlet Power [%.1f kWh]" (Basement_Wall_Outlet) { channel="zwave:device:8c18403e:node40:meter_kwh" }
-Number:Energy Basement_Wall_Outlet_Watts "Basement Wall Outlet Power [%.1f Ws]" (Basement_Wall_Outlet) { channel="zwave:device:8c18403e:node40:meter_watts" }
+Group Baesment_Wall_Outlet "Basement Wall Outlet" <poweroutlet_us> (C_Basement) { homekit="Outlet" }
+Switch Basement_Wall_Outlet_Switch "Basement Wall Outlet" <poweroutlet_us> (C_Basement, Basement_Wall_Outlet) { homekit="Outlet.OnState", alexa="Outlet", channel="zwave:device:8c18403e:node43:switch_binary" }
+Number:Energy Basement_Wall_Outlet_kWh "Baesment Wall Outlet Power [%.1f kWh]" (Basement_Wall_Outlet) { channel="zwave:device:8c18403e:node43:meter_kwh" }
+Number:Energy Basement_Wall_Outlet_Watts "Basement Wall Outlet Power [%.1f Ws]" (Basement_Wall_Outlet) { channel="zwave:device:8c18403e:node43:meter_watts" }
+Switch Basement_Wall_Outlet_In_Use "Basement Wall Outlet In Use [JS(outletinuse.js):%s]" (Basement_Wall_Outlet) { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node43:meter_watts" }
 
 Group C_ExerciseRoom  "Exercise Room" <cellar> (Home, C) ["Exercise Room"]
 Switch Exercise_Room_Light "Exercise Room Light" <lightbulb> (C_ExerciseRoom, C_All_Lights) { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node38:switch_binary" }

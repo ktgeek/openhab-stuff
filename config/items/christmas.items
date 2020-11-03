@@ -24,6 +24,6 @@ Group Christmas_Outside <snow>
 // Switch Christmas_All_Lights "All Christmas Lights" <lightbulb> (Home, Christmas) ["Switchable"] { alexa="PowerController.powerState" }
 
 // Repeat of the Wall outlet channel so the christmas tree can be turned on by name
-// Switch Basement_ChristmasTree_Switch "Basement Christmas Tree" <poweroutlet_us> (C_Basement, Christmas) ["Switchable"] { channel="zwave:device:8c18403e:node40:switch_binary" }
+// Switch Basement_ChristmasTree_Switch "Basement Christmas Tree" <poweroutlet_us> (C_Basement, Christmas) ["Switchable"] { channel="zwave:device:8c18403e:node43:switch_binary" }
 // Switch FamilyRoom_ChristmasTree_Switch "Family Room Christmas Tree" <poweroutlet_us> (FF_FamilyRoom, Christmas, Christmas_Inside) ["Switchable"] { channel="zwave:device:8c18403e:node11:switch_binary" }
 //Switch LivingRoom_ChristmasTree_Switch "Living Room Christmas Tree" <poweroutlet_us> (FF_LivingRoom, Christmas_Inside) ["Switchable"] { channel="zwave:device:8c18403e:node15:switch_binary"}

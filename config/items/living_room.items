@@ -1,6 +1,7 @@
 Group    FF_LivingRoom	      "Living Room"    <sofa>          (Home, FF)               ["Living Room"]
 
-Group LivingRoom_Wall_Outlet "Living Room Wall Outlet Group" <poweroutlet_us> (FF_LivingRoom)
-Switch LivingRoom_Wall_Outlet_Switch "Living Room Wall Outlet" <poweroutlet_us> (FF_LivingRoom, LivingRoom_Wall_Outlet) { homekit="Outlet", alexa="Outlet", channel="zwave:device:8c18403e:node15:switch_binary" }
+Group LivingRoom_Wall_Outlet "Living Room Wall Outlet" <poweroutlet_us> (FF_LivingRoom) { homekit="Outlet" }
+Switch LivingRoom_Wall_Outlet_Switch "Living Room Wall Outlet" <poweroutlet_us> (FF_LivingRoom, LivingRoom_Wall_Outlet) { homekit="Outlet.OnState", alexa="Outlet", channel="zwave:device:8c18403e:node15:switch_binary" }
 Number:Energy LivingRoom_Wall_Outlet_kWh "Living Room Wall Outlet Power [%.1f kWh]" (LivingRoom_Wall_Outlet) { channel="zwave:device:8c18403e:node15:meter_kwh" }
 Number:Energy LivingRoom_Wall_Outlet_Watts "Living Room Wall Outlet Power [%.1f Ws]" (LivingRoom_Wall_Outlet) { channel="zwave:device:8c18403e:node15:meter_watts" }
+Switch LivingRoom_Wall_Outlet_In_Use "Living Room Wall Outlet In Use [JS(outletinuse.js):%s]" (LivingRoom_Wall_Outlet) { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node15:meter_watts" }

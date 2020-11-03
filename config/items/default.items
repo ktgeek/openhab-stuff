@@ -8,12 +8,17 @@ Group    FF_Porch             "Porch"          <frontdoor>     (Home, FF)       
 Group	   FF_Entrance	      "Entrance"       <corridor>      (Home, FF)               ["Entrance"]
 Group    FF_Office            "Office"         <office>        (Home, FF)               ["Room"]
 Group    FF_Dining            "Dining Room"    <party>         (Home, FF)               ["Dining Room"]
+Group    Backyard             "Backyard"                       (Home)                   ["Backyard"]
 
+Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Porch) { homekit="Lighting", alexa="Lighting" }
 
-Switch FrontDoor_Lights_Switch "Front Yard Lights" <lightbulb> (FF_Porch) { homekit="Lighting", alexa="Lighting", channel="wemo:lightswitch:Lightswitch-1_0-221336K13009CA:state" }
+Group:Switch:OR(ON,OFF) Backyard_Lights "Backyard Lights" <lightbulb> (Backyard) { homekit="Lighting", alexa="Lighting" }
+
+Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (FF_Porch, Front_Yard_Lights) { channel="wemo:lightswitch:Lightswitch-1_0-221336K13009CA:state" }
 
 // First Floor - Entrance
-Switch Switch_Entrance_Hall_Light "Hall Light" <lightbulb> (FF_Entrance) { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node16:switch_binary" }
+Group:Switch:OR(ON,OFF) All_Hall_Lights "Hall Lights" <lightbulb> (FF_Entrance)
+Switch Switch_Entrance_Hall_Light "Hall Light" <lightbulb> (FF_Entrance, All_Hall_Lights) { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node16:switch_binary" }
 
 // Virtual test
 Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF) { alexa="Switchable", homekit="Switchable" }

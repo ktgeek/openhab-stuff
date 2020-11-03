@@ -2,17 +2,11 @@ rule "Night Lights On"
 when
     Channel "astro:sun:shifted:set#event" triggered START
 then
-    if (FrontDoor_Lights_Switch.state != ON) {
-        FrontDoor_Lights_Switch.sendCommand(ON)
+    if (Front_Yard_Lights.state != ON) {
+        Front_Yard_Lights.sendCommand(ON)
     }
-    if (Garage_OutdoorLights_Switch.state != ON) {
-        Garage_OutdoorLights_Switch.sendCommand(ON)
-    }
-    if (Switch_Entrance_Hall_Light.state != ON) {
-        Switch_Entrance_Hall_Light.sendCommand(ON)
-    }
-    if (Upstairs_Hallway_Wall_Outlet_Switch.state != ON) {
-        Upstairs_Hallway_Wall_Outlet_Switch.sendCommand(ON)
+    if (All_Hall_Lights.state != ON) {
+        All_Hall_Lights.sendCommand(ON)
     }
 end
 
@@ -22,17 +16,11 @@ when
     Time cron "0 30 22 ? * *"
 then
     if (VisitorMode_Switch.state != ON) {
-        if (FrontDoor_Lights_Switch.state != OFF) {
-            FrontDoor_Lights_Switch.sendCommand(OFF)
+        if (Front_Yard_Lights.state != OFF) {
+            Front_Yard_Lights.sendCommand(OFF)
         }
-        if (Garage_OutdoorLights_Switch.state != OFF) {
-            Garage_OutdoorLights_Switch.sendCommand(OFF)
-        }
-        if (Switch_Entrance_Hall_Light.state != OFF) {
-            Switch_Entrance_Hall_Light.sendCommand(OFF)
-        }
-        if (Upstairs_Hallway_Wall_Outlet_Switch.state != OFF) {
-            Upstairs_Hallway_Wall_Outlet_Switch.sendCommand(OFF)
+        if (All_Hall_Lights.state != OFF) {
+            All_Hall_Lights.sendCommand(OFF)
         }
     }
     else {

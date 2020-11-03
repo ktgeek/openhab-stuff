@@ -3,7 +3,7 @@ Group    FF_Kitchen_Accents      "Kitchen Accents"  <kitchen> (FF_Kitchen)
 Group    FF_Kitchen_Accents_Scene "Kitchen Accents Scene" <kitchen> (FF_Kitchen)
 
 String Kitchen_Echo_TTS "Kitchen Echo Text to Speech" (FF_Kitchen) { channel="amazonechocontrol:echo:XX:XX:textToSpeech" }
-Switch Kitchen_Backyard_Lights_Switch "Backyard Lights" <lightbulb> (FF_Kitchen) { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node6:switch_binary" }
+Switch Kitchen_Backyard_Lights_Switch "Backyard Lights in Kitchen" <lightbulb> (FF_Kitchen, Backyard_Lights) { channel="zwave:device:8c18403e:node6:switch_binary" }
 
 Dimmer Kitchen_Accent_Desk_Dimmer "Kitchen Accent Lights (Desk)" <lightbulb> (FF_Kitchen_Accents) { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node42:switch_dimmer" }
 Number Kitchen_Accent_Desk_Scene_Number "Kitchen Accent Desk Scene Number" (FF_Kitchen_Accents_Scene) { channel="zwave:device:8c18403e:node42:scene_number" }
