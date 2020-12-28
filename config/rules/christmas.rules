@@ -1,131 +1,46 @@
-// rule "Christmas Lights On at sunset"
-// when
-//   Channel "astro:sun:shifted:set#event" triggered START
-// then
-//   if (Garage_Outlet_Switch.state != ON) {
-//     Garage_Outlet_Switch.sendCommand(ON)
-//   }
-//   Christmas_Outside.members.forEach [ i |
-//     if (i.state != ON) {
-//       i.sendCommand(ON)
-//     }
-//   ]
-//
-//   Christmas_Inside.members.forEach [ i |
-//     if (i.state != ON) {
-//       i.sendCommand(ON)
-//     }
-//   ]
-// end
+var Timer Office_Door_LED_Timer = null
 
-// rule "Christmas Nights off at end of day"
-// when
-//   Time cron "0 30 22 ? * *"
-// then
-//   if (Garage_Outlet_Switch.state != OFF) {
-//     Garage_Outlet_Switch.sendCommand(OFF)
-//   }
-//   if (VisitorMode_Switch.state != ON) {
-//     Christmas_Outside.members.forEach [ i |
-//       if (i.state != OFF) {
-//         i.sendCommand(OFF)
-//       }
-//     ]
-//
-//     Christmas_Inside.members.forEach [ i |
-//       if (i.state != OFF) {
-//         i.sendCommand(OFF)
-//       }
-//     ]
-//
-//     if (Basement_Wall_Outlet_Switch.state != OFF) {
-//       Basement_Wall_Outlet_Switch.sendCommand(OFF)
-//     }
-//   }
-// end
+rule "Christmas Lights On at sunset"
+when
+  Channel "astro:sun:shifted:set#event" triggered START
+then
+  if (Christmas_Outside.state != ON) {
+    Christmas_Outside.sendCommand(ON)
+  }
 
-// rule "Christmas Switch is turned on"
-// when
-//   Item Christmas_Lights received command ON
-// then
-//   Christmas_Inside.members.forEach [ i |
-//     if (i.state != ON) {
-//       i.sendCommand(ON)
-//     }
-//   ]
+  if (Christmas_Lights.state != ON) {
+    Christmas_Lights.sendCommand(ON)
+  }
+end
 
-//   // Kitchen_Echo_TTS.sendCommand("Merry Christmas!")
-//   // Basement_Echo_TTS.sendCommand("Merry Christmas!")
-// end
+rule "Christmas Nights off at end of day"
+when
+ Time cron "0 30 22 ? * *"
+then
+  if (VisitorMode_Switch.state != ON) {
+    if (Christmas_Outside.state != OFF) {
+      Christmas_Outside.sendCommand(OFF)
+    }
 
-// rule "Christmas Switch is turned off"
-// when
-//   Item Christmas_Lights received command OFF
-// then
-//   Christmas_Inside.members.forEach [ i |
-//     if (i.state != OFF) {
-//       i.sendCommand(OFF)
-//     }
-//   ]
-// end
+	// Just send blanket send it off just in case
+    Christmas_Lights_All.sendCommand(OFF)
+  }
+end
 
-// rule "when christmas lights turn on"
-// when
-//   Member of Christmas_Inside changed from OFF to ON
-// then
-//   if (Christmas_Inside.members.filter[ i | i.state != ON ].isEmpty()) {
-//      Christmas_Lights.postUpdate(ON)
-//   }
-// end
+rule "Christmas Switch is turned on"
+when
+  Item Christmas_Lights changed from OFF to ON
+then
+  if (Office_Door_LED_Timer !== null) {
+    Office_Door_LED_Timer.cancel()
+    Office_Door_LED_Timer = null
+  }
+  // It seems to get really angry if I send too many wifi commands at the same time,
+  // so let's delay the mode switch by 2 seconds
+  Office_Door_LED_Timer = createTimer(now.plusSeconds(2), [|
+    Office_Door_LED_Program.sendCommand(45)
+  ])
 
-// rule "when christmas lights turn off"
-// when
-//   Member of Christmas_Inside changed from ON to OFF
-// then
-//   Christmas_Lights.postUpdate(OFF)
-// end
-
-// rule "when all christmas switch turns on"
-// when
-//   Item Christmas_All_Lights received command ON
-// then
-//   Christmas_Lights.sendCommand(ON)
-//   if (Basement_Wall_Outlet_Switch.state != ON)
-//   {
-//     Basement_Wall_Outlet_Switch.sendCommand(ON)
-//   }
-// end
-
-// rule "when all christmas switch turns off"
-// when
-//   Item Christmas_All_Lights received command OFF
-// then
-//   Christmas_Lights.sendCommand(OFF)
-//   if (Basement_Wall_Outlet_Switch.state != OFF)
-//   {
-//     Basement_Wall_Outlet_Switch.sendCommand(OFF)
-//   }
-// end
-
-// rule "when all christmas lights turn on"
-// when
-//   Item Christmas_Lights changed from OFF to ON
-//   or
-//   Item Basement_Wall_Outlet_Switch changed from OFF to ON
-// then
-//   if (
-//     Christmas_Lights.state == ON &&
-//     Basement_Wall_Outlet_Switch.state == ON
-//   ) {
-//     Christmas_All_Lights.postUpdate(ON)
-//   }
-// end
-
-// rule "when all christmas lights turn off"
-// when
-//   Item Christmas_Lights changed from ON to OFF
-//   or
-//   Item Basement_Wall_Outlet_Switch changed from ON to OFF
-// then
-//   Christmas_All_Lights.postUpdate(OFF)
-// end
+  Kitchen_Echo_TTS.sendCommand("Merry Christmas!")
+  Basement_Echo_TTS.sendCommand("Merry Christmas!")
+end

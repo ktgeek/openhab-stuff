@@ -1,24 +1,27 @@
-Group    Home                 "Garner House"   <house>                                  ["Building"]
+Group Home          "Garner House"  <house>                ["Location"]
 
-Group    C                    "Cellar"         <cellar>        (Home)                   ["Basement"]
-Group    FF                   "First Floor"    <groundfloor>   (Home)                   ["FirstFloor"]
-Group    SF                   "Second Floor"    <firstfloor>    (Home)                   ["SecondFloor"]
+Group C             "Basement"      <cellar>       (Home)  ["Basement"]
+Group FF            "First Floor"   <groundfloor>  (Home)  ["FirstFloor"]
+Group SF            "Second Floor"  <firstfloor>   (Home)  ["SecondFloor"]
 
-Group    FF_Porch             "Porch"          <frontdoor>     (Home, FF)               ["Porch"]
-Group	   FF_Entrance	      "Entrance"       <corridor>      (Home, FF)               ["Entrance"]
-Group    FF_Office            "Office"         <office>        (Home, FF)               ["Room"]
-Group    FF_Dining            "Dining Room"    <party>         (Home, FF)               ["Dining Room"]
-Group    Backyard             "Backyard"                       (Home)                   ["Backyard"]
+Group FF_Porch     "Porch"          <frontdoor>    (Home)  ["Porch"]
+Group	FF_Entrance  "Entrance"       <corridor>     (FF)    ["Entry"]
+Group FF_Office    "Office"         <office>       (FF)    ["Office"]
+Group FF_Dining    "Dining Room"    <party>        (FF)    ["DiningRoom"]
+Group Backyard     "Backyard"                      (Home)  ["Outdoor"]
 
-Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Porch) { homekit="Lighting", alexa="Lighting" }
+Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
 
-Group:Switch:OR(ON,OFF) Backyard_Lights "Backyard Lights" <lightbulb> (Backyard) { homekit="Lighting", alexa="Lighting" }
+Group:Switch:OR(ON,OFF) Backyard_Lights "Backyard Lights" <outdoorlight> (Backyard) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
 
-Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (FF_Porch, Front_Yard_Lights) { channel="wemo:lightswitch:Lightswitch-1_0-221336K13009CA:state" }
+Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (Front_Yard_Lights) ["Point"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13009CA:state" }
 
 // First Floor - Entrance
-Group:Switch:OR(ON,OFF) All_Hall_Lights "Hall Lights" <lightbulb> (FF_Entrance)
-Switch Switch_Entrance_Hall_Light "Hall Light" <lightbulb> (FF_Entrance, All_Hall_Lights) { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node16:switch_binary" }
+Group:Switch:OR(ON,OFF) All_Hall_Lights "Hall Lights" <lightbulb> (FF_Entrance) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
+Switch Switch_Entrance_Hall_Light "Hall Table Light" <lightbulb> (All_Hall_Lights) ["Point"] { channel="zwave:device:8c18403e:node16:switch_binary" }
 
 // Virtual test
-Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF) { alexa="Switchable", homekit="Switchable" }
+Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF_Entrance) ["WallSwitch"] { alexa="Switchable", homekit="Switchable" }
+
+Number:Temperature Backyard_Temperature "Backyard Temperature [%.1f F]" (Backyard) ["Point", "Temperature"] { homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="weathercompany:weather-observations:669474595f:currentTemperature" }
+Number:Dimensionless Backyard_Humidity "Backyard Humidity [%.1f %unit%]" (Backyard) ["Point", "Humidity"] { homekit="HumiditySensor", channel="weathercompany:weather-observations:669474595f:currentHumidity" }

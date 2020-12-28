@@ -2,19 +2,18 @@ rule "Front Yard Lights follow ON"
 when
     Member of Front_Yard_Lights changed
 then
-    Font_Yard_Lights.members.forEach [ SwitchItem i |
+    Front_Yard_Lights.members.forEach [ SwitchItem i |
         if (i.state != newState) {
-            i.sendCommand(newState)
+            i.sendCommand(newState.toString)
         }
     ]
 end
-
 
 // rule "Morning Lights On For Rides"
 // when
 //     Time cron "0 0 5 ? * TUE,THU"
 // then
-//     if (now.isBefore((LocalSunWShiftedSettings_Rise_StartTime.state as DateTimeType).zonedDateTime.toInstant.toEpochMilli)) {
+//     if (now.isBefore((LocalSunWShiftedSettings_Rise_StartTime.state as DateTimeType).zonedDateTime)) {
 //         if (Front_Yard_Lights.state != ON) {
 //             Front_Yard_Lights.sendCommand(ON)
 //         }
@@ -25,7 +24,7 @@ rule "Morning Lights On"
 when
     Time cron "0 30 6 ? * MON-FRI"
 then
-    if (now.isBefore((LocalSunWShiftedSettings_Rise_StartTime.state as DateTimeType).zonedDateTime.toInstant.toEpochMilli)) {
+    if (now.isBefore((LocalSunWShiftedSettings_Rise_StartTime.state as DateTimeType).zonedDateTime)) {
         if (Front_Yard_Lights.state != ON) {
             Front_Yard_Lights.sendCommand(ON)
         }

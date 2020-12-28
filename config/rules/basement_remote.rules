@@ -16,12 +16,12 @@ then
       }
     }
     case 3.0: {
-      if (Basement_Room_Theater_Lights_OnOff.state != ON) {
+      if (Basement_Room_Theater_Lights.state < 100) {
           Basement_Room_Theater_Lights.sendCommand(100)
           Basement_Room_Bar_Lights.sendCommand(100)
       } else {
-          Basement_Room_Theater_Lights.sendCommand(0)
-          Basement_Room_Bar_Lights.sendCommand(0)
+          Basement_Room_Theater_Lights.sendCommand(OFF)
+          Basement_Room_Bar_Lights.sendCommand(OFF)
       }
     }
     case 4.0: {
@@ -34,7 +34,7 @@ rule "when the basement theater switches have a scene change"
 when
   Member of C_Basement_Scene received update
 then
-  var scene = triggeringItem.state as DecimalType
+  var scene = newState as DecimalType
 
   // logInfo("basement_remote.rules", "The scene change number rule has fired.")
   // This is how to map actions to scenes for a the homeseer switch

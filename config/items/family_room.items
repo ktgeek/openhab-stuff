@@ -1,18 +1,17 @@
-Group    FF_FamilyRoom        "Family Room"    <sofa>          (Home, FF)               ["Family Room"]
+Group    FF_FamilyRoom        "Family Room"    <sofa>          (FF)               ["FamilyRoom"]
 
-Switch FamilyRoom_All_Lights "All Family Room Lights" <lightbulb> (FF_FamilyRoom) { homekit="Switchable", alexa="PowerController.powerState" }
+Group:Switch:OR(ON,OFF) FamilyRoom_All_Lights "All Family Room Lights" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { alexa="Lighting" }
 
-Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FF_FamilyRoom) { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node7:switch_binary" }
+Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node7:switch_binary" }
 
-Switch FamilyRoom_Fireplace_Lights_Switch "Fireplace Lights" <lightbulb> (FF_FamilyRoom) { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node9:switch_binary" }
+Switch FamilyRoom_Fireplace_Lights_Switch "Fireplace Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node9:switch_binary" }
 
+Dimmer FamilyRoom_Accent_Lights_Dimmer "Family Room Accents" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node10:switch_dimmer" }
 
-Dimmer FamilyRoom_Accent_Lights_Dimmer "Family Room Accents" <lightbulb> (FF_FamilyRoom) { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node10:switch_dimmer" }
+Switch FamilyRoom_Backyard_Lights_Switch "Backyard Lights in Family Room" <lightbulb> (FF_FamilyRoom, Backyard_Lights) ["Point"] { channel="zwave:device:8c18403e:node8:switch_binary" }
 
-Switch FamilyRoom_Backyard_Lights_Switch "Backyard Lights in Family Room" <lightbulb> (FF_FamilyRoom, Backyard_Lights) { channel="zwave:device:8c18403e:node8:switch_binary" }
-
-Group FamilyRoom_Wall_Outlet "Family Room Wall Outlet" <poweroutlet_us> (FF_FamilyRoom) { homekit="Outlet" }
-Switch FamilyRoom_Wall_Outlet_Switch "Family Room Wall Outlet" <poweroutlet_us> (FF_FamilyRoom, FamilyRoom_Wall_Outlet) { homekit="Outlet.OnState", alexa="Outlet", channel="zwave:device:8c18403e:node11:switch_binary" }
-Number:Energy FamilyRoom_Wall_Outlet_kWh "Family Room Wall Outlet Power [%.1f kWh]" (FamilyRoom_Wall_Outlet) { channel="zwave:device:8c18403e:node11:meter_kwh" }
-Number:Energy FamilyRoom_Wall_Outlet_Watts "Family Room Wall Outlet Power [%.1f Ws]" (FamilyRoom_Wall_Outlet) { channel="zwave:device:8c18403e:node11:meter_watts" }
-Switch FamilyRoom_Wall_Outlet_In_Use "Family Room Wall Outlet In Use [JS(outletinuse.js):%s]" (FamilyRoom_Wall_Outlet) { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node11:meter_watts" }
+Group FamilyRoom_Wall_Outlet "Family Room Wall Outlet" <poweroutlet_us> (FF_FamilyRoom) ["PowerOutlet"] { homekit="Outlet" }
+Switch FamilyRoom_Wall_Outlet_Switch "Family Room Wall Outlet" <poweroutlet_us> (Christmas_Lights, FamilyRoom_Christmas_Tree, FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.OnState", alexa="Outlet", channel="zwave:device:8c18403e:node11:switch_binary" }
+Number:Energy FamilyRoom_Wall_Outlet_kWh "Family Room Wall Outlet Power [%.1f kWh]" (FamilyRoom_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node11:meter_kwh" }
+Number:Energy FamilyRoom_Wall_Outlet_Watts "Family Room Wall Outlet Power [%.1f Ws]" (FamilyRoom_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node11:meter_watts" }
+Switch FamilyRoom_Wall_Outlet_In_Use "Family Room Wall Outlet In Use [JS(outletinuse.js):%s]" (FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node11:meter_watts" }

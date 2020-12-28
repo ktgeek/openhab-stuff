@@ -45,12 +45,11 @@ then
       Basement_Stairs_Switch.sendCommand(ON)
       Basement_TV_Toast.sendCommand("Someone has entered the basement")
     }
-    if (Kitchen_Accent_Desk_LED_1_Color.state != 6) {
-      Kitchen_Accent_Desk_LED_1_Color.sendCommand(6)
-    }
-    if (Kitchen_Accent_Sink_LED_1_Color.state != 6) {
-      Kitchen_Accent_Sink_LED_1_Color.sendCommand(6)
-    }
+    C_Occupancy_LEDs.members.forEach [ i |
+      if (i.state != 6) {
+        i.sendCommand(6)
+      }
+    ]
   } else {
     Total_Basement_Occupancy_Timer = createTimer(now.plusSeconds(120), [|
       C_All_Lights.members.forEach [ i |
@@ -60,12 +59,11 @@ then
       ]
     ])
 
-    if (Kitchen_Accent_Desk_LED_1_Color.state != 0) {
-      Kitchen_Accent_Desk_LED_1_Color.sendCommand(0)
-    }
-    if (Kitchen_Accent_Sink_LED_1_Color.state != 0) {
-      Kitchen_Accent_Sink_LED_1_Color.sendCommand(0)
-    }
+    C_Occupancy_LEDs.members.forEach [ i |
+      if (i.state != 0) {
+        i.sendCommand(0)
+      }
+    ]
   }
 end
 
@@ -76,9 +74,9 @@ when
   Item Hiome_Exercise_Room_Occupancy_Count received update
 then
   // Have a small delay while the hiome updates finish
-  createTimer(now.plusMillis(25), [|
+  createTimer(now.plusNanos(25000000), [|
     val new_total_occupancy = Hiome_Basement_Occupancy_Count.state as Number + Hiome_Exercise_Room_Occupancy_Count.state as Number
-    C_Total_Basement_Occupancy.postUpdate(new_total_occupancy)
+    C_Total_Basement_Occupancy.postUpdate(new_total_occupancy.toString)
   ])
 end
 

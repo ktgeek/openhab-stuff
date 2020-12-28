@@ -1,7 +1,7 @@
-Switch Office_Windows_Switch "Office Lights" <poweroutlet_us> (FF_Office) { homekit="Lighting", alexa="Lighting", channel="wemo:socket:Socket-1_0-221625K01014A7:state" }
+Switch Office_Windows_Switch "Office Lights" <poweroutlet_us> (FF_Office, Christmas_Lights) ["WallSwitch"] { homekit="Lighting", alexa="Lighting", channel="wemo:socket:Socket-1_0-221625K01014A7:state" }
 
-Group Office_Door_LED "Office Door" (FF_Office) { homekit="Lighting", alexa="Endpoint.Light" }
-Switch Office_Door_LED_Power (Office_Door_LED) { homekit="Lighting.OnState", alexa="PowerController.powerState", channel="wifiled:wifiled:F4CFA224A472:power" }
-Color Office_Door_LED_Color (Office_Door_LED) { channel="wifiled:wifiled:F4CFA224A472:color", homekit="Lighting.Hue, Lighting.Brightness, Lighting.Saturation", alexa="BrightnessController.brightness" }
-String Program "Program" (Office_Door_LED) { channel="wifiled:wifiled:F4CFA224A472:program" }
-Dimmer Program_Speed "Program speed" (Office_Door_LED) { channel="wifiled:wifiled:F4CFA224A472:programSpeed" }
+Group Office_Door_LED "Office Door" (FF_Office) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
+Switch Office_Door_LED_Power "Office Door Power" (Christmas_Lights, Office_Door_LED) ["Switch"] { homekit="Lighting.OnState", alexa="PowerController.powerState", channel="wifiled:wifiled:F4CFA224A472:power" }
+Color Office_Door_LED_Color "Office Door Color" (Office_Door_LED) ["Point"] { channel="wifiled:wifiled:F4CFA224A472:color", homekit="Lighting.Hue, Lighting.Brightness, Lighting.Saturation", alexa="BrightnessController.brightness" }
+String Office_Door_LED_Program "Office Door Program" (Office_Door_LED) ["Point"] { channel="wifiled:wifiled:F4CFA224A472:program" }
+Dimmer Office_Door_LED_Program_Speed "Office Door Program Speed" (Office_Door_LED) ["Point"] { channel="wifiled:wifiled:F4CFA224A472:programSpeed" }

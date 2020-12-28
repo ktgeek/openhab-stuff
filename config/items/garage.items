@@ -1,18 +1,16 @@
-Group    FF_Garage            "Garage"         <garage>        (Home, FF)               ["Garage"]
+Group FF_Garage "Garage" <garage> (FF) ["Garage"]
 
 Group    Large_Garage_Door_Open_LEDs
 Group    Small_Garage_Door_Open_LEDs
 
 Group Garage_Outlet "Garage Outlet" (FF_Garage) { homekit="Outlet" }
-Switch Garage_Outlet_Switch "Garage Outlet" <switch> (FF_Garage, Garage_Outlet) { homekit="Outlet.OnState", alexa="Outlet", channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_switch" }
-//Switch Garage_Outlet_Switch "Garage Outlet" <switch> (FF_Garage, Garage_Outlet, Christmas, Christmas_Outside) ["Switchable"] { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_switch" }
+Switch Garage_Outlet_Switch "Garage Outlet" <switch> (FF_Garage, Garage_Outlet, Christmas_Outside) { homekit="Outlet.OnState", alexa="Outlet", channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_switch" }
 Number:ElectricPotential Garage_Outlet_Voltage "Garage Outlet Voltage [%.1f %unit%]" (Garage_Outlet) { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_voltage" }
 Number:ElectricCurrent Garage_Outlet_Current "Garage Outlet Current [%.1f %unit%]" (Garage_Outlet) { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_current" }
 Number:Energy Garage_Outlet_TotalActivePower "Garage Outlet Total Active Power [%.1f %unit%]" (Garage_Outlet) { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_activepower"}
 Switch Garage_Outlet_In_Use "Garage Outlet In Use [JS(outletinuse.js):%s]" (Garage_Outlet) { homekit="Outlet.InUseStatus", channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_activepower" }
 
-//Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights" <lightbulb> (FF_Garage) { homekit="Lighting", channel="wemo:lightswitch:Lightswitch-1_0-221336K13008B6:state" }
-Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights" <lightbulb> (FF_Garage, Front_Yard_Lights) { channel="wemo:lightswitch:Lightswitch-1_0-221336K13008B6:state" }
+Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights" <lightbulb> (FF_Garage, Front_Yard_Lights) ["Point"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13008B6:state" }
 
-String Large_Garage_Door_Status "Large Garage Door Status" { channel="chamberlainmyq:MyQDoorOpener:GarageDoor:CG084300CDF6:doorstatus" }
-String Small_Garage_Door_Status "Small Garage Door Status" { channel="chamberlainmyq:MyQDoorOpener:GarageDoor:CG084300CDF7:doorstatus" }
+String Large_Garage_Door_Status "Large Garage Door Status [%s]" (FF_Garage) ["GarageDoor"] { channel="myq:garagedoor:home:cg084300cdf6:status" }
+String Small_Garage_Door_Status "Small Garage Door Status [%s]" (FF_Garage) ["GarageDoor"] { channel="myq:garagedoor:home:cg084300cdf7:status" }

@@ -1,1 +1,1 @@
-Bridge chamberlainmyq:MyQGateway:GarageDoor "MyQ API Services" [ username="noway", password="not here"] { }
+Bridge myq:account:home "MyQ API Services" [ username="XX", password="XX"] { }
