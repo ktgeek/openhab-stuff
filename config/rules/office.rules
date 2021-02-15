@@ -1,0 +1,39 @@
+rule "when a zoom meeting is happening"
+when
+  Item Zoom_Active_Switch changed
+then
+  var commands = 0
+
+  if (newState == ON) {
+    if (Office_Door_LED_Power.state != ON) {
+      Office_Door_LED_Power.sendCommand(ON)
+      commands += 1
+    }
+
+    // The wifi LED controller seems to get really angry if I send too many wifi commands at the same time,
+    // so we'll add a delay of 1second per number of commands run
+
+    // 97 is the magic value for "no program"
+    if (Office_Door_LED_Program.state != "97") {
+      createTimer(now.plusSeconds(commands), [|
+        Office_Door_LED_Program.sendCommand("97")
+      ])
+      commands += 1
+    }
+
+    var currentColor = Office_Door_LED_Color.state as HSBType
+    if (currentColor.hue != 0 || currentColor.saturation != 100.0 || currentColor.brightness != 100.0) {
+      createTimer(now.plusSeconds(commands), [|
+        //color is a 360 value, then saturation and brighteness.  This is FULL RED
+        Office_Door_LED_Color.sendCommand("0,100,100")
+      ])
+      commands += 1
+    }
+  }
+  else {
+    if (Office_Door_LED_Power.state != OFF) {
+      Office_Door_LED_Power.sendCommand(OFF)
+    }
+  }
+end
+
