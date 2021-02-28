@@ -7,10 +7,12 @@ Group C_Occupancy_LEDs "Basement Occupancy LEDs"
 
 
 Number Hiome_Basement_Occupancy_Count "Basement Occupancy [%d]" <parents_1_1> (C_Basement) ["Point"] { channel="mqtt:topic:c0853ba2:1" }
+Switch Basement_Occupancy_Sensor "Basement Occupancy" (C_Basement) ["Point"] { homekit="OccupancySensor" }
 
 Group  ExerciseRoom_Hiome "Exercise Room Hiome" <motion> (C_ExerciseRoom) ["Equipment"]
 Number Hiome_Exercise_Room_Occupancy_Count "Exercise Room Occupancy [%d]" <parents_1_1> (ExerciseRoom_Hiome) ["Point"] { channel="mqtt:topic:c0853ba2:2" }
 Contact Hiome_Exercise_Room_Door_Contact "Exercise Room Door Contact" (ExerciseRoom_Hiome) ["Point"] { channel="mqtt:topic:c0853ba2:3" }
+Switch Exercise_Room_Occupancy_Sensor "Exercise Room Occupancy" (ExerciseRoom_Hiome) ["Point"] { homekit="OccupancySensor" }
 
 Number C_Total_Basement_Occupancy "Total Basement Occpancy" (C) ["Point"]
 
@@ -45,5 +47,5 @@ Number Exercise_Room_Dimmer_Scene_Number "Scene number" (C_ExerciseRoom) ["Point
 
 String Basement_Echo_TTS "Basement Echo Text to Speech" (C_Basement) ["Point"] {channel="amazonechocontrol:echo:XX:XX:textToSpeech"}
 
-String Basement_TV_Toast "Basement TV Toast" (C_Basement) ["Point"] {channel="lgwebos:WebOSTV:XX:toast"}
+String Basement_TV_Toast "Basement TV Toast" (C_Basement, TV_Notifications) ["Point", "Status"] {channel="lgwebos:WebOSTV:XX:toast"}
 

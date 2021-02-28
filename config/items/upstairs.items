@@ -8,5 +8,6 @@ Number:Energy Upstairs_Hallway_Wall_Outlet_kWh "Upstairs Wall Outlet Power [%.1f
 Number:Energy Upstairs_Hallway_Wall_Outlet_Watts "Upstairs Wall Outlet Power [%.1f Ws]" (Upstairs_Hallway_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node12:meter_watts" }
 Switch Upstairs_Hallway_Wall_Outlet_In_Use "Upstairs Hallway Wall Outlet In Use [JS(outletinuse.js):%s]" (Upstairs_Hallway_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node12:meter_watts" }
 
-Switch HiddenRoom_Light_Switch "Hidden Room Lights" <lightbulb> (SF_HiddenRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node44:switch_binary" }
+Switch HiddenRoom_Light_Switch "Hidden Room Lights" <lightbulb> (SF_HiddenRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node47:switch_binary" }
 //Switch HiddenRoom_Window_Lights "Hidden Room Window Lights" (Christmas_Outside, SF_HiddenRoom) ["Lightbulb"] { channel="wemo:socket:Socket-1_0-221625K0100CD5:state" }
+Switch HiddenRoom_Window_Lights "Hidden Room Window Lights" (SF_HiddenRoom) ["Lightbulb"] { channel="wemo:socket:Socket-1_0-221625K0100CD5:state" }

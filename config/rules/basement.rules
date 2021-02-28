@@ -67,6 +67,19 @@ then
   }
 end
 
+rule "When someone enters/leaves the main basement area"
+when
+  Item Hiome_Basement_Occupancy_Count received update
+then
+  val occupancy_count = Hiome_Basement_Occupancy_Count.state
+  if (occupancy_count > 0) {
+    Basement_Occupancy_Sensor.postUpdate(ON)
+  }
+  else {
+    Basement_Occupancy_Sensor.postUpdate(OFF)
+  }
+end
+
 rule "When the count of the occupancy sensor changes"
 when
   Item Hiome_Basement_Occupancy_Count received update
@@ -115,11 +128,13 @@ then
     if (Exercise_Room_Light.state != ON) {
       Exercise_Room_Light.sendCommand(ON)
     }
+    Exercise_Room_Occupancy_Sensor.postUpdate(ON)
   } else {
     Exersize_Room_Occupancy_Timer = createTimer(now.plusSeconds(90), [|
       if (Exercise_Room_Light.state != OFF) {
         Exercise_Room_Light.sendCommand(OFF)
       }
     ])
+    Exercise_Room_Occupancy_Sensor.postUpdate(OFF)
   }
 end

@@ -12,5 +12,5 @@ Switch Garage_Outlet_In_Use "Garage Outlet In Use [JS(outletinuse.js):%s]" (Gara
 
 Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights" <lightbulb> (FF_Garage, Front_Yard_Lights) ["Point"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13008B6:state" }
 
-String Large_Garage_Door_Status "Large Garage Door Status [%s]" (FF_Garage) ["GarageDoor"] { channel="myq:garagedoor:home:cg084300cdf6:status" }
-String Small_Garage_Door_Status "Small Garage Door Status [%s]" (FF_Garage) ["GarageDoor"] { channel="myq:garagedoor:home:cg084300cdf7:status" }
+String Large_Garage_Door_Status "Large Garage Door Status [%s]" (FF_Garage) ["GarageDoor"] { channel="myq:garagedoor:home:cg0860ab4cbe:status" }
+String Small_Garage_Door_Status "Small Garage Door Status [%s]" (FF_Garage) ["GarageDoor"] { channel="myq:garagedoor:home:cg0860ab5291:status" }

@@ -6,12 +6,12 @@ then
     Large_Garage_Door_Open_LEDs.members.forEach [ i |
       i.sendCommand(1)
     ]
-    Basement_TV_Toast.sendCommand("Large Garage Door opened")
+    TV_Notifications.sendCommand("Large Garage Door opened")
   } else {
     Large_Garage_Door_Open_LEDs.members.forEach [ i |
       i.sendCommand(2)
     ]
-    Basement_TV_Toast.sendCommand("Large Garage Door closed")
+    TV_Notifications.sendCommand("Large Garage Door closed")
   }
 end
 
@@ -23,11 +23,11 @@ then
     Small_Garage_Door_Open_LEDs.members.forEach [ i |
       i.sendCommand(1)
     ]
-    Basement_TV_Toast.sendCommand("Small Garage Door opened")
+    TV_Notifications.sendCommand("Small Garage Door opened")
   } else {
     Small_Garage_Door_Open_LEDs.members.forEach [ i |
       i.sendCommand(2)
     ]
-    Basement_TV_Toast.sendCommand("Small Garage Door closed")
+    TV_Notifications.sendCommand("Small Garage Door closed")
   }
 end

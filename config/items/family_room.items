@@ -15,3 +15,5 @@ Switch FamilyRoom_Wall_Outlet_Switch "Family Room Wall Outlet" <poweroutlet_us> 
 Number:Energy FamilyRoom_Wall_Outlet_kWh "Family Room Wall Outlet Power [%.1f kWh]" (FamilyRoom_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node11:meter_kwh" }
 Number:Energy FamilyRoom_Wall_Outlet_Watts "Family Room Wall Outlet Power [%.1f Ws]" (FamilyRoom_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node11:meter_watts" }
 Switch FamilyRoom_Wall_Outlet_In_Use "Family Room Wall Outlet In Use [JS(outletinuse.js):%s]" (FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node11:meter_watts" }
+
+String FamilyRoom_TV_Toast "Family Room TV Toast" (FF_FamilyRoom, TV_Notifications) ["Point", "Status"] {channel="lgwebos:WebOSTV:XX:toast"}

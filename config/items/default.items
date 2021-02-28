@@ -10,10 +10,9 @@ Group FF_Office    "Office"         <office>       (FF)    ["Office"]
 Group FF_Dining    "Dining Room"    <party>        (FF)    ["DiningRoom"]
 Group Backyard     "Backyard"                      (Home)  ["Outdoor"]
 
+Group TV_Notifications "TV Notifications" <screen> (Home) ["Status"]
+
 Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
-
-Group:Switch:OR(ON,OFF) Backyard_Lights "Backyard Lights" <outdoorlight> (Backyard) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
-
 Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (Front_Yard_Lights) ["Point"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13009CA:state" }
 
 // First Floor - Entrance
@@ -22,6 +21,3 @@ Switch Switch_Entrance_Hall_Light "Hall Table Light" <lightbulb> (All_Hall_Light
 
 // Virtual test
 Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF_Entrance) ["WallSwitch"] { alexa="Switchable", homekit="Switchable" }
-
-Number:Temperature Backyard_Temperature "Backyard Temperature [%.1f F]" (Backyard) ["Point", "Temperature"] { homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="weathercompany:weather-observations:669474595f:currentTemperature" }
-Number:Dimensionless Backyard_Humidity "Backyard Humidity [%.1f %unit%]" (Backyard) ["Point", "Humidity"] { homekit="HumiditySensor", channel="weathercompany:weather-observations:669474595f:currentHumidity" }
