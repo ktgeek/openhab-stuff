@@ -39,13 +39,25 @@ Number:Energy Basement_Wall_Outlet_kWh "Baesment Wall Outlet Power [%.1f kWh]" (
 Number:Energy Basement_Wall_Outlet_Watts "Basement Wall Outlet Power [%.1f Ws]" (Basement_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node43:meter_watts" }
 Switch Basement_Wall_Outlet_In_Use "Basement Wall Outlet In Use [JS(outletinuse.js):%s]" (Basement_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node43:meter_watts" }
 
+String Basement_Echo_TTS "Basement Echo Text to Speech" (C_Basement) ["Point"] {channel="amazonechocontrol:echo:XX:XX:textToSpeech"}
+
+String Basement_TV_Toast "Basement TV Toast" (C_Basement, TV_Notifications) ["Point", "Status"] {channel="lgwebos:WebOSTV:XX:toast"}
+
+// -- Exercise Room --
 
 Switch Exercise_Room_Light "Exercise Room Light" <lightbulb> (C_ExerciseRoom, C_All_Lights) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node38:switch_binary" }
 
 Dimmer Exercise_Room_Dimmer "Exercise Room Dimmer" <lightbulb> (C_ExerciseRoom, C_All_Lights) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node39:switch_dimmer" }
 Number Exercise_Room_Dimmer_Scene_Number "Scene number" (C_ExerciseRoom) ["Point"] {channel="zwave:device:8c18403e:node39:scene_number"}
 
-String Basement_Echo_TTS "Basement Echo Text to Speech" (C_Basement) ["Point"] {channel="amazonechocontrol:echo:XX:XX:textToSpeech"}
 
-String Basement_TV_Toast "Basement TV Toast" (C_Basement, TV_Notifications) ["Point", "Status"] {channel="lgwebos:WebOSTV:XX:toast"}
+Group Exercise_Room_Bike_Trainer "Exersize Room Bike Trainer" (C_ExerciseRoom) ["PowerOutlet"] { homekit="Outlet" }
+Switch Exercise_Room_Bike_Trainer_Switch "Exersize Room Bike Trainer" <switch> (C_ExerciseRoom, Exercise_Room_Bike_Trainer) { homekit="Outlet.OnState", alexa="Outlet", channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_switch" }
+Number:ElectricPotential Exercise_Room_Bike_Trainer_Voltage "Garage Outlet Voltage [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_voltage" }
+Number:ElectricCurrent Exercise_Room_Bike_Trainer_Current "Garage Outlet Current [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_current" }
+Number:Energy Exercise_Room_Bike_Trainer_TotalActivePower "Garage Outlet Total Active Power [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_activepower"}
+Switch Exercise_Room_Bike_Trainer_In_Use "Garage Outlet In Use [JS(outletinuse.js):%s]" (Exercise_Room_Bike_Trainer) ["Point"] { homekit="Outlet.InUseStatus", channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_activepower" }
+
+
+
 

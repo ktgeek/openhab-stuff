@@ -1,6 +1,6 @@
 Group    FF_FamilyRoom        "Family Room"    <sofa>          (FF)               ["FamilyRoom"]
 
-Group:Switch:OR(ON,OFF) FamilyRoom_All_Lights "All Family Room Lights" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { alexa="Lighting" }
+Group:Switch:AND(ON,OFF) FamilyRoom_All_Lights "All Family Room Lights" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { alexa="Lighting" }
 
 Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node7:switch_binary" }
 

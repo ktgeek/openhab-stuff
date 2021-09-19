@@ -3,12 +3,14 @@ Group:Switch:OR(ON,OFF) Backyard_Lights "Backyard Lights" <outdoorlight> (Backya
 
 Group Backyard_Weather_Station "Backyard Weather Station" <sun> (Backyard) ["Equipment"]
 Number:Temperature Backyard_Temperature "Backyard Temperature [%.1f %unit%]" <temperature> (Backyard_Weather_Station) ["Measurement", "Temperature"] { homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="mqtt:homie300:9bfbccd9:acuparse:weather#temperature" }
+//Number:Temperature Backyard_FeelsLike_Temperature "Backyard Feels Like Temperature [%.1f %unit%]" <temperature> (Backyard_Weather_Station) ["Measurement", "Temperature"] { homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="mqtt:homie300:9bfbccd9:acuparse:weather#feels-like-temperature" }
+//String Backyard_Temperature_Trend "Backyard Temperature Trend" (Backyard_Weather_Station) { channel="mqtt:homie300:9bfbccd9:acuparse:weather#temp-trend" }
 Number:Dimensionless Backyard_Humidity "Backyard Humidity [%d %%]" <humidity> (Backyard_Weather_Station) ["Measurement", "Humidity"] { homekit="HumiditySensor", channel="mqtt:homie300:9bfbccd9:acuparse:weather#humidity" }
-Number:Pressure Backyward_Barometric_Pressure "Barometric pressure [%.2f %unit%]" <pressure> (Backyard_Weather_Station) ["Measurement"] {channel="mqtt:homie300:9bfbccd9:acuparse:weather#barometric_2Dpressure"}
+Number:Pressure Backyard_Barometric_Pressure "Barometric pressure [%.2f %unit%]" <pressure> (Backyard_Weather_Station) ["Measurement"] {channel="mqtt:homie300:9bfbccd9:acuparse:weather#barometric_2Dpressure"}
 Number:Length Backyard_Daily_Rain "Daily rain [%.2f in]" <rain> (Backyard_Weather_Station) ["Measurement"] {channel="mqtt:homie300:9bfbccd9:acuparse:weather#daily_2Drain"}
 Number:Temperature Backyard_Dew_Point "Dew point [%.1f %unit%]" <temperature> (Backyard_Weather_Station) ["Measurement", "Temperature"] {channel="mqtt:homie300:9bfbccd9:acuparse:weather#dew_2Dpoint"}
 Number:Length Backyard_Rain "Rain [%.2f in]" <rain> (Backyard_Weather_Station) ["Measurement"] {channel="mqtt:homie300:9bfbccd9:acuparse:weather#rain"}
-String Backyward_Weather_Updated_At "Updated at" (Backyard_Weather_Station) {channel="mqtt:homie300:9bfbccd9:acuparse:weather#updated_2Dat"}
+String Backyard_Weather_Updated_At "Updated at" (Backyard_Weather_Station) {channel="mqtt:homie300:9bfbccd9:acuparse:weather#updated_2Dat"}
 Number:Angle Backyard_Wind_Direction "Wind direction [%d º]" <wind> (Backyard_Weather_Station) ["Measurement"] {channel="mqtt:homie300:9bfbccd9:acuparse:weather#wind_2Ddirection"}
 Number:Speed Backyard_Wind_Speed "Wind speed [%d %unit%]" <wind> (Backyard_Weather_Station) ["Measurement"] {channel="mqtt:homie300:9bfbccd9:acuparse:weather#wind_2Dspeed"}
 Number:Speed Backyard_Windgust "Windgust [%d %unit%]" <wind> (Backyard_Weather_Station) ["Measurement"] {channel="mqtt:homie300:9bfbccd9:acuparse:weather#windgust"}

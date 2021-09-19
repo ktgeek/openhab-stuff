@@ -21,3 +21,9 @@ Switch Switch_Entrance_Hall_Light "Hall Table Light" <lightbulb> (All_Hall_Light
 
 // Virtual test
 Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF_Entrance) ["WallSwitch"] { alexa="Switchable", homekit="Switchable" }
+
+
+Switch Backyard_Outdoor_Decorations_Switch "Backyard Outdoor Decorations" <lightbulb> (Backyard) { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node49:switch_binary" }
+
+String Sun_Status "Is the sun up or down?"
+
