@@ -21,8 +21,8 @@ rule "when the kitchen accent switchs have a scene change" do
   run { |event| reset_basement if event.state == Homeseer::PADDLE_DOWN_TWO_CLICKS }
 end
 
-rule "when ktich lights scene change" do
-  updated FF_Kitchen_Accents_Scene.members
+rule "when ktichen lights scene change" do
+  updated FF_Kitchen_Lights_Scene.members
 
   run do |event|
     case(event.state)

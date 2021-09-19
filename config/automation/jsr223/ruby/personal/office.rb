@@ -18,8 +18,6 @@ rule "when a zoom meeting is happening" do
 
       # The wifi LED controller seems to get really angry if I send too many wifi commands at the same time,
       # so we'll add a delay of 2 seconds per number of commands run
-
-      # 97 is the magic vlue for "no program"
       unless Office_Door_LED_Program == WifiLED::Program::NO_PROGRAM
         after((commands*2).seconds) { Office_Door_LED_Program << WifiLED::Program::NO_PROGRAM }
         commands += 1
