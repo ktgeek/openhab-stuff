@@ -9,7 +9,7 @@ rule "when the basement remote is used" do
   updated NanomoteQuad_Scene
 
   run do
-    case (NanomoteQuad_Scene)
+    case(NanomoteQuad_Scene)
     when 1.0
       Basement_Normal_Mode_Switch.on
     when 2.0

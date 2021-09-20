@@ -26,12 +26,12 @@ rule "when ktichen lights scene change" do
 
   run do |event|
     case(event.state)
-    when Homeseer::PADDLE_UP_HOLD || Homeseer::PADDLE_UP_TWO_CLICKS
-      Normal_Kitch_Lights.members.each { |i| i.on unless i.on? }
-    when Homeseer::PADDLE_DOWN_HOLE || Homeseer::PADDLE_DOWN_TWO_CLICKS
-      Normal_Kitch_Lights.members.each { |i| i.off unless i.off? }
+    when Homeseer::PADDLE_UP_HOLD, Homeseer::PADDLE_UP_TWO_CLICKS
+      Normal_Kitchen_Lights.members.each { |i| i.on unless i.on? }
+    when Homeseer::PADDLE_DOWN_HOLD, Homeseer::PADDLE_DOWN_TWO_CLICKS
+      Normal_Kitchen_Lights.members.each { |i| i.off unless i.off? }
     when Homeseer::PADDLE_UP_THREE_CLICKS
-      ALL_KITCHEN_LIGHTS.members.each { |i| i.on unless i.on? }
+      All_Kitchen_Lights.members.each { |i| i.on unless i.on? }
     when Homeseer::PADDLE_DOWN_THREE_CLICKS
       All_Kitchen_Lights.members.each { |i| i.off unless i.off? }
     when Homeseer::PADDLE_DOWN_FOUR_CLICKS
