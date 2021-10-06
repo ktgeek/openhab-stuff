@@ -1,7 +1,6 @@
 # frozen_string_literal: true
-require 'openhab'
 
-$LOAD_PATH.unshift(ENV["RUBYLIB"]) if ENV["RUBYLIB"]
+require 'openhab'
 require 'wifi_led'
 
 rule "when a zoom meeting is happening" do

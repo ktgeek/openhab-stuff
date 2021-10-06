@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'openhab'
-
-$LOAD_PATH.unshift(ENV["RUBYLIB"]) if ENV["RUBYLIB"]
 require 'homeseer'
 
 rule "when the basement remote is used" do

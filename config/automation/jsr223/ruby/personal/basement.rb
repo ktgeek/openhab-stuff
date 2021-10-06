@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 require 'openhab'
-
-$LOAD_PATH.unshift(ENV["RUBYLIB"]) if ENV["RUBYLIB"]
 require 'homeseer'
 
 off_timers = {}
+OCCUPANCY_COUNT_LED_GROUPS = Array.new(7) { |i| items["Basement_Occupancy_Count_#{i + 1}"] }.freeze
 
 rule "when movie mode is turned on" do
   received_command Basement_Movie_Mode_Switch, command: ON
@@ -65,6 +64,14 @@ rule "when someone enters/leaves downstairs" do
       off_timers[event.item] = after(120.seconds) { C_All_Lights.each { |i| i.off unless i.off? } }
       C_Occupancy_LEDs.each { |i| i << Homeseer::Led_Color::OFF unless i == Homeseer::Led_Color::OFF }
     end
+
+    # Turn on and off leds to do a "meter" of how many people are in the basement
+    OCCUPANCY_COUNT_LED_GROUPS[0,C_Total_Basement_Occupancy].each do |led_group|
+      led_group.each { |led| led << Homeseer::Led_Color::BLUE unless led.state && led.state == Homeseer::Led_Color::BLUE }
+    end
+    OCCUPANCY_COUNT_LED_GROUPS[C_Total_Basement_Occupancy..-1]&.each do |led_group|
+      led_group.each { |led| led << Homeseer::Led_Color::OFF unless led.state.nil? || led.state == Homeseer::Led_Color::OFF }
+    end
   end
 end
 
@@ -76,7 +83,7 @@ rule "when someone enters/leaves the exercise room" do
 
     if Hiome_Exercise_Room_Occupancy_Count > 0
       Exercise_Room_Light.on unless Exercise_Room_Light.on?
-      Exercise_Room_Bike_Trainer_Switch.on unless Exercise_Room_Bike_Trainer_Switch.on?
+      Exercise_Room_Bike_Trainer_Switch.on if Exercise_Room_Bike_Trainer_Switch.off? && Exercise_Room_Bike_Trainer_Enabled.on?
       Exercise_Room_Occupancy_Sensor.update(ON)
     else
       off_timers[event.item] = after(90.seconds) do
@@ -97,6 +104,12 @@ rule "when the exersize room dimmer has a scene change" do
       Basement_Stairs_Switch.on unless Basement_Stairs_Switch.on?
     when Homeseer::PADDLE_DOWN_TWO_CLICKS
       Basement_Stairs_Switch.off unless Basement_Stairs_Switch.off?
+    when Homeseer::PADDLE_UP_THREE_CLICKS
+      Exercise_Room_Bike_Trainer_Enabled.on
+      Exercise_Room_Bike_Trainer_Switch.on unless Exercise_Room_Bike_Trainer_Switch.on?
+    when Homeseer::PADDLE_DOWN_THREE_CLICKS
+      Exercise_Room_Bike_Trainer_Enabled.off
+      Exercise_Room_Bike_Trainer_Switch.on unless Exercise_Room_Bike_Trainer_Switch.on?
     end
   end
 end

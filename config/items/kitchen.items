@@ -19,16 +19,16 @@ Number Kitchen_Accent_Desk_LED_5_Color "Kitchen Accent Desk Led 5 Color" (Kitche
 Number Kitchen_Accent_Desk_LED_6_Color "Kitchen Accent Desk Led 6 Color" (Kitchen_Accent_Desk_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param26" }
 Number Kitchen_Accent_Desk_LED_7_Color "Kitchen Accent Desk Led 7 Color" (Kitchen_Accent_Desk_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param27" }
 
-Group Kitchen_Accent_Sing_Control (FF_Kitchen) ["Equipment"]
-Dimmer Kitchen_Accent_Sink_Dimmer "Kitchen Accent Lights (Sink)" <lightbulb> (Kitchen_Accent_Sing_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node41:switch_dimmer" }
-Number Kitchen_Accent_Sink_Scene_Number "Kitchen Accent Sink Scene Number" (Kitchen_Accent_Sing_Control, FF_Kitchen_Accents_Scene) ["Point"] {channel="zwave:device:8c18403e:node41:scene_number"}
-Number Kitchen_Accent_Sink_LED_1_Color "Kitchen Accent Sink Led 1 Color" (Kitchen_Accent_Sing_Control, C_Occupancy_LEDs) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param21"}
-Number Kitchen_Accent_Sink_LED_2_Color "Kitchen Accent Sink Led 2 Color" (Kitchen_Accent_Sing_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param22"}
-Number Kitchen_Accent_Sink_LED_3_Color "Kitchen Accent Sink Led 3 Color" (Kitchen_Accent_Sing_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param23"}
-Number Kitchen_Accent_Sink_LED_4_Color "Kitchen Accent Sink Led 4 Color" (Kitchen_Accent_Sing_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param24"}
-Number Kitchen_Accent_Sink_LED_5_Color "Kitchen Accent Sink Led 5 Color" (Kitchen_Accent_Sing_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param25"}
-Number Kitchen_Accent_Sink_LED_6_Color "Kitchen Accent Sink Led 6 Color" (Kitchen_Accent_Sing_Control, Small_Garage_Door_Open_LEDs) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param26"}
-Number Kitchen_Accent_Sink_LED_7_Color "Kitchen Accent Sink Led 7 Color" (Kitchen_Accent_Sing_Control, Large_Garage_Door_Open_LEDs) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param27"}
+Group Kitchen_Accent_Sink_Control (FF_Kitchen) ["Equipment"]
+Dimmer Kitchen_Accent_Sink_Dimmer "Kitchen Accent Lights (Sink)" <lightbulb> (Kitchen_Accent_Sink_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node41:switch_dimmer" }
+Number Kitchen_Accent_Sink_Scene_Number "Kitchen Accent Sink Scene Number" (Kitchen_Accent_Sink_Control, FF_Kitchen_Accents_Scene) ["Point"] {channel="zwave:device:8c18403e:node41:scene_number"}
+Number Kitchen_Accent_Sink_LED_1_Color "Kitchen Accent Sink Led 1 Color" (Kitchen_Accent_Sink_Control, C_Occupancy_LEDs) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param21"}
+Number Kitchen_Accent_Sink_LED_2_Color "Kitchen Accent Sink Led 2 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param22"}
+Number Kitchen_Accent_Sink_LED_3_Color "Kitchen Accent Sink Led 3 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param23"}
+Number Kitchen_Accent_Sink_LED_4_Color "Kitchen Accent Sink Led 4 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param24"}
+Number Kitchen_Accent_Sink_LED_5_Color "Kitchen Accent Sink Led 5 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param25"}
+Number Kitchen_Accent_Sink_LED_6_Color "Kitchen Accent Sink Led 6 Color" (Kitchen_Accent_Sink_Control, Small_Garage_Door_Open_LEDs) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param26"}
+Number Kitchen_Accent_Sink_LED_7_Color "Kitchen Accent Sink Led 7 Color" (Kitchen_Accent_Sink_Control, Large_Garage_Door_Open_LEDs) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param27"}
 
 Group Kitchen_Lights_Control (FF_Kitchen) ["WallSwitch"]
 Switch Kitchen_Lights "Kitchen Lights" <lightbulb> (Kitchen_Lights_Control, Normal_Kitchen_Lights, All_Kitchen_Lights) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node45:switch_binary" }

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 require 'openhab'
-
-$LOAD_PATH.unshift(ENV["RUBYLIB"]) if ENV["RUBYLIB"]
 require 'homeseer'
 
 rule "Garage Doors Change State" do
@@ -13,7 +11,7 @@ rule "Garage Doors Change State" do
 
     color, status_text = item != "closed" ? [Homeseer::Led_Color::RED, "opened"] : [Homeseer::Led_Color::GREEN, "closed"]
 
-    leds.members.each { |i| i << color unless i == color }
+    leds.each { |i| i << color unless i == color }
     TV_Notifications << "#{item.label} #{status_text}"
   end
 end

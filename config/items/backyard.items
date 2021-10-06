@@ -16,3 +16,5 @@ Number:Speed Backyard_Wind_Speed "Wind speed [%d %unit%]" <wind> (Backyard_Weath
 Number:Speed Backyard_Windgust "Windgust [%d %unit%]" <wind> (Backyard_Weather_Station) ["Measurement"] {channel="mqtt:homie300:9bfbccd9:acuparse:weather#windgust"}
 Number:Angle Backyard_Windgust_Direction "Windgust direction [%d º]" <wind> (Backyard_Weather_Station) ["Measurement"] {channel="mqtt:homie300:9bfbccd9:acuparse:weather#windgust_2Ddirection"}
 Number:Speed Backyard_Windspeed_Average "Windspeed average [%d %unit%]" <wind> (Backyard_Weather_Station) ["Measurement"] {channel="mqtt:homie300:9bfbccd9:acuparse:weather#windspeed_2Daverage"}
+
+Switch Backyard_Outdoor_Decorations_Switch "Backyard Outdoor Decorations" <lightbulb> (Backyard) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node49:switch_binary" }

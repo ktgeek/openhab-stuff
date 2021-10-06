@@ -9,11 +9,14 @@ Group	FF_Entrance  "Entrance"       <corridor>     (FF)    ["Entry"]
 Group FF_Office    "Office"         <office>       (FF)    ["Office"]
 Group FF_Dining    "Dining Room"    <party>        (FF)    ["DiningRoom"]
 Group Backyard     "Backyard"                      (Home)  ["Outdoor"]
+Group Front_Yard   "Front Yard"                    (Home)  ["Outdoor"]
 
 Group TV_Notifications "TV Notifications" <screen> (Home) ["Status"]
 
 Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
 Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (Front_Yard_Lights) ["Point"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13009CA:state" }
+
+Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
 
 // First Floor - Entrance
 Group:Switch:OR(ON,OFF) All_Hall_Lights "Hall Lights" <lightbulb> (FF_Entrance) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
@@ -21,9 +24,6 @@ Switch Switch_Entrance_Hall_Light "Hall Table Light" <lightbulb> (All_Hall_Light
 
 // Virtual test
 Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF_Entrance) ["WallSwitch"] { alexa="Switchable", homekit="Switchable" }
-
-
-Switch Backyard_Outdoor_Decorations_Switch "Backyard Outdoor Decorations" <lightbulb> (Backyard) { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node49:switch_binary" }
 
 String Sun_Status "Is the sun up or down?"
 
