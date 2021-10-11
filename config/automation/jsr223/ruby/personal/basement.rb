@@ -99,7 +99,7 @@ rule "when the exersize room dimmer has a scene change" do
   updated Exercise_Room_Dimmer_Scene_Number
 
   run do
-    case(Exercise_Room_Occupancy_Sensor)
+    case(Exercise_Room_Dimmer_Scene_Number)
     when Homeseer::PADDLE_UP_TWO_CLICKS
       Basement_Stairs_Switch.on unless Basement_Stairs_Switch.on?
     when Homeseer::PADDLE_DOWN_TWO_CLICKS
@@ -109,7 +109,7 @@ rule "when the exersize room dimmer has a scene change" do
       Exercise_Room_Bike_Trainer_Switch.on unless Exercise_Room_Bike_Trainer_Switch.on?
     when Homeseer::PADDLE_DOWN_THREE_CLICKS
       Exercise_Room_Bike_Trainer_Enabled.off
-      Exercise_Room_Bike_Trainer_Switch.on unless Exercise_Room_Bike_Trainer_Switch.on?
+      Exercise_Room_Bike_Trainer_Switch.off unless Exercise_Room_Bike_Trainer_Switch.off?
     end
   end
 end
