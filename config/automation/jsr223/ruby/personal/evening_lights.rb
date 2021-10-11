@@ -24,13 +24,23 @@ rule "Nights off at end of day" do
   end
 end
 
+rule "when we turn off VisitorMode" do
+  changed VisitorMode_Switch, to: OFF
+
+  run do
+    case TimeOfDay.now
+    when between('22:30'..'11:59:59'), between('0:00..3:01')
+      VisitorMode_Switch.off unless VisitorMode_Switch.off?
+      Front_Yard_Lights.off unless Front_Yard_Lights.off?
+      All_Hall_Lights.off unless All_Hall_Lights.off?
+    end
+  end
+end
+
 # We are generally still not rocking out at 3am
 rule "reset visitor mode" do
   cron "0 0 3 ? * *"
 
-  run do
-    VisitorMode_Switch.off unless VisitorMode_Switch.off?
-    Front_Yard_Lights.off unless Front_Yard_Lights.off?
-    All_Hall_Lights.off unless All_Hall_Lights.off?
-  end
+  run { VisitorMode_Switch.off }
+  only_if { VisitorMode_Switch.on? }
 end
