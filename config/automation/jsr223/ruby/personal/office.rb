@@ -3,6 +3,8 @@
 require 'openhab'
 require 'wifi_led'
 
+stored_led_states = nil
+
 rule "when a zoom meeting is happening" do
   changed Zoom_Active_Switch
 
@@ -10,6 +12,10 @@ rule "when a zoom meeting is happening" do
     commands = 0
 
     if event.state == ON
+      if Office_Door_LED_Power.on? && Office_Door_LED_Program != WifiLED::Program::NO_PROGRAM
+        stored_led_states = store_states Office_Door_LED_Program
+      end
+
       if Office_Door_LED_Power.off?
         Office_Door_LED_Power.on
         commands += 1
@@ -27,7 +33,33 @@ rule "when a zoom meeting is happening" do
         after((commands*2).seconds) { Office_Door_LED_Color << WifiLED::Color::RED }
       end
     else
-      Office_Door_LED_Power.off unless Office_Door_LED_Power.off?
+      if stored_led_states
+        stored_led_states&.restore_changes
+        stored_led_states = nil
+      else
+        Office_Door_LED_Power.off unless Office_Door_LED_Power.off?
+      end
     end
   end
+end
+
+rule "Monitor LEDS off at end of day" do
+  cron "0 30 22 ? * *"
+
+  run { Office_Monitor_LED.off }
+  only_if { Office_Monitor_LED.on? }
+end
+
+rule "Monitor LEDS off at end of workday" do
+  cron "0 30 17 ? * MON-FRI"
+
+  run { Office_Monitor_LED.off }
+  only_if { Office_Monitor_LED.on? }
+end
+
+rule "Monitor LEDS on at start of workday" do
+  cron "0 30 8 ? * MON-FRI"
+
+  run { Office_Monitor_LED.on }
+  only_if { Office_Monitor_LED.off? }
 end
