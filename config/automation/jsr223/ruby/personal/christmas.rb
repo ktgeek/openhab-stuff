@@ -1,4 +1,44 @@
+# froze_string_literal: true
+
 require 'openhab'
+require 'wifi_led'
+
+rule "decoriations on at sunset" do
+  channel "astro:sun:local:set#event", triggered: "START"
+
+  run do
+    Porch_Decoriations_Switch.on unless Porch_Decoriations_Switch.on?
+    Front_Yard_Outdoor_Decorations_Switch.on unless Front_Yard_Outdoor_Decorations_Switch.on?
+    # Setting the program also turns on the light if its off.
+    # We only want to do this if the office isn't already on, making an assumption i'm already in a meeting...
+    Office_Door_LED_Program << WifiLED::Program::PURPLE_FADE if Zoom_Active_Switch.off? && Office_Door_LED_Program != WifiLED::Program::PURPLE_FADE
+  end
+end
+
+rule "decoriations off at night" do
+  cron "0 30 22 ? * *"
+
+  run do
+    unless VisitorMode_Switch.on?
+      Porch_Decoriations_Switch.off unless Porch_Decoriations_Switch.off?
+      Front_Yard_Outdoor_Decorations_Switch.off unless Front_Yard_Outdoor_Decorations_Switch.off?
+      Office_Door_LED_Power.off unless Office_Door_LED_Power.off?
+    end
+  end
+end
+
+rule "when we turn off VisitorMode" do
+  changed VisitorMode_Switch, to: OFF
+
+  run do
+    case TimeOfDay.now
+    when between('22:30'..'11:59:59'), between('0:00..3:01')
+      Porch_Decoriations_Switch.off unless Porch_Decoriations_Switch.off?
+      Front_Yard_Outdoor_Decorations_Switch.off unless Front_Yard_Outdoor_Decorations_Switch.off?
+      Office_Door_LED_Power.off unless Office_Door_LED_Power.off?
+    end
+  end
+end
 
 # This rules aren't translated into ruby yet, but I didn't want to lose what they were
 
@@ -48,3 +88,4 @@ require 'openhab'
 #   Kitchen_Echo_TTS.sendCommand("Merry Christmas!")
 #   Basement_Echo_TTS.sendCommand("Merry Christmas!")
 # end
+

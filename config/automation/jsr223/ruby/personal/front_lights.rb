@@ -11,7 +11,13 @@ end
 rule "Morning Lights On For Rides" do
   cron "0 0 5 ? * TUE,THU"
 
-  run { Front_Yard_Lights.on if Sun_Status == "DOWN" && Front_Yard_Lights.off? }
+  # run { Front_Yard_Lights.on if Sun_Status == "DOWN" && Front_Yard_Lights.off? }
+  run do
+    if Sun_Status == "DOWN"
+      Front_Yard_Lights.on unless Front_Yard_Lights.on?
+      Garage_OutdoorLights_Switch.on unless Garage_OutdoorLights_Switch.on?
+    end
+  end
 end
 
 rule "Morning lights on" do
@@ -20,7 +26,7 @@ rule "Morning lights on" do
   run do
     if Sun_Status == "DOWN"
       Front_Yard_Lights.on unless Front_Yard_Lights.on?
-      # Garage_OutdoorLights_Switch.on unless Garage_OutdoorLights_Switch.on?
+      Garage_OutdoorLights_Switch.on unless Garage_OutdoorLights_Switch.on?
     end
   end
 end
@@ -30,6 +36,6 @@ rule "Morning lights off" do
 
   run do
     Front_Yard_Lights.off unless Front_Yard_Lights.off?
-    # Garage_OutdoorLights_Switch.off unless Front_Yard_Lights.off?
+    Garage_OutdoorLights_Switch.off unless Garage_OutdoorLights_Switch.off?
   end
 end
