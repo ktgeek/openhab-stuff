@@ -32,7 +32,7 @@ module Homeseer
   PADDLE_DOWN_FOUR_CLICKS = 2.5
   PADDLE_DOWN_FIVE_CLICKS = 2.6
 
-  module Led_Color
+  module LedColor
     OFF = 0
     RED = 1
     GREEN = 2

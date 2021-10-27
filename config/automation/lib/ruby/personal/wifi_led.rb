@@ -33,6 +33,8 @@ module WifiLED
 
   module Color
     # color is a 360 value, then saturation and brighteness.  This is FULL RED
-    RED = "0,100,100"
+    #RED = "0,100,100"
+    #RED = "#ff0000"
+    RED = OpenHAB::DSL::Types::HSBType.new(0, 100, 100)
   end
 end

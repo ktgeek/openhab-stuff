@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'openhab'
 require 'homeseer'
 
@@ -9,9 +10,9 @@ rule "Garage Doors Change State" do
     underscore_label = item.label.tr(" ", "_")
     leds = items["#{underscore_label}_Open_LEDs"]
 
-    color, status_text = item != "closed" ? [Homeseer::Led_Color::RED, "opened"] : [Homeseer::Led_Color::GREEN, "closed"]
+    color, status_text = item == "closed" ? [Homeseer::LedColor::GREEN, "closed"] : [Homeseer::LedColor::RED, "opened"]
 
-    leds.each { |i| i << color unless i == color }
+    leds.each { |i| i.ensure << color }
     TV_Notifications << "#{item.label} #{status_text}"
   end
 end

@@ -2,7 +2,7 @@
 
 require 'openhab'
 require 'wifi_led'
-require 'utilities'
+require 'delayed_command'
 
 stored_led_states = nil
 
@@ -10,22 +10,25 @@ rule "when a zoom meeting is on" do
   changed Zoom_Active_Switch, to: ON
 
   run do
-    stored_led_states = store_states Office_Door_LED_Program if Office_Door_LED_Power.on? && Office_Door_LED_Program != WifiLED::Program::NO_PROGRAM
-
+    if Office_Door_LED_Power.on? && Office_Door_LED_Program != WifiLED::Program::NO_PROGRAM
+      stored_led_states = store_states Office_Door_LED_Program
+    end
     commands = []
 
-    commands << [Office_Door_LED_Power, ON] if Office_Door_LED_Power.off?
+    commands << DelayedCommand.new(Office_Door_LED_Power, ON)
 
-    commands << [Office_Door_LED_Program, WifiLED::Program::NO_PROGRAM] unless Office_Door_LED_Program == WifiLED::Program::NO_PROGRAM
+    commands << DelayedCommand.new(Office_Door_LED_Program, WifiLED::Program::NO_PROGRAM)
 
-    commands << [Office_Door_LED_Color, WifiLED::Color::RED] if Utilities::color_to_string(Office_Door_LED_Color) != WifiLED::Color::RED
+    commands << DelayedCommand.new(Office_Door_LED_Color, WifiLED::Color::RED)
 
     # The wifi LED controller seems to get really angry if I send too many wifi commands at the same time,
-    # so we'll add a delay of 2 seconds per number of commands run
-    last_command = commands.last
-    commands.each do |c|
-      c[0] << c[1]
-      sleep 2 unless c == last_command
+    # so we"ll add a delay of 2 seconds per number of commands run
+    commands.shift.execute
+    unless commands.empty?
+      after(2.seconds) do |timer|
+        commands.shift.execute
+        timer.reschedule unless commands.empty?
+      end
     end
   end
 end
@@ -35,10 +38,10 @@ rule "when a zoom meeting is over" do
 
   run do
     if stored_led_states
-        stored_led_states&.restore_changes
-        stored_led_states = nil
+      stored_led_states&.restore_changes
+      stored_led_states = nil
     else
-      Office_Door_LED_Power.off unless Office_Door_LED_Power.off?
+      Office_Door_LED_Power.ensure.off
     end
   end
 end
