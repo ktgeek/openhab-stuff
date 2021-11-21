@@ -38,3 +38,4 @@ Number Front_Door_Lock_Battery_Level "Front Door Lock Battery level [%.1f %%]" <
 
 Contact Front_Door_Contact "Front Door" (FF_Entrance) ["Point"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_1" }
 
+String Holiday_Mode "Are we operating in a holiday mode?"
