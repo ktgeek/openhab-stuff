@@ -8,17 +8,16 @@ rule "Front Yard Lights follow ON" do
   run { |event| Front_Yard_Lights.each { |i| i.ensure << event.state } }
 end
 
-rule "Morning Lights On For Rides" do
-  cron "0 0 5 ? * TUE,THU"
+# rule "Morning Lights On For Rides" do
+#   cron "0 0 5 ? * TUE,THU"
 
-  # run { Front_Yard_Lights.on if Sun_Status == "DOWN" && Front_Yard_Lights.off? }
-  run do
-    if Sun_Status == "DOWN"
-      Front_Yard_Lights.ensure.on
-      Garage_OutdoorLights_Switch.ensure.on
-    end
-  end
-end
+#   run do
+#     if Sun_Status == "DOWN"
+#       Front_Yard_Lights.ensure.on
+# #      Garage_OutdoorLights_Switch.ensure.on
+#     end
+#   end
+# end
 
 rule "Morning lights on" do
   cron "0 50 5 ? * MON-FRI"
@@ -26,7 +25,7 @@ rule "Morning lights on" do
   run do
     if Sun_Status == "DOWN"
       Front_Yard_Lights.ensure.on
-      Garage_OutdoorLights_Switch.ensure.on
+      # Garage_OutdoorLights_Switch.ensure.on
     end
   end
 end
@@ -36,6 +35,6 @@ rule "Morning lights off" do
 
   run do
     Front_Yard_Lights.ensure.off
-    Garage_OutdoorLights_Switch.ensure.off
+    # Garage_OutdoorLights_Switch.ensure.off
   end
 end

@@ -7,12 +7,10 @@ rule "Garage Doors Change State" do
   changed [Large_Garage_Door_Status, Small_Garage_Door_Status]
 
   triggered do |item|
-    underscore_label = item.label.tr(" ", "_")
-    leds = items["#{underscore_label}_Open_LEDs"]
+    TV_Notifications << "#{item.label} #{item.state}"
 
-    color, status_text = item == "closed" ? [Homeseer::LedColor::GREEN, "closed"] : [Homeseer::LedColor::RED, "opened"]
-
+    color = item == "closed" ? Homeseer::LedColor::GREEN : Homeseer::LedColor::RED
+    leds = items["#{item.name[0..-8]}_Open_LEDs"]
     leds.each { |i| i.ensure << color }
-    TV_Notifications << "#{item.label} #{status_text}"
   end
 end

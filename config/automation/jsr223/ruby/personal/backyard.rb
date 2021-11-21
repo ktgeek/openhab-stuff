@@ -2,6 +2,12 @@
 
 require 'openhab'
 
+rule "Backyard lights follow" do
+  changed Backyard_Lights.members
+
+  run { |event| Backyard_Lights.each { |i| i.ensure << event.state } }
+end
+
 rule "check for weather data" do
   changed Backyard_Weather_Updated_At, for: 20.minutes
 

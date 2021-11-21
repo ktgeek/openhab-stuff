@@ -1,4 +1,4 @@
-Switch Office_Windows_Switch "Office Lights" <poweroutlet_us> (FF_Office, Christmas_Lights) ["WallSwitch"] { homekit="Lighting", alexa="Lighting", channel="wemo:socket:Socket-1_0-221625K01014A7:state" }
+// Switch Office_Windows_Switch "Office Lights" <poweroutlet_us> (FF_Office, Christmas_Lights) ["WallSwitch"] { homekit="Lighting", alexa="Lighting", channel="wemo:socket:Socket-1_0-221625K01014A7:state" }
 
 Group Office_Door_LED "Office Door" (FF_Office) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
 Switch Office_Door_LED_Power "Office Door Power" (Christmas_Lights, Office_Door_LED) ["Switch"] { homekit="Lighting.OnState", alexa="PowerController.powerState", channel="wifiled:wifiled:F4CFA224A472:power" }
@@ -7,5 +7,8 @@ String Office_Door_LED_Program "Office Door Program" (Office_Door_LED) ["Point"]
 Dimmer Office_Door_LED_Program_Speed "Office Door Program Speed" (Office_Door_LED) ["Point"] { channel="wifiled:wifiled:F4CFA224A472:programSpeed" }
 
 Group:Switch:OR(ON,OFF) Zoom_Active_Switch "Zoom Active" (FF_Office) ["Status"]
-Switch Office_Phineas_Zoom "Phineas Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="mqtt:homie300:9bfbccd9:phineas:zoom_2Dactivity#status" }
-Switch Office_kgarner_l2_Zoom "kgarner-l2 Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="mqtt:homie300:9bfbccd9:kgarner-l2:zoom_2Dactivity#status" }
+Switch Office_Phineas_Zoom "Phineas Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="mqtt:homie300:26bcbec1ee:phineas:zoom_2Dactivity#status" }
+Switch Office_kgarner_l2_Zoom "kgarner-l2 Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="mqtt:homie300:26bcbec1ee:kgarner-l2:zoom_2Dactivity#status" }
+
+Switch Office_Monitor_LED "Monitor LEDs" (FF_Office) ["Lightbulb"] { homekit="Lighting", channel="mqtt:homie300:26bcbec1ee:lithium:hyperion#led_2Dstatus" }
+

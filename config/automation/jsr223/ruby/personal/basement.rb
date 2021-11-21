@@ -3,7 +3,7 @@
 require 'openhab'
 require 'homeseer'
 
-off_timers = {}
+off_timers ||= {}
 OCCUPANCY_COUNT_LED_GROUPS = Array.new(7) { |i| items["Basement_Occupancy_Count_#{i + 1}"] }.freeze
 
 rule "when movie mode is turned on" do
@@ -32,19 +32,14 @@ rule "when normal mode is turned on" do
 end
 
 rule "When the count of the occupancy sensor changes" do
-  updated [Hiome_Basement_Occupancy_Count, Hiome_Exercise_Room_Occupancy_Count]
+  updated Basement_Occupancy_Counters.members
 
-  run do
-    after(25.milliseconds) do
-      new_total_occupancy = Hiome_Basement_Occupancy_Count + Hiome_Exercise_Room_Occupancy_Count
-      C_Total_Basement_Occupancy.update(new_total_occupancy)
-    end
+  triggered do |item|
+    after(25.milliseconds) { C_Total_Basement_Occupancy.update(Basement_Occupancy_Counters.members.sum) }
+
+    sensor = items["#{item.name[6..-7]}_Sensor"]
+    sensor.update(item.positive? ? ON : OFF)
   end
-end
-
-rule "When someone enters/leaves the main basement area" do
-  updated Hiome_Basement_Occupancy_Count
-  run { Basement_Occupancy_Sensor.update(Hiome_Basement_Occupancy_Count.positive? ? ON : OFF) }
 end
 
 rule "when someone enters/leaves downstairs" do
@@ -58,12 +53,11 @@ rule "when someone enters/leaves downstairs" do
         Basement_Stairs_Switch.ensure.on
         Basement_TV_Toast << "Someone has entered the basement"
       end
-
-      C_Occupancy_LEDs.each { |i| i.ensure << Homeseer::LedColor::CYAN }
     else
       off_timers[event.item] = after(120.seconds) { C_All_Lights.each { |i| i.ensure.off } }
-      C_Occupancy_LEDs.each { |i| i.ensure << Homeseer::LedColor::OFF }
     end
+
+    C_Occupancy_LEDs.each { |i| i.ensure << [C_Total_Basement_Occupancy, Homeseer::LedColor::WHITE].min }
 
     # Turn on and off leds to do a "meter" of how many people are in the basement
     OCCUPANCY_COUNT_LED_GROUPS[0, C_Total_Basement_Occupancy].each do |led_group|
@@ -86,13 +80,11 @@ rule "when someone enters/leaves the exercise room" do
       if Exercise_Room_Bike_Trainer_Switch.off? && Exercise_Room_Bike_Trainer_Enabled.on?
         Exercise_Room_Bike_Trainer_Switch.ensure.on
       end
-      Exercise_Room_Occupancy_Sensor.update(ON)
     else
       off_timers[event.item] = after(90.seconds) do
         Exercise_Room_Light.ensure.off
         Exercise_Room_Bike_Trainer_Switch.ensure.off
       end
-      Exercise_Room_Occupancy_Sensor.update(OFF)
     end
   end
 end
@@ -112,6 +104,20 @@ rule "when the exersize room dimmer has a scene change" do
     when Homeseer::PADDLE_DOWN_THREE_CLICKS
       Exercise_Room_Bike_Trainer_Enabled.off
       Exercise_Room_Bike_Trainer_Switch.ensure.off
+    end
+  end
+end
+
+rule "when someone enters the basement hallway" do
+  changed Hiome_Basement_Hallway_Occupancy_Count
+
+  run do |event|
+    off_timers.delete(event.item)&.cancel
+
+    if Hiome_Basement_Hallway_Occupancy_Count.positive?
+      Basement_Hallway_Lights_Switch.ensure.on
+    else
+      off_timers[event.item] = after(60.seconds) { Basement_Hallway_Lights_Switch.ensure.off }
     end
   end
 end

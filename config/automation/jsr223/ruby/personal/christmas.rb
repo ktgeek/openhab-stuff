@@ -3,44 +3,47 @@
 require 'openhab'
 require 'wifi_led'
 
-rule "decorations on at sunset" do
-  channel "astro:sun:local:set#event", triggered: "START"
+# rule "decorations on at sunset" do
+#   channel "astro:sun:local:set#event", triggered: "START"
 
-  run do
-    Porch_Decoriations_Switch.ensure.on
-    Front_Yard_Outdoor_Decorations_Switch.ensure.on
-    # Setting the program also turns on the light if its off.
-    # We only want to do this if the office isn't already on, making an assumption i'm already in a meeting...
-    if Zoom_Active_Switch.off? && Office_Door_LED_Program != WifiLED::Program::PURPLE_FADE
-      Office_Door_LED_Program << WifiLED::Program::PURPLE_FADE
-    end
-  end
-end
+#   run do
+#     Porch_Decoriations_Switch.ensure.on
+#     Front_Yard_Outdoor_Decorations_Switch.ensure.on
+#     # Setting the program also turns on the light if its off.
+#     # We only want to do this if the office isn't already on, making an assumption i'm already in a meeting...
+#     if Zoom_Active_Switch.off? && Office_Door_LED_Program != WifiLED::Program::PURPLE_FADE
+#       Office_Door_LED_Program << WifiLED::Program::PURPLE_FADE
+#     end
 
-rule "decoriations off at night" do
-  cron "0 30 22 ? * *"
+#     # Kitchen_Echo_TTS << "Spooky! Scary! Halloween!"
+#     # Basement_Echo_TTS << "Spooky! Scary! Halloween!"
+#   end
+# end
 
-  run do
-    unless VisitorMode_Switch.on?
-      Porch_Decoriations_Switch.ensure.off
-      Front_Yard_Outdoor_Decorations_Switch.ensure.off
-      Office_Door_LED_Power.ensure.off
-    end
-  end
-end
+# rule "decoriations off at night" do
+#   cron "0 30 22 ? * *"
 
-rule "when we turn off VisitorMode" do
-  changed VisitorMode_Switch, to: OFF
+#   run do
+#     unless VisitorMode_Switch.on?
+#       Porch_Decoriations_Switch.ensure.off
+#       Front_Yard_Outdoor_Decorations_Switch.ensure.off
+#       Office_Door_LED_Power.ensure.off
+#     end
+#   end
+# end
 
-  run do
-    case TimeOfDay.now
-    when between('22:30'..'11:59:59'), between('0:00'..'3:01')
-      Porch_Decoriations_Switch.ensure.off
-      Front_Yard_Outdoor_Decorations_Switch.ensure.off
-      Office_Door_LED_Power.ensure.off
-    end
-  end
-end
+# rule "when we turn off VisitorMode" do
+#   changed VisitorMode_Switch, to: OFF
+
+#   run do
+#     case TimeOfDay.now
+#     when between('22:30'..'11:59:59'), between('0:00'..'3:01')
+#       Porch_Decoriations_Switch.ensure.off
+#       Front_Yard_Outdoor_Decorations_Switch.ensure.off
+#       Office_Door_LED_Power.ensure.off
+#     end
+#   end
+# end
 
 # This rules aren't translated into ruby yet, but I didn't want to lose what they were
 

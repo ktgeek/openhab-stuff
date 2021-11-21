@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-logger.info("Loading script #{__FILE__}")
+logger.warn("Loading script #{__FILE__}")
 
 module Homeseer
   # This is how to map actions to scenes for a the homeseer switch
