@@ -93,13 +93,14 @@ rule "when the exersize room door is closed" do
   changed Hiome_Exercise_Room_Door_Contact, to: CLOSED
 
   run do
-    off_timers.delete(Hiome_Exercise_Room_Occupancy_Count)&.cancel
     Basement_Hallway_Lights_Switch.ensure.off
     Exercise_Room_Light.ensure.off
     Exercise_Room_Bike_Trainer_Switch.ensure.off
+
+    Basement_Deadend_Occupancy_Counters.members.each { |i| off_timers.delete(i)&.cancel }
   end
 
-  only_if { Hiome_Exercise_Room_Occupancy_Count + Hiome_Basement_Hallway_Occupancy_Count < 1 }
+  only_if { Basement_Deadend_Occupancy_Counters.members.sum < 1 }
 end
 
 rule "when the exersize room dimmer has a scene change" do
