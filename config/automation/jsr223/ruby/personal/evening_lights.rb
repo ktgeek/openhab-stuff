@@ -6,8 +6,8 @@ rule "night lights on" do
   channel "astro:sun:local:set#event", triggered: "START"
 
   run do
-    Front_Yard_Lights.ensure.on
-    All_Hall_Lights.ensure.on
+    Front_Yard_Lights.members.ensure.on
+    All_Hall_Lights.members.ensure.on
   end
 end
 
@@ -18,8 +18,8 @@ rule "Nights off at end of day" do
     if VisitorMode_Switch.on?
       logger.info("Visitor mode on, not turning off lights")
     else
-      Front_Yard_Lights.ensure.off
-      All_Hall_Lights.ensure.off
+      Front_Yard_Lights.members.ensure.off
+      All_Hall_Lights.members.ensure.off
     end
   end
 end
@@ -31,8 +31,8 @@ rule "when we turn off VisitorMode" do
     case TimeOfDay.now
     when between('22:30'..'11:59:59'), between('0:00'..'3:01')
       VisitorMode_Switch.ensure.off
-      Front_Yard_Lights.ensure.off
-      All_Hall_Lights.ensure.off
+      Front_Yard_Lights.members.ensure.off
+      All_Hall_Lights.members.ensure.off
     end
   end
 end

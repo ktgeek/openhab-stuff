@@ -11,6 +11,7 @@ rule "Garage Doors Change State" do
 
     color = item == "closed" ? Homeseer::LedColor::GREEN : Homeseer::LedColor::RED
     leds = items["#{item.name[0..-8]}_Open_LEDs"]
-    leds.each { |i| i.ensure << color }
+    leds.members.ensure << color
+    #leds.each { |i| i.ensure << color }
   end
 end

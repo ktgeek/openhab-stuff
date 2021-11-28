@@ -16,8 +16,6 @@ Number:Energy FamilyRoom_Wall_Outlet_kWh "Family Room Wall Outlet Power [%.1f kW
 Number:Energy FamilyRoom_Wall_Outlet_Watts "Family Room Wall Outlet Power [%.1f Ws]" (FamilyRoom_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node11:meter_watts" }
 Switch FamilyRoom_Wall_Outlet_In_Use "Family Room Wall Outlet In Use [JS(outletinuse.js):%s]" (FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node11:meter_watts" }
 
-String FamilyRoom_TV_Toast "Family Room TV Toast" (FF_FamilyRoom, TV_Notifications) ["Point", "Status"] {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:toast"}
-
 Group FamilyRoom_LED "Family Room LEDs" (FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
 Switch FamilyRoom_LED_Power "Family Room LED Power" (FamilyRoom_LED) ["Switch"] { homekit="Lighting.OnState", alexa="PowerController.powerState", channel="mqtt:topic:26bcbec1ee:7c3c7016a5:power" }
-Color FamilyRoom_LED_Color "Family Room LED Color" (FamilyRoom_LED) ["Point"] { homekit="Lighting.Hue, Lighting.Brightness, Lighting.Saturation", alexa="BrightnessController.brightness", channel="mqtt:topic:26bcbec1ee:7c3c7016a5:Color" }
+Color FamilyRoom_LED_Color "Family Room LED Color" (FamilyRoom_LED) ["Point"] { homekit="Lighting.Hue, Lighting.Brightness, Lighting.Saturation", alexa="BrightnessController.brightness,ColorController.color", channel="mqtt:topic:26bcbec1ee:7c3c7016a5:Color" }

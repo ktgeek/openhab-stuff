@@ -8,6 +8,7 @@ Group FF_Porch     "Porch"          <frontdoor>    (Home)  ["Porch"]
 Group	FF_Entrance  "Entrance"       <corridor>     (FF)    ["Entry"]
 Group FF_Office    "Office"         <office>       (FF)    ["Office"]
 Group FF_Dining    "Dining Room"    <party>        (FF)    ["DiningRoom"]
+Group FF_Laundry_Room "Laundry Room"               (FF)
 Group Backyard     "Backyard"                      (Home)  ["Outdoor"]
 Group Front_Yard   "Front Yard"                    (Home)  ["Outdoor"]
 
@@ -16,9 +17,8 @@ Group TV_Notifications "TV Notifications" <screen> (Home) ["Status"]
 Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
 Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (Front_Yard_Lights) ["Point"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13009CA:state" }
 
-Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
-//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
-Switch Porch_Decoriations_Switch "Porch Decorations" <party> (Front_Yard) ["WallSwitch"] { homekit="Switchable", alexa="Switchable", channel="zwave:device:8c18403e:node51:switch_binary" }
+Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
+Switch Porch_Decoriations_Switch "Porch Decorations" <party> (Front_Yard, Christmas_Outside) ["WallSwitch"] { homekit="Switchable", alexa="Switchable", channel="zwave:device:8c18403e:node51:switch_binary" }
 
 // First Floor - Entrance
 Group:Switch:OR(ON,OFF) All_Hall_Lights "Hall Lights" <lightbulb> (FF_Entrance) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
@@ -30,12 +30,13 @@ Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF_Entrance) ["WallSwitc
 String Sun_Status "Is the sun up or down?"
 
 Group gFront_Door_Lock "Front Door Lock" (FF_Entrance) ["Equipment"] { homekit="Lock" }
-Switch Front_Door_Lock "Front Door Lock" <lock> (gFront_Door_Lock) ["Lock"] { homekit="Lock.LockTargetState" }
+Switch Front_Door_Lock "Front Door Lock" <lock> (gFront_Door_Lock) ["Lock"] { homekit="Lock.LockTargetState", alexa="LockController.lockState" [itemSensor="Front_Door_Lock_Actual_Homekit"] }
 Switch Front_Door_Lock_Actual <lock> (gFront_Door_Lock) { channel="zwave:device:8c18403e:node55:lock_door", autoupdate="false" }
 Number Front_Door_Lock_Actual_Homekit (gFront_Door_Lock) { homekit="Lock.LockCurrentState" }
 String Front_Door_Lock_Alarm_Raw "Front Door Lock Alarm (raw)" (gFront_Door_Lock) ["Point"] { channel="zwave:device:8c18403e:node55:alarm_raw" }
 Number Front_Door_Lock_Battery_Level "Front Door Lock Battery level [%.1f %%]" <battery> (gFront_Door_Lock) ["Point"] { channel="zwave:device:8c18403e:node55:battery-level" }
 
 Contact Front_Door_Contact "Front Door" (FF_Entrance) ["Point"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_1" }
+Contact Laundry_Room_Door_Contact "Laundry Room Door" (FF_Laundry_Room) ["Point"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_4" }
 
-String Holiday_Mode "Are we operating in a holiday mode?"
+String Holiday_Mode "Holiday Mode" (FF_Entrance) ["Point"]

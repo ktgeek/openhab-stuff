@@ -11,7 +11,7 @@ def reset_basement
   basement_hiome_room_ids.each do |i|
     HTTP::sendHttpPutRequest("http://hiome.kgarner.com/api/1/rooms/#{i}", "application/json", '{"occupancy_count": 0}')
   end
-  C_All_Lights.each { |i| i.ensure.off }
+  C_All_Lights.members.ensure.off
 end
 
 rule "when the kitchen accent switchs have a scene change" do
@@ -26,13 +26,13 @@ rule "when ktichen lights scene change" do
   run do |event|
     case event.state
     when Homeseer::PADDLE_UP_HOLD, Homeseer::PADDLE_UP_TWO_CLICKS
-      Normal_Kitchen_Lights.each { |i| i.ensure.on }
+      Normal_Kitchen_Lights.members.ensure.on
     when Homeseer::PADDLE_DOWN_HOLD, Homeseer::PADDLE_DOWN_TWO_CLICKS
-      Normal_Kitchen_Lights.each { |i| i.ensure.off }
+      Normal_Kitchen_Lights.members.ensure.off
     when Homeseer::PADDLE_UP_THREE_CLICKS
-      All_Kitchen_Lights.each { |i| i.ensure.on }
+      All_Kitchen_Lights.members.ensure.on
     when Homeseer::PADDLE_DOWN_THREE_CLICKS
-      All_Kitchen_Lights.each { |i| i.ensure.off }
+      All_Kitchen_Lights.members.ensure.off
     when Homeseer::PADDLE_DOWN_FOUR_CLICKS
       reset_basement
     end

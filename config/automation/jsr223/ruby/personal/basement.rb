@@ -57,7 +57,8 @@ rule "when someone enters/leaves downstairs" do
       off_timers[event.item] = after(120.seconds) { C_All_Lights.each { |i| i.ensure.off } }
     end
 
-    C_Occupancy_LEDs.each { |i| i.ensure << [C_Total_Basement_Occupancy, Homeseer::LedColor::WHITE].min }
+    color = [C_Total_Basement_Occupancy, Homeseer::LedColor::WHITE].min
+    C_Occupancy_LEDs.each { |i| i.ensure << color }
 
     # Turn on and off leds to do a "meter" of how many people are in the basement
     OCCUPANCY_COUNT_LED_GROUPS[0, C_Total_Basement_Occupancy].each do |led_group|
@@ -87,6 +88,19 @@ rule "when someone enters/leaves the exercise room" do
       end
     end
   end
+end
+
+rule "when the exersize room door is closed" do
+  changed Hiome_Exercise_Room_Door_Contact, to: CLOSED
+
+  run do
+    off_timers.delete(Hiome_Exercise_Room_Occupancy_Count)&.cancel
+    Basement_Hallway_Lights_Switch.ensure.off
+    Exercise_Room_Light.ensure.off
+    Exercise_Room_Bike_Trainer_Switch.ensure.off
+  end
+
+  only_if { Hiome_Exercise_Room_Occupancy_Count + Hiome_Basement_Hallway_Occupancy_Count < 1 }
 end
 
 rule "when the exersize room dimmer has a scene change" do

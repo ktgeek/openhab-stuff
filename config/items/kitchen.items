@@ -5,7 +5,6 @@ Group    Normal_Kitchen_Lights
 Group    All_Kitchen_Lights
 Group    FF_Kitchen_Lights_Scene
 
-String Kitchen_Echo_TTS "Kitchen Echo Text to Speech" (FF_Kitchen) { channel="amazonechocontrol:echo:XX:XX:textToSpeech" }
 Switch Kitchen_Backyard_Lights_Switch "Backyard Lights in Kitchen" <lightbulb> (FF_Kitchen, Backyard_Lights) ["Point"] { channel="zwave:device:8c18403e:node6:switch_binary" }
 
 Group Kitchen_Accent_Desk_Control (FF_Kitchen) ["Equipment"]
@@ -44,3 +43,4 @@ Number Kitchen_Table_Lights_LED_Color "Kitchen Table Lights Led color" (Kitchen_
 Number Kitchen_Table_Lights_Scene_Control "Scene control" (Kitchen_Table_Lights_Control) ["Point"] {channel="zwave:device:8c18403e:node46:config_decimal_param6"}
 Number Kitchen_Table_Lights_Mode_Of_Operation "Mode of operation" (Kitchen_Table_Lights_Control) ["Point"] {channel="zwave:device:8c18403e:node46:config_decimal_param13"}
 
+Contact Kitchen_Back_Door_Contact "Back Door" (FF_Kitchen) ["Point"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_3" }

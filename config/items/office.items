@@ -2,7 +2,7 @@
 
 Group Office_Door_LED "Office Door" (FF_Office) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
 Switch Office_Door_LED_Power "Office Door Power" (Christmas_Lights, Office_Door_LED) ["Switch"] { homekit="Lighting.OnState", alexa="PowerController.powerState", channel="wifiled:wifiled:F4CFA224A472:power" }
-Color Office_Door_LED_Color "Office Door Color" (Office_Door_LED) ["Point"] { channel="wifiled:wifiled:F4CFA224A472:color", homekit="Lighting.Hue, Lighting.Brightness, Lighting.Saturation", alexa="BrightnessController.brightness" }
+Color Office_Door_LED_Color "Office Door Color" (Office_Door_LED) ["Point"] { channel="wifiled:wifiled:F4CFA224A472:color", homekit="Lighting.Hue, Lighting.Brightness, Lighting.Saturation", alexa="BrightnessController.brightness,ColorController.color" }
 String Office_Door_LED_Program "Office Door Program" (Office_Door_LED) ["Point"] { channel="wifiled:wifiled:F4CFA224A472:program" }
 Dimmer Office_Door_LED_Program_Speed "Office Door Program Speed" (Office_Door_LED) ["Point"] { channel="wifiled:wifiled:F4CFA224A472:programSpeed" }
 
@@ -11,4 +11,3 @@ Switch Office_Phineas_Zoom "Phineas Zoom" (FF_Office, Zoom_Active_Switch) ["Stat
 Switch Office_kgarner_l2_Zoom "kgarner-l2 Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="mqtt:homie300:26bcbec1ee:kgarner-l2:zoom_2Dactivity#status" }
 
 Switch Office_Monitor_LED "Monitor LEDs" (FF_Office) ["Lightbulb"] { homekit="Lighting", channel="mqtt:homie300:26bcbec1ee:lithium:hyperion#led_2Dstatus" }
-

@@ -24,7 +24,7 @@ rule "Morning lights on" do
 
   run do
     if Sun_Status == "DOWN"
-      Front_Yard_Lights.ensure.on
+      Front_Yard_Lights.members.ensure.on
       # Garage_OutdoorLights_Switch.ensure.on
     end
   end
@@ -34,7 +34,7 @@ rule "Morning lights off" do
   channel "astro:sun:local:rise#event", triggered: "END"
 
   run do
-    Front_Yard_Lights.ensure.off
+    Front_Yard_Lights.members.ensure.off
     # Garage_OutdoorLights_Switch.ensure.off
   end
 end

@@ -1,24 +1,24 @@
 Group Christmas "Christmas" <snow> (Home) ["Holiday Stuff"]
 
 // Virtual switches
-//Group:Switch:AND(ON,OFF) Christmas_Lights "Christmas Lights" <lightbulb> (Home, Christmas, Christmas_Lights_All) ["WallSwitch"] { homekit="Lighting", alexa="Switchable" }
-//Group:Switch:AND(ON,OFF) Christmas_Lights_All "All Christmas Lights" <lightbulb> (Home, Christmas) ["WallSwitch"] { homekit="Lighting", alexa="Switchable" }
-//Group:Switch:AND(ON,OFF) Christmas_Outside "Christmas Outside" <snow> (Home, Christmas) ["WallSwitch"]
+Group:Switch:AND(ON,OFF) Christmas_Lights "Christmas Lights" <lightbulb> (Home, Christmas, Christmas_Lights_All) ["WallSwitch"] { homekit="Lighting", alexa="Switchable" }
+Group:Switch:AND(ON,OFF) Christmas_Lights_All "All Christmas Lights" <lightbulb> (Home, Christmas) ["WallSwitch"] { homekit="Lighting", alexa="Switchable" }
+Group:Switch:AND(ON,OFF) Christmas_Outside "Christmas Outside" <snow> (Home, Christmas) ["WallSwitch"]
 
 // Second Floor - Dinah's Room
 //Switch DinahsRoom_Window_Switch "Dinah's Room Windows" <poweroutlet_us> (Christmas_Outside, SF_DinahsRoom) ["Lightbulb"] { channel="wemo:socket:Socket-1_0-221620K010056B:state" }
 //Switch DinahsRoom_Hall_Switch "Hallway Lights" <poweroutlet_us> (Christmas_Lights, SF_Hallway) ["Lightbulb"] { channel="wemo:socket:Socket-1_0-221620K0100444:state" }
 
 // First Floor - Dining Room
-//Group DiningRoom_Table (FF_Dining) ["PowerOutlet"]
-//Switch DiningRoom_Table_Switch "Dining Room Globe" <poweroutlet_us> (Christmas_Lights, DiningRoom_Table) ["Point"] { channel="wemo:insight:Insight-1_0-221437K1200024:state" }
-//Number:Energy DiningRoom_Table_Watts "Dining Room Glome Power [%.1f Ws]" (DiningRoom_Table) ["Point", "Energy"] { channel="wemo:insight:Insight-1_0-221437K1200024:currentPower" }
+Group DiningRoom_Table (FF_Dining) ["PowerOutlet"]
+Switch DiningRoom_Table_Switch "Dining Room Globe" <poweroutlet_us> (Christmas_Lights, DiningRoom_Table) ["Point"] { channel="wemo:insight:Insight-1_0-221437K1200024:state" }
+Number:Energy DiningRoom_Table_Watts "Dining Room Glome Power [%.1f Ws]" (DiningRoom_Table) ["Point", "Energy"] { channel="wemo:insight:Insight-1_0-221437K1200024:currentPower" }
 
-//Switch DiningRoom_Windows_Switch "Dining Room Windows" <poweroutlet_us> (Christmas_Lights, FF_Dining) ["Lightbulb"] { channel="wemo:socket:Socket-1_0-221336K01016D6:state" }
+Switch DiningRoom_Windows_Switch "Dining Room Windows" <poweroutlet_us> (Christmas_Lights, FF_Dining) ["Lightbulb"] { channel="wemo:socket:Socket-1_0-221336K01016D6:state" }
 
 // Second Floor - Master Bedroom
 //Switch MasterBedroom_Windows_Switch "Master Bedroom Windows" <poweroutlet_us> (Christmas_Outside, SF_MasterBedroom) ["LightBulb"] { channel="wemo:socket:Socket-1_0-221333K010042E:state" }
 
-// Group:Switch:AND(ON,OFF) Basement_Christmas_Tree "Basement Christmas Tree" <poweroutlet_us> (Christmas) { homekit="Lighting", alexa="Switchable" }
+Group:Switch:AND(ON,OFF) Basement_Christmas_Tree "Basement Christmas Tree" <poweroutlet_us> (Christmas) { homekit="Lighting", alexa="Switchable" }
 Group:Switch:AND(ON,OFF) FamilyRoom_Christmas_Tree "Family Room Christmas Tree" <poweroutlet_us> (Christmas) { homekit="Lighting", alexa="Switchable" }
 Group:Switch:AND(ON,OFF) LivingRoom_Christmas_Tree "Living Room Christmas Tree" <poweroutlet_us> (Christmas) { homekit="Lighting", alexa="Switchable" }
