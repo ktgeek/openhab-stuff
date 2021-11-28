@@ -5,7 +5,7 @@ require 'openhab'
 rule "Front Yard Lights follow ON" do
   changed Front_Yard_Lights.members
 
-  run { |event| Front_Yard_Lights.each { |i| i.ensure << event.state } }
+  run { |event| Front_Yard_Lights.members.ensure << event.state }
 end
 
 # rule "Morning Lights On For Rides" do

@@ -54,18 +54,17 @@ rule "when someone enters/leaves downstairs" do
         Basement_TV_Toast << "Someone has entered the basement"
       end
     else
-      off_timers[event.item] = after(120.seconds) { C_All_Lights.each { |i| i.ensure.off } }
+      off_timers[event.item] = after(120.seconds) { C_All_Lights.members.ensure.off }
     end
 
-    color = [C_Total_Basement_Occupancy, Homeseer::LedColor::WHITE].min
-    C_Occupancy_LEDs.each { |i| i.ensure << color }
+    C_Occupancy_LEDs.members.ensure << [C_Total_Basement_Occupancy, Homeseer::LedColor::WHITE].min
 
     # Turn on and off leds to do a "meter" of how many people are in the basement
     OCCUPANCY_COUNT_LED_GROUPS[0, C_Total_Basement_Occupancy].each do |led_group|
-      led_group.each { |led| led << Homeseer::LedColor::BLUE unless led.state && led.state == Homeseer::LedColor::BLUE }
+      led_group.members.ensure << Homeseer::LedColor::BLUE
     end
     OCCUPANCY_COUNT_LED_GROUPS[C_Total_Basement_Occupancy..-1]&.each do |led_group|
-      led_group.each { |led| led << Homeseer::LedColor::OFF unless led.state.nil? || led.state == Homeseer::LedColor::OFF }
+      led_group.members.ensure << Homeseer::LedColor::OFF
     end
   end
 end
