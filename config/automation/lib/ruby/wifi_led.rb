@@ -7,7 +7,7 @@ module WifiLED
     NO_PROGRAM = "97"
 
     FADE = "37"
-    RED_FADE= "38"
+    RED_FADE = "38"
     GREEN_FADE = "39"
     BLUE_FADE = "40"
     YELLOW_FADE = "41"
@@ -28,11 +28,5 @@ module WifiLED
     WHITE_STROBE = "55"
 
     ALL_COLORS_JUMP = "56"
-  end
-
-
-  module Color
-    # color is a 360 value, then saturation and brighteness.  This is FULL RED
-    RED = OpenHAB::DSL::Types::HSBType.new(0, 100, 100)
   end
 end

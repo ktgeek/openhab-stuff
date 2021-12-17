@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'openhab'
-require 'monkey_patches'
-require 'homekit'
-require 'lock_events'
-require 'json'
+require "openhab"
+require "homekit"
+require "homeseer"
+require "lock_events"
+require "json"
 
 rule "Front Door Lock: Update lock states after alarm_raw event" do
   changed Front_Door_Lock_Alarm_Raw
@@ -26,7 +26,7 @@ rule "Front Door Lock: Update lock states after alarm_raw event" do
         lock_actual_item.update(OFF)
 
         keycode = alarm[LockEvents::KEYCODE]
-        keycode_name = lock_actual_item.linked_thing.configuration.get("usercode_label_#{keycode}")
+        keycode_name = lock_actual_item.thing.configuration.get("usercode_label_#{keycode}")
 
         logger.warn("#{basename} unlocked by #{keycode_name}")
         notify "#{basename} unlocked by #{keycode_name}"
@@ -62,5 +62,18 @@ rule "Front Door Lock: proxy lock command" do
   triggered do |item|
     lock_item_actual = items["#{item.name}_Actual"]
     lock_item_actual.ensure << item.state
+  end
+end
+
+rule "when our perimeter has a change" do
+  changed House_Perimeter_Contacts
+  changed Front_Door_Lock
+
+  run do
+    House_Perimeter_LEDs.members.ensure << if House_Perimeter_Contacts.open? || Front_Door_Lock.off?
+                                             Homeseer::LedColor::RED
+                                           else
+                                             Homeseer::LedColor::OFF
+                                           end
   end
 end

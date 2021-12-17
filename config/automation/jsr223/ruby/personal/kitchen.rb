@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'openhab'
-require 'homeseer'
+require "openhab"
+require "homeseer"
 
 def reset_basement
   return unless C_Total_Basement_Occupancy.positive?
@@ -9,7 +9,7 @@ def reset_basement
   basement_hiome_room_ids = %w[1577046124 1557680825 room_1636817791].freeze
 
   basement_hiome_room_ids.each do |i|
-    HTTP::sendHttpPutRequest("http://hiome.kgarner.com/api/1/rooms/#{i}", "application/json", '{"occupancy_count": 0}')
+    HTTP.sendHttpPutRequest("http://hiome.kgarner.com/api/1/rooms/#{i}", "application/json", '{"occupancy_count": 0}')
   end
   C_All_Lights.members.ensure.off
 end

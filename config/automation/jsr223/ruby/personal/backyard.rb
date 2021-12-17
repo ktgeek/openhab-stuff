@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'openhab'
+require "openhab"
 
 rule "Backyard lights follow" do
   changed Backyard_Lights.members

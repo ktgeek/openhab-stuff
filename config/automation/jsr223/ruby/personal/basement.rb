@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'openhab'
-require 'homeseer'
+require "openhab"
+require "homeseer"
 
 off_timers ||= {}
 OCCUPANCY_COUNT_LED_GROUPS = Array.new(7) { |i| items["Basement_Occupancy_Count_#{i + 1}"] }.freeze
@@ -63,7 +63,7 @@ rule "when someone enters/leaves downstairs" do
     OCCUPANCY_COUNT_LED_GROUPS[0, C_Total_Basement_Occupancy].each do |led_group|
       led_group.members.ensure << Homeseer::LedColor::BLUE
     end
-    OCCUPANCY_COUNT_LED_GROUPS[C_Total_Basement_Occupancy..-1]&.each do |led_group|
+    OCCUPANCY_COUNT_LED_GROUPS[C_Total_Basement_Occupancy..]&.each do |led_group|
       led_group.members.ensure << Homeseer::LedColor::OFF
     end
   end

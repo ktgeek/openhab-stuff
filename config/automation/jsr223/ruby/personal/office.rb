@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require 'openhab'
-require 'wifi_led'
-require 'delayed_command'
+require "openhab"
+require "wifi_led"
+require "color"
+require "delayed_command"
 
 stored_led_states = nil
 
@@ -19,7 +20,7 @@ rule "when a zoom meeting is on" do
 
     commands << DelayedCommand.new(Office_Door_LED_Program, WifiLED::Program::NO_PROGRAM)
 
-    commands << DelayedCommand.new(Office_Door_LED_Color, WifiLED::Color::RED)
+    commands << DelayedCommand.new(Office_Door_LED_Color, Color::RED)
 
     # The wifi LED controller seems to get really angry if I send too many wifi commands at the same time,
     # so we"ll add a delay of 2 seconds per number of commands run

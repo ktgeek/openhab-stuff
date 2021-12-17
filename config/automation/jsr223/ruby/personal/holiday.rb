@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'openhab'
-require 'wifi_led'
+require "openhab"
+require "wifi_led"
 
 rule "decorations on at sunset at Halloween" do
   channel "astro:sun:local:set#event", triggered: "START"
@@ -12,7 +12,7 @@ rule "decorations on at sunset at Halloween" do
 
     # Setting the program also turns on the light if its off.
     # We only want to do this if the office isn't already on, making an assumption i'm already in a meeting...
-    if Zoom_Active_Switch.off? && Office_Door_LED_Program != program
+    if Zoom_Active_Switch.off? && Office_Door_LED_Program != WifiLED::Program::PURPLE_FADE
       Office_Door_LED_Program << WifiLED::Program::PURPLE_FADE
     end
 
@@ -52,7 +52,7 @@ rule "decoriations off at night at Christmas" do
 
   run do
     Christmas_Outside.members.ensure.off
-    Christmas_Lights.members.ensure.off
+    Christmas_Lights_All.members.ensure.off
   end
 
   only_if { VisitorMode_Switch.off? && Holiday_Mode == "Christmas" }
@@ -63,7 +63,7 @@ rule "when we turn off VisitorMode" do
 
   run do
     case TimeOfDay.now
-    when between('22:30'..'11:59:59'), between('0:00'..'3:01')
+    when between("22:30".."11:59:59"), between("0:00".."3:01")
       Porch_Decoriations_Switch.ensure.off
       Front_Yard_Outdoor_Decorations_Switch.ensure.off
       Office_Door_LED_Power.ensure.off
@@ -78,9 +78,9 @@ rule "when we turn off VisitorMode" do
 
   run do
     case TimeOfDay.now
-    when between('22:30'..'11:59:59'), between('0:00'..'3:01')
+    when between("22:30".."11:59:59"), between("0:00".."3:01")
       Christmas_Outside.members.ensure.off
-      Christmas_Lights.members.ensure.off
+      Christmas_Lights_All.members.ensure.off
     end
   end
 
@@ -91,7 +91,7 @@ rule "christ switch is turned on" do
   changed Christmas_Lights, from: OFF, to: ON
 
   run do
-    if Zoom_Active_Switch.off? && Office_Door_LED_Program != program
+    if Zoom_Active_Switch.off? && Office_Door_LED_Program != WifiLED::Program::RED_GREEN_CROSSFADE
       after(2.seconds) { Office_Door_LED_Program << WifiLED::Program::RED_GREEN_CROSSFADE }
     end
   end

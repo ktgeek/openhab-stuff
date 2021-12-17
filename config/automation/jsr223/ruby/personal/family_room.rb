@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'openhab'
+require "openhab"
 
 rule "when family room lights turn on/off, turn on/off LEDS" do
   changed FamilyRoom_Lights_Switch

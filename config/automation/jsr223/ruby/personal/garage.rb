@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'openhab'
-require 'homeseer'
+require "openhab"
+require "homeseer"
 
 rule "Garage Doors Change State" do
   changed [Large_Garage_Door_Status, Small_Garage_Door_Status]

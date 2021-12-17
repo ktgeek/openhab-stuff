@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'openhab'
-require 'homeseer'
+require "openhab"
+require "homeseer"
 
 rule "when the basement remote is used" do
   updated NanomoteQuad_Scene
@@ -14,11 +14,11 @@ rule "when the basement remote is used" do
       Basement_Stairs_Switch.on? ? Basement_Stairs_Switch.off : Basement_Stairs_Switch.on
     when 3.0
       if Basement_Room_Theater_Lights < 100 || Basement_Room_Bar_Lights < 100
-        Basement_Room_Theater_Lights << 100
-        Basement_Room_Bar_Lights << 100
+        Basement_Room_Theater_Lights.ensure << 100
+        Basement_Room_Bar_Lights.ensure << 100
       else
-        Basement_Room_Theater_Lights.off
-        Basement_Room_Bar_Lights.off
+        Basement_Room_Theater_Lights.ensure.off
+        Basement_Room_Bar_Lights.ensure.off
       end
     when 4.0
       Basement_Movie_Mode_Switch.on

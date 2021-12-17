@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'openhab'
+require "openhab"
 
 rule "night lights on" do
   channel "astro:sun:local:set#event", triggered: "START"
@@ -29,7 +29,7 @@ rule "when we turn off VisitorMode" do
 
   run do
     case TimeOfDay.now
-    when between('22:30'..'11:59:59'), between('0:00'..'3:01')
+    when between("22:30".."11:59:59"), between("0:00".."3:01")
       VisitorMode_Switch.ensure.off
       Front_Yard_Lights.members.ensure.off
       All_Hall_Lights.members.ensure.off
