@@ -12,24 +12,22 @@ rule "Morning Lights On For Rides" do
   cron "0 0 5 ? * TUE,THU"
 
   run do
-    if Sun_Status == "DOWN"
-      Front_Yard_Lights.ensure.on
-      Garage_OutdoorLights_Switch.ensure.on unless Holiday_Mode.blank?
-    end
+    Front_Yard_Lights.ensure.on
+    Garage_OutdoorLights_Switch.ensure.on unless Holiday_Mode.blank?
   end
 
-  only_if { Outdoor_Biking_Season.on? }
+  only_if { Outdoor_Biking_Season.on? && Sun_Status == "DOWN" }
 end
 
 rule "Morning lights on" do
   cron "0 50 5 ? * MON-FRI"
 
   run do
-    if Sun_Status == "DOWN"
-      Front_Yard_Lights.members.ensure.on
-      Garage_OutdoorLights_Switch.ensure.on unless Holiday_Mode.blank?
-    end
+    Front_Yard_Lights.members.ensure.on
+    Garage_OutdoorLights_Switch.ensure.on unless Holiday_Mode.blank?
   end
+
+  only_if { Sun_Status == "DOWN" }
 end
 
 rule "Morning lights off" do

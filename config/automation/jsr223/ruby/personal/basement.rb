@@ -135,3 +135,12 @@ rule "when someone enters the basement hallway" do
     end
   end
 end
+
+rule "because shit is broke and stupid on the basement switch" do
+  changed [Basement_Christmas_Tree, Basement_Wall_Outlet_Switch]
+
+  run do |event|
+    Basement_Christmas_Tree.ensure << event.state
+    Basement_Wall_Outlet_Switch.ensure << event.state
+  end
+end
