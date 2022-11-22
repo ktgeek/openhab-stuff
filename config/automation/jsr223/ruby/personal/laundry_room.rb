@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "openhab"
-
 rule "when the laundry room door opens" do
   changed Laundry_Room_Door_Contact, to: OPEN
 

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "openhab"
 require "homeseer"
 
 off_timers ||= {}
@@ -38,7 +37,7 @@ rule "When the count of the occupancy sensor changes" do
     after(25.milliseconds) { C_Total_Basement_Occupancy.update(Basement_Occupancy_Counters.members.sum) }
 
     sensor = items["#{item.name[6..-7]}_Sensor"]
-    sensor.update(item.positive? ? ON : OFF)
+    sensor.update(item.state.positive? ? ON : OFF)
   end
 end
 
@@ -136,11 +135,11 @@ rule "when someone enters the basement hallway" do
   end
 end
 
-rule "because shit is broke and stupid on the basement switch" do
-  changed [Basement_Christmas_Tree, Basement_Wall_Outlet_Switch]
+# rule "because shit is broke and stupid on the basement switch" do
+#   changed [Basement_Christmas_Tree, Basement_Wall_Outlet_Switch]
 
-  run do |event|
-    Basement_Christmas_Tree.ensure << event.state
-    Basement_Wall_Outlet_Switch.ensure << event.state
-  end
-end
+#   run do |event|
+#     Basement_Christmas_Tree.ensure << event.state
+#     Basement_Wall_Outlet_Switch.ensure << event.state
+#   end
+#end

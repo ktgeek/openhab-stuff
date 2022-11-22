@@ -19,3 +19,9 @@ Switch FamilyRoom_Wall_Outlet_In_Use "Family Room Wall Outlet In Use [JS(outleti
 Group FamilyRoom_LED "Family Room LEDs" (FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
 Switch FamilyRoom_LED_Power "Family Room LED Power" (FamilyRoom_LED) ["Switch"] { homekit="Lighting.OnState", alexa="PowerController.powerState", channel="mqtt:topic:26bcbec1ee:7c3c7016a5:power" }
 Color FamilyRoom_LED_Color "Family Room LED Color" (FamilyRoom_LED) ["Point"] { homekit="Lighting.Hue, Lighting.Brightness, Lighting.Saturation", alexa="BrightnessController.brightness,ColorController.color", channel="mqtt:topic:26bcbec1ee:7c3c7016a5:Color" }
+Switch FamilyRoom_LED_Fade "Family Room LED Fade" (FamilyRoom_LED) ["Point"] { channel="mqtt:topic:26bcbec1ee:7c3c7016a5:fade" }
+Number FamilyRoom_LED_Speed "Family Room LED Speed" (FamilyRoom_LED) ["Point"] { channel="mqtt:topic:26bcbec1ee:7c3c7016a5:speed", stateDescription=""[min="0", max="40"] }
+
+Group Family_Room_Ceiling_Fan_With_Light "Family Room Ceiling Fan With Light" (FF_FamilyRoom) { homekit="Fan,Lighting" }
+Switch Family_Room_Ceiling_Fan_Fan_Power "Family Room Ceiling Fan" (Family_Room_Ceiling_Fan_With_Light) { homekit="Fan.ActiveStatus", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:common#power" }
+Switch Family_Room_Ceiling_Fan_Light_Power "Family Room Ceiling Fan Light" (Family_Room_Ceiling_Fan_With_Light) { homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:light#power" }

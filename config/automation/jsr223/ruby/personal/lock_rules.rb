@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "openhab"
 require "homekit"
 require "homeseer"
 require "lock_events"
@@ -15,8 +14,8 @@ rule "Front Door Lock: Update lock states after alarm_raw event" do
 
     lock_actual_item_homekit = items["#{basename}_Actual_Homekit"]
 
-    alarm = JSON.parse(item)
-    logger.warn("received #{alarm[LockEvents::NOTIFICATION]} for #{lock_actual_item.name}")
+    alarm = JSON.parse(item.state)
+    # logger.warn("received #{alarm[LockEvents::NOTIFICATION]} for #{lock_actual_item.name}")
 
     if alarm["type"] == LockEvents::Type::ACCESS_CONTROL
       case alarm["event"].to_i
@@ -51,7 +50,7 @@ rule "Front Door Lock: proxy changes to actual back to target" do
     lock_item = items[basename]
     lock_actual_item_homekit = items["#{basename}_Actual_Homekit"]
 
-    lock_item.update(item)
+    lock_item.update(item.state)
     lock_actual_item_homekit.update(item.on? ? Homekit::LockStatus::SECURED : Homekit::LockStatus::UNSECURED)
   end
 end

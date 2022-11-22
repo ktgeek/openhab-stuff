@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "openhab"
 require "color"
 require "tasmota"
 

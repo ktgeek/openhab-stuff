@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "openhab"
-
 rule "night lights on" do
   channel "astro:sun:local:set#event", triggered: "START"
 

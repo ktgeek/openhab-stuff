@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "openhab"
 require "homeseer"
 
 rule "when the basement remote is used" do
@@ -30,7 +29,7 @@ rule "when the baesment theater switches have a scene change" do
   updated C_Basement_Scene.members
 
   triggered do |item|
-    case item
+    case item.state
     when Homeseer::PADDLE_UP_TWO_CLICKS
       Basement_Normal_Mode_Switch.on
     when Homeseer::PADDLE_DOWN_TWO_CLICKS

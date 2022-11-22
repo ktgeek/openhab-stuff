@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "openhab"
-
 rule "Backyard lights follow" do
   changed Backyard_Lights.members
 
@@ -9,7 +7,7 @@ rule "Backyard lights follow" do
 end
 
 rule "check for weather data" do
-  changed Backyard_Weather_Updated_At, for: 20.minutes
+  changed Backyard_Weather_Updated_At, for: 40.minutes
 
   run do
     notify "weather hasn't updated in over twenty minutes"

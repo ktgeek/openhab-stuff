@@ -1,9 +1,9 @@
 Group    FF_Kitchen           "Kitchen"        <kitchen>       (FF)               ["Kitchen"]
 Group    FF_Kitchen_Accents      "Kitchen Accents"  <kitchen> (FF_Kitchen)
 Group    FF_Kitchen_Accents_Scene "Kitchen Accents Scene" <kitchen> (FF_Kitchen)
-Group    Normal_Kitchen_Lights
-Group    All_Kitchen_Lights
-Group    FF_Kitchen_Lights_Scene
+Group    Normal_Kitchen_Lights (FF_Kitchen)
+Group    All_Kitchen_Lights (FF_Kitchen)
+Group    FF_Kitchen_Lights_Scene (FF_Kitchen)
 
 Switch Kitchen_Backyard_Lights_Switch "Backyard Lights in Kitchen" <lightbulb> (FF_Kitchen, Backyard_Lights) ["Point"] { channel="zwave:device:8c18403e:node6:switch_binary" }
 
@@ -14,7 +14,7 @@ Number Kitchen_Accent_Desk_LED_1_Color "Kitchen Accent Desk Led 1 Color" (Kitche
 Number Kitchen_Accent_Desk_LED_2_Color "Kitchen Accent Desk Led 2 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param22" }
 Number Kitchen_Accent_Desk_LED_3_Color "Kitchen Accent Desk Led 3 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param23" }
 Number Kitchen_Accent_Desk_LED_4_Color "Kitchen Accent Desk Led 4 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param24" }
-Number Kitchen_Accent_Desk_LED_5_Color "Kitchen Accent Desk Led 5 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param25" }
+Number Kitchen_Accent_Desk_LED_5_Color "Kitchen Accent Desk Led 5 Color" (Kitchen_Accent_Desk_Control, House_Perimeter_LEDs) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param25" }
 Number Kitchen_Accent_Desk_LED_6_Color "Kitchen Accent Desk Led 6 Color" (Kitchen_Accent_Desk_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param26" }
 Number Kitchen_Accent_Desk_LED_7_Color "Kitchen Accent Desk Led 7 Color" (Kitchen_Accent_Desk_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param27" }
 
@@ -25,7 +25,7 @@ Number Kitchen_Accent_Sink_LED_1_Color "Kitchen Accent Sink Led 1 Color" (Kitche
 Number Kitchen_Accent_Sink_LED_2_Color "Kitchen Accent Sink Led 2 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param22"}
 Number Kitchen_Accent_Sink_LED_3_Color "Kitchen Accent Sink Led 3 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param23"}
 Number Kitchen_Accent_Sink_LED_4_Color "Kitchen Accent Sink Led 4 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param24"}
-Number Kitchen_Accent_Sink_LED_5_Color "Kitchen Accent Sink Led 5 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param25"}
+Number Kitchen_Accent_Sink_LED_5_Color "Kitchen Accent Sink Led 5 Color" (Kitchen_Accent_Sink_Control, House_Perimeter_LEDs) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param25"}
 Number Kitchen_Accent_Sink_LED_6_Color "Kitchen Accent Sink Led 6 Color" (Kitchen_Accent_Sink_Control, Small_Garage_Door_Open_LEDs) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param26"}
 Number Kitchen_Accent_Sink_LED_7_Color "Kitchen Accent Sink Led 7 Color" (Kitchen_Accent_Sink_Control, Large_Garage_Door_Open_LEDs) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param27"}
 
@@ -43,4 +43,4 @@ Number Kitchen_Table_Lights_LED_Color "Kitchen Table Lights Led color" (Kitchen_
 Number Kitchen_Table_Lights_Scene_Control "Scene control" (Kitchen_Table_Lights_Control) ["Point"] {channel="zwave:device:8c18403e:node46:config_decimal_param6"}
 Number Kitchen_Table_Lights_Mode_Of_Operation "Mode of operation" (Kitchen_Table_Lights_Control) ["Point"] {channel="zwave:device:8c18403e:node46:config_decimal_param13"}
 
-Contact Kitchen_Back_Door_Contact "Back Door" (FF_Kitchen) ["Point"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_3" }
+Contact Kitchen_Back_Door_Contact "Back Door" (FF_Kitchen, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_3" }

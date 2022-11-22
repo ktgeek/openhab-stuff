@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "openhab"
 require "tasmota"
 
 rule "decorations on at sunset at Halloween" do
@@ -18,8 +17,8 @@ rule "decorations on at sunset at Halloween" do
     end
 
     # Leaving on this while testing to ensure this didn't trigger
-    Kitchen_Echo_TTS << "Spooky! Scary! Halloween!"
-    Basement_Echo_TTS << "Spooky! Scary! Halloween!"
+    # Kitchen_Echo_TTS << "Spooky! Scary! Halloween!"
+    # Basement_Echo_TTS << "Spooky! Scary! Halloween!"
   end
 
   only_if { Holiday_Mode == "Halloween" }

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "openhab"
 require "homeseer"
 
 def reset_basement

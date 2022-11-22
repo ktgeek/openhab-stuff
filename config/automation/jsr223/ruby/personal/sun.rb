@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "openhab"
-
 # on_start is trigger for startup times
 # TODO: add rule to set Sun_Status at start up
 

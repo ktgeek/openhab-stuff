@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "openhab"
-
 rule "Front Yard Lights follow ON" do
   changed Front_Yard_Lights.members
 

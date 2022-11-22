@@ -1,20 +1,20 @@
 Group C_Basement        "Basement"             <cellar>  (C)           ["Basement"]
 Group C_ExerciseRoom    "Exercise Room"        <cellar>  (C)           ["Basement"]
 Group C_Basement_Hallway "Basement Hallway"    <cellar>  (C)           ["Basement"]
-Group C_Basement_Scene  "Basement Room Scene"  <cellar>  (C_Basement)
-Group C_All_Lights      "All basement lights"  <cellar>  (C)
+Group C_Basement_Scene  "Basement Room Scene"  <cellar>  (C_Basement)  ["Basement"]
+Group C_All_Lights      "All basement lights"  <cellar>  (C)           ["Basement"]
 
-Group C_Occupancy_LEDs "Basement Occupancy LEDs"
-Group Basement_Occupancy_Count_1
-Group Basement_Occupancy_Count_2
-Group Basement_Occupancy_Count_3
-Group Basement_Occupancy_Count_4
-Group Basement_Occupancy_Count_5
-Group Basement_Occupancy_Count_6
-Group Basement_Occupancy_Count_7
+Group C_Occupancy_LEDs "Basement Occupancy LEDs" (C_Basement)
+Group Basement_Occupancy_Count_1 (C_Basement)
+Group Basement_Occupancy_Count_2 (C_Basement)
+Group Basement_Occupancy_Count_3 (C_Basement)
+Group Basement_Occupancy_Count_4 (C_Basement)
+Group Basement_Occupancy_Count_5 (C_Basement)
+Group Basement_Occupancy_Count_6 (C_Basement)
+Group Basement_Occupancy_Count_7 (C_Basement)
 
-Group Basement_Occupancy_Counters
-Group Basement_Deadend_Occupancy_Counters
+Group Basement_Occupancy_Counters (C_Basement)
+Group Basement_Deadend_Occupancy_Counters (C_Basement)
 
 Number Hiome_Basement_Occupancy_Count "Basement Occupancy [%d]" <parents_1_1> (C_Basement, Basement_Occupancy_Counters) ["Point"] { channel="mqtt:topic:c0853ba2:1" }
 Switch Basement_Occupancy_Sensor "Basement Occupancy" (C_Basement) ["Point"] { homekit="OccupancySensor" }
@@ -27,7 +27,7 @@ Switch Exercise_Room_Occupancy_Sensor "Exercise Room Occupancy" (ExerciseRoom_Hi
 Number Hiome_Basement_Hallway_Occupancy_Count "Basement Hallway Occupancy [%d]" <parents_1_1> (C_Basement_Hallway, Basement_Occupancy_Counters, Basement_Deadend_Occupancy_Counters) ["Point"] { channel="mqtt:topic:c0853ba2:4" }
 Switch Basement_Hallway_Occupancy_Sensor "Basement Hallway Occupancy" (C_Basement_Hallway) ["Point"] { homekit="OccupancySensor" }
 
-Number C_Total_Basement_Occupancy "Total Basement Occpancy" (C) ["Point"]
+Number C_Total_Basement_Occupancy "Total Basement Occpancy" <parents_1_1> (C) ["Point"]
 
 Switch Basement_Stairs_Switch "Basement Stairs Lights" <lightbulb> (C_Basement, C_All_Lights) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node4:switch_binary" }
 
@@ -73,7 +73,7 @@ Switch Basement_Wall_Outlet_In_Use "Basement Wall Outlet In Use [JS(outletinuse.
 Switch Exercise_Room_Light "Exercise Room Light" <lightbulb> (C_ExerciseRoom, C_All_Lights) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node38:switch_binary" }
 
 Group Exercise_Room_Dimmer_Lights_Control (C_ExerciseRoom) ["Equipment"]
-Dimmer Exercise_Room_Dimmer "Exercise Room Dimmer" <lightbulb> (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom, C_All_Lights) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node39:switch_dimmer" }
+Dimmer Exercise_Room_Dimmer "Exercise Room Dimmer" <lightbulb> (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom, C_All_Lights) ["SetPoint", "Light"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node39:switch_dimmer" }
 Number Exercise_Room_Dimmer_Scene_Number "Scene number" (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom) ["Point"] {channel="zwave:device:8c18403e:node39:scene_number"}
 Number Exercise_Room_Dimmer_Lights_LED_1_Color "Exercise Room Dimmer Led 1 Color" (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_1) ["Point"] { channel="zwave:device:8c18403e:node39:config_decimal_param21" }
 Number Exercise_Room_Dimmer_Lights_LED_2_Color "Exercise Room Dimmer Led 2 Color" (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_2) ["Point"] { channel="zwave:device:8c18403e:node39:config_decimal_param22" }
@@ -90,7 +90,7 @@ Number:ElectricCurrent Exercise_Room_Bike_Trainer_Current "Garage Outlet Current
 Number:Energy Exercise_Room_Bike_Trainer_TotalActivePower "Garage Outlet Total Active Power [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_activepower"}
 Switch Exercise_Room_Bike_Trainer_In_Use "Garage Outlet In Use [JS(outletinuse.js):%s]" (Exercise_Room_Bike_Trainer) ["Point"] { homekit="Outlet.InUseStatus", channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_activepower" }
 
-Switch Exercise_Room_Bike_Trainer_Enabled
+Switch Exercise_Room_Bike_Trainer_Enabled (C_ExerciseRoom) ["Switch"]
 
 Group Basement_Hallway_Lights_Control (C_Basement_Hallway) ["Equipment"]
 Switch Basement_Hallway_Lights_Switch "Basement Hallway Lights" (Basement_Hallway_Lights_Control, C_Basement_Hallway, C_All_Lights) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node52:switch_binary"}
@@ -99,7 +99,7 @@ Number Basement_Hallway_Lights_LED_1_Color "Basement Hallway Lights Led 1 Color"
 Number Basement_Hallway_Lights_LED_2_Color "Basement Hallway Lights Led 2 Color" (Basement_Hallway_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node52:config_decimal_param22" }
 Number Basement_Hallway_Lights_LED_3_Color "Basement Hallway Lights Led 3 Color" (Basement_Hallway_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node52:config_decimal_param23" }
 Number Basement_Hallway_Lights_LED_4_Color "Basement Hallway Lights Led 4 Color" (Basement_Hallway_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node52:config_decimal_param24" }
-Number Basement_Hallway_Lights_LED_5_Color "Basement Hallway Lights Led 5 Color" (Basement_Hallway_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node52:config_decimal_param25" }
+Number Basement_Hallway_Lights_LED_5_Color "Basement Hallway Lights Led 5 Color" (Basement_Hallway_Lights_Control, House_Perimeter_LEDs) ["Point"] { channel="zwave:device:8c18403e:node52:config_decimal_param25" }
 Number Basement_Hallway_Lights_LED_6_Color "Basement Hallway Lights Led 6 Color" (Basement_Hallway_Lights_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="zwave:device:8c18403e:node52:config_decimal_param26" }
 Number Basement_Hallway_Lights_LED_7_Color "Basement Hallway Lights Led 7 Color" (Basement_Hallway_Lights_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="zwave:device:8c18403e:node52:config_decimal_param27" }
 

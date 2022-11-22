@@ -8,7 +8,7 @@ Group FF_Porch     "Porch"          <frontdoor>    (Home)  ["Porch"]
 Group	FF_Entrance  "Entrance"       <corridor>     (FF)    ["Entry"]
 Group FF_Office    "Office"         <office>       (FF)    ["Office"]
 Group FF_Dining    "Dining Room"    <party>        (FF)    ["DiningRoom"]
-Group FF_Laundry_Room "Laundry Room"               (FF)
+Group FF_Laundry_Room "Laundry Room"               (FF)    ["LaundryRoom"]
 Group Backyard     "Backyard"                      (Home)  ["Outdoor"]
 Group Front_Yard   "Front Yard"                    (Home)  ["Outdoor"]
 
@@ -27,7 +27,7 @@ Switch Switch_Entrance_Hall_Light "Hall Table Light" <lightbulb> (All_Hall_Light
 // Virtual test
 Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF_Entrance) ["WallSwitch"] { alexa="Switchable", homekit="Switchable" }
 
-String Sun_Status "Is the sun up or down?"
+String Sun_Status "Is the sun up or down?" <sun> (Home) ["Status"]
 
 Group gFront_Door_Lock "Front Door Lock" (FF_Entrance) ["Equipment"] { homekit="Lock" }
 Switch Front_Door_Lock "Front Door Lock" <lock> (gFront_Door_Lock) ["Lock"] { homekit="Lock.LockTargetState", alexa="LockController.lockState" [itemSensor="Front_Door_Lock_Actual_Homekit"] }
@@ -36,7 +36,16 @@ Number Front_Door_Lock_Actual_Homekit (gFront_Door_Lock) { homekit="Lock.LockCur
 String Front_Door_Lock_Alarm_Raw "Front Door Lock Alarm (raw)" (gFront_Door_Lock) ["Point"] { channel="zwave:device:8c18403e:node55:alarm_raw" }
 Number Front_Door_Lock_Battery_Level "Front Door Lock Battery level [%.1f %%]" <battery> (gFront_Door_Lock) ["Point"] { channel="zwave:device:8c18403e:node55:battery-level" }
 
-Contact Front_Door_Contact "Front Door" (FF_Entrance) ["Point"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_1" }
-Contact Laundry_Room_Door_Contact "Laundry Room Door" (FF_Laundry_Room) ["Point"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_4" }
+Group House_Perimeter_LEDs (Home) ["Equipment"]
+Group:Contact:OR(OPEN,CLOSED) House_Perimeter_Contacts "House Permiter Contacts" (Home) ["Eqiupment"]
+Contact Front_Door_Contact "Front Door" (FF_Entrance, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_1" }
 
 String Holiday_Mode "Holiday Mode" (FF_Entrance) ["Point"]
+Switch Outdoor_Biking_Season "Am I biking outside?" (FF_Garage) ["Point"]
+
+Group Entrance_Hall_MultiSensor (FF_Entrance) ["Equipment"]
+Number:Temperature Entrance_Temperature "Entrance Temperature" (Entrance_Hall_MultiSensor) ["Measurement", "Temperature"] { homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="zwave:device:8c18403e:node59:sensor_temperature"}
+Number Entrance_Luminance "Entrance Luminance [%.0f Lux]" (Entrance_Hall_MultiSensor) ["Measurement", "Light"] { homekit="LightSensor", channel="zwave:device:8c18403e:node59:sensor_luminance"}
+Switch Entrance_Alarm_Motion "Entrance Motion alarm" (Entrance_Hall_MultiSensor) {channel="zwave:device:8c18403e:node59:alarm_motion"}
+Number Entrance_Hall_MultiSensor_Battery_Level "Entrance Battery level" (Entrance_Hall_MultiSensor) ["Battery"]  {channel="zwave:device:8c18403e:node59:battery-level"}
+

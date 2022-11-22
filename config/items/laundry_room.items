@@ -1,0 +1,26 @@
+
+Contact Laundry_Room_Door_Contact "Laundry Room Door" (FF_Laundry_Room, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_4" }
+
+Group Laundry_Room_Lights_Control (FF_Laundry_Room) ["Equipment"]
+Switch Laundry_Room_Lights_Switch "Laundry Room Lights" (Laundry_Room_Lights_Control) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node57:switch_binary" }
+//Number Laundry_Room_Lights_Scene_Number "Scene number" (Laundry_Room_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node57:scene_number" }
+Number Laundry_Room_Lights_LED_1_Color "Laundry Room Lights Led 1 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node57:config_decimal_param21" }
+Number Laundry_Room_Lights_LED_2_Color "Laundry Room Lights Led 2 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node57:config_decimal_param22" }
+Number Laundry_Room_Lights_LED_3_Color "Laundry Room Lights Led 3 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node57:config_decimal_param23" }
+Number Laundry_Room_Lights_LED_4_Color "Laundry Room Lights Led 4 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node57:config_decimal_param24" }
+Number Laundry_Room_Lights_LED_5_Color "Laundry Room Lights Led 5 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node57:config_decimal_param25" }
+Number Laundry_Room_Lights_LED_6_Color "Laundry Room Lights Led 6 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node57:config_decimal_param26" }
+Number Laundry_Room_Lights_LED_7_Color "Laundry Room Lights Led 7 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node57:config_decimal_param27" }
+//Number Laundry_Room_Lights_Config_Decimal_Param_30 "Status mode leds blink frequency" (Laundry_Room_Lights_Control) { channel="zwave:device:8c18403e:node57:config_decimal_param30" }
+//Number Laundry_Room_Lights_Config_Decimal_Param_31 "Status mode leds blink status (bitmask)" { channel="zwave:device:8c18403e:node57:config_decimal_param31" }
+
+Group Side_Yard_Lights_Control (FF_Laundry_Room) ["Equipment"]
+Switch Side_Yard_Lights_Switch "Side Yard Lights" (Side_Yard_Lights_Control) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node56:switch_binary" }
+//Number Laundry_Room_Lights_Scene_Number "Scene number" (Side_Yard_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node56:scene_number" }
+Number Side_Yard_Lights_LED_1_Color "Side Yard Lights Led 1 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node56:config_decimal_param21" }
+Number Side_Yard_Lights_LED_2_Color "Side Yard Lights Led 2 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node56:config_decimal_param22" }
+Number Side_Yard_Lights_LED_3_Color "Side Yard Lights Led 3 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node56:config_decimal_param23" }
+Number Side_Yard_Lights_LED_4_Color "Side Yard Lights Led 4 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node56:config_decimal_param24" }
+Number Side_Yard_Lights_LED_5_Color "Side Yard Lights Led 5 Color" (Side_Yard_Lights_Control, House_Perimeter_LEDs) ["Point"] { channel="zwave:device:8c18403e:node56:config_decimal_param25" }
+Number Side_Yard_Lights_LED_6_Color "Side Yard Lights Led 6 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node56:config_decimal_param26" }
+Number Side_Yard_Lights_LED_7_Color "Side Yard Lights Led 7 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node56:config_decimal_param27" }
