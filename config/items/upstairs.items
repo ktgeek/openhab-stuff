@@ -13,11 +13,11 @@ Switch HiddenRoom_Light_Switch "Hidden Room Lights" <lightbulb> (SF_HiddenRoom) 
 //Switch HiddenRoom_Window_Lights "Hidden Room Window Lights" (Christmas_Outside, SF_HiddenRoom) ["Lightbulb"] { channel="wemo:socket:Socket-1_0-221625K0100CD5:state" }
 //Switch HiddenRoom_Window_Lights "Hidden Room Window Lights" (SF_HiddenRoom) ["Lightbulb"] { channel="wemo:socket:Socket-1_0-221625K0100CD5:state" }
 
-// Group HiddenRoom_Holiday_LED "Hidden Room Holiday LED" (SF_HiddenRoom) ["Equipment"]
-// Switch HiddenRoom_Holiday_LED_Power "HiddenRoom Holiday LED Power" (Christmas_Outside, HiddenRoom_Holiday_LED) ["Switch", "Light"] { channel="wled:wled:9c9c1f429df9:masterControls" }
-// String HiddenRoom_Holiday_LED_Presets "HiddenRoom Holiday LED Presets" (HiddenRoom_Holiday_LED) ["Point"] { channel="wled:wled:9c9c1f429df9:presets" }
+Group HiddenRoom_Holiday_LED "Hidden Room Holiday LED" (SF_HiddenRoom) ["Equipment"]
+Switch HiddenRoom_Holiday_LED_Power "HiddenRoom Holiday LED Power" (Christmas_Outside, HiddenRoom_Holiday_LED) ["Switch", "Light"] { channel="wled:segment:9c9c1f429df9:9d76fc260a:masterControls" }
+String HiddenRoom_Holiday_LED_Presets "HiddenRoom Holiday LED Presets" (HiddenRoom_Holiday_LED) ["Point"] { channel="wled:json:9c9c1f429df9:presets" }
 
-// Group DinahsRoom_Holiday_LED "Dinah's Room Holiday LED" (SF_DinahsRoom) ["Equipment"]
-// Switch DinahsRoom_Holiday_LED_Power "Dinah's Room Holiday LED Power" (Christmas_Outside, DinahsRoom_Holiday_LED) ["Switch", "Light"] { channel="wled:wled:9c9c1f423b9a:masterControls" }
-// String DinahsRoom_Holiday_LED_Presets "Dinah's Room Holiday LED Presets" (DinahsRoom_Holiday_LED) ["Point"] { channel="wled:wled:9c9c1f423b9a:presets" }
+Group DinahsRoom_Holiday_LED "Dinah's Room Holiday LED" (SF_DinahsRoom) ["Equipment"]
+Switch DinahsRoom_Holiday_LED_Power "Dinah's Room Holiday LED Power" (Christmas_Outside, DinahsRoom_Holiday_LED) ["Switch", "Light"] { channel="wled:segment:9c9c1f423b9a:e05589552a:masterControls" }
+String DinahsRoom_Holiday_LED_Presets "Dinah's Room Holiday LED Presets" (DinahsRoom_Holiday_LED) ["Point"] { channel="wled:json:9c9c1f423b9a:presets" }
 

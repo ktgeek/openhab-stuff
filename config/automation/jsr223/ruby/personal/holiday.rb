@@ -6,7 +6,7 @@ rule "decorations on at sunset at Halloween" do
   channel "astro:sun:local:set#event", triggered: "START"
 
   run do
-    Porch_Decoriations_Switch.ensure.on
+    Porch_Decorations_Switch.ensure.on
     Front_Yard_Outdoor_Decorations_Switch.ensure.on
 
     if Zoom_Active_Switch.off?
@@ -21,7 +21,7 @@ rule "decorations on at sunset at Halloween" do
     # Basement_Echo_TTS << "Spooky! Scary! Halloween!"
   end
 
-  only_if { Holiday_Mode == "Halloween" }
+  only_if { Holiday_Mode.state == "Halloween" }
 end
 
 rule "decorations on at sunset at Christmas" do
@@ -32,22 +32,22 @@ rule "decorations on at sunset at Christmas" do
     Christmas_Lights.members.ensure.on
   end
 
-  only_if { Holiday_Mode == "Christmas" }
+  only_if { Holiday_Mode.state == "Christmas" }
 end
 
-rule "decoriations off at night at Halloween" do
+rule "decorations off at night at Halloween" do
   cron "0 30 22 ? * *"
 
   run do
-    Porch_Decoriations_Switch.ensure.off
+    Porch_Decorations_Switch.ensure.off
     Front_Yard_Outdoor_Decorations_Switch.ensure.off
     Office_Door_LED_Power.ensure.off
   end
 
-  only_if { VisitorMode_Switch.off? && Holiday_Mode == "Halloween" }
+  only_if { VisitorMode_Switch.off? && Holiday_Mode.state == "Halloween" }
 end
 
-rule "decoriations off at night at Christmas" do
+rule "decorations off at night at Christmas" do
   cron "0 30 22 ? * *"
 
   run do
@@ -55,36 +55,36 @@ rule "decoriations off at night at Christmas" do
     Christmas_Lights_All.members.off
   end
 
-  only_if { VisitorMode_Switch.off? && Holiday_Mode == "Christmas" }
+  only_if { VisitorMode_Switch.off? && Holiday_Mode.state == "Christmas" }
 end
 
 rule "when we turn off VisitorMode" do
   changed VisitorMode_Switch, to: OFF
 
   run do
-    case TimeOfDay.now
-    when between("22:30".."11:59:59"), between("0:00".."3:01")
-      Porch_Decoriations_Switch.ensure.off
+    case Time.now
+    when between("22:30".."23:59:59"), between("0:00".."3:01")
+      Porch_Decorations_Switch.ensure.off
       Front_Yard_Outdoor_Decorations_Switch.ensure.off
       Office_Door_LED_Power.ensure.off
     end
   end
 
-  only_if { Holiday_Mode == "Halloween" }
+  only_if { Holiday_Mode.state == "Halloween" }
 end
 
 rule "when we turn off VisitorMode" do
   changed VisitorMode_Switch, to: OFF
 
   run do
-    case TimeOfDay.now
-    when between("22:30".."11:59:59"), between("0:00".."3:01")
+    case Time.now
+    when between("22:30".."23:59:59"), between("0:00".."3:01")
       Christmas_Outside.members.off
       Christmas_Lights_All.members.off
     end
   end
 
-  only_if { Holiday_Mode == "Christmas" }
+  only_if { Holiday_Mode.state == "Christmas" }
 end
 
 rule "christ switch is turned on" do
@@ -98,5 +98,5 @@ rule "christ switch is turned on" do
     end
   end
 
-  only_if { Holiday_Mode == "Christmas" }
+  only_if { Holiday_Mode.state == "Christmas" }
 end

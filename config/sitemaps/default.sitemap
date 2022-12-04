@@ -1,29 +1,97 @@
 sitemap default label="Garner House" {
+    Frame label="Whole House" {
+        Switch item=VisitorMode_Switch label="Visitor Mode"
+
+        Text item=House_Perimeter_Contacts label="Perimeter Contacts [%s]" icon="contact" {
+            Default item=Garage_House_Door_Contact label="Garage House Door"
+            Default item=Kitchen_Back_Door_Contact label="Back Door"
+            Default item=Laundry_Room_Door_Contact label="Laundry Room Door"
+            Default item=Front_Door_Contact label="Front Door"
+        }
+    }
+
     Frame label="Christmas" icon="snow" {
         Group item=Christmas
     }
 
-    Frame label="Cellar" icon="cellar" {
-        Group item=C_Basement
-        Group item=C_ExerciseRoom
+    Frame label="Basement" icon="cellar" {
+        Default item=C_Total_Basement_Occupancy label="Total Basement Occpancy [%d]"
+        Default item=Hiome_Basement_Occupancy_Count label="Basement Occupancy [%d]"
+        Default item=Hiome_Exercise_Room_Occupancy_Count label="Exercise Room Occupancy [%d]"
+        Default item=Hiome_Basement_Hallway_Occupancy_Count label="Basement Hallway Occupancy [%d]"
+
+        Text item=C_Basement label="Basement" icon="cellar" {
+            Default item=Hiome_Basement_Occupancy_Count label="Basement Occupancy [%d]"
+            Default item=Basement_Stairs_Switch label="Basement Stairs Lights"
+            Default item=Basement_Room_Lights_Switch label="Basement Room Lights"
+            Default item=Basement_Room_Bar_Lights label="Basement Bar Lights"
+            Default item=Basement_Room_Theater_Lights label="Basement Theater Lights"
+            Default item=Basement_Movie_Mode_Switch label="Basement Movie Mode"
+            Default item=Basement_Normal_Mode_Switch label="Basement Normal Mode"
+            Default item=Basement_Wall_Outlet label="Basement Wall Outlet"
+            Default item=Basement_Wall_Outlet_Switch label="Basement Wall Outlet"
+            Default item=Basement_Christmas_Tree label="Basement Christmas Tree"
+            Default item=NanomoteQuad_BatteryLevel label="Nanomote Quad Battery"
+        }
+
+        Text item=C_ExerciseRoom label="Exercise Room" icon="cellar" {
+            Default item=Exercise_Room_Light label="Exercise Room Light"
+            Default item=Exercise_Room_Dimmer label="Exercise Room Dimmer"
+            Default item=Exercise_Room_Bike_Trainer_Switch label="Bike Trainer"
+            Default item=Exercise_Room_Bike_Trainer_Enabled label="Bike Trainer Enabled"
+        }
     }
 
     Frame label="First Floor" icon="groundfloor" {
-    	Default item=VisitorMode_Switch label="Visitor Mode"
 	    Group item=FF_Porch
-	    Group item=FF_Entrance
+
+        Text item=FF_Entrance label="Entrance" icon="corridor" {
+            Switch item=All_Hall_Lights label="Hall Lights"
+            Default item=Front_Door_Lock label="Front Door Lock"
+            Default item=Front_Door_Lock_Battery_Level label="Front Door Lock Battery level"
+            Default item=Front_Door_Contact label="Front Door"
+        }
+
 	    Group item=FF_LivingRoom
-        Group item=FF_Office
-        Group item=FF_Garage
-    	Group item=FF_Kitchen
+
+        Group item=FF_Office {
+            Switch item=Office_Monitor_LED label="Monitor LEDs"
+            Text item=Zoom_Active_Switch label="Zoom Active [%s]"
+            Switch item=Office_Windows_Switch label="Office Window Lights"
+            Group item=Office_Door_LED icon=light {
+                Switch item=Office_Door_LED_Power label="Office Door Power"
+                Default item=Office_Door_LED_Color label="Office Door Color"
+                Switch item=Office_Door_LED_Fade label="Office Door Fade"
+                Setpoint item=Office_Door_LED_Speed label="Office Door Speed" minValue=1 maxValue=40 step=1
+                Text item=Office_Door_LED_Palette label="Office Door Palette"
+                Selection item=Office_Door_LED_Scheme label="Office Door Scheme" mappings=[0="Single Color", 1="Wakeup Sequence", 2="Cycle up", 3="Cycle down", 4="Random Cycle"]
+            }
+        }
+
+        Text item=FF_Kitchen label="Kitchen" icon="kitchen" {
+            Default item=Kitchen_Lights label="Kitchen Lights"
+            Default item=Kitchen_Table_Lights label="Kitchen Table Lights"
+            Default item=Kitchen_Accent_Desk_Dimmer label="Kitchen Accent Lights (Desk)"
+            Default item=Kitchen_Accent_Sink_Dimmer label="Kitchen Accent Lights (Sink)"
+            Default item=Bathroom_Penguin_Light label="Penguin Light"
+        }
+
+
+        Text item=FF_Garage label="Garage" icon="garage" {
+            Default item=Garage_OutdoorLights_Switch label="Outdoor Garage Lights"
+            Default item=Large_Garage_Door_Status label="Large Garage Door"
+            Default item=Small_Garage_Door_Status label="Small Garage Door"
+        }
+
         Group item=FF_Dining
 	    Group item=FF_FamilyRoom
     }
 
     Frame label="Second Floor" icon="firstfloor" {
         Group item=SF_Hallway
-	    Group item=SF_MasterBedroom
+	    Group item=SF_Bedroom
 	    Group item=SF_DinahsRoom
+        Group item=SF_HiddenRoom
+        Group item=SF_EvansRoom
     }
-
 }

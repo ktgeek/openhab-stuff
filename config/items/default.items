@@ -17,8 +17,9 @@ Group TV_Notifications "TV Notifications" <screen> (Home) ["Status"]
 Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
 Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (Front_Yard_Lights) ["Point"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13009CA:state" }
 
-Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
-Switch Porch_Decoriations_Switch "Porch Decorations" <party> (Front_Yard, Christmas_Outside) ["WallSwitch"] { homekit="Switchable", alexa="Switchable", channel="zwave:device:8c18403e:node51:switch_binary" }
+//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
+Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
+Switch Porch_Decorations_Switch "Porch Decorations" <party> (Front_Yard, Christmas_Outside) ["WallSwitch"] { homekit="Switchable", alexa="Switchable", channel="zwave:device:8c18403e:node51:switch_binary" }
 
 // First Floor - Entrance
 Group:Switch:OR(ON,OFF) All_Hall_Lights "Hall Lights" <lightbulb> (FF_Entrance) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }

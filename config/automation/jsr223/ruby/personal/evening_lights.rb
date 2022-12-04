@@ -26,8 +26,8 @@ rule "when we turn off VisitorMode" do
   changed VisitorMode_Switch, to: OFF
 
   run do
-    case TimeOfDay.now
-    when between("22:30".."11:59:59"), between("0:00".."3:01")
+    case Time.now
+    when between("22:30".."23:59:59"), between("0:00".."3:01")
       VisitorMode_Switch.ensure.off
       Front_Yard_Lights.members.ensure.off
       All_Hall_Lights.members.ensure.off

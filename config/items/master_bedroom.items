@@ -1,3 +1,0 @@
-Group    SF_MasterBedroom     "Master Bedroom" <bedroom>       (SF)               ["Bedroom"]
-
-Switch MasterBedroom_Wall_Outlet "Master Bedroom Outlet" <poweroutlet_us> (SF_MasterBedroom, Christmas_Lights) ["WallSwitch"] { homekit="Outlet", alexa="Outlet", channel="zwave:device:8c18403e:node3:switch_binary" }

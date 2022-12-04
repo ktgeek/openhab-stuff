@@ -34,21 +34,21 @@ rule "when a zoom meeting is over" do
   end
 end
 
-rule "Monitor LEDS off at end of day" do
+rule "Monitor LEDs off at end of day" do
   cron "0 30 22 ? * *"
 
   run { Office_Monitor_LED.off }
   only_if { Office_Monitor_LED.on? }
 end
 
-rule "Monitor LEDS off at end of workday" do
+rule "Monitor LEDs off at end of workday" do
   cron "0 30 17 ? * MON-FRI"
 
   run { Office_Monitor_LED.off }
   only_if { Office_Monitor_LED.on? }
 end
 
-rule "Monitor LEDS on at start of workday" do
+rule "Monitor LEDs on at start of workday" do
   cron "0 30 8 ? * MON-FRI"
 
   run { Office_Monitor_LED.on }

@@ -8,18 +8,22 @@ def reset_basement
   basement_hiome_room_ids = %w[1577046124 1557680825 room_1636817791].freeze
 
   basement_hiome_room_ids.each do |i|
-    HTTP.sendHttpPutRequest("http://hiome.kgarner.com/api/1/rooms/#{i}", "application/json", '{"occupancy_count": 0}')
+    OpenHAB::Core::Actions::HTTP.sendHttpPutRequest(
+      "http://hiome.kgarner.com/api/1/rooms/#{i}",
+      "application/json",
+      '{"occupancy_count": 0}'
+    )
   end
   C_All_Lights.members.ensure.off
 end
 
-rule "when the kitchen accent switchs have a scene change" do
+rule "when the kitchen accent switches have a scene change" do
   updated FF_Kitchen_Accents_Scene.members
 
   run { |event| reset_basement if event.state == Homeseer::PADDLE_DOWN_TWO_CLICKS }
 end
 
-rule "when ktichen lights scene change" do
+rule "when kitchen lights scene change" do
   updated FF_Kitchen_Lights_Scene.members
 
   run do |event|

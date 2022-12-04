@@ -6,13 +6,13 @@ rule "when the basement remote is used" do
   updated NanomoteQuad_Scene
 
   run do
-    case NanomoteQuad_Scene
+    case NanomoteQuad_Scene.state
     when 1.0
       Basement_Normal_Mode_Switch.on
     when 2.0
       Basement_Stairs_Switch.on? ? Basement_Stairs_Switch.off : Basement_Stairs_Switch.on
     when 3.0
-      if Basement_Room_Theater_Lights < 100 || Basement_Room_Bar_Lights < 100
+      if Basement_Room_Theater_Lights.state < 100 || Basement_Room_Bar_Lights.state < 100
         Basement_Room_Theater_Lights.ensure << 100
         Basement_Room_Bar_Lights.ensure << 100
       else
@@ -25,7 +25,7 @@ rule "when the basement remote is used" do
   end
 end
 
-rule "when the baesment theater switches have a scene change" do
+rule "when the basement theater switches have a scene change" do
   updated C_Basement_Scene.members
 
   triggered do |item|

@@ -15,7 +15,6 @@ rule "Front Door Lock: Update lock states after alarm_raw event" do
     lock_actual_item_homekit = items["#{basename}_Actual_Homekit"]
 
     alarm = JSON.parse(item.state)
-    # logger.warn("received #{alarm[LockEvents::NOTIFICATION]} for #{lock_actual_item.name}")
 
     if alarm["type"] == LockEvents::Type::ACCESS_CONTROL
       case alarm["event"].to_i
@@ -65,8 +64,7 @@ rule "Front Door Lock: proxy lock command" do
 end
 
 rule "when our perimeter has a change" do
-  changed House_Perimeter_Contacts
-  changed Front_Door_Lock
+  changed House_Perimeter_Contacts, Front_Door_Lock
 
   run do
     House_Perimeter_LEDs.members.ensure << if House_Perimeter_Contacts.open? || Front_Door_Lock.off?

@@ -5,10 +5,10 @@ rule "when the laundry room door opens" do
 
   run { Side_Yard_Lights_Switch.ensure.on }
 
-  only_if { Sun_Status == "DOWN" }
+  only_if { Sun_Status.state == "DOWN" }
 end
 
-rule "when the laundry room door opens" do
+rule "when the laundry room door closes" do
   changed Laundry_Room_Door_Contact, to: CLOSED
 
   run { Side_Yard_Lights_Switch.ensure.off }
