@@ -1,4 +1,6 @@
-Switch Office_Windows_Switch "Office Window Lights" <poweroutlet_us> (FF_Office, Christmas_Lights) ["WallSwitch"] { homekit="Lighting", alexa="Lighting", channel="wemo:socket:Socket-1_0-221625K01014A7:state" }
+Group Office_Window_Decorations (FF_Office) ["PowerOutlet"]
+Switch Office_Windows_Switch "Office Window Lights" <poweroutlet_us> (Office_Window_Decorations, Christmas_Lights) ["WallSwitch"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:c0750d0653:power" }
+Number:Energy Office_Windows_Decorations_Watts "Office Window Decorations Power [%.1f Ws]" (Office_Window_Decorations) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:c0750d0653:currentPower" }
 
 Group Office_Door_LED "Office Door" (FF_Office) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
 Switch Office_Door_LED_Power "Office Door Power" (Christmas_Lights, Office_Door_LED) ["Switch"] { homekit="Lighting.OnState", alexa="PowerController.powerState", channel="mqtt:topic:26bcbec1ee:fc6154bf8b:power" }

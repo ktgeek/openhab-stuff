@@ -32,11 +32,11 @@ end
 rule "When the count of the occupancy sensor changes" do
   updated Basement_Occupancy_Counters.members
 
-  triggered do |item|
+  run do |event|
     after(25.milliseconds) { C_Total_Basement_Occupancy.update(Basement_Occupancy_Counters.members.sum(&:state)) }
 
-    sensor = items["#{item.name[6..-7]}_Sensor"]
-    sensor.update(item.state.positive? ? ON : OFF)
+    sensor = items["#{event.item.name[6..-7]}_Sensor"]
+    sensor.update(event.state.positive? ? ON : OFF)
   end
 end
 
@@ -44,7 +44,7 @@ rule "when someone enters/leaves downstairs" do
   changed C_Total_Basement_Occupancy
 
   run do |event|
-    timers(event.item)&.cancel
+    timers.cancel(event.item)
 
     if C_Total_Basement_Occupancy.state.positive?
       if C_Total_Basement_Occupancy.previous_state(skip_equal: true) < C_Total_Basement_Occupancy.state
@@ -71,7 +71,7 @@ rule "when someone enters/leaves the exercise room" do
   changed Hiome_Exercise_Room_Occupancy_Count
 
   run do |event|
-    timers(event.item)&.cancel
+    timers.cancel(event.item)
 
     if Hiome_Exercise_Room_Occupancy_Count.state.positive?
       Exercise_Room_Light.ensure.on
@@ -95,7 +95,7 @@ rule "when the exercise room door is closed" do
     Exercise_Room_Light.ensure.off
     Exercise_Room_Bike_Trainer_Switch.ensure.off
 
-    Basement_Deadend_Occupancy_Counters.members.each { |i| timers(i)&.cancel }
+    Basement_Deadend_Occupancy_Counters.members.each { |i| timers.cancel(i) }
   end
 
   only_if { Basement_Deadend_Occupancy_Counters.members.sum(&:state) < 1 }
@@ -104,8 +104,8 @@ end
 rule "when the exercise room dimmer has a scene change" do
   updated Exercise_Room_Dimmer_Scene_Number
 
-  run do
-    case Exercise_Room_Dimmer_Scene_Number.state
+  run do |event|
+    case event.state
     when Homeseer::PADDLE_UP_TWO_CLICKS
       Basement_Stairs_Switch.ensure.on
     when Homeseer::PADDLE_DOWN_TWO_CLICKS
@@ -124,7 +124,7 @@ rule "when someone enters the basement hallway" do
   changed Hiome_Basement_Hallway_Occupancy_Count
 
   run do |event|
-    timers(event.item)&.cancel
+    timers.cancel(event.item)
 
     if Hiome_Basement_Hallway_Occupancy_Count.state.positive?
       Basement_Hallway_Lights_Switch.ensure.on

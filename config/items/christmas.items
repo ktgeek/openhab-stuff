@@ -15,10 +15,10 @@ Group DiningRoom_Table (FF_Dining) ["PowerOutlet"]
 Switch DiningRoom_Table_Switch "Dining Room Globe" <poweroutlet_us> (Christmas_Lights, DiningRoom_Table) ["Point"] { channel="mqtt:topic:26bcbec1ee:bcd698f7b4:power" }
 Number:Energy DiningRoom_Table_Watts "Dining Room Globe Power [%.1f Ws]" (DiningRoom_Table) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:bcd698f7b4:currentPower" }
 
-Switch DiningRoom_Windows_Switch "Dining Room Windows" <poweroutlet_us> (Christmas_Lights, FF_Dining) ["Lightbulb"] { channel="wemo:socket:Socket-1_0-221336K01016D6:state" }
+Group DiningRoom_Window (FF_Dining) ["PowerOutlet"]
+Switch DiningRoom_Windows_Switch "Dining Room Windows" <poweroutlet_us> (Christmas_Lights, DiningRoom_Window) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:5b60187d69:power" }
+Number:Energy DiningRoom_Window_Watts "Dining Room Window Power [%.1f Ws]" (DiningRoom_Table) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:5b60187d69:currentPower" }
 
-// Second Floor - Bedroom
-Switch Bedroom_Windows_Switch "Bedroom Windows" <poweroutlet_us> (Christmas_Outside, SF_Bedroom) ["LightBulb"] { channel="wemo:socket:Socket-1_0-221333K010042E:state" }
 
 //Group Bathroom
 Switch Bathroom_Penguin_Light "Penguin Light" <poweroutlet_us> (Christmas_Lights, FF_Kitchen) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:40b393a346:power" }

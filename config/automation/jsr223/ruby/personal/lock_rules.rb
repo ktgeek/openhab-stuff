@@ -8,13 +8,14 @@ require "json"
 rule "Front Door Lock: Update lock states after alarm_raw event" do
   changed Front_Door_Lock_Alarm_Raw
 
-  triggered do |item|
+  run do |event|
+    item = event.item
     basename = item.name[0..-11]
     lock_actual_item = items["#{basename}_Actual"]
 
     lock_actual_item_homekit = items["#{basename}_Actual_Homekit"]
 
-    alarm = JSON.parse(item.state)
+    alarm = JSON.parse(event.state)
 
     if alarm["type"] == LockEvents::Type::ACCESS_CONTROL
       case alarm["event"].to_i
@@ -44,22 +45,23 @@ end
 rule "Front Door Lock: proxy changes to actual back to target" do
   changed Front_Door_Lock_Actual
 
-  triggered do |item|
+  run do |event|
+    item = event.item
     basename = item.name[0..-8]
     lock_item = items[basename]
     lock_actual_item_homekit = items["#{basename}_Actual_Homekit"]
 
-    lock_item.update(item.state)
-    lock_actual_item_homekit.update(item.on? ? Homekit::LockStatus::SECURED : Homekit::LockStatus::UNSECURED)
+    lock_item.update(event.state)
+    lock_actual_item_homekit.update(event.state.on? ? Homekit::LockStatus::SECURED : Homekit::LockStatus::UNSECURED)
   end
 end
 
 rule "Front Door Lock: proxy lock command" do
   received_command Front_Door_Lock
 
-  triggered do |item|
-    lock_item_actual = items["#{item.name}_Actual"]
-    lock_item_actual.ensure << item.state
+  run do |event|
+    lock_item_actual = items["#{event.item.name}_Actual"]
+    lock_item_actual.ensure << event.state
   end
 end
 

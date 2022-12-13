@@ -3,8 +3,8 @@ Group    SF_Bedroom     "Bedroom" <bedroom>       (SF)               ["Bedroom"]
 Switch Bedroom_Wall_Outlet "Bedroom Outlet" <poweroutlet_us> (SF_Bedroom, Christmas_Lights) ["WallSwitch"] { homekit="Outlet", alexa="Outlet", channel="zwave:device:8c18403e:node3:switch_binary" }
 
 Group Bedroom_Ceiling_Fan_With_Light "Bedroom Ceiling Fan With Light" (SF_Bedroom) ["CeilingFan"] { homekit="Fan,Lighting" }
-Number Bedroom_Ceiling_Fan_Speed "Bedroom Ceilin Fan Speed" <fan_ceiling> (Bedroom_Ceiling_Fan_With_Light) ["Control"] { autoupdate="false", homekit="Fan.RotationSpeed" [ minValue=0, maxValue=3 ] }
-Dimmer Bedroom_Ceiling_Fan_SpeedDimmer "Bedroom Ceiling Fan Speed Dimmer" <fan_ceiling> (Bedroom_Ceiling_Fan_With_Light) ["Control"] { channel="bondhome:bondFan:ZZFG29355:fc689f4ca68ab358:fan#speed", homekit="Fan.ActiveStatus" }
+Number Bedroom_Ceiling_Fan_Speed "Bedroom Ceiling Fan Speed" <fan_ceiling> (Bedroom_Ceiling_Fan_With_Light) ["Control"] { autoupdate="false", homekit="Fan.RotationSpeed" [ minValue=0, maxValue=3 ] }
+Dimmer Bedroom_Ceiling_Fan_SpeedDimmer "Bedroom Ceiling Fan Speed Dimmer" <fan_ceiling> (Bedroom_Ceiling_Fan_With_Light) ["Control"] { channel="bondhome:bondFan:ZZFG29355:fc689f4ca68ab358:fan#speed", homekit="Fan.ActiveStatus", autoupdate="false" }
 Switch Bedroom_Ceiling_Fan_Light_Power "Bedroom Ceiling Fan Light" (Bedroom_Ceiling_Fan_With_Light) ["Switch"] { homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:fc689f4ca68ab358:light#power" }
 
 Group Bedroom_Table_Light (SF_Bedroom) ["PowerOutlet"]

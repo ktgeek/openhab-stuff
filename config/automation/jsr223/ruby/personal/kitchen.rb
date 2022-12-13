@@ -11,7 +11,7 @@ def reset_basement
     OpenHAB::Core::Actions::HTTP.sendHttpPutRequest(
       "http://hiome.kgarner.com/api/1/rooms/#{i}",
       "application/json",
-      '{"occupancy_count": 0}'
+      %({"occupancy_count": 0})
     )
   end
   C_All_Lights.members.ensure.off

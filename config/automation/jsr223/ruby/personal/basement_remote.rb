@@ -5,8 +5,8 @@ require "homeseer"
 rule "when the basement remote is used" do
   updated NanomoteQuad_Scene
 
-  run do
-    case NanomoteQuad_Scene.state
+  run do |event|
+    case event.state
     when 1.0
       Basement_Normal_Mode_Switch.on
     when 2.0
@@ -28,8 +28,8 @@ end
 rule "when the basement theater switches have a scene change" do
   updated C_Basement_Scene.members
 
-  triggered do |item|
-    case item.state
+  run do |event|
+    case event.state
     when Homeseer::PADDLE_UP_TWO_CLICKS
       Basement_Normal_Mode_Switch.on
     when Homeseer::PADDLE_DOWN_TWO_CLICKS

@@ -3,8 +3,8 @@ Group FF_Garage "Garage" <garage> (FF) ["Garage"]
 Group Large_Garage_Door_Open_LEDs (FF_Garage) ["Equipment"]
 Group Small_Garage_Door_Open_LEDs (FF_Garage) ["Equipment"]
 
-//Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights"  <lightbulb> (FF_Garage) ["Lightbulb"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13008B6:state" }
-Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights"  <lightbulb> (FF_Garage, Front_Yard_Lights) ["Lightbulb"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13008B6:state" }
+//Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights"  <lightbulb> (FF_Garage) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:1e9a931646:power" }
+Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights"  <lightbulb> (FF_Garage, Front_Yard_Lights) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:1e9a931646:power" }
 
 String Large_Garage_Door_Status "Large Garage Door" (FF_Garage) ["GarageDoor"] { channel="myq:garagedoor:home:cg0860ab4cbe:status" }
 String Small_Garage_Door_Status "Small Garage Door" (FF_Garage) ["GarageDoor"] { channel="myq:garagedoor:home:cg0860ab5291:status" }

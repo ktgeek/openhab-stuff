@@ -15,7 +15,7 @@ Group Front_Yard   "Front Yard"                    (Home)  ["Outdoor"]
 Group TV_Notifications "TV Notifications" <screen> (Home) ["Status"]
 
 Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
-Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (Front_Yard_Lights) ["Point"] { channel="wemo:lightswitch:Lightswitch-1_0-221336K13009CA:state" }
+Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (Front_Yard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:916c8e28e1:power" }
 
 //Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
 Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
