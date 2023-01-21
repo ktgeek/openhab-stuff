@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.1.7)
+    activesupport (6.1.7.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -13,7 +13,7 @@ GEM
       concurrent-ruby (~> 1.0)
     marcel (1.0.2)
     method_source (1.0.0)
-    minitest (5.16.3)
+    minitest (5.17.0)
     openhab-jrubyscripting (5.0.0.rc5)
       bundler (~> 2.2)
       marcel (~> 1.0)
