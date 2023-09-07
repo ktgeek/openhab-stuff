@@ -61,7 +61,7 @@ rule "Front Door Lock: proxy lock command" do
 
   run do |event|
     lock_item_actual = items["#{event.item.name}_Actual"]
-    lock_item_actual.ensure << event.state
+    lock_item_actual.ensure << event.item.state
   end
 end
 

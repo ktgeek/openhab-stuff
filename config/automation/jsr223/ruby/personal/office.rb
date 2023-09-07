@@ -34,23 +34,22 @@ rule "when a zoom meeting is over" do
   end
 end
 
-rule "Monitor LEDs off at end of day" do
-  cron "0 30 22 ? * *"
+rule "turn on the light if someone enters the office" do
+  changed Office_Presence_Event, to: "enter"
 
-  run { Office_Monitor_LED.off }
-  only_if { Office_Monitor_LED.on? }
+  run do
+    Office_Lights_Switch.ensure.on
+    Office_Monitor_LED.ensure.on
+  end
+
+  only_if { Office_Presence_Sensor.off? }
 end
 
-rule "Monitor LEDs off at end of workday" do
-  cron "0 30 17 ? * MON-FRI"
+rule "turn off the light when the office is empty" do
+  changed Office_Presence_Sensor, to: OFF
 
-  run { Office_Monitor_LED.off }
-  only_if { Office_Monitor_LED.on? }
-end
-
-rule "Monitor LEDs on at start of workday" do
-  cron "0 30 8 ? * MON-FRI"
-
-  run { Office_Monitor_LED.on }
-  only_if { Office_Monitor_LED.off? }
+  run do
+    Office_Lights_Switch.ensure.off
+    Office_Monitor_LED.ensure.off
+  end
 end

@@ -1,20 +1,11 @@
 # frozen_string_literal: true
 
-received_command Bedroom_Ceiling_Fan_Speed do |event|
-  next unless (0..3).cover?(event.command)
+updated Bedroom_Ceiling_Fan_Speed do |event|
+  next unless (0..3).cover?(event.state)
 
-  value = (event.command * 100 / 3).floor
-  # logger.warn("I am executing the rule for #{value}")
-
-  # forward command to the actual device as appropriate
-  Bedroom_Ceiling_Fan_SpeedDimmer.ensure << value
+  Bedroom_Ceiling_Fan_Power.update(event.state.positive?)
 end
 
-changed Bedroom_Ceiling_Fan_SpeedDimmer do |event|
-  level = (event.state.to_f * 3 / 100).ceil
-
-  # logger.warn("I am executing the rule for #{level}")
-
-  # device changed, update the speed item
-  Bedroom_Ceiling_Fan_Speed.ensure.update(level)
+received_command Bedroom_Ceiling_Fan_Power, command: OFF do
+  Bedroom_Ceiling_Fan_Speed.ensure << 0
 end

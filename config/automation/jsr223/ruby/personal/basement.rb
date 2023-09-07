@@ -40,6 +40,16 @@ rule "When the count of the occupancy sensor changes" do
   end
 end
 
+rule "When the count of the occupancy sensor changes" do
+  updated Basement_Deadend_Occupancy_Counters.members
+
+  run do
+    after(25.milliseconds) do
+      C_Basement_Deadend_Occupancy.update(Basement_Deadend_Occupancy_Counters.members.sum(&:state))
+    end
+  end
+end
+
 rule "when someone enters/leaves downstairs" do
   changed C_Total_Basement_Occupancy
 
@@ -70,15 +80,23 @@ end
 rule "when someone enters/leaves the exercise room" do
   changed Hiome_Exercise_Room_Occupancy_Count
 
-  run do |event|
-    timers.cancel(event.item)
-
+  run do
     if Hiome_Exercise_Room_Occupancy_Count.state.positive?
       Exercise_Room_Light.ensure.on
       if Exercise_Room_Bike_Trainer_Switch.off? && Exercise_Room_Bike_Trainer_Enabled.on?
         Exercise_Room_Bike_Trainer_Switch.ensure.on
       end
-    else
+    end
+  end
+end
+
+rule "when someone leaves the deadend" do
+  changed C_Basement_Deadend_Occupancy
+
+  run do |event|
+    timers.cancel(event.item)
+
+    if C_Basement_Deadend_Occupancy.state < 1
       after(90.seconds, id: event.item) do
         Exercise_Room_Light.ensure.off
         Exercise_Room_Bike_Trainer_Switch.ensure.off
@@ -91,14 +109,16 @@ rule "when the exercise room door is closed" do
   changed Hiome_Exercise_Room_Door_Contact, to: CLOSED
 
   run do
-    Basement_Hallway_Lights_Switch.ensure.off
-    Exercise_Room_Light.ensure.off
-    Exercise_Room_Bike_Trainer_Switch.ensure.off
+    if C_Basement_Deadend_Occupancy.state < 1
+      Basement_Hallway_Lights_Switch.ensure.off
+      Exercise_Room_Light.ensure.off
+      Exercise_Room_Bike_Trainer_Switch.ensure.off
 
-    Basement_Deadend_Occupancy_Counters.members.each { |i| timers.cancel(i) }
+      Basement_Deadend_Occupancy_Counters.members.each { |i| timers.cancel(i) }
+    end
+
+    Basement_Stairs_Switch.ensure.off if Hiome_Basement_Occupancy_Count.state < 1
   end
-
-  only_if { Basement_Deadend_Occupancy_Counters.members.sum(&:state) < 1 }
 end
 
 rule "when the exercise room dimmer has a scene change" do
