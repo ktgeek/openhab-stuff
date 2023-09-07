@@ -28,3 +28,8 @@ Number Office_Lights_LED_5_Color "Office Lights Led 5 Color" (Office_Lights_Cont
 Number Office_Lights_LED_6_Color "Office Lights Led 6 Color" (Office_Lights_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="zwave:device:8c18403e:node58:config_decimal_param26" }
 Number Office_Lights_LED_7_Color "Office Lights Led 7 Color" (Office_Lights_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="zwave:device:8c18403e:node58:config_decimal_param27" }
 
+Group Office_Presence (FF_Office) ["Equipment"]
+Switch Office_Presence_Sensor "Office Occupancy" (Office_Presence) ["Point"] { channel="mqtt:topic:26bcbec1ee:3e1aff917f:presence", homekit="OccupancySensor" }
+String Office_Presence_Event "Office Presence Event" (Office_Presence) ["Point"] { channel="mqtt:topic:26bcbec1ee:3e1aff917f:presence_event" }
+
+

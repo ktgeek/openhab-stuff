@@ -17,8 +17,8 @@ Group TV_Notifications "TV Notifications" <screen> (Home) ["Status"]
 Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
 Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (Front_Yard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:916c8e28e1:power" }
 
-//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
-Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
+Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
+//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
 Switch Porch_Decorations_Switch "Porch Decorations" <party> (Front_Yard, Christmas_Outside) ["WallSwitch"] { homekit="Switchable", alexa="Switchable", channel="zwave:device:8c18403e:node51:switch_binary" }
 
 // First Floor - Entrance
@@ -32,8 +32,8 @@ String Sun_Status "Is the sun up or down?" <sun> (Home) ["Status"]
 
 Group gFront_Door_Lock "Front Door Lock" (FF_Entrance) ["Equipment"] { homekit="Lock" }
 Switch Front_Door_Lock "Front Door Lock" <lock> (gFront_Door_Lock) ["Lock"] { homekit="Lock.LockTargetState", alexa="LockController.lockState" [itemSensor="Front_Door_Lock_Actual_Homekit"] }
-Switch Front_Door_Lock_Actual <lock> (gFront_Door_Lock) { channel="zwave:device:8c18403e:node55:lock_door", autoupdate="false" }
-Number Front_Door_Lock_Actual_Homekit (gFront_Door_Lock) { homekit="Lock.LockCurrentState" }
+Switch Front_Door_Lock_Actual "Front Door Lock Actual" <lock> (gFront_Door_Lock) { channel="zwave:device:8c18403e:node55:lock_door", autoupdate="false" }
+Number Front_Door_Lock_Actual_Homekit "Front Door Actual Homekit" (gFront_Door_Lock) { homekit="Lock.LockCurrentState" }
 String Front_Door_Lock_Alarm_Raw "Front Door Lock Alarm (raw)" (gFront_Door_Lock) ["Point"] { channel="zwave:device:8c18403e:node55:alarm_raw" }
 Number Front_Door_Lock_Battery_Level "Front Door Lock Battery level [%.1f %%]" <battery> (gFront_Door_Lock) ["Point"] { channel="zwave:device:8c18403e:node55:battery-level" }
 
@@ -48,5 +48,5 @@ Group Entrance_Hall_MultiSensor (FF_Entrance) ["Equipment"]
 Number:Temperature Entrance_Temperature "Entrance Temperature" (Entrance_Hall_MultiSensor) ["Measurement", "Temperature"] { homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="zwave:device:8c18403e:node59:sensor_temperature"}
 Number Entrance_Luminance "Entrance Luminance [%.0f Lux]" (Entrance_Hall_MultiSensor) ["Measurement", "Light"] { homekit="LightSensor", channel="zwave:device:8c18403e:node59:sensor_luminance"}
 Switch Entrance_Alarm_Motion "Entrance Motion alarm" (Entrance_Hall_MultiSensor) {channel="zwave:device:8c18403e:node59:alarm_motion"}
-Number Entrance_Hall_MultiSensor_Battery_Level "Entrance Battery level" (Entrance_Hall_MultiSensor) ["Battery"]  {channel="zwave:device:8c18403e:node59:battery-level"}
+Number Entrance_Hall_MultiSensor_Battery_Level "Entrance Battery level" (Entrance_Hall_MultiSensor) ["Measurement", "Battery"]  {channel="zwave:device:8c18403e:node59:battery-level"}
 

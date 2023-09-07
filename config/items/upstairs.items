@@ -7,17 +7,6 @@ Group Upstairs_Hallway_Wall_Outlet "Upstairs Wall Outlet" <poweroutlet_us> (SF_H
 Switch Upstairs_Hallway_Wall_Outlet_Switch "Upstairs Wall Outlet" <poweroutlet_us> (SF_Hallway, All_Hall_Lights, Upstairs_Hallway_Wall_Outlet, Christmas_Lights) ["Switch"] { homekit="Outlet.OnState", alexa="Outlet", channel="zwave:device:8c18403e:node12:switch_binary" }
 Number:Energy Upstairs_Hallway_Wall_Outlet_kWh "Upstairs Wall Outlet Power [%.1f kWh]" (Upstairs_Hallway_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node12:meter_kwh" }
 Number:Energy Upstairs_Hallway_Wall_Outlet_Watts "Upstairs Wall Outlet Power [%.1f Ws]" (Upstairs_Hallway_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node12:meter_watts" }
-Switch Upstairs_Hallway_Wall_Outlet_In_Use "Upstairs Hallway Wall Outlet In Use [JS(outletinuse.js):%s]" (Upstairs_Hallway_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node12:meter_watts" }
+Switch Upstairs_Hallway_Wall_Outlet_In_Use "Upstairs Hallway Wall Outlet In Use [RB(outletinuse.rb):%s]" (Upstairs_Hallway_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node12:meter_watts" }
 
 Switch HiddenRoom_Light_Switch "Hidden Room Lights" <lightbulb> (SF_HiddenRoom) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node47:switch_binary" }
-//Switch HiddenRoom_Window_Lights "Hidden Room Window Lights" (Christmas_Outside, SF_HiddenRoom) ["Lightbulb"] { channel="wemo:socket:Socket-1_0-221625K0100CD5:state" }
-//Switch HiddenRoom_Window_Lights "Hidden Room Window Lights" (SF_HiddenRoom) ["Lightbulb"] { channel="wemo:socket:Socket-1_0-221625K0100CD5:state" }
-
-Group HiddenRoom_Holiday_LED "Hidden Room Holiday LED" (SF_HiddenRoom) ["Equipment"]
-Switch HiddenRoom_Holiday_LED_Power "HiddenRoom Holiday LED Power" (Christmas_Outside, HiddenRoom_Holiday_LED) ["Switch", "Light"] { channel="wled:segment:9c9c1f429df9:9d76fc260a:masterControls" }
-String HiddenRoom_Holiday_LED_Presets "HiddenRoom Holiday LED Presets" (HiddenRoom_Holiday_LED) ["Point"] { channel="wled:json:9c9c1f429df9:presets" }
-
-Group DinahsRoom_Holiday_LED "Dinah's Room Holiday LED" (SF_DinahsRoom) ["Equipment"]
-Switch DinahsRoom_Holiday_LED_Power "Dinah's Room Holiday LED Power" (Christmas_Outside, DinahsRoom_Holiday_LED) ["Switch", "Light"] { channel="wled:segment:9c9c1f423b9a:e05589552a:masterControls" }
-String DinahsRoom_Holiday_LED_Presets "Dinah's Room Holiday LED Presets" (DinahsRoom_Holiday_LED) ["Point"] { channel="wled:json:9c9c1f423b9a:presets" }
-

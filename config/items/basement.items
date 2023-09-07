@@ -27,7 +27,8 @@ Switch Exercise_Room_Occupancy_Sensor "Exercise Room Occupancy" (ExerciseRoom_Hi
 Number Hiome_Basement_Hallway_Occupancy_Count "Basement Hallway Occupancy [%d]" <parents_1_1> (C_Basement_Hallway, Basement_Occupancy_Counters, Basement_Deadend_Occupancy_Counters) ["Point"] { channel="mqtt:topic:c0853ba2:4" }
 Switch Basement_Hallway_Occupancy_Sensor "Basement Hallway Occupancy" (C_Basement_Hallway) ["Point"] { homekit="OccupancySensor" }
 
-Number C_Total_Basement_Occupancy "Total Basement Occpancy" <parents_1_1> (C) ["Point"]
+Number C_Total_Basement_Occupancy "Total Basement Occupancy" <parents_1_1> (C) ["Point"]
+Number C_Basement_Deadend_Occupancy "Basement Deadend Occupancy" <parents_1_1> (C) ["Point"]
 
 Switch Basement_Stairs_Switch "Basement Stairs Lights" <lightbulb> (C_Basement, C_All_Lights) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node4:switch_binary" }
 
@@ -66,7 +67,7 @@ Group Basement_Wall_Outlet "Basement Wall Outlet" <poweroutlet_us> (C_Basement) 
 Switch Basement_Wall_Outlet_Switch "Basement Wall Outlet" <poweroutlet_us> (C_Basement, Basement_Wall_Outlet, Christmas_Lights_All, Basement_Christmas_Tree) ["Point"] { homekit="Outlet.OnState", alexa="Outlet.OnState", channel="zwave:device:8c18403e:node43:switch_binary" }
 Number:Energy Basement_Wall_Outlet_kWh "Baesment Wall Outlet Power [%.1f kWh]" (Basement_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node43:meter_kwh" }
 Number:Energy Basement_Wall_Outlet_Watts "Basement Wall Outlet Power [%.1f Ws]" (Basement_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node43:meter_watts" }
-Switch Basement_Wall_Outlet_In_Use "Basement Wall Outlet In Use [JS(outletinuse.js):%s]" (Basement_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node43:meter_watts" }
+Switch Basement_Wall_Outlet_In_Use "Basement Wall Outlet In Use [RB(outletinuse.rb):%s]" (Basement_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node43:meter_watts" }
 
 // -- Exercise Room --
 
@@ -83,12 +84,12 @@ Number Exercise_Room_Dimmer_Lights_LED_5_Color "Exercise Room Dimmer Led 5 Color
 Number Exercise_Room_Dimmer_Lights_LED_6_Color "Exercise Room Dimmer Led 6 Color" (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_6) ["Point"] { channel="zwave:device:8c18403e:node39:config_decimal_param26" }
 Number Exercise_Room_Dimmer_Lights_LED_7_Color "Exercise Room Dimmer Led 7 Color" (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_7) ["Point"] { channel="zwave:device:8c18403e:node39:config_decimal_param27" }
 
-Group Exercise_Room_Bike_Trainer "Exersize Room Bike Trainer" (C_ExerciseRoom) ["PowerOutlet"] { homekit="Outlet" }
-Switch Exercise_Room_Bike_Trainer_Switch "Exersize Room Bike Trainer" <switch> (C_ExerciseRoom, Exercise_Room_Bike_Trainer) { homekit="Outlet.OnState", alexa="Outlet", channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_switch" }
-Number:ElectricPotential Exercise_Room_Bike_Trainer_Voltage "Garage Outlet Voltage [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_voltage" }
-Number:ElectricCurrent Exercise_Room_Bike_Trainer_Current "Garage Outlet Current [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_current" }
-Number:Energy Exercise_Room_Bike_Trainer_TotalActivePower "Garage Outlet Total Active Power [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_activepower"}
-Switch Exercise_Room_Bike_Trainer_In_Use "Garage Outlet In Use [JS(outletinuse.js):%s]" (Exercise_Room_Bike_Trainer) ["Point"] { homekit="Outlet.InUseStatus", channel="zigbee:device:6f5b83c0:000d6f000b033708:000D6F000B033708_1_activepower" }
+Group Exercise_Room_Bike_Trainer "Exercise Room Bike Trainer" (C_ExerciseRoom) ["PowerOutlet"] { homekit="Outlet" }
+Switch Exercise_Room_Bike_Trainer_Switch "Exercise Room Bike Trainer" <switch> (C_ExerciseRoom, Exercise_Room_Bike_Trainer) { homekit="Outlet.OnState", alexa="Outlet", channel="mqtt:topic:26bcbec1ee:ab4bf69cb0:switch" }
+Number:ElectricPotential Exercise_Room_Bike_Trainer_Voltage "Exercise Room Voltage [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:ab4bf69cb0:voltage" }
+Number:ElectricCurrent Exercise_Room_Bike_Trainer_Current "Exercise Room Current [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:ab4bf69cb0:current" }
+Number:Energy Exercise_Room_Bike_Trainer_TotalActivePower "Exercise Room Total Active Power [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:ab4bf69cb0:power"}
+Switch Exercise_Room_Bike_Trainer_In_Use "Exercise Room Outlet In Use [RB(outletinuse.rb):%s]" (Exercise_Room_Bike_Trainer) ["Point"] { homekit="Outlet.InUseStatus", channel="mqtt:topic:26bcbec1ee:ab4bf69cb0:power" }
 
 Switch Exercise_Room_Bike_Trainer_Enabled (C_ExerciseRoom) ["Switch"]
 

@@ -2,11 +2,18 @@ Group    SF_Bedroom     "Bedroom" <bedroom>       (SF)               ["Bedroom"]
 
 Switch Bedroom_Wall_Outlet "Bedroom Outlet" <poweroutlet_us> (SF_Bedroom, Christmas_Lights) ["WallSwitch"] { homekit="Outlet", alexa="Outlet", channel="zwave:device:8c18403e:node3:switch_binary" }
 
-Group Bedroom_Ceiling_Fan_With_Light "Bedroom Ceiling Fan With Light" (SF_Bedroom) ["CeilingFan"] { homekit="Fan,Lighting" }
-Number Bedroom_Ceiling_Fan_Speed "Bedroom Ceiling Fan Speed" <fan_ceiling> (Bedroom_Ceiling_Fan_With_Light) ["Control"] { autoupdate="false", homekit="Fan.RotationSpeed" [ minValue=0, maxValue=3 ] }
-Dimmer Bedroom_Ceiling_Fan_SpeedDimmer "Bedroom Ceiling Fan Speed Dimmer" <fan_ceiling> (Bedroom_Ceiling_Fan_With_Light) ["Control"] { channel="bondhome:bondFan:ZZFG29355:fc689f4ca68ab358:fan#speed", homekit="Fan.ActiveStatus", autoupdate="false" }
+Group Bedroom_Ceiling_Fan_With_Light "Bedroom Ceiling Fan With Light" (SF_Bedroom) ["CeilingFan"] { homekit="BasicFan,Lighting" }
+
+Switch Bedroom_Ceiling_Fan_Power "Bedroom Ceiling Fan Power" <fan_ceiling> (Bedroom_Ceiling_Fan_With_Light) ["Control"] { autoupdate="false", homekit="BasicFan.OnState", autoupdate="false"}
+Number Bedroom_Ceiling_Fan_Speed "Bedroom Ceiling Fan Speed" <fan_ceiling> (Bedroom_Ceiling_Fan_With_Light) ["Control"] { channel="bondhome:bondFan:ZZFG29355:fc689f4ca68ab358:fan#rawSpeed", autoupdate="false", homekit="BasicFan.RotationSpeed" [ minValue=0, maxValue=3 ] }
 Switch Bedroom_Ceiling_Fan_Light_Power "Bedroom Ceiling Fan Light" (Bedroom_Ceiling_Fan_With_Light) ["Switch"] { homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:fc689f4ca68ab358:light#power" }
 
 Group Bedroom_Table_Light (SF_Bedroom) ["PowerOutlet"]
 Switch Bedroom_Table_Light_Switch "Bedroom Table Light" <poweroutlet_us> (Bedroom_Table_Light) ["Point"] { channel="mqtt:topic:26bcbec1ee:6d6b292248:power", homekit="Lighting", alexa="Lighting" }
 Number:Energy Bedroom_Table_Light_Watts "Bedroom Table Light Power [%.1f Ws]" (Bedroom_Table_Light) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:6d6b292248:currentPower" }
+
+Group Bedroom_Cube (SF_Bedroom) ["RemoteControl"]
+String Bedroom_Cube_Action "Action" (Bedroom_Cube) ["Status"] { channel="mqtt:topic:26bcbec1ee:74c439ba57:action" }
+Number Bedroom_Cube_Side "Side" (Bedroom_Cube) {channel="mqtt:topic:26bcbec1ee:74c439ba57:side"}
+
+
