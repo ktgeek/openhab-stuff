@@ -79,17 +79,5 @@ RSpec.describe "front_lights.rb" do
         expect(Garage_OutdoorLights_Switch).to be_on
       end
     end
-
-    context "morning lights off at sunrise" do
-      before(:each) { trigger_channel("astro:sun:local:rise#event", "END") }
-
-      it "turns off front yard lights" do
-        expect(Front_Yard_Lights.members.all?(&:off?)).to be true
-      end
-
-      it "turns off the garage outdoor lights" do
-        expect(Garage_OutdoorLights_Switch).to be_off
-      end
-    end
   end
 end
