@@ -121,6 +121,14 @@ rule "when the exercise room door is closed" do
   end
 end
 
+rule "when the exercise room door is open" do
+  changed Hiome_Exercise_Room_Door_Contact, to: OPEN
+
+  run { Basement_Stairs_Switch.ensure.on }
+
+  only_if { Hiome_Basement_Occupancy_Count.state < 1 }
+end
+
 rule "when the exercise room dimmer has a scene change" do
   updated Exercise_Room_Dimmer_Scene_Number
 

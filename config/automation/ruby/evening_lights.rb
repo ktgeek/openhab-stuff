@@ -1,14 +1,5 @@
 # frozen_string_literal: true
 
-rule "night lights on" do
-  channel "astro:sun:local:set#event", triggered: "START"
-
-  run do
-    Front_Yard_Lights.members.ensure.on
-    All_Hall_Lights.members.ensure.on
-  end
-end
-
 rule "Nights off at end of day" do
   cron "0 30 22 ? * *"
 
@@ -27,7 +18,7 @@ rule "when we turn off VisitorMode" do
 
   run do
     case Time.now
-    when between("22:30".."23:59:59"), between("0:00".."3:01")
+    when between("10:30pm".."3am")
       VisitorMode_Switch.ensure.off
       Front_Yard_Lights.members.ensure.off
       All_Hall_Lights.members.ensure.off
@@ -39,6 +30,5 @@ end
 rule "reset visitor mode" do
   cron "0 0 3 ? * *"
 
-  run { VisitorMode_Switch.off }
-  only_if { VisitorMode_Switch.on? }
+  run { VisitorMode_Switch.ensure.off }
 end

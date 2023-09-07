@@ -29,11 +29,3 @@ rule "Morning lights on", id: "morning_lights_on" do
   only_if { Sun_Status.state == "DOWN" }
 end
 
-rule "Morning lights off" do
-  channel "astro:sun:local:rise#event", triggered: "END"
-
-  run do
-    Front_Yard_Lights.members.ensure.off
-    Garage_OutdoorLights_Switch.ensure.off unless Holiday_Mode.state.blank?
-  end
-end
