@@ -3,10 +3,9 @@
 source "https://rubygems.org"
 
 group(:test) do
-  gem "openhab-jrubyscripting", "= 5.0.0.rc5"
-  #gem "openhab-jrubyscripting", git: "https://github.com/ccutrer/openhab-jrubyscripting", ref: "7980f01a138bc24760804c10a55aae0b07d801a9"
-  gem "rspec", "~> 3.11", require: false
-  gem "timecop", "~> 0.9", require: false
+  gem "openhab-scripting"
+  gem "rspec", "~> 3.11"
+  gem "timecop", "~> 0.9"
 end
 
 group(:rules) do
