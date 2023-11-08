@@ -37,8 +37,8 @@ Switch Basement_Room_Lights_Switch "Basement Room Lights" <lightbulb> (C_Basemen
 
 Group Basement_Room_Bar_Lights_Control (C_Basement) ["Equipment"]
 Dimmer Basement_Room_Bar_Lights "Basement Bar Lights" <lightbulb> (Basement_Room_Bar_Lights_Control, C_Basement, C_All_Lights) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness, Lighting.OnState", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:9efa7a271d:switch_dimmer" }
-Number Basement_Room_Bar_Lights_Scene_Number_Top "Basement Bar Lights Scene number" (Basement_Room_Bar_Lights_Control, C_Basement_Scene_Top, C_Basement) ["Point"] { channel="mqtt:topic:26bcbec1ee:9efa7a271d:scene_top" }
-Number Basement_Room_Bar_Lights_Scene_Number_Bottom "Basement Bar Lights Scene number" (Basement_Room_Bar_Lights_Control, C_Basement_Scene_Bottom, C_Basement) ["Point"] { channel="mqtt:topic:26bcbec1ee:9efa7a271d:scene_bottom" }
+Number Basement_Room_Bar_Lights_Scene_Number_Top "Basement Bar Lights Scene number" (Basement_Room_Bar_Lights_Control, C_Basement_Scene_Top, C_Basement) ["Point"] { channel="mqtt:topic:26bcbec1ee:9efa7a271d:scene_top" [profile="ruby:zwavejs_scene_handler"] }
+Number Basement_Room_Bar_Lights_Scene_Number_Bottom "Basement Bar Lights Scene number" (Basement_Room_Bar_Lights_Control, C_Basement_Scene_Bottom, C_Basement) ["Point"] { channel="mqtt:topic:26bcbec1ee:9efa7a271d:scene_bottom" [profile="ruby:zwavejs_scene_handler"] }
 Number Basement_Room_Bar_Lights_LED_1_Color "Basement Bar Lights Led 1 Color" (Basement_Room_Bar_Lights_Control, Basement_Occupancy_Count_1) ["Point"] { channel="mqtt:topic:26bcbec1ee:9efa7a271d:status_led_1_color" }
 Number Basement_Room_Bar_Lights_LED_2_Color "Basement Bar Lights Led 2 Color" (Basement_Room_Bar_Lights_Control, Basement_Occupancy_Count_2) ["Point"] { channel="mqtt:topic:26bcbec1ee:9efa7a271d:status_led_2_color" }
 Number Basement_Room_Bar_Lights_LED_3_Color "Basement Bar Lights Led 3 Color" (Basement_Room_Bar_Lights_Control, Basement_Occupancy_Count_3) ["Point"] { channel="mqtt:topic:26bcbec1ee:9efa7a271d:status_led_3_color" }
@@ -49,8 +49,8 @@ Number Basement_Room_Bar_Lights_LED_7_Color "Basement Bar Lights Led 7 Color" (B
 
 Group Basement_Room_Theater_Lights_Control (C_Basement) ["Equipment"]
 Dimmer Basement_Room_Theater_Lights "Basement Theater Lights" <lightbulb> (Basement_Room_Theater_Lights_Control, C_Basement, C_All_Lights) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness, Lighting.OnState", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:c91984f858:switch_dimmer" }
-Number Basement_Room_Theater_Lights_Scene_Number_Top "Basement Theater Lights Scene number top" (Basement_Room_Theater_Lights_Control, C_Basement_Scene_Top, C_Basement) ["Point"] {channel="mqtt:topic:26bcbec1ee:c91984f858:scene_top"}
-Number Basement_Room_Theater_Lights_Scene_Number_Bottom "Basement Theater Lights Scene number bottom" (Basement_Room_Theater_Lights_Control, C_Basement_Scene_Bottom, C_Basement) ["Point"] {channel="mqtt:topic:26bcbec1ee:c91984f858:scene_bottom"}
+Number Basement_Room_Theater_Lights_Scene_Number_Top "Basement Theater Lights Scene number top" (Basement_Room_Theater_Lights_Control, C_Basement_Scene_Top, C_Basement) ["Point"] { channel="mqtt:topic:26bcbec1ee:c91984f858:scene_top" [profile="ruby:zwavejs_scene_handler"] }
+Number Basement_Room_Theater_Lights_Scene_Number_Bottom "Basement Theater Lights Scene number bottom" (Basement_Room_Theater_Lights_Control, C_Basement_Scene_Bottom, C_Basement) ["Point"] { channel="mqtt:topic:26bcbec1ee:c91984f858:scene_bottom" [profile="ruby:zwavejs_scene_handler"] }
 Number Basement_Room_Theater_Lights_LED_1_Color "Basement Theater Lights Led 1 Color" (Basement_Room_Theater_Lights_Control, Basement_Occupancy_Count_1) ["Point"] { channel="mqtt:topic:26bcbec1ee:c91984f858:status_led_1_color" }
 Number Basement_Room_Theater_Lights_LED_2_Color "Basement Theater Lights Led 2 Color" (Basement_Room_Theater_Lights_Control, Basement_Occupancy_Count_2) ["Point"] { channel="mqtt:topic:26bcbec1ee:c91984f858:status_led_2_color" }
 Number Basement_Room_Theater_Lights_LED_3_Color "Basement Theater Lights Led 3 Color" (Basement_Room_Theater_Lights_Control, Basement_Occupancy_Count_3) ["Point"] { channel="mqtt:topic:26bcbec1ee:c91984f858:status_led_3_color" }
@@ -63,10 +63,10 @@ Switch Basement_Movie_Mode_Switch "Basement Movie Mode" <cinema> (C_Basement) ["
 Switch Basement_Normal_Mode_Switch "Basement Normal Mode" <smiley> (C_Basement) ["WallSwitch"] { homekit="Switchable", alexa="Switchable" }
 
 Group Basement_NanomoteQuad "Nanomote Quad" (C_Basement) ["Equipment"]
-Number NanomoteQuad_Scene_1 "Nanomote Quad Scene 1" (Basement_NanomoteQuad) ["Point"] { channel="mqtt:topic:26bcbec1ee:f7c5f297b6:scene-1" }
-Number NanomoteQuad_Scene_2 "Nanomote Quad Scene 2" (Basement_NanomoteQuad) ["Point"] { channel="mqtt:topic:26bcbec1ee:f7c5f297b6:scene-2" }
-Number NanomoteQuad_Scene_3 "Nanomote Quad Scene 3" (Basement_NanomoteQuad) ["Point"] { channel="mqtt:topic:26bcbec1ee:f7c5f297b6:scene-3" }
-Number NanomoteQuad_Scene_4 "Nanomote Quad Scene 4" (Basement_NanomoteQuad) ["Point"] { channel="mqtt:topic:26bcbec1ee:f7c5f297b6:scene-4" }
+Number NanomoteQuad_Scene_1 "Nanomote Quad Scene 1" (Basement_NanomoteQuad) ["Point"] { channel="mqtt:topic:26bcbec1ee:f7c5f297b6:scene-1" [profile="ruby:zwavejs_scene_handler"] }
+Number NanomoteQuad_Scene_2 "Nanomote Quad Scene 2" (Basement_NanomoteQuad) ["Point"] { channel="mqtt:topic:26bcbec1ee:f7c5f297b6:scene-2" [profile="ruby:zwavejs_scene_handler"] }
+Number NanomoteQuad_Scene_3 "Nanomote Quad Scene 3" (Basement_NanomoteQuad) ["Point"] { channel="mqtt:topic:26bcbec1ee:f7c5f297b6:scene-3" [profile="ruby:zwavejs_scene_handler"] }
+Number NanomoteQuad_Scene_4 "Nanomote Quad Scene 4" (Basement_NanomoteQuad) ["Point"] { channel="mqtt:topic:26bcbec1ee:f7c5f297b6:scene-4" [profile="ruby:zwavejs_scene_handler"] }
 Number:Dimensionless NanomoteQuad_BatteryLevel "Nanomote Quad Battery [%.1f %%]" (Basement_NanomoteQuad) ["Point"] { unit="%", channel="mqtt:topic:26bcbec1ee:f7c5f297b6:battery-level" }
 
 Group Basement_Wall_Outlet "Basement Wall Outlet" <poweroutlet_us> (C_Basement) ["PowerOutlet"] { homekit="Outlet" }
@@ -81,8 +81,8 @@ Switch Exercise_Room_Light "Exercise Room Light" <lightbulb> (C_ExerciseRoom, C_
 
 Group Exercise_Room_Dimmer_Lights_Control (C_ExerciseRoom) ["Equipment"]
 Dimmer Exercise_Room_Dimmer "Exercise Room Dimmer" <lightbulb> (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom, C_All_Lights) ["SetPoint", "Light"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:dc860bf0d1:switch_dimmer" }
-Number Exercise_Room_Dimmer_Scene_Number_Top "Scene number Top Paddle" (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom) ["Point"] {channel="mqtt:topic:26bcbec1ee:dc860bf0d1:scene_top"}
-Number Exercise_Room_Dimmer_Scene_Number_Bottom "Scene number Bottom Paddle" (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom) ["Point"] {channel="mqtt:topic:26bcbec1ee:dc860bf0d1:scene_bottom"}
+Number Exercise_Room_Dimmer_Scene_Number_Top "Scene number Top Paddle" (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:scene_top" [profile="ruby:zwavejs_scene_handler"] }
+Number Exercise_Room_Dimmer_Scene_Number_Bottom "Scene number Bottom Paddle" (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:scene_bottom" [profile="ruby:zwavejs_scene_handler"] }
 Number Exercise_Room_Dimmer_Lights_LED_1_Color "Exercise Room Dimmer Led 1 Color" (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_1) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:status_led_1_color" }
 Number Exercise_Room_Dimmer_Lights_LED_2_Color "Exercise Room Dimmer Led 2 Color" (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_2) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:status_led_2_color" }
 Number Exercise_Room_Dimmer_Lights_LED_3_Color "Exercise Room Dimmer Led 3 Color" (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_3) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:status_led_3_color" }
@@ -102,8 +102,8 @@ Switch Exercise_Room_Bike_Trainer_Enabled (C_ExerciseRoom) ["Switch"]
 
 Group Basement_Hallway_Lights_Control (C_Basement_Hallway) ["Equipment"]
 Switch Basement_Hallway_Lights_Switch "Basement Hallway Lights" (Basement_Hallway_Lights_Control, C_Basement_Hallway, C_All_Lights) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:21a4ffc685:switch_binary"}
-Number Basement_Hallway_Lights_Scene_Number_Top "Basement Hallway Lights Scene Number Top Paddle" (Basement_Hallway_Lights_Control, C_Basement_Hallway) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:scene_top" }
-Number Basement_Hallway_Lights_Scene_Number_Bottom "Basement Hallway Lights Scene Number Bottom Paddle" (Basement_Hallway_Lights_Control, C_Basement_Hallway) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:scene_bottom" }
+Number Basement_Hallway_Lights_Scene_Number_Top "Basement Hallway Lights Scene Number Top Paddle" (Basement_Hallway_Lights_Control, C_Basement_Hallway) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:scene_top" [profile="ruby:zwavejs_scene_handler"] }
+Number Basement_Hallway_Lights_Scene_Number_Bottom "Basement Hallway Lights Scene Number Bottom Paddle" (Basement_Hallway_Lights_Control, C_Basement_Hallway) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:scene_bottom" [profile="ruby:zwavejs_scene_handler"] }
 Number Basement_Hallway_Lights_LED_1_Color "Basement Hallway Lights Led 1 Color" (Basement_Hallway_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:status_led_1_color" }
 Number Basement_Hallway_Lights_LED_2_Color "Basement Hallway Lights Led 2 Color" (Basement_Hallway_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:status_led_2_color" }
 Number Basement_Hallway_Lights_LED_3_Color "Basement Hallway Lights Led 3 Color" (Basement_Hallway_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:status_led_3_color" }

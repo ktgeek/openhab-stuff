@@ -19,30 +19,24 @@ end
 
 changed FF_Kitchen_Accents_Scene_Bottom.members, to: Homeseer::PADDLE_TWO_CLICKS do |event|
   reset_basement
-  event.group.members.update(NULL)
 end
 
 changed FF_Kitchen_Lights_Scene_Top.members, to: [Homeseer::PADDLE_HOLD, Homeseer::PADDLE_TWO_CLICKS] do |event|
   Normal_Kitchen_Lights.members.ensure.on
-  event.group.members.update(NULL)
 end
 
 changed FF_Kitchen_Lights_Scene_Top.members, to: Homeseer::PADDLE_THREE_CLICKS do |event|
   All_Kitchen_Lights.members.ensure.on
-  event.group.members.update(NULL)
 end
 
 changed FF_Kitchen_Lights_Scene_Bottom.members, to: [Homeseer::PADDLE_HOLD, Homeseer::PADDLE_TWO_CLICKS] do |event|
   Normal_Kitchen_Lights.members.ensure.off
-  event.group.members.update(NULL)
 end
 
 changed FF_Kitchen_Lights_Scene_Bottom.members, to: Homeseer::PADDLE_THREE_CLICKS do |event|
   All_Kitchen_Lights.members.ensure.off
-  event.group.members.update(NULL)
 end
 
 changed FF_Kitchen_Lights_Scene_Bottom.members, to: Homeseer::PADDLE_FOUR_CLICKS do |event|
   reset_basement
-  event.group.members.update(NULL)
 end

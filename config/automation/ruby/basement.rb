@@ -121,24 +121,20 @@ end
 
 changed Exercise_Room_Dimmer_Scene_Number_Top, to: Homeseer::PADDLE_TWO_CLICKS do |event|
   Basement_Stairs_Switch.ensure.on
-  event.item.update(NULL)
 end
 
 changed Exercise_Room_Dimmer_Scene_Number_Top, to: Homeseer::PADDLE_THREE_CLICKS do |event|
   Exercise_Room_Bike_Trainer_Enabled.on
   Exercise_Room_Bike_Trainer_Switch.ensure.on
-  event.item.update(NULL)
 end
 
 changed Exercise_Room_Dimmer_Scene_Number_Bottom, to: Homeseer::PADDLE_TWO_CLICKS do |event|
   Basement_Stairs_Switch.ensure.off
-  event.item.update(NULL)
 end
 
 changed Exercise_Room_Dimmer_Scene_Number_Bottom, to: Homeseer::PADDLE_THREE_CLICKS do |event|
   Exercise_Room_Bike_Trainer_Enabled.off
   Exercise_Room_Bike_Trainer_Switch.ensure.off
-  event.item.update(NULL)
 end
 
 rule "when someone enters the basement hallway" do
@@ -154,12 +150,3 @@ rule "when someone enters the basement hallway" do
     end
   end
 end
-
-# rule "because shit is broke and stupid on the basement switch" do
-#   changed Basement_Christmas_Tree, Basement_Wall_Outlet_Switch
-
-#   run do |event|
-#     Basement_Christmas_Tree.ensure << event.state
-#     Basement_Wall_Outlet_Switch.ensure << event.state
-#   end
-# end
