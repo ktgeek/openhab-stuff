@@ -1,46 +1,47 @@
 Group    FF_Kitchen           "Kitchen"        <kitchen>       (FF)               ["Kitchen"]
 Group    FF_Kitchen_Accents      "Kitchen Accents"  <kitchen> (FF_Kitchen)
-Group    FF_Kitchen_Accents_Scene "Kitchen Accents Scene" <kitchen> (FF_Kitchen)
+Group    FF_Kitchen_Accents_Scene_Top "Kitchen Accents Scene" <kitchen> (FF_Kitchen)
+Group    FF_Kitchen_Accents_Scene_Bottom "Kitchen Accents Scene" <kitchen> (FF_Kitchen)
 Group    Normal_Kitchen_Lights (FF_Kitchen)
 Group    All_Kitchen_Lights (FF_Kitchen)
-Group    FF_Kitchen_Lights_Scene (FF_Kitchen)
+Group    FF_Kitchen_Lights_Scene_Top (FF_Kitchen)
+Group    FF_Kitchen_Lights_Scene_Bottom (FF_Kitchen)
 
-Switch Kitchen_Backyard_Lights_Switch "Backyard Lights in Kitchen" <lightbulb> (FF_Kitchen, Backyard_Lights) ["Point"] { channel="zwave:device:8c18403e:node6:switch_binary" }
+Switch Kitchen_Backyard_Lights_Switch "Backyard Lights in Kitchen" <lightbulb> (FF_Kitchen, Backyard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:27cfce6609:switch_binary" }
 
 Group Kitchen_Accent_Desk_Control (FF_Kitchen) ["Equipment"]
-Dimmer Kitchen_Accent_Desk_Dimmer "Kitchen Accent Lights (Desk)" <lightbulb> (Kitchen_Accent_Desk_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node42:switch_dimmer" }
-Number Kitchen_Accent_Desk_Scene_Number "Kitchen Accent Desk Scene Number" (Kitchen_Accent_Desk_Control, FF_Kitchen_Accents_Scene) ["Point"] { channel="zwave:device:8c18403e:node42:scene_number" }
-Number Kitchen_Accent_Desk_LED_1_Color "Kitchen Accent Desk Led 1 Color" (Kitchen_Accent_Desk_Control, C_Occupancy_LEDs) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param21" }
-Number Kitchen_Accent_Desk_LED_2_Color "Kitchen Accent Desk Led 2 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param22" }
-Number Kitchen_Accent_Desk_LED_3_Color "Kitchen Accent Desk Led 3 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param23" }
-Number Kitchen_Accent_Desk_LED_4_Color "Kitchen Accent Desk Led 4 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param24" }
-Number Kitchen_Accent_Desk_LED_5_Color "Kitchen Accent Desk Led 5 Color" (Kitchen_Accent_Desk_Control, House_Perimeter_LEDs) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param25" }
-Number Kitchen_Accent_Desk_LED_6_Color "Kitchen Accent Desk Led 6 Color" (Kitchen_Accent_Desk_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param26" }
-Number Kitchen_Accent_Desk_LED_7_Color "Kitchen Accent Desk Led 7 Color" (Kitchen_Accent_Desk_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="zwave:device:8c18403e:node42:config_decimal_param27" }
+Dimmer Kitchen_Accent_Desk_Dimmer "Kitchen Accent Lights (Desk)" <lightbulb> (Kitchen_Accent_Desk_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:switch_dimmer" }
+Number Kitchen_Accent_Desk_Scene_Number_Top "Kitchen Accent Desk Scene Number Top Paddle" (Kitchen_Accent_Desk_Control, FF_Kitchen_Accents_Scene_Top) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:scene_top" }
+Number Kitchen_Accent_Desk_Scene_Number_Bottom "Kitchen Accent Desk Scene Number Bottom Paddle" (Kitchen_Accent_Desk_Control, FF_Kitchen_Accents_Scene_Bottom) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:scene_bottom" }
+Number Kitchen_Accent_Desk_LED_1_Color "Kitchen Accent Desk Led 1 Color" (Kitchen_Accent_Desk_Control, C_Occupancy_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_1_color" }
+Number Kitchen_Accent_Desk_LED_2_Color "Kitchen Accent Desk Led 2 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_2_color" }
+Number Kitchen_Accent_Desk_LED_3_Color "Kitchen Accent Desk Led 3 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_3_color" }
+Number Kitchen_Accent_Desk_LED_4_Color "Kitchen Accent Desk Led 4 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_4_color" }
+Number Kitchen_Accent_Desk_LED_5_Color "Kitchen Accent Desk Led 5 Color" (Kitchen_Accent_Desk_Control, House_Perimeter_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_5_color" }
+Number Kitchen_Accent_Desk_LED_6_Color "Kitchen Accent Desk Led 6 Color" (Kitchen_Accent_Desk_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_6_color" }
+Number Kitchen_Accent_Desk_LED_7_Color "Kitchen Accent Desk Led 7 Color" (Kitchen_Accent_Desk_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_7_color" }
 
 Group Kitchen_Accent_Sink_Control (FF_Kitchen) ["Equipment"]
-Dimmer Kitchen_Accent_Sink_Dimmer "Kitchen Accent Lights (Sink)" <lightbulb> (Kitchen_Accent_Sink_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node41:switch_dimmer" }
-Number Kitchen_Accent_Sink_Scene_Number "Kitchen Accent Sink Scene Number" (Kitchen_Accent_Sink_Control, FF_Kitchen_Accents_Scene) ["Point"] {channel="zwave:device:8c18403e:node41:scene_number"}
-Number Kitchen_Accent_Sink_LED_1_Color "Kitchen Accent Sink Led 1 Color" (Kitchen_Accent_Sink_Control, C_Occupancy_LEDs) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param21"}
-Number Kitchen_Accent_Sink_LED_2_Color "Kitchen Accent Sink Led 2 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param22"}
-Number Kitchen_Accent_Sink_LED_3_Color "Kitchen Accent Sink Led 3 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param23"}
-Number Kitchen_Accent_Sink_LED_4_Color "Kitchen Accent Sink Led 4 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param24"}
-Number Kitchen_Accent_Sink_LED_5_Color "Kitchen Accent Sink Led 5 Color" (Kitchen_Accent_Sink_Control, House_Perimeter_LEDs) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param25"}
-Number Kitchen_Accent_Sink_LED_6_Color "Kitchen Accent Sink Led 6 Color" (Kitchen_Accent_Sink_Control, Small_Garage_Door_Open_LEDs) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param26"}
-Number Kitchen_Accent_Sink_LED_7_Color "Kitchen Accent Sink Led 7 Color" (Kitchen_Accent_Sink_Control, Large_Garage_Door_Open_LEDs) ["Point"] {channel="zwave:device:8c18403e:node41:config_decimal_param27"}
+Dimmer Kitchen_Accent_Sink_Dimmer "Kitchen Accent Lights (Sink)" <lightbulb> (Kitchen_Accent_Sink_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:0d94cfb849:switch_dimmer" }
+Number Kitchen_Accent_Sink_Scene_Number_Top "Kitchen Accent Sink Scene Number Top Paddle" (Kitchen_Accent_Sink_Control, FF_Kitchen_Accents_Scene_Top) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:scene_top"}
+Number Kitchen_Accent_Sink_Scene_Number_Bottom "Kitchen Accent Sink Scene Number Bottom Paddle" (Kitchen_Accent_Sink_Control, FF_Kitchen_Accents_Scene_Bottom) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:scene_bottom"}
+Number Kitchen_Accent_Sink_LED_1_Color "Kitchen Accent Sink Led 1 Color" (Kitchen_Accent_Sink_Control, C_Occupancy_LEDs) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_1_color"}
+Number Kitchen_Accent_Sink_LED_2_Color "Kitchen Accent Sink Led 2 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_2_color"}
+Number Kitchen_Accent_Sink_LED_3_Color "Kitchen Accent Sink Led 3 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_3_color"}
+Number Kitchen_Accent_Sink_LED_4_Color "Kitchen Accent Sink Led 4 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_4_color"}
+Number Kitchen_Accent_Sink_LED_5_Color "Kitchen Accent Sink Led 5 Color" (Kitchen_Accent_Sink_Control, House_Perimeter_LEDs) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_5_color"}
+Number Kitchen_Accent_Sink_LED_6_Color "Kitchen Accent Sink Led 6 Color" (Kitchen_Accent_Sink_Control, Small_Garage_Door_Open_LEDs) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_6_color"}
+Number Kitchen_Accent_Sink_LED_7_Color "Kitchen Accent Sink Led 7 Color" (Kitchen_Accent_Sink_Control, Large_Garage_Door_Open_LEDs) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_7_color"}
 
 Group Kitchen_Lights_Control (FF_Kitchen) ["WallSwitch"]
-Switch Kitchen_Lights "Kitchen Lights" <lightbulb> (Kitchen_Lights_Control, Normal_Kitchen_Lights, All_Kitchen_Lights) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node45:switch_binary" }
-Number Kitchen_Lights_Scene_Number "Kitchen Lights Scene Number" (Kitchen_Lights_Control, FF_Kitchen_Lights_Scene) ["Point"] {channel="zwave:device:8c18403e:node45:scene_number"}
-Number Kitchen_Lights_LED_Color "Kitchen Lights Led Color" (Kitchen_Lights_Control, C_Occupancy_LEDs) ["Point"] {channel="zwave:device:8c18403e:node45:config_decimal_param21"}
-Number Kitchen_Lights_Scene_Control "Scene control" (Kitchen_Lights_Control) ["Point"] {channel="zwave:device:8c18403e:node45:config_decimal_param6"}
-Number Kitchen_Lights_Mode_Of_Operation "Mode of operation" (Kitchen_Lights_Control) ["Point"] {channel="zwave:device:8c18403e:node45:config_decimal_param13"}
+Switch Kitchen_Lights "Kitchen Lights" <lightbulb> (Kitchen_Lights_Control, Normal_Kitchen_Lights, All_Kitchen_Lights) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:9c11cca1ee:switch_binary" }
+Number Kitchen_Lights_Scene_Number_Top "Kitchen Lights Scene Number Top Paddle" (Kitchen_Lights_Control, FF_Kitchen_Lights_Scene_Top) ["Point"] { channel="mqtt:topic:26bcbec1ee:9c11cca1ee:scene_top" }
+Number Kitchen_Lights_Scene_Number_Bottom "Kitchen Lights Scene Number Bottom Paddle" (Kitchen_Lights_Control, FF_Kitchen_Lights_Scene_Bottom) ["Point"] { channel="mqtt:topic:26bcbec1ee:9c11cca1ee:scene_bottom" }
+Number Kitchen_Lights_LED_Color "Kitchen Lights Led Color" (Kitchen_Lights_Control, C_Occupancy_LEDs) ["Point"] {channel="mqtt:topic:26bcbec1ee:9c11cca1ee:led_color"}
 
 Group Kitchen_Table_Lights_Control (FF_Kitchen) ["WallSwitch"]
-Switch Kitchen_Table_Lights "Kitchen Table Lights" <lightbulb> (Kitchen_Table_Lights_Control, Normal_Kitchen_Lights, All_Kitchen_Lights) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node46:switch_binary" }
-Number Kitchen_Table_Lights_Scene_Number "Kitchen Table Lights Scene Number" (Kitchen_Table_Lights_Control, FF_Kitchen_Lights_Scene) ["Point"] {channel="zwave:device:8c18403e:node46:scene_number"}
-Number Kitchen_Table_Lights_LED_Color "Kitchen Table Lights Led color" (Kitchen_Table_Lights_Control) ["Point"] {channel="zwave:device:8c18403e:node46:config_decimal_param21"}
-Number Kitchen_Table_Lights_Scene_Control "Scene control" (Kitchen_Table_Lights_Control) ["Point"] {channel="zwave:device:8c18403e:node46:config_decimal_param6"}
-Number Kitchen_Table_Lights_Mode_Of_Operation "Mode of operation" (Kitchen_Table_Lights_Control) ["Point"] {channel="zwave:device:8c18403e:node46:config_decimal_param13"}
+Switch Kitchen_Table_Lights "Kitchen Table Lights" <lightbulb> (Kitchen_Table_Lights_Control, Normal_Kitchen_Lights, All_Kitchen_Lights) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:4bf7bcd001:switch_binary" }
+Number Kitchen_Table_Lights_Scene_Number_Top "Kitchen Table Lights Scene Number Top Paddle" (Kitchen_Table_Lights_Control, FF_Kitchen_Lights_Scene_Top) ["Point"] { channel="mqtt:topic:26bcbec1ee:4bf7bcd001:scene_top" }
+Number Kitchen_Table_Lights_Scene_Number_Bottom "Kitchen Table Lights Scene Number Bottom Paddle" (Kitchen_Table_Lights_Control, FF_Kitchen_Lights_Scene_Bottom) ["Point"] { channel="mqtt:topic:26bcbec1ee:4bf7bcd001:scene_bottom" }
 
 Contact Kitchen_Back_Door_Contact "Back Door" (FF_Kitchen, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_3" }
