@@ -16,6 +16,8 @@ RSpec.describe "entrance_lights.rb" do
   end
 
   describe "luminance based rules" do
+
+
     context "during a weekday" do
       context "between 9am and 10:30pm" do
         before { Timecop.freeze(Time.local(2023, 7, 10, 10, 0, 0)) }
@@ -45,8 +47,8 @@ RSpec.describe "entrance_lights.rb" do
         end
       end
 
-      context "between 5:50am and 9am" do
-        before { Timecop.freeze(Time.local(2023, 7, 10, 6, 0, 0)) }
+      context "between 5:35am and 9am" do
+        before { Timecop.freeze(Time.local(2023, 7, 10, 5, 40, 0)) }
 
         it "turns on the front yard lights when it is dark" do
           Entrance_Luminance.update(150)
