@@ -15,3 +15,15 @@ rule "Garage Doors Change State" do
     leds.members.ensure << color
   end
 end
+
+rule "Fake Garage Doors Change State" do
+  changed Fake_Large_Garage_Door, Fake_Small_Garage_Door
+
+  run do |event|
+    item = event.item
+
+    color = event.state.off? ? Homeseer::LedColor::GREEN : Homeseer::LedColor::RED
+    leds = items["#{item.name[5..]}_Open_LEDs"]
+    leds.members.ensure << color
+  end
+end
