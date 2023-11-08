@@ -12,19 +12,18 @@ received_command Bedroom_Ceiling_Fan_Power, command: OFF do
   Bedroom_Ceiling_Fan_Speed << 0
 end
 
-rule "When the cube receives an action" do
-  updated Bedroom_Cube_Action
+updated Bedroom_Cube_Action, to: AqaraCube::Action::TAP do
+  Bedroom_Ceiling_Fan_Light_Power.toggle
+end
 
-  run do |event|
-    case event.state
-    when AqaraCube::Action::TAP
-      Bedroom_Ceiling_Fan_Light_Power.toggle
-    when AqaraCube::Action::ROTATE_RIGHT
-      Bedroom_Table_Light_Switch.on
-    when AqaraCube::Action::ROTATE_LEFT
-      Bedroom_Table_Light_Switch.off
-    when AqaraCube::Action::FLIP90, AqaraCube::Action::FLIP180
-      Bedroom_Ceiling_Fan_Speed << Bedroom_Cube_Side.state if Bedroom_Cube_Side.state < 4
-    end
-  end
+updated Bedroom_Cube_Action, to: AqaraCube::Action::ROTATE_RIGHT do
+  Bedroom_Table_Light_Switch.on
+end
+
+updated Bedroom_Cube_Action, to: AqaraCube::Action::ROTATE_LEFT do
+  Bedroom_Table_Light_Switch.off
+end
+
+updated Bedroom_Cube_Action, to: [AqaraCube::Action::FLIP90, AqaraCube::Action::FLIP180] do
+  Bedroom_Ceiling_Fan_Speed << Bedroom_Cube_Side.state if Bedroom_Cube_Side.state < 4
 end

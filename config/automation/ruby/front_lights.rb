@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-rule "Front Yard Lights follow ON" do
-  changed Front_Yard_Lights.members
+rule "Groups Lights follow ON/OFF" do
+  changed Front_Yard_Lights.members, Backyard_Lights.members, All_Hall_Lights.members
 
-  run { |event| Front_Yard_Lights.members.ensure << event.state }
+  run { |event| event.group.members.ensure.command(event.state) }
 end
 
 rule "Morning Lights On For Rides", id: "morning_lights_on_for_rides" do
@@ -19,7 +19,7 @@ rule "Morning Lights On For Rides", id: "morning_lights_on_for_rides" do
 end
 
 rule "Morning lights on", id: "morning_lights_on" do
-  cron "0 50 5 ? * MON-FRI"
+  cron "0 35 5 ? * MON-FRI"
 
   run do
     Front_Yard_Lights.members.ensure.on

@@ -2,19 +2,19 @@ Group    FF_FamilyRoom        "Family Room"    <sofa>          (FF)             
 
 Group:Switch:AND(ON,OFF) FamilyRoom_All_Lights "All Family Room Lights" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { alexa="Lighting" }
 
-Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node7:switch_binary" }
+Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:8a0457e90b:switch_binary" }
 
-Switch FamilyRoom_Fireplace_Lights_Switch "Fireplace Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node9:switch_binary" }
+Switch FamilyRoom_Fireplace_Lights_Switch "Fireplace Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:570f9cd536:switch_binary" }
 
-Dimmer FamilyRoom_Accent_Lights_Dimmer "Family Room Accents" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwave:device:8c18403e:node10:switch_dimmer" }
+Dimmer FamilyRoom_Accent_Lights_Dimmer "Family Room Accents" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness" [ minValue=0, maxValue=99 ], alexa="Lighting", channel="mqtt:topic:26bcbec1ee:f7bd40773a:dimmer" }
 
-Switch FamilyRoom_Backyard_Lights_Switch "Backyard Lights in Family Room" <lightbulb> (FF_FamilyRoom, Backyard_Lights) ["Point"] { channel="zwave:device:8c18403e:node8:switch_binary" }
+Switch FamilyRoom_Backyard_Lights_Switch "Backyard Lights in Family Room" <lightbulb> (FF_FamilyRoom, Backyard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:80a71c1f40:switch_binary" }
 
 Group FamilyRoom_Wall_Outlet "Family Room Wall Outlet" <poweroutlet_us> (FF_FamilyRoom) ["PowerOutlet"] { homekit="Outlet" }
-Switch FamilyRoom_Wall_Outlet_Switch "Family Room Wall Outlet" <poweroutlet_us> (Christmas_Lights, FamilyRoom_Christmas_Tree, FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.OnState", alexa="Outlet", channel="zwave:device:8c18403e:node11:switch_binary" }
-Number:Energy FamilyRoom_Wall_Outlet_kWh "Family Room Wall Outlet Power [%.1f kWh]" (FamilyRoom_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node11:meter_kwh" }
-Number:Energy FamilyRoom_Wall_Outlet_Watts "Family Room Wall Outlet Power [%.1f Ws]" (FamilyRoom_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node11:meter_watts" }
-Switch FamilyRoom_Wall_Outlet_In_Use "Family Room Wall Outlet In Use [RB(outletinuse.rb):%s]" (FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node11:meter_watts" }
+Switch FamilyRoom_Wall_Outlet_Switch "Family Room Wall Outlet" <poweroutlet_us> (Christmas_Lights, FamilyRoom_Christmas_Tree, FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.OnState", alexa="Outlet", channel="mqtt:topic:26bcbec1ee:bae88ef977:switch_binary" }
+Number:Energy FamilyRoom_Wall_Outlet_kWh "Family Room Wall Outlet Power [%.1f kWh]" (FamilyRoom_Wall_Outlet) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:bae88ef977:meter_kwh" }
+Number:Power FamilyRoom_Wall_Outlet_Watts "Family Room Wall Outlet Power [%.1f Ws]" (FamilyRoom_Wall_Outlet) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:bae88ef977:meter_watts" }
+Switch FamilyRoom_Wall_Outlet_In_Use "Family Room Wall Outlet In Use [RB(outletinuse.rb):%s]" (FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="mqtt:topic:26bcbec1ee:bae88ef977:meter_watts" }
 
 Group FamilyRoom_LED "Family Room LEDs" (FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
 Switch FamilyRoom_LED_Power "Family Room LED Power" (FamilyRoom_LED) ["Switch"] { homekit="Lighting.OnState", alexa="PowerController.powerState", channel="mqtt:topic:26bcbec1ee:7c3c7016a5:power" }

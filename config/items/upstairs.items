@@ -4,9 +4,9 @@ Group    SF_Hallway           "Hallway"        <corridor>      (SF)             
 Group    SF_HiddenRoom        "Hidden Room"    <girl_2>        (SF)               ["Room"]
 
 Group Upstairs_Hallway_Wall_Outlet "Upstairs Wall Outlet" <poweroutlet_us> (SF_Hallway) ["PowerOutlet"] { homekit="Outlet" }
-Switch Upstairs_Hallway_Wall_Outlet_Switch "Upstairs Wall Outlet" <poweroutlet_us> (SF_Hallway, All_Hall_Lights, Upstairs_Hallway_Wall_Outlet, Christmas_Lights) ["Switch"] { homekit="Outlet.OnState", alexa="Outlet", channel="zwave:device:8c18403e:node12:switch_binary" }
-Number:Energy Upstairs_Hallway_Wall_Outlet_kWh "Upstairs Wall Outlet Power [%.1f kWh]" (Upstairs_Hallway_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node12:meter_kwh" }
-Number:Energy Upstairs_Hallway_Wall_Outlet_Watts "Upstairs Wall Outlet Power [%.1f Ws]" (Upstairs_Hallway_Wall_Outlet) ["Point", "Energy"] { channel="zwave:device:8c18403e:node12:meter_watts" }
-Switch Upstairs_Hallway_Wall_Outlet_In_Use "Upstairs Hallway Wall Outlet In Use [RB(outletinuse.rb):%s]" (Upstairs_Hallway_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwave:device:8c18403e:node12:meter_watts" }
+Switch Upstairs_Hallway_Wall_Outlet_Switch "Upstairs Wall Outlet" <poweroutlet_us> (SF_Hallway, All_Hall_Lights, Upstairs_Hallway_Wall_Outlet, Christmas_Lights) ["Switch"] { homekit="Outlet.OnState", alexa="Outlet", channel="mqtt:topic:26bcbec1ee:4d1108d146:switch_binary" }
+Number:Energy Upstairs_Hallway_Wall_Outlet_kWh "Upstairs Wall Outlet Power [%.1f kWh]" (Upstairs_Hallway_Wall_Outlet) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:4d1108d146:meter_kwh" }
+Number:Power Upstairs_Hallway_Wall_Outlet_Watts "Upstairs Wall Outlet Power [%.1f W]" (Upstairs_Hallway_Wall_Outlet) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:4d1108d146:meter_watts" }
+Switch Upstairs_Hallway_Wall_Outlet_In_Use "Upstairs Hallway Wall Outlet In Use [RB(outletinuse.rb):%s]" (Upstairs_Hallway_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="mqtt:topic:26bcbec1ee:4d1108d146:meter_watts" }
 
-Switch HiddenRoom_Light_Switch "Hidden Room Lights" <lightbulb> (SF_HiddenRoom) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node47:switch_binary" }
+Switch HiddenRoom_Light_Switch "Hidden Room Lights" <lightbulb> (SF_HiddenRoom) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:cbf21f26ec:binary_switch" }

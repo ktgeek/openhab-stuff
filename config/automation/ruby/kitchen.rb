@@ -17,27 +17,32 @@ def reset_basement
   C_All_Lights.members.ensure.off
 end
 
-rule "when the kitchen accent switches have a scene change" do
-  updated FF_Kitchen_Accents_Scene.members
-
-  run { |event| reset_basement if event.state == Homeseer::PADDLE_DOWN_TWO_CLICKS }
+changed FF_Kitchen_Accents_Scene_Bottom.members, to: Homeseer::PADDLE_TWO_CLICKS do |event|
+  reset_basement
+  event.group.members.update(NULL)
 end
 
-rule "when kitchen lights scene change" do
-  updated FF_Kitchen_Lights_Scene.members
+changed FF_Kitchen_Lights_Scene_Top.members, to: [Homeseer::PADDLE_HOLD, Homeseer::PADDLE_TWO_CLICKS] do |event|
+  Normal_Kitchen_Lights.members.ensure.on
+  event.group.members.update(NULL)
+end
 
-  run do |event|
-    case event.state
-    when Homeseer::PADDLE_UP_HOLD, Homeseer::PADDLE_UP_TWO_CLICKS
-      Normal_Kitchen_Lights.members.ensure.on
-    when Homeseer::PADDLE_DOWN_HOLD, Homeseer::PADDLE_DOWN_TWO_CLICKS
-      Normal_Kitchen_Lights.members.ensure.off
-    when Homeseer::PADDLE_UP_THREE_CLICKS
-      All_Kitchen_Lights.members.ensure.on
-    when Homeseer::PADDLE_DOWN_THREE_CLICKS
-      All_Kitchen_Lights.members.ensure.off
-    when Homeseer::PADDLE_DOWN_FOUR_CLICKS
-      reset_basement
-    end
-  end
+changed FF_Kitchen_Lights_Scene_Top.members, to: Homeseer::PADDLE_THREE_CLICKS do |event|
+  All_Kitchen_Lights.members.ensure.on
+  event.group.members.update(NULL)
+end
+
+changed FF_Kitchen_Lights_Scene_Bottom.members, to: [Homeseer::PADDLE_HOLD, Homeseer::PADDLE_TWO_CLICKS] do |event|
+  Normal_Kitchen_Lights.members.ensure.off
+  event.group.members.update(NULL)
+end
+
+changed FF_Kitchen_Lights_Scene_Bottom.members, to: Homeseer::PADDLE_THREE_CLICKS do |event|
+  All_Kitchen_Lights.members.ensure.off
+  event.group.members.update(NULL)
+end
+
+changed FF_Kitchen_Lights_Scene_Bottom.members, to: Homeseer::PADDLE_FOUR_CLICKS do |event|
+  reset_basement
+  event.group.members.update(NULL)
 end

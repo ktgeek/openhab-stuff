@@ -1,7 +1,6 @@
-
-// Group Basement_FloodSensor (C) ["Sensor"]
-// Number:Temperature Basement_FloodSensor_Temperature "Basement Flood Sensor Temperature [%.1f %unit%]" (Basement_FloodSensor) ["Point", "Temperature"] { channel="zwave:device:8c18403e:node37:sensor_temperature" }
-// Number:Dimensionless Basement_FloodSensor_BatteryLevel "Basement Flood Sensor Battery Level [%.1f %%]" (Basement_FloodSensor) ["Point"] { channel="zwave:device:8c18403e:node37:battery-level" }
-// Switch Basement_FloodSensor_Flood_Alarm "Basement Flood Sensor Flood Alarm" (Basement_FloodSensor) ["Point"] { channel="zwave:device:8c18403e:node37:alarm_flood" }
-// Switch Basement_FloodSensor_Tamper_Alarm "Basement Flood Sensor Tamper Alarm" (Basement_FloodSensor) ["Point"] { channel="zwave:device:8c18403e:node37:alarm_tamper" }
+Group Basement_FloodSensor (C) ["Sensor"]
+Number:Temperature Basement_FloodSensor_Temperature "Basement Flood Sensor Temperature" (Basement_FloodSensor) ["Point", "Temperature"] { unit="°C", channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:sensor_temperature" }
+Number:Dimensionless Basement_FloodSensor_BatteryLevel "Basement Flood Sensor Battery Level" (Basement_FloodSensor) ["Point"] { unit="%", channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:battery-level" }
+Switch Basement_FloodSensor_Flood_Alarm "Basement Flood Sensor Flood Alarm" (Basement_FloodSensor) ["Point"] { channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:water_alarm" }
+Switch Basement_FloodSensor_Tamper_Alarm "Basement Flood Sensor Tamper Alarm" (Basement_FloodSensor) ["Point"] { channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:tamper_alarm" }
 

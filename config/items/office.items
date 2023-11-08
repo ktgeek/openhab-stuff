@@ -18,18 +18,17 @@ Switch Office_bugg_Zoom "bugg Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] {
 Switch Office_Monitor_LED "Monitor LEDs" (FF_Office) ["Lightbulb"] { homekit="Lighting", channel="mqtt:homie300:26bcbec1ee:monitor-leds:hyperion#led_2Dstatus" }
 
 Group Office_Lights_Control (FF_Office) ["Equipment"]
-Switch Office_Lights_Switch "Office Lights" (Office_Lights_Control) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node58:switch_binary" }
-//Number Laundry_Room_Lights_Scene_Number "Scene number" (Office_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node56:scene_number" }
-Number Office_Lights_LED_1_Color "Office Lights Led 1 Color" (Office_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node58:config_decimal_param21" }
-Number Office_Lights_LED_2_Color "Office Lights Led 2 Color" (Office_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node58:config_decimal_param22" }
-Number Office_Lights_LED_3_Color "Office Lights Led 3 Color" (Office_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node58:config_decimal_param23" }
-Number Office_Lights_LED_4_Color "Office Lights Led 4 Color" (Office_Lights_Control) ["Point"] { channel="zwave:device:8c18403e:node58:config_decimal_param24" }
-Number Office_Lights_LED_5_Color "Office Lights Led 5 Color" (Office_Lights_Control, House_Perimeter_LEDs) ["Point"] { channel="zwave:device:8c18403e:node58:config_decimal_param25" }
-Number Office_Lights_LED_6_Color "Office Lights Led 6 Color" (Office_Lights_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="zwave:device:8c18403e:node58:config_decimal_param26" }
-Number Office_Lights_LED_7_Color "Office Lights Led 7 Color" (Office_Lights_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="zwave:device:8c18403e:node58:config_decimal_param27" }
+Switch Office_Lights_Switch "Office Lights" (Office_Lights_Control) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:9b4942b136:switch_binary" }
+Number Office_Lights_LED_1_Color "Office Lights Led 1 Color" (Office_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_1_color" }
+Number Office_Lights_LED_2_Color "Office Lights Led 2 Color" (Office_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_2_color" }
+Number Office_Lights_LED_3_Color "Office Lights Led 3 Color" (Office_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_3_color" }
+Number Office_Lights_LED_4_Color "Office Lights Led 4 Color" (Office_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_4_color" }
+Number Office_Lights_LED_5_Color "Office Lights Led 5 Color" (Office_Lights_Control, House_Perimeter_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_5_color" }
+Number Office_Lights_LED_6_Color "Office Lights Led 6 Color" (Office_Lights_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_6_color" }
+Number Office_Lights_LED_7_Color "Office Lights Led 7 Color" (Office_Lights_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_7_color" }
+Number Office_Lights_Scene_1 "Scene 1" (Office_Lights_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:9b4942b136:scene-1"}
+
 
 Group Office_Presence (FF_Office) ["Equipment"]
 Switch Office_Presence_Sensor "Office Occupancy" (Office_Presence) ["Point"] { channel="mqtt:topic:26bcbec1ee:3e1aff917f:presence", homekit="OccupancySensor" }
 String Office_Presence_Event "Office Presence Event" (Office_Presence) ["Point"] { channel="mqtt:topic:26bcbec1ee:3e1aff917f:presence_event" }
-
-

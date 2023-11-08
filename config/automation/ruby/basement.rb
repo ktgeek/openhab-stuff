@@ -4,29 +4,22 @@ require "homeseer"
 
 OCCUPANCY_COUNT_LED_GROUPS = Array.new(7) { |i| items["Basement_Occupancy_Count_#{i + 1}"] }.freeze
 
-rule "when movie mode is turned on" do
-  received_command Basement_Movie_Mode_Switch, command: ON
+received_command Basement_Movie_Mode_Switch, command: ON do
+  Basement_Stairs_Switch.ensure.off
+  Basement_Room_Lights_Switch.ensure.off
+  Basement_Room_Theater_Lights.ensure << 9
+  Basement_Room_Bar_Lights.ensure << 10
 
-  run do
-    Basement_Stairs_Switch.ensure.off
-    Basement_Room_Lights_Switch.ensure.off
-    Basement_Room_Theater_Lights.ensure << 9
-    Basement_Room_Bar_Lights.ensure << 10
-
-    after(10.seconds) { Basement_Movie_Mode_Switch.update(OFF) }
-  end
+  after(10.seconds) { Basement_Movie_Mode_Switch.update(OFF) }
 end
 
-rule "when normal mode is turned on" do
-  received_command Basement_Normal_Mode_Switch, command: ON
+# when normal mode is turned on
+received_command Basement_Normal_Mode_Switch, command: ON do
+  Basement_Stairs_Switch.ensure.on
+  Basement_Room_Theater_Lights.ensure << 100
+  Basement_Room_Bar_Lights.ensure << 100
 
-  run do
-    Basement_Stairs_Switch.ensure.on
-    Basement_Room_Theater_Lights.ensure << 100
-    Basement_Room_Bar_Lights.ensure << 100
-
-    after(10.seconds) { Basement_Normal_Mode_Switch.update(OFF) }
-  end
+  after(10.seconds) { Basement_Normal_Mode_Switch.update(OFF) }
 end
 
 rule "When the count of the occupancy sensor changes" do
@@ -40,13 +33,10 @@ rule "When the count of the occupancy sensor changes" do
   end
 end
 
-rule "When the count of the occupancy sensor changes" do
-  updated Basement_Deadend_Occupancy_Counters.members
-
-  run do
-    after(25.milliseconds) do
-      C_Basement_Deadend_Occupancy.update(Basement_Deadend_Occupancy_Counters.members.sum(&:state))
-    end
+# When the count of the occupancy sensor changes
+updated Basement_Deadend_Occupancy_Counters.members do
+  after(25.milliseconds) do
+    C_Basement_Deadend_Occupancy.update(Basement_Deadend_Occupancy_Counters.members.sum(&:state))
   end
 end
 
@@ -129,23 +119,26 @@ rule "when the exercise room door is open" do
   only_if { Hiome_Basement_Occupancy_Count.state < 1 }
 end
 
-rule "when the exercise room dimmer has a scene change" do
-  updated Exercise_Room_Dimmer_Scene_Number
+changed Exercise_Room_Dimmer_Scene_Number_Top, to: Homeseer::PADDLE_TWO_CLICKS do |event|
+  Basement_Stairs_Switch.ensure.on
+  event.item.update(NULL)
+end
 
-  run do |event|
-    case event.state
-    when Homeseer::PADDLE_UP_TWO_CLICKS
-      Basement_Stairs_Switch.ensure.on
-    when Homeseer::PADDLE_DOWN_TWO_CLICKS
-      Basement_Stairs_Switch.ensure.off
-    when Homeseer::PADDLE_UP_THREE_CLICKS
-      Exercise_Room_Bike_Trainer_Enabled.on
-      Exercise_Room_Bike_Trainer_Switch.ensure.on
-    when Homeseer::PADDLE_DOWN_THREE_CLICKS
-      Exercise_Room_Bike_Trainer_Enabled.off
-      Exercise_Room_Bike_Trainer_Switch.ensure.off
-    end
-  end
+changed Exercise_Room_Dimmer_Scene_Number_Top, to: Homeseer::PADDLE_THREE_CLICKS do |event|
+  Exercise_Room_Bike_Trainer_Enabled.on
+  Exercise_Room_Bike_Trainer_Switch.ensure.on
+  event.item.update(NULL)
+end
+
+changed Exercise_Room_Dimmer_Scene_Number_Bottom, to: Homeseer::PADDLE_TWO_CLICKS do |event|
+  Basement_Stairs_Switch.ensure.off
+  event.item.update(NULL)
+end
+
+changed Exercise_Room_Dimmer_Scene_Number_Bottom, to: Homeseer::PADDLE_THREE_CLICKS do |event|
+  Exercise_Room_Bike_Trainer_Enabled.off
+  Exercise_Room_Bike_Trainer_Switch.ensure.off
+  event.item.update(NULL)
 end
 
 rule "when someone enters the basement hallway" do
@@ -162,11 +155,11 @@ rule "when someone enters the basement hallway" do
   end
 end
 
-rule "because shit is broke and stupid on the basement switch" do
-  changed Basement_Christmas_Tree, Basement_Wall_Outlet_Switch
+# rule "because shit is broke and stupid on the basement switch" do
+#   changed Basement_Christmas_Tree, Basement_Wall_Outlet_Switch
 
-  run do |event|
-    Basement_Christmas_Tree.ensure << event.state
-    Basement_Wall_Outlet_Switch.ensure << event.state
-  end
-end
+#   run do |event|
+#     Basement_Christmas_Tree.ensure << event.state
+#     Basement_Wall_Outlet_Switch.ensure << event.state
+#   end
+# end

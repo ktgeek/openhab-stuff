@@ -33,11 +33,12 @@ String HiddenRoom_Holiday_LED_Presets "HiddenRoom Holiday LED Presets" (HiddenRo
 //Group Bathroom
 Switch Bathroom_Penguin_Light "Penguin Light" <poweroutlet_us> (Christmas_Lights, FF_Kitchen) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:40b393a346:power" }
 
-// Switch Basement_Christmas_Tree "Basement Christmas Tree" <poweroutlet_us> (C_Basement) ["WallSwitch"] { homekit="Lighting", alexa="ChristmasTree" }
-// Switch FamilyRoom_Christmas_Tree "Family Room Christmas Tree" <poweroutlet_us> (FF_FamilyRoom) ["WallSwitch"] { channel="zwave:device:8c18403e:node11:switch_binary", homekit="Lighting", alexa="ChristmasTree" }
-// Switch LivingRoom_Christmas_Tree "Living Room Christmas Tree" <poweroutlet_us> (FF_LivingRoom) ["WallSwitch"] { channel="zwave:device:8c18403e:node15:switch_binary", homekit="Lighting", alexa="ChristmasTree" }
-Switch Basement_Christmas_Tree "Basement Christmas Tree" <poweroutlet_us> (C_Basement) ["WallSwitch"]
-Switch FamilyRoom_Christmas_Tree "Family Room Christmas Tree" <poweroutlet_us> (FF_FamilyRoom) ["WallSwitch"] { channel="zwave:device:8c18403e:node11:switch_binary" }
-Switch LivingRoom_Christmas_Tree "Living Room Christmas Tree" <poweroutlet_us> (FF_LivingRoom) ["WallSwitch"] { channel="zwave:device:8c18403e:node15:switch_binary" }
+// Switch Basement_Christmas_Tree "Basement Christmas Tree" <poweroutlet_us> (C_Basement) ["WallSwitch"] { homekit="Lighting", alexa="ChristmasTree" channel="mqtt:topic:26bcbec1ee:86e9bd7e73:switch_binary" }
+// Switch FamilyRoom_Christmas_Tree "Family Room Christmas Tree" <poweroutlet_us> (FF_FamilyRoom) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:bae88ef977:switch_binary", homekit="Lighting", alexa="ChristmasTree" }
+// Switch LivingRoom_Christmas_Tree "Living Room Christmas Tree" <poweroutlet_us> (FF_LivingRoom) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:83f49b1e69:switch_binary", homekit="Lighting", alexa="ChristmasTree" }
+Switch Basement_Christmas_Tree "Basement Christmas Tree" <poweroutlet_us> (C_Basement) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:86e9bd7e73:switch_binary" }
+Switch FamilyRoom_Christmas_Tree "Family Room Christmas Tree" <poweroutlet_us> (FF_FamilyRoom) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:bae88ef977:switch_binary" }
+Switch LivingRoom_Christmas_Tree "Living Room Christmas Tree" <poweroutlet_us> (FF_LivingRoom) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:83f49b1e69:switch_binary" }
 
-// Switch Front_Yard_Wolf_Decoration "Werewolf Jeff" (FF_Porch) ["Point"] { homekit="Switchable", channel="mqtt:topic:26bcbec1ee:fa198888ad:power" }
+//Switch Front_Yard_Wolf_Decoration "Werewolf Jeff" (FF_Porch) ["Point"] { homekit="Switchable", channel="mqtt:topic:26bcbec1ee:fa198888ad:power" }
+String Red_Button_Action "Red Button Action" (FF_Porch) { channel="mqtt:topic:26bcbec1ee:c1c872d70e:action" }

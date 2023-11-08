@@ -17,13 +17,14 @@ Group TV_Notifications "TV Notifications" <screen> (Home) ["Status"]
 Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
 Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (Front_Yard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:916c8e28e1:power" }
 
-Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
-//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node50:switch_binary" }
-Switch Porch_Decorations_Switch "Porch Decorations" <party> (Front_Yard, Christmas_Outside) ["WallSwitch"] { homekit="Switchable", alexa="Switchable", channel="zwave:device:8c18403e:node51:switch_binary" }
+Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights, Christmas_Outside) ["Lightbulb"] { alexa="Lighting", channel="mqtt:topic:26bcbec1ee:37cedf44a0:switch_binary" }
+//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:37cedf44a0:switch_binary" }
+//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:37cedf44a0:switch_binary" }
+Switch Porch_Decorations_Switch "Porch Decorations" <party> (Front_Yard, Christmas_Outside) ["WallSwitch"] { homekit="Switchable", alexa="Switchable", channel="mqtt:topic:26bcbec1ee:aa9f284e8e:switch_binary" }
 
 // First Floor - Entrance
 Group:Switch:OR(ON,OFF) All_Hall_Lights "Hall Lights" <lightbulb> (FF_Entrance) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
-Switch Switch_Entrance_Hall_Light "Hall Table Light" <lightbulb> (All_Hall_Lights) ["Point"] { channel="zwave:device:8c18403e:node16:switch_binary" }
+Switch Switch_Entrance_Hall_Light "Hall Table Light" <lightbulb> (All_Hall_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:797755fdad:switch_binary" }
 
 // Virtual test
 Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF_Entrance) ["WallSwitch"] { alexa="Switchable", homekit="Switchable" }
@@ -45,8 +46,8 @@ String Holiday_Mode "Holiday Mode" (FF_Entrance) ["Point"]
 Switch Outdoor_Biking_Season "Am I biking outside?" (FF_Garage) ["Point"]
 
 Group Entrance_Hall_MultiSensor (FF_Entrance) ["Equipment"]
-Number:Temperature Entrance_Temperature "Entrance Temperature" (Entrance_Hall_MultiSensor) ["Measurement", "Temperature"] { homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="zwave:device:8c18403e:node59:sensor_temperature"}
-Number Entrance_Luminance "Entrance Luminance [%.0f Lux]" (Entrance_Hall_MultiSensor) ["Measurement", "Light"] { homekit="LightSensor", channel="zwave:device:8c18403e:node59:sensor_luminance"}
-Switch Entrance_Alarm_Motion "Entrance Motion alarm" (Entrance_Hall_MultiSensor) {channel="zwave:device:8c18403e:node59:alarm_motion"}
-Number Entrance_Hall_MultiSensor_Battery_Level "Entrance Battery level" (Entrance_Hall_MultiSensor) ["Measurement", "Battery"]  {channel="zwave:device:8c18403e:node59:battery-level"}
-
+Number:Temperature Entrance_Temperature "Entrance Temperature" (Entrance_Hall_MultiSensor) ["Measurement", "Temperature"] { homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="mqtt:topic:26bcbec1ee:ab320d3541:sensor_temperature"}
+Number:Illuminance Entrance_Luminance "Entrance Luminance" (Entrance_Hall_MultiSensor) ["Measurement", "Light"] { homekit="LightSensor", channel="mqtt:topic:26bcbec1ee:ab320d3541:sensor_luminance"}
+Switch Entrance_Alarm_Motion "Entrance Motion alarm" (Entrance_Hall_MultiSensor) {channel="mqtt:topic:26bcbec1ee:ab320d3541:alarm_motion"}
+Number Entrance_Hall_MultiSensor_Battery_Level "Entrance Battery level" (Entrance_Hall_MultiSensor) ["Measurement", "Battery"]  {channel="mqtt:topic:26bcbec1ee:ab320d3541:battery-level"}
+Switch Ignore_Luminance "Ignore Luminance" (Entrance_Hall_MultiSensor) ["Point"]

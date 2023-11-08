@@ -5,7 +5,7 @@ Group Backyard_Weather_Station "Backyard Weather Station" <sun> (Backyard) ["Equ
 Number:Temperature Backyard_Temperature "Backyard Temperature [%.1f%unit%]" <temperature> (Backyard_Weather_Station) ["Measurement", "Temperature"] { homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="mqtt:topic:26bcbec1ee:ccb02631ce:tempF" }
 Number:Temperature Backyard_FeelsLike_Temperature "Backyard Feels Like Temperature [%.1f%unit%]" <temperature> (Backyard_Weather_Station) ["Measurement", "Temperature"] { channel="mqtt:topic:26bcbec1ee:ccb02631ce:feelsF" }
 String Backyard_Temperature_Trend "Backyard Temperature Trend" (Backyard_Weather_Station) { channel="mqtt:topic:26bcbec1ee:ccb02631ce:tempF_trend" }
-Number:Dimensionless Backyard_Humidity "Backyard Humidity [%d %%]" <humidity> (Backyard_Weather_Station) ["Measurement", "Humidity"] { homekit="HumiditySensor", channel="mqtt:topic:26bcbec1ee:ccb02631ce:relH" }
+Number:Dimensionless Backyard_Humidity "Backyard Humidity [%d %%]" <humidity> (Backyard_Weather_Station) ["Measurement", "Humidity"] { unit="%", homekit="HumiditySensor", channel="mqtt:topic:26bcbec1ee:ccb02631ce:relH" }
 Number:Pressure Backyard_Barometric_Pressure "Barometric pressure [%.2f%unit%]" <pressure> (Backyard_Weather_Station) ["Measurement"] { channel="mqtt:topic:26bcbec1ee:ccb02631ce:pressure_inHg" }
 String Backyard_Barometric_Pressure_Trend "Backyard Barometric Pressure Trend" (Backyard_Weather_Station) ["Point"] { channel="mqtt:topic:26bcbec1ee:ccb02631ce:pressure_trend" }
 
@@ -22,4 +22,4 @@ Number:Speed Backyard_Windspeed_Average "Windspeed average [%d %unit%]" <wind> (
 
 String Backyard_Weather_Updated_At "Updated at" (Backyard_Weather_Station) ["Point"] { channel="mqtt:topic:26bcbec1ee:ccb02631ce:lastUpdatedDate" }
 
-Switch Backyard_Outdoor_Decorations_Switch "Backyard Outdoor Decorations" <lightbulb> (Backyard) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwave:device:8c18403e:node49:switch_binary" }
+Switch Backyard_Outdoor_Decorations_Switch "Backyard Outdoor Decorations" <lightbulb> (Backyard) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:684e150c79:switch_binary" }
