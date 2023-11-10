@@ -17,26 +17,26 @@ def reset_basement
   C_All_Lights.members.ensure.off
 end
 
-changed FF_Kitchen_Accents_Scene_Bottom.members, to: Homeseer::PADDLE_TWO_CLICKS do |event|
+changed FF_Kitchen_Accents_Scene_Bottom.members, to: Homeseer::PADDLE_TWO_CLICKS do
   reset_basement
 end
 
-changed FF_Kitchen_Lights_Scene_Top.members, to: [Homeseer::PADDLE_HOLD, Homeseer::PADDLE_TWO_CLICKS] do |event|
+changed FF_Kitchen_Lights_Scene_Top.members, to: [Homeseer::PADDLE_HOLD, Homeseer::PADDLE_TWO_CLICKS] do
   Normal_Kitchen_Lights.members.ensure.on
 end
 
-changed FF_Kitchen_Lights_Scene_Top.members, to: Homeseer::PADDLE_THREE_CLICKS do |event|
+changed FF_Kitchen_Lights_Scene_Top.members, to: Homeseer::PADDLE_THREE_CLICKS do
   All_Kitchen_Lights.members.ensure.on
 end
 
-changed FF_Kitchen_Lights_Scene_Bottom.members, to: [Homeseer::PADDLE_HOLD, Homeseer::PADDLE_TWO_CLICKS] do |event|
+changed FF_Kitchen_Lights_Scene_Bottom.members, to: [Homeseer::PADDLE_HOLD, Homeseer::PADDLE_TWO_CLICKS] do
   Normal_Kitchen_Lights.members.ensure.off
 end
 
-changed FF_Kitchen_Lights_Scene_Bottom.members, to: Homeseer::PADDLE_THREE_CLICKS do |event|
+changed FF_Kitchen_Lights_Scene_Bottom.members, to: Homeseer::PADDLE_THREE_CLICKS do
   All_Kitchen_Lights.members.ensure.off
 end
 
-changed FF_Kitchen_Lights_Scene_Bottom.members, to: Homeseer::PADDLE_FOUR_CLICKS do |event|
+changed FF_Kitchen_Lights_Scene_Bottom.members, to: Homeseer::PADDLE_FOUR_CLICKS do
   reset_basement
 end
