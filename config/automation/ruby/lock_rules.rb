@@ -2,44 +2,26 @@
 
 require "homekit"
 require "homeseer"
-require "lock_events"
+require "kwikset"
 require "json"
 
-rule "Front Door Lock: Update lock states after alarm_raw event" do
-  changed Front_Door_Lock_Alarm_Raw
+updated Front_Door_Lock_Alarm_Type, to: [Kwikset::Alarm::KEYPAD_JAMMED, Kwikset::Alarm::REMOTE_JAMMED] do
+  Front_Door_Lock_Actual_Homekit.update(Homekit::LockStatus::JAMMED)
+end
 
-  run do |event|
-    item = event.item
-    basename = item.name[0..-11]
-    lock_actual_item = items["#{basename}_Actual"]
+updated Front_Door_Lock_Keypad_Unlock_UserId do |event|
+  # TODO: Add some mapping to get the user name of whoever unlocked the door
 
-    lock_actual_item_homekit = items["#{basename}_Actual_Homekit"]
+  # this is old code, just kept for reference for now
+  # keycode_name = lock_actual_item.thing.configuration.get("usercode_label_#{keycode}")
 
-    alarm = JSON.parse(event.state)
+  user_id = event.state
 
-    if alarm["type"] == LockEvents::Type::ACCESS_CONTROL
-      case alarm["event"].to_i
-      when LockEvents::MANUAL_UNLOCK, LockEvents::REMOTE_UNLOCK
-        lock_actual_item.update(OFF)
-      when LockEvents::KEYPAD_UNLOCK
-        lock_actual_item.update(OFF)
+  logger.info("Front Door Keypad Unlock User ID: #{event.state}")
+  notify "Front Door unlocked by user id: #{event.state}"
 
-        keycode = alarm[LockEvents::KEYCODE]
-        keycode_name = lock_actual_item.thing.configuration.get("usercode_label_#{keycode}")
-
-        logger.warn("#{basename} unlocked by #{keycode_name}")
-        notify "#{basename} unlocked by #{keycode_name}"
-      when LockEvents::MANUAL_LOCK, LockEvents::KEYPAD_LOCK, LockEvents::REMOTE_LOCK
-        lock_actual_item.update(ON)
-      when LockEvents::LOCK_JAMMED
-        lock_actual_item_homekit.update(Homekit::LockStatus::JAMMED)
-      else
-        logger.warn("unexpected access event: #{alarm}")
-      end
-    else
-      logger.warn("unexpected alarm type: #{alarm}")
-    end
-  end
+  # logger.warn("#{basename} unlocked by #{keycode_name}")
+  # notify "#{basename} unlocked by #{keycode_name}"
 end
 
 rule "Front Door Lock: proxy changes to actual back to target" do
