@@ -119,20 +119,20 @@ rule "when the exercise room door is open" do
   only_if { Hiome_Basement_Occupancy_Count.state < 1 }
 end
 
-changed Exercise_Room_Dimmer_Scene_Number_Top, to: Homeseer::PADDLE_TWO_CLICKS do |event|
+changed Exercise_Room_Dimmer_Scene_Number_Top, to: Homeseer::PADDLE_TWO_CLICKS do
   Basement_Stairs_Switch.ensure.on
 end
 
-changed Exercise_Room_Dimmer_Scene_Number_Top, to: Homeseer::PADDLE_THREE_CLICKS do |event|
+changed Exercise_Room_Dimmer_Scene_Number_Top, to: Homeseer::PADDLE_THREE_CLICKS do
   Exercise_Room_Bike_Trainer_Enabled.on
   Exercise_Room_Bike_Trainer_Switch.ensure.on
 end
 
-changed Exercise_Room_Dimmer_Scene_Number_Bottom, to: Homeseer::PADDLE_TWO_CLICKS do |event|
+changed Exercise_Room_Dimmer_Scene_Number_Bottom, to: Homeseer::PADDLE_TWO_CLICKS do
   Basement_Stairs_Switch.ensure.off
 end
 
-changed Exercise_Room_Dimmer_Scene_Number_Bottom, to: Homeseer::PADDLE_THREE_CLICKS do |event|
+changed Exercise_Room_Dimmer_Scene_Number_Bottom, to: Homeseer::PADDLE_THREE_CLICKS do
   Exercise_Room_Bike_Trainer_Enabled.off
   Exercise_Room_Bike_Trainer_Switch.ensure.off
 end

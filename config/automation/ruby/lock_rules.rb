@@ -5,7 +5,9 @@ require "homeseer"
 require "kwikset"
 require "json"
 
-updated Front_Door_Lock_Alarm_Type, to: [Kwikset::Alarm::KEYPAD_JAMMED, Kwikset::Alarm::REMOTE_JAMMED] do
+updated Front_Door_Lock_Alarm_Type, to: [Kwikset::Alarm::KEYPAD_JAMMED,
+                                         Kwikset::Alarm::REMOTE_JAMMED,
+                                         Kwikset::Alarm::AUTO_JAMMED] do
   Front_Door_Lock_Actual_Homekit.update(Homekit::LockStatus::JAMMED)
 end
 
@@ -17,8 +19,8 @@ updated Front_Door_Lock_Keypad_Unlock_UserId do |event|
 
   user_id = event.state
 
-  logger.info("Front Door Keypad Unlock User ID: #{event.state}")
-  notify "Front Door unlocked by user id: #{event.state}"
+  logger.info("Front Door Keypad Unlock User ID: #{user_id}")
+  notify "Front Door unlocked by user id: #{user_id}"
 
   # logger.warn("#{basename} unlocked by #{keycode_name}")
   # notify "#{basename} unlocked by #{keycode_name}"

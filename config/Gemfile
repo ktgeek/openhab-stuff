@@ -6,6 +6,10 @@ group(:test) do
   gem "openhab-scripting"
   gem "rspec", "~> 3.11"
   gem "timecop", "~> 0.9"
+  gem "rubocop"
+  gem "rubocop-performance"
+  gem "rubocop-openhab-scripting"
+  gem "rubocop-rspec"
 end
 
 group(:rules) do

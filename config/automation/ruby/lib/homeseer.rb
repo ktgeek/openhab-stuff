@@ -19,7 +19,6 @@ module Homeseer
   #
   # However, using zwavejs-ui, up and down are seperate scene things to pull from, so we just use the scene number
 
-
   PADDLE_UP_CLICK = 1.0
   PADDLE_UP_RELEASE = 1.1
   PADDLE_UP_HOLD = 1.2

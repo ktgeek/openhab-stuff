@@ -28,4 +28,3 @@ rule "Morning lights on", id: "morning_lights_on" do
 
   only_if { Sun_Status.state == "DOWN" }
 end
-

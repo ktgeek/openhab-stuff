@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'json'
+require "json"
 
 profile(:zwavejs_int_handler) do |event, callback:, state:, configuration:|
   next true unless event == :state_from_handler

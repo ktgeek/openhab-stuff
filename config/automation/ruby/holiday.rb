@@ -100,3 +100,22 @@ rule "christ switch is turned on" do
 
   only_if { Holiday_Mode.state == "Christmas" }
 end
+
+# rule "red button is pressed" do
+#   updated Red_Button_Action, to: "single"
+
+#   run do
+#     Front_Yard_Wolf_Decoration.toggle
+#   end
+# end
+
+# every 15 minutes set a timer to set off jeff sometime in the next 15 mintues
+# rule "randomly shoot off jeff" do
+#   cron "0 */15 15-19 ? * *"
+
+#   run do
+#     time = Random.rand(900)
+#     logger.warn("Setting off Jeff in #{time} seconds")
+#     after(time.seconds) { Front_Yard_Wolf_Decoration.toggle }
+#   end
+# end
