@@ -26,7 +26,7 @@ Number Office_Lights_LED_4_Color "Office Lights Led 4 Color" (Office_Lights_Cont
 Number Office_Lights_LED_5_Color "Office Lights Led 5 Color" (Office_Lights_Control, House_Perimeter_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_5_color" }
 Number Office_Lights_LED_6_Color "Office Lights Led 6 Color" (Office_Lights_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_6_color" }
 Number Office_Lights_LED_7_Color "Office Lights Led 7 Color" (Office_Lights_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_7_color" }
-Number Office_Lights_Scene_1 "Scene 1" (Office_Lights_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:9b4942b136:scene-1" [profile="ruby:zwavejs_scene_handler"] }
+Number Office_Lights_Scene_1 "Scene 1" (Office_Lights_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:9b4942b136:scene-1" [profile="ruby:zwavejs_int_handler"] }
 
 
 Group Office_Presence (FF_Office) ["Equipment"]
