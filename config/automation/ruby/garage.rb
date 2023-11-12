@@ -2,27 +2,22 @@
 
 require "homeseer"
 
-rule "Garage Doors Change State" do
-  changed Large_Garage_Door_Status, Small_Garage_Door_Status
-
-  run do |event|
-    item = event.item
-
-    TV_Notifications << "#{item.label} #{item.state}"
-
-    color = event.state == "closed" ? Homeseer::LedColor::GREEN : Homeseer::LedColor::RED
-    leds = items["#{item.name[0..-8]}_Open_LEDs"]
-    leds.members.ensure << color
-  end
-end
-
 rule "Fake Garage Doors Change State" do
   changed Fake_Large_Garage_Door, Fake_Small_Garage_Door
 
   run do |event|
     item = event.item
 
-    color = event.state.off? ? Homeseer::LedColor::GREEN : Homeseer::LedColor::RED
+    if event.state.off?
+      color = Homeseer::LedColor::GREEN
+      state = "closed"
+    else
+      color = Homeseer::LedColor::RED
+      state = "open"
+    end
+
+    TV_Notifications << "#{item.label} #{state}"
+
     leds = items["#{item.name[5..]}_Open_LEDs"]
     leds.members.ensure << color
   end

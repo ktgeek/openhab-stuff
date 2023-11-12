@@ -1,1 +1,1 @@
-Bridge myq:account:home "MyQ API Services" [ username="XX", password="XX"] { }
+// Bridge myq:account:home "MyQ API Services" [ username="XX", password="XX"] { }
