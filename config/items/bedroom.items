@@ -8,8 +8,8 @@ Number Bedroom_Ceiling_Fan_Speed "Bedroom Ceiling Fan Speed" <fan_ceiling> (Bedr
 Switch Bedroom_Ceiling_Fan_Light_Power "Bedroom Ceiling Fan Light" (Bedroom_Ceiling_Fan_With_Light) ["Switch"] { homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:fc689f4ca68ab358:light#power" }
 
 Group Bedroom_Table_Light (SF_Bedroom) ["PowerOutlet"]
-Switch Bedroom_Table_Light_Switch "Bedroom Table Light" <poweroutlet_us> (Bedroom_Table_Light) ["Point"] { channel="mqtt:topic:26bcbec1ee:6d6b292248:power", homekit="Lighting", alexa="Lighting" }
-Number:Energy Bedroom_Table_Light_Watts "Bedroom Table Light Power [%.1f Ws]" (Bedroom_Table_Light) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:6d6b292248:currentPower" }
+Switch Bedroom_Table_Light_Switch "Bedroom Table Light" <poweroutlet_us> (Bedroom_Table_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:6d6b292248:power", homekit="Lighting", alexa="Lighting" }
+Number:Power Bedroom_Table_Light_Watts "Bedroom Table Light Power" (Bedroom_Table_Light) ["Power"] { channel="mqtt:topic:26bcbec1ee:6d6b292248:currentPower" }
 
 Group Bedroom_Cube (SF_Bedroom) ["RemoteControl"]
 String Bedroom_Cube_Action "Action" (Bedroom_Cube) ["Status"] { channel="mqtt:topic:26bcbec1ee:74c439ba57:action" }
