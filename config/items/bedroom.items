@@ -15,4 +15,7 @@ Group Bedroom_Cube (SF_Bedroom) ["RemoteControl"]
 String Bedroom_Cube_Action "Action" (Bedroom_Cube) ["Status"] { channel="mqtt:topic:26bcbec1ee:74c439ba57:action" }
 Number Bedroom_Cube_Side "Side" (Bedroom_Cube) {channel="mqtt:topic:26bcbec1ee:74c439ba57:side"}
 
+Group Bedroom_Sarah_Light (SF_Bedroom) ["PowerOutlet"]
+Switch Bedroom_Sarah_Light_Switch "Bedroom Sarah Light" <poweroutlet_us> (Bedroom_Table_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:32f9cb0714:power", homekit="Lighting", alexa="Lighting" }
+Number:Power Bedroom_Sarah_Light_Watts "Bedroom Table Light Power" (Bedroom_Table_Light) ["Power"] { channel="mqtt:topic:26bcbec1ee:32f9cb0714:currentPower" }
 
