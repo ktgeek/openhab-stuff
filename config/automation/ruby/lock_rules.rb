@@ -12,18 +12,13 @@ updated Front_Door_Lock_Alarm_Type, to: [Kwikset::Alarm::KEYPAD_JAMMED,
 end
 
 updated Front_Door_Lock_Keypad_Unlock_UserId do |event|
-  # TODO: Add some mapping to get the user name of whoever unlocked the door
-
-  # this is old code, just kept for reference for now
-  # keycode_name = lock_actual_item.thing.configuration.get("usercode_label_#{keycode}")
-
   user_id = event.state
+  user = transform("MAP", "lock_user.map", user_id)
 
-  logger.info("Front Door Keypad Unlock User ID: #{user_id}")
-  notify "Front Door unlocked by user id: #{user_id}"
+  message = "Front Door keypad unlocked by #{user}"
 
-  # logger.warn("#{basename} unlocked by #{keycode_name}")
-  # notify "#{basename} unlocked by #{keycode_name}"
+  logger.info(message)
+  notify(message)
 end
 
 rule "Front Door Lock: proxy changes to actual back to target" do
