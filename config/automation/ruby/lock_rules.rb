@@ -53,8 +53,10 @@ rule "when our perimeter has a change" do
   changed House_Perimeter_Contacts, Front_Door_Lock
 
   run do
-    House_Perimeter_LEDs.members.ensure << if House_Perimeter_Contacts.open? || Front_Door_Lock.off?
+    House_Perimeter_LEDs.members.ensure << if House_Perimeter_Contacts.open?
                                              Homeseer::LedColor::RED
+                                           elsif Front_Door_Lock.off?
+                                             Homeseer::LedColor::YELLOW
                                            else
                                              Homeseer::LedColor::OFF
                                            end
