@@ -37,9 +37,21 @@ end
 rule "turn on the light if someone enters the office" do
   changed Office_Presence_Event, to: "enter"
 
-  run do
+  run do |event|
     Office_Lights_Switch.ensure.on
     Office_Monitor_LED.ensure.on
+
+    # Sometimes if you walk in and out of the room too quickly, the light will not turn off as the presence sensor won't
+    # turn on. If it never turns on, it can never change to off so it won't trigger the turn off. 2 minutse is enough
+    # time for that to flip to so this will be a no op, but just in case, let's capture those edge cases where are too
+    # fast.
+    timers.cancel(event.item)
+    after(120.seconds, id: event.item) do
+      if Office_Presence_Sensor.off?
+        Office_Lights_Switch.ensure.off
+        Office_Monitor_LED.ensure.off
+      end
+    end
   end
 
   only_if { Office_Presence_Sensor.off? }
