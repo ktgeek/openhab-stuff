@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "homeseer"
+require "zwave"
 
 changed NanomoteQuad_Scene_1, to: 0 do
   Basement_Normal_Mode_Switch.on
@@ -24,10 +24,10 @@ changed NanomoteQuad_Scene_4, to: 0 do
   Basement_Movie_Mode_Switch.on
 end
 
-changed C_Basement_Scene_Top.members, to: Homeseer::PADDLE_TWO_CLICKS do
+changed C_Basement_Scene_Top.members, to: ZWave::PADDLE_TWO_CLICKS do
   Basement_Normal_Mode_Switch.on
 end
 
-changed C_Basement_Scene_Bottom.members, to: Homeseer::PADDLE_TWO_CLICKS do
+changed C_Basement_Scene_Bottom.members, to: ZWave::PADDLE_TWO_CLICKS do
   Basement_Movie_Mode_Switch.on
 end
