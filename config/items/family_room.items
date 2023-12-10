@@ -11,7 +11,7 @@ Dimmer FamilyRoom_Accent_Lights_Dimmer "Family Room Accents" <lightbulb> (FF_Fam
 Switch FamilyRoom_Backyard_Lights_Switch "Backyard Lights in Family Room" <lightbulb> (FF_FamilyRoom, Backyard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:80a71c1f40:switch_binary" }
 
 Group FamilyRoom_Wall_Outlet "Family Room Wall Outlet" <poweroutlet_us> (FF_FamilyRoom) ["PowerOutlet"] { homekit="Outlet" }
-Switch FamilyRoom_Wall_Outlet_Switch "Family Room Wall Outlet" <poweroutlet_us> (Christmas_Lights, FamilyRoom_Christmas_Tree, FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.OnState", alexa="Outlet", channel="mqtt:topic:26bcbec1ee:bae88ef977:switch_binary" }
+Switch FamilyRoom_Wall_Outlet_Switch "Family Room Wall Outlet" <poweroutlet_us> (Christmas_Lights, Christmas_Lights_All, FamilyRoom_Christmas_Tree, FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.OnState", alexa="Outlet", channel="mqtt:topic:26bcbec1ee:bae88ef977:switch_binary" }
 Number:Energy FamilyRoom_Wall_Outlet_kWh "Family Room Wall Outlet Power [%.1f kWh]" (FamilyRoom_Wall_Outlet) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:bae88ef977:meter_kwh" }
 Number:Power FamilyRoom_Wall_Outlet_Watts "Family Room Wall Outlet Power [%.1f Ws]" (FamilyRoom_Wall_Outlet) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:bae88ef977:meter_watts" }
 Switch FamilyRoom_Wall_Outlet_In_Use "Family Room Wall Outlet In Use [RB(outletinuse.rb):%s]" (FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="mqtt:topic:26bcbec1ee:bae88ef977:meter_watts" }

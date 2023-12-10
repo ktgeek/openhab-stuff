@@ -10,7 +10,7 @@ rule "decorations on at sunset at Halloween" do
       Porch_Decorations_Switch.on
       Front_Yard_Outdoor_Decorations_Switch.on
 
-    if Zoom_Active_Switch.off?
+      if Zoom_Active_Switch.off?
         Office_Door_LED_Power.on
         Office_Door_LED_Fade.on
         Office_Door_LED_Palette << Tasmota::Palette::PURPLE_FADE
@@ -121,3 +121,20 @@ updated(Red_Button_Action, to: "single") { Misc_Decoration_Switch.toggle }
 #     after(time.seconds) { Front_Yard_Wolf_Decoration.toggle }
 #   end
 # end
+
+rule "christmas: proxy changes to actual back to target" do
+  updated Christmas_Lights, Christmas_Lights_All, Christmas_Outside
+
+  run do |event|
+    items["#{event.item.name}_HK"].ensure.update(event.state)
+  end
+end
+
+rule "christmas: proxy on/off command" do
+  received_command Christmas_Lights_HK, Christmas_Lights_All_HK, Christmas_Outside_HK
+
+  run do |event|
+    item_actual = items[event.item.name[0..-4]]
+    item_actual.ensure << event.command
+  end
+end

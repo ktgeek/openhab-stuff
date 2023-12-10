@@ -1,6 +1,6 @@
 Group    SF_Bedroom     "Bedroom" <bedroom>       (SF)               ["Bedroom"]
 
-Switch Bedroom_Wall_Outlet "Bedroom Outlet" <poweroutlet_us> (SF_Bedroom, Christmas_Lights) ["WallSwitch"] { homekit="Outlet", alexa="Outlet", channel="mqtt:topic:26bcbec1ee:8aa3a1de8e:switch_binary" }
+Switch Bedroom_Wall_Outlet "Bedroom Outlet" <poweroutlet_us> (SF_Bedroom, Christmas_Lights, Christmas_Lights_All) ["WallSwitch"] { homekit="Outlet", alexa="Outlet", channel="mqtt:topic:26bcbec1ee:8aa3a1de8e:switch_binary" }
 
 Group Bedroom_Ceiling_Fan_With_Light "Bedroom Ceiling Fan With Light" (SF_Bedroom) ["CeilingFan"] { homekit="BasicFan,Lighting" }
 Switch Bedroom_Ceiling_Fan_Power "Bedroom Ceiling Fan Power" <fan_ceiling> (Bedroom_Ceiling_Fan_With_Light) ["Control"] { autoupdate="false", homekit="BasicFan.OnState", autoupdate="false"}
