@@ -89,8 +89,10 @@ rule "when someone leaves the deadend" do
 
     if C_Basement_Deadend_Occupancy.state < 1
       after(90.seconds, id: event.item) do
-        Exercise_Room_Light.ensure.off
-        Exercise_Room_Bike_Trainer_Switch.ensure.off
+        ensure_states do
+          Exercise_Room_Light.off
+          Exercise_Room_Bike_Trainer_Switch.off
+        end
       end
     end
   end

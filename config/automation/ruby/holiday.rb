@@ -6,14 +6,16 @@ rule "decorations on at sunset at Halloween" do
   channel "astro:sun:local:set#event", triggered: "START"
 
   run do
-    Porch_Decorations_Switch.ensure.on
-    Front_Yard_Outdoor_Decorations_Switch.ensure.on
+    ensure_states do
+      Porch_Decorations_Switch.on
+      Front_Yard_Outdoor_Decorations_Switch.on
 
     if Zoom_Active_Switch.off?
-      Office_Door_LED_Power.ensure.on
-      Office_Door_LED_Fade.ensure.on
-      Office_Door_LED_Palette.ensure << Tasmota::Palette::PURPLE_FADE
-      Office_Door_LED_Scheme.ensure << Tasmota::Scheme::CYCLE_UP
+        Office_Door_LED_Power.on
+        Office_Door_LED_Fade.on
+        Office_Door_LED_Palette << Tasmota::Palette::PURPLE_FADE
+        Office_Door_LED_Scheme << Tasmota::Scheme::CYCLE_UP
+      end
     end
 
     # Leaving on this while testing to ensure this didn't trigger
@@ -39,9 +41,11 @@ rule "decorations off at night at Halloween" do
   cron "0 30 22 ? * *"
 
   run do
-    Porch_Decorations_Switch.ensure.off
-    Front_Yard_Outdoor_Decorations_Switch.ensure.off
-    Office_Door_LED_Power.ensure.off
+    ensure_states do
+      Porch_Decorations_Switch.off
+      Front_Yard_Outdoor_Decorations_Switch.off
+      Office_Door_LED_Power.off
+    end
   end
 
   only_if { VisitorMode_Switch.off? && Holiday_Mode.state == "Halloween" }
@@ -64,9 +68,11 @@ rule "when we turn off VisitorMode" do
   run do
     case Time.now
     when between("22:30".."23:59:59"), between("0:00".."3:01")
-      Porch_Decorations_Switch.ensure.off
-      Front_Yard_Outdoor_Decorations_Switch.ensure.off
-      Office_Door_LED_Power.ensure.off
+      ensure_states do
+        Porch_Decorations_Switch.off
+        Front_Yard_Outdoor_Decorations_Switch.off
+        Office_Door_LED_Power.off
+      end
     end
   end
 
@@ -92,9 +98,11 @@ rule "christ switch is turned on" do
 
   run do
     if Zoom_Active_Switch.off?
-      Office_Door_LED_Palette.ensure << Tasmota::Palette::RED_GREEN_CROSSFADE
-      Office_Door_LED_Scheme.ensure << Tasmota::Scheme::CYCLE_UP
-      Office_Door_LED_Fade.ensure.on
+      ensure_states do
+        Office_Door_LED_Fade.on
+        Office_Door_LED_Palette << Tasmota::Palette::RED_GREEN_CROSSFADE
+        Office_Door_LED_Scheme << Tasmota::Scheme::CYCLE_UP
+      end
     end
   end
 
