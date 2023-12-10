@@ -12,8 +12,7 @@ updated Front_Door_Lock_Alarm_Type, to: [Kwikset::Alarm::KEYPAD_JAMMED,
 end
 
 updated Front_Door_Lock_Keypad_Unlock_UserId do |event|
-  user_id = event.state
-  user = transform("MAP", "lock_user.map", user_id)
+  user = transform("MAP", "lock_user.map", event.state)
 
   message = "Front Door keypad unlocked by #{user}"
 
@@ -25,8 +24,7 @@ rule "Front Door Lock: proxy changes to actual back to target" do
   changed Front_Door_Lock_Actual
 
   run do |event|
-    item = event.item
-    basename = item.name[0..-8]
+    basename = event.item.name[0..-8]
     lock_item = items[basename]
     lock_actual_item_homekit = items["#{basename}_Actual_Homekit"]
 
