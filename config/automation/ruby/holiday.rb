@@ -3,7 +3,7 @@
 require "tasmota"
 
 rule "decorations on at sunset at Halloween" do
-  channel "astro:sun:local:set#event", triggered: "START"
+  changed Sun_Status, to: "DOWN"
 
   run do
     ensure_states do
@@ -27,7 +27,7 @@ rule "decorations on at sunset at Halloween" do
 end
 
 rule "decorations on at sunset at Christmas" do
-  channel "astro:sun:local:set#event", triggered: "START"
+  changed Sun_Status, to: "DOWN"
 
   run do
     Christmas_Outside.members.ensure.on
