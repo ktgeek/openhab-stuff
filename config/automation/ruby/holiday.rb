@@ -93,7 +93,7 @@ rule "when we turn off VisitorMode" do
   only_if { Holiday_Mode.state == "Christmas" }
 end
 
-rule "christ switch is turned on" do
+rule "christmas switch is turned on" do
   changed Christmas_Lights, from: OFF, to: ON
 
   run do
