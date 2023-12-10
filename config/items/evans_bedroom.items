@@ -1,0 +1,3 @@
+Group Evan_Bedroom "Evan's Bedroom" <bedroom> (SF) ["Bedroom"]
+
+Switch Evan_Bedroom_Light "Evan's Bedroom Light" (Evan_Bedroom) ["Lighting"] { autoupdate="false", channel="mqtt:topic:26bcbec1ee:evan_bedroom_lights:binary_switch", homekit="Lighting", alexa="Lighting" }
