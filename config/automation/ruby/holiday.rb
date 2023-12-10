@@ -55,8 +55,8 @@ rule "decorations off at night at Christmas" do
   cron "0 30 22 ? * *"
 
   run do
-    Christmas_Outside.members.off
-    Christmas_Lights_All.members.off
+    Christmas_Outside.members.ensure.off
+    Christmas_Lights_All.members.ensure.off
   end
 
   only_if { VisitorMode_Switch.off? && Holiday_Mode.state == "Christmas" }
@@ -85,8 +85,8 @@ rule "when we turn off VisitorMode" do
   run do
     case Time.now
     when between("22:30".."23:59:59"), between("0:00".."3:01")
-      Christmas_Outside.members.off
-      Christmas_Lights_All.members.off
+      Christmas_Outside.members.ensure.off
+      Christmas_Lights_All.members.ensure.off
     end
   end
 
