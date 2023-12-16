@@ -13,3 +13,19 @@ profile(:zwavejs_int_handler) do |event, callback:, state:, configuration:|
 
   false
 end
+
+profile(:upcase_state) do |event, callback:, state:|
+  next true unless event == :state_from_handler
+
+  callback.send_update(state.upcase)
+
+  false
+end
+
+profile(:binary_open_state) do |event, callback:, state:|
+  next true unless event == :state_from_handler
+
+  callback.send_update((state == "closed" ? OFF : ON))
+
+  false
+end
