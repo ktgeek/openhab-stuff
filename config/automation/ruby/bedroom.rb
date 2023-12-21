@@ -20,3 +20,11 @@ updated Bedroom_Remotes_Action.members, to: "4_single" do |event|
 end
 
 updated(Bedroom_Remotes_Action.members, to: "4_double") { Bedroom_Ceiling_Fan_Light_Power.toggle }
+
+changed Bedroom_Keiths_Closet_Contact_Sensor do |event|
+  Bedroom_Keith_Closet_Light.ensure << (event.state == OPEN)
+end
+
+changed Bedroom_Sarahs_Closet_Contact_Sensor do |event|
+  Bedroom_Sarah_Closet_Light.ensure << (event.state == OPEN)
+end

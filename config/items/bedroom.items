@@ -30,3 +30,13 @@ Contact Bedroom_Keiths_Closet_Contact_Sensor "Keith's Closet Contact Sensor" (Be
 Switch Bedroom_Keiths_Closet_Contact_Battery_isLow "Keith's Closet Contact Sensor Battery" (Bedroom_Keiths_Closet_Contact_Sensor_Group) ["LowBattery"] { homekit="ContactSensor.BatteryLowStatus", channel="mqtt:topic:KeithClosetDoor:battery_low" }
 Switch Bedroom_Keiths_Closet_Contact_Sensor_Active "Keith's Closet Contact Sensor Active" (Bedroom_Keiths_Closet_Contact_Sensor_Group) ["Status"] { homekit="ContactSensor.ActiveStatus", channel="mqtt:topic:KeithClosetDoor:active" }
 Switch Bedroom_Keiths_Closet_Contact_Sensor_Tampered "Keith's Closet Contact Sensor Tampered" (Bedroom_Keiths_Closet_Contact_Sensor_Group) ["Tampered"] { homekit="ContactSensor.TamperedStatus", channel="mqtt:topic:KeithClosetDoor:tampered" }
+
+Switch Bedroom_Keith_Closet_Light "Keith's Closet" (SF_Bedroom) ["Lighting"] { autoupdate="false", channel="mqtt:topic:26bcbec1ee:bedroom_keith_closet:binary_switch", homekit="Lighting", alexa="Lighting" }
+
+Group Bedroom_Sarahs_Closet_Contact_Sensor_Group "Sarah's Closet Contact Sensor" (SF_Bedroom) ["Door"] { homekit="ContactSensor" }
+Contact Bedroom_Sarahs_Closet_Contact_Sensor "Sarah's Closet Contact Sensor" (Bedroom_Sarahs_Closet_Contact_Sensor_Group) ["OpenState"] { homekit="ContactSensor.ContactSensorState", channel="mqtt:topic:SarahClosetDoor:contact" }
+Switch Bedroom_Sarahs_Closet_Contact_Battery_isLow "Sarah's Closet Contact Sensor Battery" (Bedroom_Sarahs_Closet_Contact_Sensor_Group) ["LowBattery"] { homekit="ContactSensor.BatteryLowStatus", channel="mqtt:topic:SarahClosetDoor:battery_low" }
+Switch Bedroom_Sarahs_Closet_Contact_Sensor_Active "Sarah's Closet Contact Sensor Active" (Bedroom_Sarahs_Closet_Contact_Sensor_Group) ["Status"] { homekit="ContactSensor.ActiveStatus", channel="mqtt:topic:SarahClosetDoor:active" }
+Switch Bedroom_Sarahs_Closet_Contact_Sensor_Tampered "Sarah's Closet Contact Sensor Tampered" (Bedroom_Sarahs_Closet_Contact_Sensor_Group) ["Tampered"] { homekit="ContactSensor.TamperedStatus", channel="mqtt:topic:SarahClosetDoor:tampered" }
+
+Switch Bedroom_Sarah_Closet_Light "Sarah's Closet" (SF_Bedroom) ["Lighting"] { autoupdate="false", channel="mqtt:topic:26bcbec1ee:bedroom_sarah_closet:binary_switch", homekit="Lighting", alexa="Lighting" }
