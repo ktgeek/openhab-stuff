@@ -65,3 +65,14 @@ rule "turn off the light when the office is empty" do
     Office_Monitor_LED.ensure.off
   end
 end
+
+# Fan does 0-3, where 0 is a speed that is not off, but the slider does 0-4, so we need to add 1 to the value.
+changed Office_Fan_Speed_Actual do |event|
+  Office_Fan_Speed.ensure.update(event.state.to_i + 1)
+end
+
+received_command Office_Fan_Speed do |event|
+  speed = [event.item.state.to_i - 1, 0].max
+  logger.info("Setting fan speed to #{speed}")
+  Office_Fan_Speed_Actual.ensure << speed
+end
