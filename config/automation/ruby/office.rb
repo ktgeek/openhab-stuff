@@ -73,6 +73,5 @@ end
 
 received_command Office_Fan_Speed do |event|
   speed = [event.item.state.to_i - 1, 0].max
-  logger.info("Setting fan speed to #{speed}")
   Office_Fan_Speed_Actual.ensure << speed
 end
