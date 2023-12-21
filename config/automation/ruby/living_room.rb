@@ -15,5 +15,5 @@ updated LivingRoom_Scene_Switch_Scene_3, to: ZWave::PADDLE_CLICK do
 end
 
 updated LivingRoom_Scene_Switch_Scene_4, to: ZWave::PADDLE_CLICK do
-  LivingRoom_Table_Light_Switch.toggle
+  Living_Room_Table_Light_Switch.toggle
 end
