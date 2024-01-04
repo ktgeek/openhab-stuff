@@ -1,0 +1,23 @@
+Group Dining_Room_Table_Lights_Control (FF_Dining) ["Equipment"]
+Dimmer Dining_Room_Table_Lights "Dining Room Table Lights" <lightbulb> (Dining_Room_Table_Lights_Control) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness, Lighting.OnState" [minValue=0, maxValue=99], alexa="Lighting", channel="mqtt:topic:dining_room_table_lights:switch_dimmer" }
+Number Dining_Room_Table_Lights_Scene_Number_Top "Dining Room Table Lights Scene number top" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:scene_top" [profile="ruby:zwavejs_int_handler"] }
+Number Dining_Room_Table_Lights_Scene_Number_Bottom "Dining Room Table Lights Scene number bottom" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:scene_bottom" [profile="ruby:zwavejs_int_handler"] }
+Number Dining_Room_Table_Lights_LED_1_Color "Dining Room Table Lights Led 1 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_1_color" }
+Number Dining_Room_Table_Lights_LED_2_Color "Dining Room Table Lights Led 2 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_2_color" }
+Number Dining_Room_Table_Lights_LED_3_Color "Dining Room Table Lights Led 3 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_3_color" }
+Number Dining_Room_Table_Lights_LED_4_Color "Dining Room Table Lights Led 4 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_4_color" }
+Number Dining_Room_Table_Lights_LED_5_Color "Dining Room Table Lights Led 5 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_5_color" }
+Number Dining_Room_Table_Lights_LED_6_Color "Dining Room Table Lights Led 6 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_6_color" }
+Number Dining_Room_Table_Lights_LED_7_Color "Dining Room Table Lights Led 7 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_7_color" }
+
+Group Dining_Room_Can_Lights_Control (FF_Dining) ["Equipment"]
+Dimmer Dining_Room_Can_Lights "Dining Room Can Lights" <lightbulb> (Dining_Room_Can_Lights_Control) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness, Lighting.OnState" [minValue=0, maxValue=99], alexa="Lighting", channel="mqtt:topic:dining_room_can_lights:switch_dimmer" }
+Number Dining_Room_Can_Lights_Scene_Number_Top "Dining Room Can Lights Scene number top" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:scene_top" [profile="ruby:zwavejs_int_handler"] }
+Number Dining_Room_Can_Lights_Scene_Number_Bottom "Dining Room Can Lights Scene number bottom" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:scene_bottom" [profile="ruby:zwavejs_int_handler"] }
+Number Dining_Room_Can_Lights_LED_1_Color "Dining Room Can Lights Led 1 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_1_color" }
+Number Dining_Room_Can_Lights_LED_2_Color "Dining Room Can Lights Led 2 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_2_color" }
+Number Dining_Room_Can_Lights_LED_3_Color "Dining Room Can Lights Led 3 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_3_color" }
+Number Dining_Room_Can_Lights_LED_4_Color "Dining Room Can Lights Led 4 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_4_color" }
+Number Dining_Room_Can_Lights_LED_5_Color "Dining Room Can Lights Led 5 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_5_color" }
+Number Dining_Room_Can_Lights_LED_6_Color "Dining Room Can Lights Led 6 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_6_color" }
+Number Dining_Room_Can_Lights_LED_7_Color "Dining Room Can Lights Led 7 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_7_color" }
