@@ -26,5 +26,5 @@ Number LivingRoom_Scene_Switch_Scene_5 "Living Room Scene Switch Scene 5" (Livin
 Number LivingRoom_Scene_Switch_Scene_6 "Living Room Scene Switch Scene 6" (LivingRoom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:living_room_scene_switch:scene_6" [profile="ruby:zwavejs_int_handler"] }
 
 Group Living_Room_Table_Light (FF_LivingRoom) ["PowerOutlet"]
-Switch Living_Room_Table_Light_Switch "Living Room Table Light" <poweroutlet_us> (Living_Room_Table_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:living-room-table-light:power", homekit="Lighting", alexa="Lighting" }
-Number:Power Living_Room_Table_Light_Watts "Living Room Table Light Power" (Living_Room_Table_Light) ["Power"] { channel="mqtt:topic:26bcbec1ee:living-room-table-light:currentPower" }
+Switch Living_Room_Table_Light_Switch "Living Room Table Light" <poweroutlet_us> (Living_Room_Table_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:living-room-table-lightz:switch", homekit="Lighting", alexa="Lighting" }
+Number:Power Living_Room_Table_Light_Watts "Living Room Table Light Power" (Living_Room_Table_Light) ["Power"] { channel="mqtt:topic:26bcbec1ee:living-room-table-lightz:power" }
