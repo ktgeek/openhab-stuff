@@ -3,8 +3,8 @@ Group FF_Garage "Garage" <garage> (FF) ["Garage"]
 Group Large_Garage_Door_Open_LEDs (FF_Garage) ["Equipment"]
 Group Small_Garage_Door_Open_LEDs (FF_Garage) ["Equipment"]
 
-Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights"  <lightbulb> (FF_Garage) ["Lightbulb"] { alexa="Lighting", homekit="Lighting", channel="mqtt:topic:26bcbec1ee:1e9a931646:power" }
-//Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights"  <lightbulb> (FF_Garage, Front_Yard_Lights) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:1e9a931646:power" }
+//Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights"  <lightbulb> (FF_Garage) ["Lightbulb"] { alexa="Lighting", homekit="Lighting", channel="mqtt:topic:26bcbec1ee:1e9a931646:power" }
+Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights"  <lightbulb> (FF_Garage, Front_Yard_Lights) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:1e9a931646:power" }
 
 Contact Garage_House_Door_Contact "Garage House Door" (FF_Garage, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_2" }
 
@@ -19,7 +19,7 @@ Switch Small_Garage_Door_Light "Small Garage Door Opener Light" (Small_Garage_Do
 
 Group Large_Garage_Door "Large Garage Door" (FF_Garage) ["Door"] { homekit="GarageDoorOpener", alexa="GarageDoor" }
 String Large_Garage_Door_State "Large Garage Door State" (Large_Garage_Door) { channel="mqtt:topic:26bcbec1ee:lgdo:door_state" [profile="ruby:upcase_state"], autoupdate="false", homekit="GarageDoorOpener.CurrentDoorState" }
-String Large_Garage_Door_State_Binary "Small Garage Door State (binary)" (Large_Garage_Door) { channel="mqtt:topic:26bcbec1ee:lgdo:door_state" [profile="ruby:binary_open_state"], autoupdate="false", alexa="GarageDoor.CurrentOpenState" }
+String Large_Garage_Door_State_Binary "Large Garage Door State (binary)" (Large_Garage_Door) { channel="mqtt:topic:26bcbec1ee:lgdo:door_state" [profile="ruby:binary_open_state"], autoupdate="false", alexa="GarageDoor.CurrentOpenState" }
 Switch Large_Garage_Door_Target_State "Large Garage Door Target State" (Large_Garage_Door) { homekit="GarageDoorOpener.TargetDoorState", alexa="GarageDoor.TargetOpenState" }
 Dimmer Large_Garage_Door_Position "Large Garage Door Position" (Large_Garage_Door) { channel="mqtt:topic:26bcbec1ee:lgdo:door_position" }
 Switch Large_Garage_Door_Obstruction "Large Garage Door Opener Obstruction Status" (Large_Garage_Door) { channel="mqtt:topic:26bcbec1ee:lgdo:obstruction", homekit="GarageDoorOpener.ObstructionStatus", alexa="GarageDoor.ObstacleAlert" }
