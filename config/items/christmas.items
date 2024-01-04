@@ -1,9 +1,9 @@
 Group Christmas "Christmas" <snow> (Home) ["Holiday Stuff"]
 
 // Virtual switches
-Switch Christmas_Lights_HK "Christmas Lights" <lightbulb> (Christmas) ["WallSwitch"] { homekit="Switchable", alexa="Switchable" }
-Switch Christmas_Lights_All_HK "Christmas Lights All" <lightbulb> (Christmas) ["WallSwitch"] { homekit="Switchable", alexa="Switchable" }
-Switch Christmas_Outside_HK "Christmas Outside" <snow> (Christmas) ["WallSwitch"] { homekit="Switchable", alexa="Switchable" }
+//Switch Christmas_Lights_HK "Christmas Lights" <lightbulb> (Christmas) ["WallSwitch"] { homekit="Switchable", alexa="Switchable" }
+//Switch Christmas_Lights_All_HK "Christmas Lights All" <lightbulb> (Christmas) ["WallSwitch"] { homekit="Switchable", alexa="Switchable" }
+//Switch Christmas_Outside_HK "Christmas Outside" <snow> (Christmas) ["WallSwitch"] { homekit="Switchable", alexa="Switchable" }
 Group:Switch:AND(ON,OFF) Christmas_Lights "Christmas Lights" <lightbulb> (Christmas) ["WallSwitch"]
 Group:Switch:AND(ON,OFF) Christmas_Lights_All "Test Christmas Lights" <lightbulb> (Christmas) ["WallSwitch"]
 Group:Switch:AND(ON,OFF) Christmas_Outside "Christmas Outside" <snow> (Christmas) ["WallSwitch"]
@@ -33,16 +33,16 @@ Switch HiddenRoom_Holiday_LED_Power "HiddenRoom Holiday LED Power" (Christmas_Ou
 //Group Bathroom
 Switch Bathroom_Penguin_Light "Penguin Light" <poweroutlet_us> (Christmas_Lights, Christmas_Lights_All, FF_Kitchen) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:40b393a346:power" }
 
-Switch Basement_Christmas_Tree "Basement Christmas Tree" <poweroutlet_us> (C_Basement) ["WallSwitch"] { homekit="Lighting", alexa="ChristmasTree", channel="mqtt:topic:26bcbec1ee:86e9bd7e73:switch_binary" }
-Switch FamilyRoom_Christmas_Tree "Family Room Christmas Tree" <poweroutlet_us> (FF_FamilyRoom) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:bae88ef977:switch_binary", homekit="Lighting", alexa="ChristmasTree" }
-Switch LivingRoom_Christmas_Tree "Living Room Christmas Tree" <poweroutlet_us> (FF_LivingRoom) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:83f49b1e69:switch_binary", homekit="Lighting", alexa="ChristmasTree" }
-//Switch Basement_Christmas_Tree "Basement Christmas Tree" <poweroutlet_us> (C_Basement) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:86e9bd7e73:switch_binary" }
-//Switch FamilyRoom_Christmas_Tree "Family Room Christmas Tree" <poweroutlet_us> (FF_FamilyRoom) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:bae88ef977:switch_binary" }
-//Switch LivingRoom_Christmas_Tree "Living Room Christmas Tree" <poweroutlet_us> (FF_LivingRoom) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:83f49b1e69:switch_binary" }
+// Switch Basement_Christmas_Tree "Basement Christmas Tree" <poweroutlet_us> (C_Basement) ["WallSwitch"] { homekit="Lighting", alexa="ChristmasTree", channel="mqtt:topic:26bcbec1ee:86e9bd7e73:switch_binary" }
+// Switch FamilyRoom_Christmas_Tree "Family Room Christmas Tree" <poweroutlet_us> (FF_FamilyRoom) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:bae88ef977:switch_binary", homekit="Lighting", alexa="ChristmasTree" }
+// Switch LivingRoom_Christmas_Tree "Living Room Christmas Tree" <poweroutlet_us> (FF_LivingRoom) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:83f49b1e69:switch_binary", homekit="Lighting", alexa="ChristmasTree" }
+Switch Basement_Christmas_Tree "Basement Christmas Tree" <poweroutlet_us> (C_Basement) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:86e9bd7e73:switch_binary" }
+Switch FamilyRoom_Christmas_Tree "Family Room Christmas Tree" <poweroutlet_us> (FF_FamilyRoom) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:bae88ef977:switch_binary" }
+Switch LivingRoom_Christmas_Tree "Living Room Christmas Tree" <poweroutlet_us> (FF_LivingRoom) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:83f49b1e69:switch_binary" }
 
 //Switch Front_Yard_Wolf_Decoration "Werewolf Jeff" (FF_Porch) ["Point"] { homekit="Switchable", channel="mqtt:topic:26bcbec1ee:fa198888ad:power" }
 String Red_Button_Action "Red Button Action" (FF_Porch) { channel="mqtt:topic:26bcbec1ee:c1c872d70e:action" }
 
-Group Misc_Decoration_Outlet (SF_Upstairs) ["PowerOutlet"]
-Switch Misc_Decoration_Switch "Misc Decoration" <poweroutlet_us> (Misc_Decoration_Outlet) ["Switch"] { channel="mqtt:topic:26bcbec1ee:tasmota_misc_decoration:power", homekit="Outlet", alexa="Outlet", autoupdate="false" }
-Number:Power Misc_Decoration_Watts "Misc Decoration" (Misc_Decoration_Outlet) ["Power"] { channel="mqtt:topic:26bcbec1ee:tasmota_misc_decoration:currentPower" }
+// Group Misc_Decoration_Outlet (SF_Upstairs) ["PowerOutlet"]
+// Switch Misc_Decoration_Switch "Misc Decoration" <poweroutlet_us> (Misc_Decoration_Outlet) ["Switch"] { channel="mqtt:topic:26bcbec1ee:tasmota_misc_decoration:power", homekit="Outlet", alexa="Outlet", autoupdate="false" }
+// Number:Power Misc_Decoration_Watts "Misc Decoration" (Misc_Decoration_Outlet) ["Power"] { channel="mqtt:topic:26bcbec1ee:tasmota_misc_decoration:currentPower" }

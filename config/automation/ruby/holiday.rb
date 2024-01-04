@@ -122,19 +122,19 @@ updated(Red_Button_Action, to: "single") { Misc_Decoration_Switch.toggle }
 #   end
 # end
 
-rule "christmas: proxy changes to actual back to target" do
-  updated Christmas_Lights, Christmas_Lights_All, Christmas_Outside
+# rule "christmas: proxy changes to actual back to target" do
+#   updated Christmas_Lights, Christmas_Lights_All, Christmas_Outside
 
-  run do |event|
-    items["#{event.item.name}_HK"].ensure.update(event.state)
-  end
-end
+#   run do |event|
+#     items["#{event.item.name}_HK"].ensure.update(event.state)
+#   end
+# end
 
-rule "christmas: proxy on/off command" do
-  received_command Christmas_Lights_HK, Christmas_Lights_All_HK, Christmas_Outside_HK
+# rule "christmas: proxy on/off command" do
+#   received_command Christmas_Lights_HK, Christmas_Lights_All_HK, Christmas_Outside_HK
 
-  run do |event|
-    item_actual = items[event.item.name[0..-4]]
-    item_actual.ensure << event.command
-  end
-end
+#   run do |event|
+#     item_actual = items[event.item.name[0..-4]]
+#     item_actual.ensure << event.command
+#   end
+# end
