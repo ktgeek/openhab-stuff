@@ -25,3 +25,8 @@ Number FamilyRoom_LED_Speed "Family Room LED Speed" (FamilyRoom_LED) ["Point"] {
 Group Family_Room_Ceiling_Fan_With_Light "Family Room Ceiling Fan With Light" (FF_FamilyRoom) { homekit="BasicFan,Lighting" }
 Switch Family_Room_Ceiling_Fan_Fan_Power "Family Room Ceiling Fan" (Family_Room_Ceiling_Fan_With_Light) { homekit="BasicFan.OnState", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:common#power" }
 Switch Family_Room_Ceiling_Fan_Light_Power "Family Room Ceiling Fan Light" (Family_Room_Ceiling_Fan_With_Light) { homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:light#power" }
+
+Group Family_Room_Sensor "Family Room Sensor" (FF_FamilyRoom) ["Equpiment"]
+Number:Temperature Family_Room_Sensor_Temperature "Family Room Temperature" (Family_Room_Sensor) ["Measurement", "Temperature"] { unit="°C", homekit="TemperatureSensor.CurrentTemperature", channel="mqtt:topic:26bcbec1ee:family_room_sensor:temperature" }
+Number:Dimensionless Family_Room_Sensor_Humidity "Family Room Humidity" (Family_Room_Sensor) ["Measurement", "Humidity"] { unit="%", homekit="HumiditySensor.CurrentRelativeHumidity", channel="mqtt:topic:26bcbec1ee:family_room_sensor:humidity" }
+Number:Dimensionless Family_Room_Sensor_Battery_Level "Basement Flood Sensor Battery Level" (Family_Room_Sensor) ["Point"] { unit="%", channel="mqtt:topic:26bcbec1ee:family_room_sensor:battery" }
