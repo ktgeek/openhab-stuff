@@ -14,6 +14,20 @@ profile(:zwavejs_int_handler) do |event, callback:, state:, configuration:|
   false
 end
 
+profile(:zigbee2mqtt_onoff_handler) do |event, callback:, state:|
+  next true unless event == :state_from_handler
+
+  result = case state
+           when "" then nil
+           when "true" then ON
+           when "false" then OFF
+           end
+
+  callback.send_update(result)
+
+  false
+end
+
 profile(:upcase_state) do |event, callback:, state:|
   next true unless event == :state_from_handler
 
