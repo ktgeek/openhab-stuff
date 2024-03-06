@@ -1,0 +1,2 @@
+Group Dinahs_Room_Dimmer "Dinah's Room Dimmer" (SF_DinahsRoom) ["Equipment"]
+Dimmer Dinahs_Room_Lights "Dinah's Room Lights [%d]" <lightbulb> (Dinahs_Room_Dimmer) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness, Lighting.OnState" [minValue=0, maxValue=99], alexa="Lighting", channel="mqtt:topic:26bcbec1ee:f4829841d1:dimmer"}
