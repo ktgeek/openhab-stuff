@@ -8,12 +8,12 @@ Number Bedroom_Ceiling_Fan_Speed "Bedroom Ceiling Fan Speed" <fan_ceiling> (Bedr
 Switch Bedroom_Ceiling_Fan_Light_Power "Bedroom Ceiling Fan Light" (Bedroom_Ceiling_Fan_With_Light) ["Switch"] { homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:fc689f4ca68ab358:light#power" }
 
 Group Bedroom_Table_Light (SF_Bedroom) ["PowerOutlet"]
-Switch Bedroom_Table_Light_Switch "Bedroom Table Light" <poweroutlet_us> (Bedroom_Table_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:bedroom-keith-table-light:switch", homekit="Lighting", alexa="Lighting" }
-Number:Power Bedroom_Table_Light_Watts "Bedroom Table Light Power" (Bedroom_Table_Light) ["Power"] { channel="mqtt:topic:26bcbec1ee:bedroom-keith-table-light:power" }
+Switch Bedroom_Table_Light_Switch "Bedroom Table Light" <poweroutlet_us> (Bedroom_Table_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:6d6b292248:power", homekit="Lighting", alexa="Lighting" }
+Number:Power Bedroom_Table_Light_Watts "Bedroom Table Light Power" (Bedroom_Table_Light) ["Power"] { channel="mqtt:topic:26bcbec1ee:6d6b292248:currentPower" }
 
 Group Bedroom_Sarah_Light (SF_Bedroom) ["PowerOutlet"]
-Switch Bedroom_Sarah_Light_Switch "Bedroom Sarah Light" <poweroutlet_us> (Bedroom_Table_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:32f9cb0714:power", homekit="Lighting", alexa="Lighting" }
-Number:Power Bedroom_Sarah_Light_Watts "Bedroom Table Light Power" (Bedroom_Table_Light) ["Power"] { channel="mqtt:topic:26bcbec1ee:32f9cb0714:currentPower" }
+Switch Bedroom_Sarah_Light_Switch "Bedroom Sarah Light" <poweroutlet_us> (Bedroom_Table_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:d5b9dbd8f8:switch", homekit="Lighting", alexa="Lighting" }
+Number:Power Bedroom_Sarah_Light_Watts "Bedroom Table Light Power" (Bedroom_Table_Light) ["Power"] { channel="mqtt:topic:26bcbec1ee:d5b9dbd8f8:power" }
 
 Group Bedroom_Remotes_Action (SF_Bedroom)
 
