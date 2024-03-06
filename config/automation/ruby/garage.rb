@@ -2,7 +2,7 @@
 
 require "homeseer"
 
-rule "real small garage doors state opening" do
+rule "garage doors state" do
   changed Small_Garage_Door_State, Large_Garage_Door_State
 
   run do |event|
@@ -28,7 +28,7 @@ rule "real small garage doors state opening" do
   end
 end
 
-rule "real small garage door target" do
+rule "real garage door target" do
   received_command Small_Garage_Door_Target_State, Large_Garage_Door_Target_State
 
   run do |event|
