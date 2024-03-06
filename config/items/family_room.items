@@ -8,7 +8,7 @@ Switch FamilyRoom_Fireplace_Lights_Switch "Fireplace Lights" <lightbulb> (Family
 
 Dimmer FamilyRoom_Accent_Lights_Dimmer "Family Room Accents [%d]" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness" [ minValue=0, maxValue=99 ], alexa="Lighting", channel="mqtt:topic:26bcbec1ee:f7bd40773a:dimmer" }
 
-Switch FamilyRoom_Backyard_Lights_Switch "Backyard Lights in Family Room" <lightbulb> (FF_FamilyRoom, Backyard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:80a71c1f40:switch_binary" }
+Switch FamilyRoom_Backyard_Lights_Switch "Backyard Lights in Family Room" <lightbulb> (FF_FamilyRoom) ["Point"] { channel="mqtt:topic:26bcbec1ee:80a71c1f40:switch_binary" }
 
 Group FamilyRoom_Wall_Outlet "Family Room Wall Outlet" <poweroutlet_us> (FF_FamilyRoom) ["PowerOutlet"] { homekit="Outlet" }
 Switch FamilyRoom_Wall_Outlet_Switch "Family Room Wall Outlet" <poweroutlet_us> (Christmas_Lights, Christmas_Lights_All, FamilyRoom_Christmas_Tree, FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.OnState", alexa="Outlet", channel="mqtt:topic:26bcbec1ee:bae88ef977:switch_binary" }
