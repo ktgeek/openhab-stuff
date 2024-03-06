@@ -16,7 +16,7 @@ rule "when it gets dark enough we think the sun is up" do
 
   run do
     Front_Yard_Lights.members.ensure.off
-    Garage_OutdoorLights_Switch.ensure.off unless Holiday_Mode.state.blank?
+    # Garage_OutdoorLights_Switch.ensure.off unless Holiday_Mode.state.blank?
     All_Hall_Lights.members.ensure.off
   end
 

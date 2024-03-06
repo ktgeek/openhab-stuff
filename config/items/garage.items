@@ -4,7 +4,7 @@ Group Large_Garage_Door_Open_LEDs (FF_Garage) ["Equipment"]
 Group Small_Garage_Door_Open_LEDs (FF_Garage) ["Equipment"]
 
 //Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights"  <lightbulb> (FF_Garage) ["Lightbulb"] { alexa="Lighting", homekit="Lighting", channel="mqtt:topic:26bcbec1ee:1e9a931646:power" }
-Switch Garage_OutdoorLights_Switch "Outdoor Garage Lights"  <lightbulb> (FF_Garage, Front_Yard_Lights) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:1e9a931646:power" }
+String Garage_OutdoorLights_Button_Action "Outdoor Garage Lights Button Action" (FF_Porch) ["Point"] { channel="mqtt:topic:26bcbec1ee:1e9a931646:button_action" }
 
 Contact Garage_House_Door_Contact "Garage House Door" (FF_Garage, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_2" }
 

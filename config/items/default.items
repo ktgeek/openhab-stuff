@@ -4,7 +4,6 @@ Group C             "Basement"      <cellar>       (Home)  ["Basement"]
 Group FF            "First Floor"   <groundfloor>  (Home)  ["FirstFloor"]
 Group SF            "Second Floor"  <firstfloor>   (Home)  ["SecondFloor"]
 
-Group FF_Porch     "Porch"          <frontdoor>    (Home)  ["Porch"]
 Group	FF_Entrance  "Entrance"       <corridor>     (FF)    ["Entry"]
 Group FF_Office    "Office"         <office>       (FF)    ["Office"]
 Group FF_Dining    "Dining Room"    <party>        (FF)    ["DiningRoom"]
@@ -13,14 +12,6 @@ Group Backyard     "Backyard"                      (Home)  ["Outdoor"]
 Group Front_Yard   "Front Yard"                    (Home)  ["Outdoor"]
 
 Group TV_Notifications "TV Notifications" <screen> (Home) ["Status"]
-
-Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
-Switch FrontDoor_Lights_Switch "Front Door Lights" <lightbulb> (Front_Yard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:916c8e28e1:power" }
-
-Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights, Christmas_Outside) ["Lightbulb"] { alexa="Lighting", channel="mqtt:topic:26bcbec1ee:37cedf44a0:switch_binary" }
-//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:37cedf44a0:switch_binary" }
-//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:37cedf44a0:switch_binary" }
-Switch Porch_Decorations_Switch "Porch Decorations" <party> (Front_Yard, Christmas_Outside) ["WallSwitch"] { homekit="Switchable", alexa="Switchable", channel="mqtt:topic:26bcbec1ee:aa9f284e8e:switch_binary" }
 
 // First Floor - Entrance
 Group:Switch:OR(ON,OFF) All_Hall_Lights "Hall Lights" <lightbulb> (FF_Entrance) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
