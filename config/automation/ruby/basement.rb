@@ -9,7 +9,7 @@ received_command Basement_Movie_Mode_Switch, command: ON do
   Basement_Stairs_Switch.ensure.off
   Basement_Room_Lights_Switch.ensure.off
   Basement_Room_Theater_Lights.ensure << 9
-  Basement_Room_Bar_Lights.ensure << 10
+  Basement_Room_Bar_Lights.ensure << 2 
 
   after(10.seconds) { Basement_Movie_Mode_Switch.update(OFF) }
 end
