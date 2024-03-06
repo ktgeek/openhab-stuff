@@ -12,7 +12,7 @@ Group Small_Garage_Door "Small Garage Door" (FF_Garage) ["Door"] { homekit="Gara
 String Small_Garage_Door_State "Small Garage Door State" (Small_Garage_Door) { channel="mqtt:topic:26bcbec1ee:sgdo:door_state" [profile="ruby:upcase_state"], autoupdate="false", homekit="GarageDoorOpener.CurrentDoorState" }
 String Small_Garage_Door_State_Binary "Small Garage Door State (binary)" (Small_Garage_Door) { channel="mqtt:topic:26bcbec1ee:sgdo:door_state" [profile="ruby:binary_open_state"], autoupdate="false", alexa="GarageDoor.CurrentOpenState" }
 Switch Small_Garage_Door_Target_State "Small Garage Door Target State" (Small_Garage_Door) { homekit="GarageDoorOpener.TargetDoorState", alexa="GarageDoor.TargetOpenState" }
-Dimmer Small_Garage_Door_Position "Small Garage Door Position" (Small_Garage_Door) { channel="mqtt:topic:26bcbec1ee:sgdo:door_position" }
+Dimmer Small_Garage_Door_Position "Small Garage Door Position" (Small_Garage_Door) { unit="%", channel="mqtt:topic:26bcbec1ee:sgdo:door_position" }
 Switch Small_Garage_Door_Obstruction "Small Garage Door Opener Obstruction Status" (Small_Garage_Door) { channel="mqtt:topic:26bcbec1ee:sgdo:obstruction", homekit="GarageDoorOpener.ObstructionStatus", alexa="GarageDoor.ObstacleAlert" }
 Switch Small_Garage_Door_Motion "Small Garage Door Opener Motion Detected" (Small_Garage_Door) { channel="mqtt:topic:26bcbec1ee:sgdo:motion" }
 Switch Small_Garage_Door_Light "Small Garage Door Opener Light" (Small_Garage_Door) { channel="mqtt:topic:26bcbec1ee:sgdo:light", homekit="Lighting" }
@@ -21,7 +21,7 @@ Group Large_Garage_Door "Large Garage Door" (FF_Garage) ["Door"] { homekit="Gara
 String Large_Garage_Door_State "Large Garage Door State" (Large_Garage_Door) { channel="mqtt:topic:26bcbec1ee:lgdo:door_state" [profile="ruby:upcase_state"], autoupdate="false", homekit="GarageDoorOpener.CurrentDoorState" }
 String Large_Garage_Door_State_Binary "Large Garage Door State (binary)" (Large_Garage_Door) { channel="mqtt:topic:26bcbec1ee:lgdo:door_state" [profile="ruby:binary_open_state"], autoupdate="false", alexa="GarageDoor.CurrentOpenState" }
 Switch Large_Garage_Door_Target_State "Large Garage Door Target State" (Large_Garage_Door) { homekit="GarageDoorOpener.TargetDoorState", alexa="GarageDoor.TargetOpenState" }
-Dimmer Large_Garage_Door_Position "Large Garage Door Position" (Large_Garage_Door) { channel="mqtt:topic:26bcbec1ee:lgdo:door_position" }
+Dimmer Large_Garage_Door_Position "Large Garage Door Position" (Large_Garage_Door) { unit="%", channel="mqtt:topic:26bcbec1ee:lgdo:door_position" }
 Switch Large_Garage_Door_Obstruction "Large Garage Door Opener Obstruction Status" (Large_Garage_Door) { channel="mqtt:topic:26bcbec1ee:lgdo:obstruction", homekit="GarageDoorOpener.ObstructionStatus", alexa="GarageDoor.ObstacleAlert" }
 Switch Large_Garage_Door_Motion "Large Garage Door Opener Motion Detected" (Large_Garage_Door) { channel="mqtt:topic:26bcbec1ee:lgdo:motion" }
 Switch Large_Garage_Door_Light "Large Garage Door Opener Light" (Large_Garage_Door) { channel="mqtt:topic:26bcbec1ee:lgdo:light", homekit="Lighting" }
