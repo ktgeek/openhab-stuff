@@ -41,7 +41,13 @@ Group Kitchen_Lights_Control (FF_Kitchen) ["WallSwitch"]
 Switch Kitchen_Lights "Kitchen Lights" <lightbulb> (Kitchen_Lights_Control, Normal_Kitchen_Lights, All_Kitchen_Lights) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:9c11cca1ee:switch_binary" }
 Number Kitchen_Lights_Scene_Number_Top "Kitchen Lights Scene Number Top Paddle" (Kitchen_Lights_Control, FF_Kitchen_Lights_Scene_Top) ["Point"] { channel="mqtt:topic:26bcbec1ee:9c11cca1ee:scene_top" [profile="ruby:zwavejs_int_handler"] }
 Number Kitchen_Lights_Scene_Number_Bottom "Kitchen Lights Scene Number Bottom Paddle" (Kitchen_Lights_Control, FF_Kitchen_Lights_Scene_Bottom) ["Point"] { channel="mqtt:topic:26bcbec1ee:9c11cca1ee:scene_bottom" [profile="ruby:zwavejs_int_handler"] }
-Number Kitchen_Lights_LED_Color "Kitchen Lights Led Color" (Kitchen_Lights_Control, C_Occupancy_LEDs) ["Point"] {channel="mqtt:topic:26bcbec1ee:9c11cca1ee:led_color"}
+Number Kitchen_Lights_LED_1_Color "Kitchen Lights Led 1 Color" (Kitchen_Lights_Control, C_Occupancy_LEDs) ["Point"] {channel="mqtt:topic:26bcbec1ee:9c11cca1ee:status_led_1_color"}
+Number Kitchen_Lights_LED_2_Color "Kitchen Lights Led 2 Color" (Kitchen_Lights_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:9c11cca1ee:status_led_2_color"}
+Number Kitchen_Lights_LED_3_Color "Kitchen Lights Led 3 Color" (Kitchen_Lights_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:9c11cca1ee:status_led_3_color"}
+Number Kitchen_Lights_LED_4_Color "Kitchen Lights Led 4 Color" (Kitchen_Lights_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:9c11cca1ee:status_led_4_color"}
+Number Kitchen_Lights_LED_5_Color "Kitchen Lights Led 5 Color" (Kitchen_Lights_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:9c11cca1ee:status_led_5_color"}
+Number Kitchen_Lights_LED_6_Color "Kitchen Lights Led 6 Color" (Kitchen_Lights_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:9c11cca1ee:status_led_6_color"}
+Number Kitchen_Lights_LED_7_Color "Kitchen Lights Led 7 Color" (Kitchen_Lights_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:9c11cca1ee:status_led_7_color"}
 
 Group Kitchen_Table_Lights_Control (FF_Kitchen) ["WallSwitch"]
 Switch Kitchen_Table_Lights "Kitchen Table Lights" <lightbulb> (Kitchen_Table_Lights_Control, Normal_Kitchen_Lights, All_Kitchen_Lights) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:4bf7bcd001:switch_binary" }
