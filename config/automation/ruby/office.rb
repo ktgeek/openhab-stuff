@@ -45,6 +45,10 @@ rule "turn on the light if someone enters the office" do
     # turn on. If it never turns on, it can never change to off so it won't trigger the turn off. 2 minutes is enough
     # time for that to flip, so this will be a no op, but just in case, let's capture those edge cases where are too
     # fast.
+    #
+    # There was recently a firmware update that greatly improved the speed to presence detection, to where the event and
+    # the presence are in a race condition.  This may not be needed anymore, but I'm leaving it in for now until more
+    # real world testing can be done.
     timers.cancel(event.item)
     after(120.seconds, id: event.item) do
       if Office_Presence_Sensor.off?
@@ -54,7 +58,7 @@ rule "turn on the light if someone enters the office" do
     end
   end
 
-  only_if { Office_Presence_Sensor.off? }
+  # only_if { Office_Presence_Sensor.off? }
 end
 
 rule "turn off the light when the office is empty" do
