@@ -6,7 +6,7 @@ Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FamilyRoom_All
 
 Switch FamilyRoom_Fireplace_Lights_Switch "Fireplace Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:570f9cd536:switch_binary" }
 
-Dimmer FamilyRoom_Accent_Lights_Dimmer "Family Room Accents" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness" [ minValue=0, maxValue=99 ], alexa="Lighting", channel="mqtt:topic:26bcbec1ee:f7bd40773a:dimmer" }
+Dimmer FamilyRoom_Accent_Lights_Dimmer "Family Room Accents [%d]" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness" [ minValue=0, maxValue=99 ], alexa="Lighting", channel="mqtt:topic:26bcbec1ee:f7bd40773a:dimmer" }
 
 Switch FamilyRoom_Backyard_Lights_Switch "Backyard Lights in Family Room" <lightbulb> (FF_FamilyRoom, Backyard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:80a71c1f40:switch_binary" }
 

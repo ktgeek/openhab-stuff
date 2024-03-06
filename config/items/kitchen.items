@@ -10,7 +10,7 @@ Group    FF_Kitchen_Lights_Scene_Bottom (FF_Kitchen)
 Switch Kitchen_Backyard_Lights_Switch "Backyard Lights in Kitchen" <lightbulb> (FF_Kitchen, Backyard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:27cfce6609:switch_binary" }
 
 Group Kitchen_Accent_Desk_Control (FF_Kitchen) ["Equipment"]
-Dimmer Kitchen_Accent_Desk_Dimmer "Kitchen Accent Lights (Desk)" <lightbulb> (Kitchen_Accent_Desk_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:switch_dimmer" }
+Dimmer Kitchen_Accent_Desk_Dimmer "Kitchen Accent Lights (Desk) [%d]" <lightbulb> (Kitchen_Accent_Desk_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:switch_dimmer" }
 Number Kitchen_Accent_Desk_Scene_Number_Top "Kitchen Accent Desk Scene Number Top Paddle" (Kitchen_Accent_Desk_Control, FF_Kitchen_Accents_Scene_Top) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:scene_top" [profile="ruby:zwavejs_int_handler"] }
 Number Kitchen_Accent_Desk_Scene_Number_Bottom "Kitchen Accent Desk Scene Number Bottom Paddle" (Kitchen_Accent_Desk_Control, FF_Kitchen_Accents_Scene_Bottom) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:scene_bottom" [profile="ruby:zwavejs_int_handler"] }
 Number Kitchen_Accent_Desk_LED_1_Color "Kitchen Accent Desk Led 1 Color" (Kitchen_Accent_Desk_Control, C_Occupancy_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_1_color" }
@@ -22,7 +22,7 @@ Number Kitchen_Accent_Desk_LED_6_Color "Kitchen Accent Desk Led 6 Color" (Kitche
 Number Kitchen_Accent_Desk_LED_7_Color "Kitchen Accent Desk Led 7 Color" (Kitchen_Accent_Desk_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_7_color" }
 
 Group Kitchen_Accent_Sink_Control (FF_Kitchen) ["Equipment"]
-Dimmer Kitchen_Accent_Sink_Dimmer "Kitchen Accent Lights (Sink)" <lightbulb> (Kitchen_Accent_Sink_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:0d94cfb849:switch_dimmer" }
+Dimmer Kitchen_Accent_Sink_Dimmer "Kitchen Accent Lights (Sink) [%d]" <lightbulb> (Kitchen_Accent_Sink_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:0d94cfb849:switch_dimmer" }
 Number Kitchen_Accent_Sink_Scene_Number_Top "Kitchen Accent Sink Scene Number Top Paddle" (Kitchen_Accent_Sink_Control, FF_Kitchen_Accents_Scene_Top) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:scene_top" [profile="ruby:zwavejs_int_handler"]}
 Number Kitchen_Accent_Sink_Scene_Number_Bottom "Kitchen Accent Sink Scene Number Bottom Paddle" (Kitchen_Accent_Sink_Control, FF_Kitchen_Accents_Scene_Bottom) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:scene_bottom" [profile="ruby:zwavejs_int_handler"]}
 Number Kitchen_Accent_Sink_LED_1_Color "Kitchen Accent Sink Led 1 Color" (Kitchen_Accent_Sink_Control, C_Occupancy_LEDs) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_1_color"}

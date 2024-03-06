@@ -36,7 +36,7 @@ Switch Basement_Stairs_Switch "Basement Stairs Lights" <lightbulb> (C_Basement, 
 Switch Basement_Room_Lights_Switch "Basement Room Lights" <lightbulb> (C_Basement, C_All_Lights) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:fc820c8aae:binary_switch" }
 
 Group Basement_Room_Bar_Lights_Control (C_Basement) ["Equipment"]
-Dimmer Basement_Room_Bar_Lights "Basement Bar Lights" <lightbulb> (Basement_Room_Bar_Lights_Control, C_Basement, C_All_Lights) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness, Lighting.OnState", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:9efa7a271d:switch_dimmer" }
+Dimmer Basement_Room_Bar_Lights "Basement Bar Lights [%d %%]" <lightbulb> (Basement_Room_Bar_Lights_Control, C_Basement, C_All_Lights) ["Lightbulb"] { unit="%", homekit="Lighting, Lighting.Brightness, Lighting.OnState", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:9efa7a271d:switch_dimmer" }
 Number Basement_Room_Bar_Lights_Scene_Number_Top "Basement Bar Lights Scene number" (Basement_Room_Bar_Lights_Control, C_Basement_Scene_Top, C_Basement) ["Point"] { channel="mqtt:topic:26bcbec1ee:9efa7a271d:scene_top" [profile="ruby:zwavejs_int_handler"] }
 Number Basement_Room_Bar_Lights_Scene_Number_Bottom "Basement Bar Lights Scene number" (Basement_Room_Bar_Lights_Control, C_Basement_Scene_Bottom, C_Basement) ["Point"] { channel="mqtt:topic:26bcbec1ee:9efa7a271d:scene_bottom" [profile="ruby:zwavejs_int_handler"] }
 Number Basement_Room_Bar_Lights_LED_1_Color "Basement Bar Lights Led 1 Color" (Basement_Room_Bar_Lights_Control, Basement_Occupancy_Count_1) ["Point"] { channel="mqtt:topic:26bcbec1ee:9efa7a271d:status_led_1_color" }
@@ -48,7 +48,7 @@ Number Basement_Room_Bar_Lights_LED_6_Color "Basement Bar Lights Led 6 Color" (B
 Number Basement_Room_Bar_Lights_LED_7_Color "Basement Bar Lights Led 7 Color" (Basement_Room_Bar_Lights_Control, Basement_Occupancy_Count_7) ["Point"] { channel="mqtt:topic:26bcbec1ee:9efa7a271d:status_led_7_color" }
 
 Group Basement_Room_Theater_Lights_Control (C_Basement) ["Equipment"]
-Dimmer Basement_Room_Theater_Lights "Basement Theater Lights" <lightbulb> (Basement_Room_Theater_Lights_Control, C_Basement, C_All_Lights) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness, Lighting.OnState", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:c91984f858:switch_dimmer" }
+Dimmer Basement_Room_Theater_Lights "Basement Theater Lights [%d %%]" <lightbulb> (Basement_Room_Theater_Lights_Control, C_Basement, C_All_Lights) ["Lightbulb"] { unit="%", homekit="Lighting, Lighting.Brightness, Lighting.OnState", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:c91984f858:switch_dimmer" }
 Number Basement_Room_Theater_Lights_Scene_Number_Top "Basement Theater Lights Scene number top" (Basement_Room_Theater_Lights_Control, C_Basement_Scene_Top, C_Basement) ["Point"] { channel="mqtt:topic:26bcbec1ee:c91984f858:scene_top" [profile="ruby:zwavejs_int_handler"] }
 Number Basement_Room_Theater_Lights_Scene_Number_Bottom "Basement Theater Lights Scene number bottom" (Basement_Room_Theater_Lights_Control, C_Basement_Scene_Bottom, C_Basement) ["Point"] { channel="mqtt:topic:26bcbec1ee:c91984f858:scene_bottom" [profile="ruby:zwavejs_int_handler"] }
 Number Basement_Room_Theater_Lights_LED_1_Color "Basement Theater Lights Led 1 Color" (Basement_Room_Theater_Lights_Control, Basement_Occupancy_Count_1) ["Point"] { channel="mqtt:topic:26bcbec1ee:c91984f858:status_led_1_color" }
@@ -80,7 +80,7 @@ Switch Basement_Wall_Outlet_In_Use "Basement Wall Outlet In Use [RB(outletinuse.
 Switch Exercise_Room_Light "Exercise Room Light" <lightbulb> (C_ExerciseRoom, C_All_Lights) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:df5eba5645:switch_binary" }
 
 Group Exercise_Room_Dimmer_Lights_Control (C_ExerciseRoom) ["Equipment"]
-Dimmer Exercise_Room_Dimmer "Exercise Room Dimmer" <lightbulb> (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom, C_All_Lights) ["SetPoint", "Light"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:dc860bf0d1:switch_dimmer" }
+Dimmer Exercise_Room_Dimmer "Exercise Room Dimmer [%d %%]" <lightbulb> (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom, C_All_Lights) ["SetPoint", "Light"] { unit="%", homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:dc860bf0d1:switch_dimmer" }
 Number Exercise_Room_Dimmer_Scene_Number_Top "Scene number Top Paddle" (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:scene_top" [profile="ruby:zwavejs_int_handler"] }
 Number Exercise_Room_Dimmer_Scene_Number_Bottom "Scene number Bottom Paddle" (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:scene_bottom" [profile="ruby:zwavejs_int_handler"] }
 Number Exercise_Room_Dimmer_Lights_LED_1_Color "Exercise Room Dimmer Led 1 Color" (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_1) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:status_led_1_color" }
