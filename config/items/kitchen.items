@@ -55,3 +55,6 @@ Number Kitchen_Table_Lights_Scene_Number_Top "Kitchen Table Lights Scene Number 
 Number Kitchen_Table_Lights_Scene_Number_Bottom "Kitchen Table Lights Scene Number Bottom Paddle" (Kitchen_Table_Lights_Control, FF_Kitchen_Lights_Scene_Bottom) ["Point"] { channel="mqtt:topic:26bcbec1ee:4bf7bcd001:scene_bottom" [profile="ruby:zwavejs_int_handler"] }
 
 Contact Kitchen_Back_Door_Contact "Back Door" (FF_Kitchen, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_3" }
+
+Group Kitchen_Sink_Light_Control (FF_Kitchen) ["WallSwitch"]
+Switch Kitchen_Sink_Light "Kitchen Sink Light" <lightbulb> (Kitchen_Sink_Light_Control) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:1f174fc2b3:switch_binary" }
