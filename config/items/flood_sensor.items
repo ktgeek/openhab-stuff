@@ -1,6 +1,6 @@
 Group Basement_FloodSensor (C) ["Sensor"] { homekit="LeakSensor" }
 Number:Temperature Basement_FloodSensor_Temperature "Basement Flood Sensor Temperature" (Basement_FloodSensor) ["Point", "Temperature"] { unit="°C", channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:sensor_temperature", homekit="TemperatureSensor" }
-Number:Dimensionless Basement_FloodSensor_BatteryLevel "Basement Flood Sensor Battery Level" (Basement_FloodSensor) ["Point"] { unit="%", channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:battery-level" }
+Number:Dimensionless Basement_FloodSensor_BatteryLevel "Basement Flood Sensor Battery Level" (Basement_FloodSensor) ["Measurement", "Battery"] { unit="%", channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:battery-level" }
 Switch Basement_FloodSensor_BatteryLevel_Low "Basement Flood Sensor Battery Level isLow" (Basement_FloodSensor) ["Point"] { channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:battery_low", homekit="BatteryLowStatus"}
 Switch Basement_FloodSensor_Flood_Alarm "Basement Flood Sensor Flood Alarm" (Basement_FloodSensor) ["Point"] { channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:water_alarm", homekit="LeakDetectedState" }
 Switch Basement_FloodSensor_Tamper_Alarm "Basement Flood Sensor Tamper Alarm" (Basement_FloodSensor) ["Point"] { channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:tamper_alarm", homekit="TamperedStatus" }

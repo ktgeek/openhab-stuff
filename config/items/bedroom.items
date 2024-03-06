@@ -19,11 +19,11 @@ Group Bedroom_Remotes_Action (SF_Bedroom)
 
 Group Bedroom_Sarah_Remote (SF_Bedroom) ["RemoteControl"]
 String Bedroom_Sarah_Remote_Action "Action" (Bedroom_Sarah_Remote, Bedroom_Remotes_Action) ["Status"] { channel="mqtt:topic:26bcbec1ee:SarahBedroomRemote:action" }
-Number:Dimensionless Bedroom_Sarah_Remote_Battery "Bedroom Sarah Remote Battery" (Bedroom_Sarah_Remote) ["Status"] {channel="mqtt:topic:26bcbec1ee:SarahBedroomRemote:battery"}
+Number:Dimensionless Bedroom_Sarah_Remote_Battery "Bedroom Sarah Remote Battery" (Bedroom_Sarah_Remote) ["Measurement", "Battery"] {channel="mqtt:topic:26bcbec1ee:SarahBedroomRemote:battery"}
 
 Group Bedroom_Table_Remote (SF_Bedroom) ["RemoteControl"]
 String Bedroom_Table_Remote_Action "Action" (Bedroom_Table_Remote, Bedroom_Remotes_Action) ["Status"] { channel="mqtt:topic:26bcbec1ee:KeithBedroomRemote:action"}
-Number:Dimensionless Bedroom_Table_Remote_Battery "Bedroom Table Remote Battery" (Bedroom_Table_Remote) ["Status"] { channel="mqtt:topic:26bcbec1ee:KeithBedroomRemote:battery" }
+Number:Dimensionless Bedroom_Table_Remote_Battery "Bedroom Table Remote Battery" (Bedroom_Table_Remote) ["Measurement", "Battery"] { channel="mqtt:topic:26bcbec1ee:KeithBedroomRemote:battery" }
 
 Group Bedroom_Keiths_Closet_Contact_Sensor_Group "Keith's Closet Contact Sensor" (SF_Bedroom) ["Door"] { homekit="ContactSensor" }
 Contact Bedroom_Keiths_Closet_Contact_Sensor "Keith's Closet Contact Sensor" (Bedroom_Keiths_Closet_Contact_Sensor_Group) ["OpenState"] { homekit="ContactSensor.ContactSensorState", channel="mqtt:topic:KeithClosetDoor:contact" }
