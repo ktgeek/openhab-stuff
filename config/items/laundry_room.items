@@ -12,7 +12,9 @@ Number Laundry_Room_Lights_LED_6_Color "Laundry Room Lights Led 6 Color" (Laundr
 Number Laundry_Room_Lights_LED_7_Color "Laundry Room Lights Led 7 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:4398202933:status_led_7_color" }
 
 Group Side_Yard_Lights_Control (FF_Laundry_Room) ["Equipment"]
-Switch Side_Yard_Lights_Switch "Side Yard Lights" (Side_Yard_Lights_Control) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:7f0a376172:switch_binary" }
+Switch Side_Yard_Lights_Switch "Side Yard Lights" (Side_Yard_Lights_Control) ["Switch", "Light"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:switch_binary" }
+Number Side_Yard_Lights_Scene_Number_Top "Kitchen Lights Scene Number Top Paddle" (Side_Yard_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:scene-1" [profile="ruby:zwavejs_int_handler"] }
+Number Side_Yard_Lights_Scene_Number_Bottom "Kitchen Lights Scene Number Bottom Paddle" (Side_Yard_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:scene-2" [profile="ruby:zwavejs_int_handler"] }
 Number Side_Yard_Lights_LED_1_Color "Side Yard Lights Led 1 Color" (Side_Yard_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:status_led_1_color" }
 Number Side_Yard_Lights_LED_2_Color "Side Yard Lights Led 2 Color" (Side_Yard_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:status_led_2_color" }
 Number Side_Yard_Lights_LED_3_Color "Side Yard Lights Led 3 Color" (Side_Yard_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:status_led_3_color" }
@@ -20,3 +22,7 @@ Number Side_Yard_Lights_LED_4_Color "Side Yard Lights Led 4 Color" (Side_Yard_Li
 Number Side_Yard_Lights_LED_5_Color "Side Yard Lights Led 5 Color" (Side_Yard_Lights_Control, House_Perimeter_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:status_led_5_color" }
 Number Side_Yard_Lights_LED_6_Color "Side Yard Lights Led 6 Color" (Side_Yard_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:status_led_6_color" }
 Number Side_Yard_Lights_LED_7_Color "Side Yard Lights Led 7 Color" (Side_Yard_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:status_led_7_color" }
+
+Group Side_Yard_Light "Side Yard Light" (FF_Laundry_Room) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
+Switch Side_Yard_Light_Power "Side Yard Light Power" (Side_Yard_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:b0ee7778be:switch", homekit="Lighting.OnState", alexa="PowerController.powerState" }
+Color Side_Yard_Light_Color "Side Yard Light Color" (Side_Yard_Light) ["Point"] { channel="mqtt:topic:26bcbec1ee:b0ee7778be:color_xy", homekit="Lighting.Hue, Lighting.Brightness, Lighting.Saturation", alexa="BrightnessController.brightness,ColorController.color" }
