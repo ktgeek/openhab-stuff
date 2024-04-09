@@ -75,5 +75,5 @@ every :thursday, at: "8am" do
 end
 
 every :thursday, at: "5pm" do
-  Front_Door_Lock_Cleaning_Switch.ensure.on
+  Front_Door_Lock_Cleaning_Switch.ensure.off
 end
