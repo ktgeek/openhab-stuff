@@ -25,4 +25,5 @@ Number Side_Yard_Lights_LED_7_Color "Side Yard Lights Led 7 Color" (Side_Yard_Li
 
 Group Side_Yard_Light "Side Yard Light" (FF_Laundry_Room) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
 Switch Side_Yard_Light_Power "Side Yard Light Power" (Side_Yard_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:b0ee7778be:switch", homekit="Lighting.OnState", alexa="PowerController.powerState" }
-Color Side_Yard_Light_Color "Side Yard Light Color" (Side_Yard_Light) ["Point"] { channel="mqtt:topic:26bcbec1ee:b0ee7778be:color_xy", homekit="Lighting.Hue, Lighting.Brightness, Lighting.Saturation", alexa="BrightnessController.brightness,ColorController.color" }
+Color Side_Yard_Light_Color "Side Yard Light Color" (Side_Yard_Light) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:b0ee7778be:color_xy", homekit="Lighting.Hue, Lighting.Saturation", alexa="Endpoint.Light,ColorController.color" }
+Dimmer Side_Yard_Light_Dimmer "Side Yard Light Dimmer" (Side_Yard_Light) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:b0ee7778be:brightness", homekit="Lighting.Brightness", alexa="BrightnessController.brightness" }
