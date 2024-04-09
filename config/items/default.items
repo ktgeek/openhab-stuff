@@ -29,6 +29,9 @@ Number Front_Door_Lock_Actual_Homekit "Front Door Actual Homekit" (gFront_Door_L
 Number Front_Door_Lock_Alarm_Type "Front Door Lock Alarm Type" (gFront_Door_Lock) ["Point"] { channel="mqtt:topic:0f6bd2e30e:alarm-type" }
 Number Front_Door_Lock_Keypad_Unlock_UserId "Front Door Lock Keypad Unlock User" (gFront_Door_Lock) ["Point"] { channel="mqtt:topic:0f6bd2e30e:keypad-unlock-notification" [profile="ruby:zwavejs_int_handler", path="value.userId"] }
 Number Front_Door_Lock_Battery_Level "Front Door Lock Battery level [%.1f %%]" <battery> (gFront_Door_Lock) ["Measurement", "Battery"] { channel="mqtt:topic:0f6bd2e30e:battery-level" }
+Number Front_Door_Lock_User_Code_4 "Front Door Lock User Code 4" (gFront_Door_Lock) ["Point"] { channel="mqtt:topic:0f6bd2e30e:user_code_4" }
+Number Front_Door_Lock_User_ID_Status_4 "Front Door Lock Code Status" (gFront_Door_Lock) ["Point"] { channel="mqtt:topic:0f6bd2e30e:user_id_status_4" }
+Switch Front_Door_Lock_Cleaning_Switch "Cleaning Service Entry Allowed" (FF_Entrace) ["Point"] { homekit="Switchable" }
 
 Group House_Perimeter_LEDs (Home) ["Equipment"]
 Group:Contact:OR(OPEN,CLOSED) House_Perimeter_Contacts "House Permiter Contacts" (Home) ["Eqiupment"]

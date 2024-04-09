@@ -55,3 +55,25 @@ rule "when our perimeter has a change" do
                                            end
   end
 end
+
+updated Front_Door_Lock_User_ID_Status_4 do |event|
+  Front_Door_Lock_Cleaning_Switch.ensure.update((event.state == 0 ? OFF : ON))
+end
+
+changed(Front_Door_Lock_Cleaning_Switch, to: ON) do
+  code = transform("MAP", "lock_code.map", "cleaning")
+
+  Front_Door_Lock_User_Code_4.ensure.command(code)
+end
+
+changed(Front_Door_Lock_Cleaning_Switch, to: OFF) do
+  Front_Door_Lock_User_ID_Status_4.ensure.command(0)
+end
+
+every :thursday, at: "8am" do
+  Front_Door_Lock_Cleaning_Switch.ensure.on
+end
+
+every :thursday, at: "5pm" do
+  Front_Door_Lock_Cleaning_Switch.ensure.on
+end
