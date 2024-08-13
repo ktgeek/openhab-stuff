@@ -2,9 +2,7 @@
 
 require "zwave"
 
-changed NanomoteQuad_Scene_1, to: 0 do
-  Basement_Normal_Mode_Switch.on
-end
+changed(NanomoteQuad_Scene_1, to: 0) { Basement_Normal_Mode_Switch.on }
 
 changed NanomoteQuad_Scene_2, to: 0 do
   Basement_Stairs_Switch.on? ? Basement_Stairs_Switch.off : Basement_Stairs_Switch.on
@@ -20,14 +18,8 @@ changed NanomoteQuad_Scene_3, to: 0 do
   end
 end
 
-changed NanomoteQuad_Scene_4, to: 0 do
-  Basement_Movie_Mode_Switch.on
-end
+changed(NanomoteQuad_Scene_4, to: 0) { Basement_Movie_Mode_Switch.on }
 
-changed C_Basement_Scene_Top.members, to: ZWave::PADDLE_TWO_CLICKS do
-  Basement_Normal_Mode_Switch.on
-end
+changed(C_Basement_Scene_Top.members, to: ZWave::PADDLE_TWO_CLICKS) { Basement_Normal_Mode_Switch.on }
 
-changed C_Basement_Scene_Bottom.members, to: ZWave::PADDLE_TWO_CLICKS do
-  Basement_Movie_Mode_Switch.on
-end
+changed(C_Basement_Scene_Bottom.members, to: ZWave::PADDLE_TWO_CLICKS) { Basement_Movie_Mode_Switch.on }
