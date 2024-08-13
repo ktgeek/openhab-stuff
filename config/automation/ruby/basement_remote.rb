@@ -4,9 +4,7 @@ require "zwave"
 
 changed(NanomoteQuad_Scene_1, to: 0) { Basement_Normal_Mode_Switch.on }
 
-changed NanomoteQuad_Scene_2, to: 0 do
-  Basement_Stairs_Switch.on? ? Basement_Stairs_Switch.off : Basement_Stairs_Switch.on
-end
+changed(NanomoteQuad_Scene_2, to: 0) { Basement_Stairs_Switch.toggle }
 
 changed NanomoteQuad_Scene_3, to: 0 do
   if Basement_Room_Theater_Lights.state < 100 || Basement_Room_Bar_Lights.state < 100
