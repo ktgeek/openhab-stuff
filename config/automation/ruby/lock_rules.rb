@@ -17,7 +17,7 @@ updated Front_Door_Lock_Keypad_Unlock_UserId do |event|
   message = "Front Door keypad unlocked by #{user}"
 
   logger.info(message)
-  notify(message)
+  Notification.send(message)
 end
 
 rule "Front Door Lock: proxy changes to actual back to target" do
