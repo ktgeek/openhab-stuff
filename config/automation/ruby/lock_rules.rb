@@ -38,7 +38,7 @@ rule "Front Door Lock: proxy lock command" do
 
   run do |event|
     lock_item_actual = items["#{event.item.name}_Actual"]
-    lock_item_actual.ensure << event.item.state
+    lock_item_actual.ensure.command(event.item.state)
   end
 end
 
@@ -46,13 +46,15 @@ rule "when our perimeter has a change" do
   changed House_Perimeter_Contacts, Front_Door_Lock
 
   run do
-    House_Perimeter_LEDs.members.ensure << if House_Perimeter_Contacts.open?
+    color = if House_Perimeter_Contacts.open?
                                              Homeseer::LedColor::RED
                                            elsif Front_Door_Lock.off?
                                              Homeseer::LedColor::YELLOW
                                            else
                                              Homeseer::LedColor::OFF
                                            end
+
+    House_Perimeter_LEDs.members.ensure.command(color)
   end
 end
 

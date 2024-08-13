@@ -8,13 +8,13 @@ updated Bedroom_Ceiling_Fan_Speed do |event|
   Bedroom_Ceiling_Fan_Power.update(event.state.positive?)
 end
 
-received_command(Bedroom_Ceiling_Fan_Power, command: OFF) { Bedroom_Ceiling_Fan_Speed << 0 }
+received_command(Bedroom_Ceiling_Fan_Power, command: OFF) { Bedroom_Ceiling_Fan_Speed.command(0) }
 
 changed Bedroom_Remotes_Action.members, to: %w[1_single 2_single 3_single] do |event|
-  Bedroom_Ceiling_Fan_Speed << event.state[0].to_i
+  Bedroom_Ceiling_Fan_Speed.command(event.state[0].to_i)
 end
 
-changed(Bedroom_Remotes_Action.members, to: %w[1_double 2_double 3_double]) { Bedroom_Ceiling_Fan_Speed << 0 }
+changed(Bedroom_Remotes_Action.members, to: %w[1_double 2_double 3_double]) { Bedroom_Ceiling_Fan_Speed.command(0) }
 
 changed Bedroom_Remotes_Action.members, to: "4_single" do |event|
   switch = items["Bedroom_#{event.item_name.split('_')[1]}_Light_Switch"]
@@ -26,7 +26,7 @@ changed(Bedroom_Remotes_Action.members, to: "4_double") { Bedroom_Ceiling_Fan_Li
 changed(Bedroom_Table_Remote_Action, to: "4_hold") { Bedroom_Sarah_Light_Switch.toggle }
 
 changed Bedroom_Keiths_Closet_Contact_Sensor do |event|
-  Bedroom_Keith_Closet_Light.ensure << (event.state == OPEN)
+  Bedroom_Keith_Closet_Light.ensure.command(event.state == OPEN)
 end
 
 changed Bedroom_Sarahs_Closet_Contact_Sensor, to: OPEN do |event|

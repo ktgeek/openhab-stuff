@@ -8,8 +8,8 @@ OCCUPANCY_COUNT_LED_GROUPS = Array.new(7) { |i| items["Basement_Occupancy_Count_
 received_command Basement_Movie_Mode_Switch, command: ON do
   Basement_Stairs_Switch.ensure.off
   Basement_Room_Lights_Switch.ensure.off
-  Basement_Room_Theater_Lights.ensure << 9
-  Basement_Room_Bar_Lights.ensure << 2 
+  Basement_Room_Theater_Lights.ensure.command(9)
+  Basement_Room_Bar_Lights.ensure.command(2)
 
   after(10.seconds) { Basement_Movie_Mode_Switch.update(OFF) }
 end
@@ -17,8 +17,8 @@ end
 # when normal mode is turned on
 received_command Basement_Normal_Mode_Switch, command: ON do
   Basement_Stairs_Switch.ensure.on
-  Basement_Room_Theater_Lights.ensure << 100
-  Basement_Room_Bar_Lights.ensure << 100
+  Basement_Room_Theater_Lights.ensure.command(100)
+  Basement_Room_Bar_Lights.ensure.command(100)
 
   after(10.seconds) { Basement_Normal_Mode_Switch.update(OFF) }
 end
@@ -50,20 +50,22 @@ rule "when someone enters/leaves downstairs" do
     if C_Total_Basement_Occupancy.state.positive?
       if C_Total_Basement_Occupancy.previous_state(skip_equal: true) < C_Total_Basement_Occupancy.state
         Basement_Stairs_Switch.ensure.on
-        Basement_TV_Toast << "Someone has entered the basement"
+        Basement_TV_Toast.command("Someone has entered the basement")
       end
     else
       after(120.seconds, id: event.item) { C_All_Lights.members.ensure.off }
     end
 
-    C_Occupancy_LEDs.members.ensure << [C_Total_Basement_Occupancy.state, Homeseer::LedColor::WHITE].min
+    ensure_states do
+      C_Occupancy_LEDs.members.command([C_Total_Basement_Occupancy.state, Homeseer::LedColor::WHITE].min)
 
-    # Turn on and off LEDs to do a "meter" of how many people are in the basement
-    OCCUPANCY_COUNT_LED_GROUPS[0, C_Total_Basement_Occupancy.state].each do |led_group|
-      led_group.members.ensure << Homeseer::LedColor::BLUE
-    end
-    OCCUPANCY_COUNT_LED_GROUPS[C_Total_Basement_Occupancy.state..]&.each do |led_group|
-      led_group.members.ensure << Homeseer::LedColor::OFF
+      # Turn on and off LEDs to do a "meter" of how many people are in the basement
+      OCCUPANCY_COUNT_LED_GROUPS[0, C_Total_Basement_Occupancy.state].each do |led_group|
+        led_group.members.command(Homeseer::LedColor::BLUE)
+      end
+      OCCUPANCY_COUNT_LED_GROUPS[C_Total_Basement_Occupancy.state..]&.each do |led_group|
+        led_group.members.command(Homeseer::LedColor::OFF)
+      end
     end
   end
 end
@@ -72,10 +74,12 @@ rule "when someone enters/leaves the exercise room" do
   changed Hiome_Exercise_Room_Occupancy_Count
 
   run do
-    if Hiome_Exercise_Room_Occupancy_Count.state.positive?
-      Exercise_Room_Light.ensure.on
-      if Exercise_Room_Bike_Trainer_Switch.off? && Exercise_Room_Bike_Trainer_Enabled.on?
-        Exercise_Room_Bike_Trainer_Switch.ensure.on
+    ensure_states do
+      if Hiome_Exercise_Room_Occupancy_Count.state.positive?
+        Exercise_Room_Light.on
+        if Exercise_Room_Bike_Trainer_Switch.off? && Exercise_Room_Bike_Trainer_Enabled.on?
+          Exercise_Room_Bike_Trainer_Switch.on
+        end
       end
     end
   end
@@ -102,15 +106,17 @@ rule "when the exercise room door is closed" do
   changed Hiome_Exercise_Room_Door_Contact, to: CLOSED
 
   run do
-    if C_Basement_Deadend_Occupancy.state < 1
-      Basement_Hallway_Lights_Switch.ensure.off
-      Exercise_Room_Light.ensure.off
-      Exercise_Room_Bike_Trainer_Switch.ensure.off
+    ensure_states do
+      if C_Basement_Deadend_Occupancy.state < 1
+        Basement_Hallway_Lights_Switch.off
+        Exercise_Room_Light.off
+        Exercise_Room_Bike_Trainer_Switch.off
 
-      Basement_Deadend_Occupancy_Counters.members.each { |i| timers.cancel(i) }
+        Basement_Deadend_Occupancy_Counters.members.each { |i| timers.cancel(i) }
+      end
+
+      Basement_Stairs_Switch.off if Hiome_Basement_Occupancy_Count.state < 1
     end
-
-    Basement_Stairs_Switch.ensure.off if Hiome_Basement_Occupancy_Count.state < 1
   end
 end
 

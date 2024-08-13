@@ -13,14 +13,14 @@ rule "decorations on at sunset at Halloween" do
       if Zoom_Active_Switch.off?
         Office_Door_LED_Power.on
         Office_Door_LED_Fade.on
-        Office_Door_LED_Palette << Tasmota::Palette::PURPLE_FADE
-        Office_Door_LED_Scheme << Tasmota::Scheme::CYCLE_UP
+        Office_Door_LED_Palette.command(Tasmota::Palette::PURPLE_FADE)
+        Office_Door_LED_Scheme.command(Tasmota::Scheme::CYCLE_UP)
       end
     end
 
     # Leaving on this while testing to ensure this didn't trigger
-    # Kitchen_Echo_TTS << "Spooky! Scary! Halloween!"
-    # Basement_Echo_TTS << "Spooky! Scary! Halloween!"
+    # Kitchen_Echo_TTS.command("Spooky! Scary! Halloween!")
+    # Basement_Echo_TTS.command("Spooky! Scary! Halloween!")
   end
 
   only_if { Holiday_Mode.state == "Halloween" }
@@ -100,8 +100,8 @@ rule "christmas switch is turned on" do
     if Zoom_Active_Switch.off?
       ensure_states do
         Office_Door_LED_Fade.on
-        Office_Door_LED_Palette << Tasmota::Palette::RED_GREEN_CROSSFADE
-        Office_Door_LED_Scheme << Tasmota::Scheme::CYCLE_UP
+        Office_Door_LED_Palette.command(Tasmota::Palette::RED_GREEN_CROSSFADE)
+        Office_Door_LED_Scheme.command(Tasmota::Scheme::CYCLE_UP)
       end
     end
   end
@@ -109,7 +109,7 @@ rule "christmas switch is turned on" do
   only_if { Holiday_Mode.state == "Christmas" }
 end
 
-updated(Red_Button_Action, to: "single") { Misc_Decoration_Switch.toggle }
+# updated(Red_Button_Action, to: "single") { Misc_Decoration_Switch.toggle }
 
 # every 15 minutes set a timer to set off jeff sometime in the next 15 mintues
 # rule "randomly shoot off jeff" do
@@ -135,6 +135,6 @@ updated(Red_Button_Action, to: "single") { Misc_Decoration_Switch.toggle }
 
 #   run do |event|
 #     item_actual = items[event.item.name[0..-4]]
-#     item_actual.ensure << event.command
+#     item_actual.ensure.command(event.command)
 #   end
 # end

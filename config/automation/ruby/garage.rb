@@ -21,10 +21,10 @@ rule "garage doors state" do
     group = event.item.groups.first
     items["#{group.name}_Target_State"].ensure.update(target_state)
 
-    TV_Notifications << "#{group.label} #{event.state}"
+    TV_Notifications.command("#{group.label} #{event.state}")
 
     leds = items["#{group.name}_Open_LEDs"]
-    leds.members.ensure << color
+    leds.members.ensure.command(color)
   end
 end
 
@@ -33,6 +33,6 @@ rule "real garage door target" do
 
   run do |event|
     name = event.item.groups.first.name
-    items["#{name}_State"] << (event.on? ? "OPEN" : "CLOSE")
+    items["#{name}_State"].command(event.on? ? "OPEN" : "CLOSE")
   end
 end
