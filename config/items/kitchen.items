@@ -23,7 +23,9 @@ Number Kitchen_Accent_Desk_LED_3_Color "Kitchen Accent Desk Led 3 Color" (Kitche
 Number Kitchen_Accent_Desk_LED_4_Color "Kitchen Accent Desk Led 4 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_4_color" }
 Number Kitchen_Accent_Desk_LED_5_Color "Kitchen Accent Desk Led 5 Color" (Kitchen_Accent_Desk_Control, House_Perimeter_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_5_color" }
 Number Kitchen_Accent_Desk_LED_6_Color "Kitchen Accent Desk Led 6 Color" (Kitchen_Accent_Desk_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_6_color" }
+Switch Kitchen_Accent_Desk_LED_6_Blink "Kitchen Accent Desk Led 6 Blink" (Kitchen_Accent_Desk_Control, Small_Garage_Door_Open_LEDs_Blink) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_6_blink" }
 Number Kitchen_Accent_Desk_LED_7_Color "Kitchen Accent Desk Led 7 Color" (Kitchen_Accent_Desk_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_7_color" }
+Switch Kitchen_Accent_Desk_LED_7_Blink "Kitchen Accent Desk Led 7 Blink" (Kitchen_Accent_Desk_Control, Large_Garage_Door_Open_LEDs_Blink) ["Point"] { channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:status_led_7_blink" }
 
 Group Kitchen_Accent_Sink_Control (FF_Kitchen) ["Equipment"]
 Dimmer Kitchen_Accent_Sink_Dimmer "Kitchen Accent Lights (Sink) [%d]" <lightbulb> (Kitchen_Accent_Sink_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:0d94cfb849:switch_dimmer" }
@@ -35,7 +37,9 @@ Number Kitchen_Accent_Sink_LED_3_Color "Kitchen Accent Sink Led 3 Color" (Kitche
 Number Kitchen_Accent_Sink_LED_4_Color "Kitchen Accent Sink Led 4 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_4_color"}
 Number Kitchen_Accent_Sink_LED_5_Color "Kitchen Accent Sink Led 5 Color" (Kitchen_Accent_Sink_Control, House_Perimeter_LEDs) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_5_color"}
 Number Kitchen_Accent_Sink_LED_6_Color "Kitchen Accent Sink Led 6 Color" (Kitchen_Accent_Sink_Control, Small_Garage_Door_Open_LEDs) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_6_color"}
+Switch Kitchen_Accent_Sink_LED_6_Blink "Kitchen Accent Sink Led 7 Blink" (Kitchen_Accent_Sink_Control, Small_Garage_Door_Open_LEDs_Blink) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_6_blink"}
 Number Kitchen_Accent_Sink_LED_7_Color "Kitchen Accent Sink Led 7 Color" (Kitchen_Accent_Sink_Control, Large_Garage_Door_Open_LEDs) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_7_color"}
+Switch Kitchen_Accent_Sink_LED_7_Blink "Kitchen Accent Sink Led 7 Blink" (Kitchen_Accent_Sink_Control, Large_Garage_Door_Open_LEDs_Blink) ["Point"] {channel="mqtt:topic:26bcbec1ee:0d94cfb849:status_led_7_blink"}
 
 Group Kitchen_Lights_Control (FF_Kitchen) ["WallSwitch"]
 Switch Kitchen_Lights "Kitchen Lights" <lightbulb> (Kitchen_Lights_Control, Normal_Kitchen_Lights, All_Kitchen_Lights) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:9c11cca1ee:switch_binary" }

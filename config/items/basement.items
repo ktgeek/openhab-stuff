@@ -110,5 +110,7 @@ Number Basement_Hallway_Lights_LED_3_Color "Basement Hallway Lights Led 3 Color"
 Number Basement_Hallway_Lights_LED_4_Color "Basement Hallway Lights Led 4 Color" (Basement_Hallway_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:status_led_4_color" }
 Number Basement_Hallway_Lights_LED_5_Color "Basement Hallway Lights Led 5 Color" (Basement_Hallway_Lights_Control, House_Perimeter_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:status_led_5_color" }
 Number Basement_Hallway_Lights_LED_6_Color "Basement Hallway Lights Led 6 Color" (Basement_Hallway_Lights_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:status_led_6_color" }
+Switch Basement_Hallway_Lights_LED_6_Blink "Basement Hallway Lights Led 6 Blink" (Basement_Hallway_Lights_Control, Small_Garage_Door_Open_LEDs_Blink) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:status_led_6_blink" }
 Number Basement_Hallway_Lights_LED_7_Color "Basement Hallway Lights Led 7 Color" (Basement_Hallway_Lights_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:status_led_7_color" }
+Switch Basement_Hallway_Lights_LED_7_Blink "Basement Hallway Lights Led 7 Blink" (Basement_Hallway_Lights_Control, Large_Garage_Door_Open_LEDs_Blink) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:status_led_7_blink" }
 

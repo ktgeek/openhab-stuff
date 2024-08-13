@@ -7,14 +7,21 @@ rule "garage doors state" do
 
   run do |event|
     case event.state
-    when "OPENING", "OPEN"
+    when "OPENING"
       target_state = ON
+      blink_state = ON
+      color = Homeseer::LedColor::RED
+    when "OPEN"
+      target_state = ON
+      blink_state = OFF
       color = Homeseer::LedColor::RED
     when "CLOSING"
       target_state = OFF
+      blink_state = ON
       color = Homeseer::LedColor::RED
-    else
+    else # "CLOSED"
       target_state = OFF
+      blink_state = OFF
       color = Homeseer::LedColor::GREEN
     end
 
@@ -22,6 +29,9 @@ rule "garage doors state" do
     items["#{group.name}_Target_State"].ensure.update(target_state)
 
     TV_Notifications.command("#{group.label} #{event.state}")
+
+    blink_leds = items["#{group.name}_Open_LEDs_Blink"]
+    blink_leds.members.ensure.command(blink_state)
 
     leds = items["#{group.name}_Open_LEDs"]
     leds.members.ensure.command(color)
