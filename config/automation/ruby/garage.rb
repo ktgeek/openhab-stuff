@@ -18,7 +18,7 @@ rule "garage doors state" do
     when "CLOSING"
       target_state = OFF
       blink_state = ON
-      color = Homeseer::LedColor::RED
+      color = Homeseer::LedColor::GREEN
     else # "CLOSED"
       target_state = OFF
       blink_state = OFF
