@@ -13,22 +13,22 @@ rule "garage doors state" do
   changed Small_Garage_Door_State, Large_Garage_Door_State
 
   run do |event|
-    state = event.state
+    state = event.state.to_s
     info = GARAGE_STATE_INFO[state]
 
     next unless info
 
     group = event.item.groups.first
 
+    items["#{group.name}_Target_State"].update(info[:target_state])
+
+    TV_Notifications.command("#{group.label} #{state}")
+
+    leds = items["#{group.name}_Open_LEDs"]
+    blink_leds = items["#{group.name}_Open_LEDs_Blink"]
+
     ensure_states do
-      items["#{group.name}_Target_State"].update(info[:target_state])
-
-      TV_Notifications.command("#{group.label} #{state}")
-
-      leds = items["#{group.name}_Open_LEDs"]
       leds.members.command(info[:color])
-
-      blink_leds = items["#{group.name}_Open_LEDs_Blink"]
       blink_leds.members.command(info[:blink_state])
     end
   end
