@@ -3,7 +3,7 @@
 require "homeseer"
 require "zwave"
 
-OCCUPANCY_COUNT_LED_GROUPS = Array.new(7) { |i| items["Basement_Occupancy_Count_#{i + 1}"] }.freeze
+OCCUPANCY_COUNT_LED_GROUPS = Array.new(7) { |i| items["Basement_Occupancy_Count_#{i.succ}"] }.freeze
 
 received_command Basement_Movie_Mode_Switch, command: ON do
   Basement_Stairs_Switch.ensure.off
@@ -77,9 +77,7 @@ rule "when someone enters/leaves the exercise room" do
     ensure_states do
       if Hiome_Exercise_Room_Occupancy_Count.state.positive?
         Exercise_Room_Light.on
-        if Exercise_Room_Bike_Trainer_Switch.off? && Exercise_Room_Bike_Trainer_Enabled.on?
-          Exercise_Room_Bike_Trainer_Switch.on
-        end
+        Exercise_Room_Bike_Trainer_Switch.on if Exercise_Room_Bike_Trainer_Enabled.on?
       end
     end
   end

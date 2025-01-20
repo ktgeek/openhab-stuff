@@ -59,7 +59,7 @@ rule "when our perimeter has a change" do
 end
 
 updated Front_Door_Lock_User_ID_Status_4 do |event|
-  Front_Door_Lock_Cleaning_Switch.ensure.update(event.state == 0 ? OFF : ON)
+  Front_Door_Lock_Cleaning_Switch.ensure.update(event.state.zero? ? OFF : ON)
 end
 
 changed(Front_Door_Lock_Cleaning_Switch, to: ON) do

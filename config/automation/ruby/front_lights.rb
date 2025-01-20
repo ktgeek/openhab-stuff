@@ -15,8 +15,8 @@ rule "Morning Lights On For Rides", id: "morning_lights_on_for_rides" do
 
   run do
     Front_Yard_Lights.members.ensure.on
-    # For certain holidays we remove the garage switch from the Front Yard Lights group
-    # Garage_OutdoorLights_Switch.ensure.on unless Holiday_Mode.state.blank?
+
+    Front_Yard_Outdoor_Decorations_Switch.ensure.on unless Holiday_Mode.state.blank?
   end
 
   only_if { Outdoor_Biking_Season.on? && Sun_Status.state == "DOWN" }
@@ -27,7 +27,7 @@ rule "Morning lights on", id: "morning_lights_on" do
 
   run do
     Front_Yard_Lights.members.ensure.on
-    # Garage_OutdoorLights_Switch.ensure.on unless Holiday_Mode.state.blank?
+    Front_Yard_Outdoor_Decorations_Switch.ensure.on unless Holiday_Mode.state.blank?
   end
 
   only_if { Sun_Status.state == "DOWN" }
