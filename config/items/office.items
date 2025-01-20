@@ -1,5 +1,5 @@
 Group Office_Window_Decorations (FF_Office) ["PowerOutlet"]
-Switch Office_Windows_Switch "Office Window Lights" <poweroutlet_us> (Office_Window_Decorations, Christmas_Lights, Christmas_Lights_All) ["WallSwitch"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:c0750d0653:power" }
+Switch Office_Windows_Switch "Office Window Lights" <poweroutlet_us> (Office_Window_Decorations, Christmas_Lights, Christmas_Lights_All) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:c0750d0653:power" }
 Number:Power Office_Windows_Decorations_Watts "Office Window Decorations Power" (Office_Window_Decorations) ["Power"] { channel="mqtt:topic:26bcbec1ee:c0750d0653:currentPower" }
 
 Group Office_Door_LED "Office Door" (FF_Office) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
@@ -11,7 +11,6 @@ Number Office_Door_LED_Speed "Office Door Speed" (Office_Door_LED) ["SetPoint"] 
 Number Office_Door_LED_Scheme "Office Door Scheme" (Office_Door_LED) ["Point"] { channel="mqtt:topic:26bcbec1ee:fc6154bf8b:scheme" }
 
 Group:Switch:OR(ON,OFF) Zoom_Active_Switch "Zoom Active" (FF_Office) ["Status"]
-Switch Office_Phineas_Zoom "Phineas Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="mqtt:homie300:26bcbec1ee:phineas:zoom_2Dactivity#status" }
 Switch Office_m1_work_laptop_Zoom "m1 Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="mqtt:homie300:26bcbec1ee:m1-work-laptop:zoom_2Dactivity#status" }
 Switch Office_bugg_Zoom "bugg Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="mqtt:homie300:26bcbec1ee:bugg-zoom:zoom_2Dactivity#status" }
 
