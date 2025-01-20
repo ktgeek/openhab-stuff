@@ -4,26 +4,25 @@ Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Po
 
 String FrontDoor_Lights_Button_Action "Front Door Lights Button Action" (FF_Porch) ["Point"] { channel="mqtt:topic:26bcbec1ee:916c8e28e1:button_action" }
 
-Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights, Christmas_Outside) ["Lightbulb"] { alexa="Lighting", channel="mqtt:topic:26bcbec1ee:37cedf44a0:switch_binary" }
-//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Christmas_Outside) ["Lightbulb"] { alexa="Lighting", channel="mqtt:topic:26bcbec1ee:37cedf44a0:switch_binary" }
-//Switch Porch_Decorations_Switch "Porch Decorations" <party> (Front_Yard, Christmas_Outside) ["WallSwitch"] { homekit="Switchable", alexa="Switchable", channel="mqtt:topic:26bcbec1ee:aa9f284e8e:switch_binary" }
+Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights) ["Lightbulb"] { alexa="Lighting", channel="mqtt:topic:26bcbec1ee:37cedf44a0:switch_binary" }
+//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard) ["Lightbulb"] { alexa="Lighting", channel="mqtt:topic:26bcbec1ee:37cedf44a0:switch_binary" }
+Switch Porch_Decorations_Switch "Porch Decorations" <party> (Front_Yard, Christmas_Outside) ["WallSwitch"] { homekit="Switchable", alexa="Switchable", channel="mqtt:topic:26bcbec1ee:aa9f284e8e:switch_binary" }
+Switch Front_Yard_Side_Holiday_Decorations_Switch "Side Holiday Decorations" <party> (Front_Yard, Christmas_Outside) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:f1bccd086b:switch_binary" }
+
+Contact Front_Yard_Decoration_Mat_Contact "Front Yard Decoration Mat" (Front_Yard) ["Sensor"] { channel="mqtt:topic:26bcbec1ee:41888ff891:mat_sensor" }
 
 Group Porch_Lights "Porch Lights" (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
-Switch Porch_Lights_Power "Porch Lights Power" (Porch_Lights, Front_Yard_Lights) ["Switch"] { channel="mqtt:topic:26bcbec1ee:ea94fb2f7c:switch", homekit="Lighting.OnState", alexa="PowerController.powerState" }
-Color Porch_Lights_Color "Porch Lights Color" (Porch_Lights) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:ea94fb2f7c:color_xy", homekit="Lighting.Hue, Lighting.Saturation", alexa="Endpoint.Light,ColorController.color" }
-Dimmer Porch_Lights_Dimmer "Porch Lights Dimmer" (Porch_Lights) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:ea94fb2f7c:brightness", homekit="Lighting.Brightness", alexa="BrightnessController.brightness" }
+Color Porch_Lights_Color "Porch Lights Color" (Porch_Lights) ["Lightbulb"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F1221051039810110150109113116116_5F2:light#color", homekit="Lighting.Hue, Lighting.Saturation" }
+Dimmer Porch_Lights_Dimmer "Porch Lights Dimmer" (Porch_Lights, Front_Yard_Lights) ["Lightbulb"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F1221051039810110150109113116116_5F2:light#color", homekit="Lighting.OnState, Lighting.Brightness" }
 
 Group Garage_Light_Left "Garage Light (Left)" (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
-Switch Garage_Light_Left_Power "Garage Light (Left) Power" (Garage_Light_Left, Front_Yard_Lights) ["Switch"] { channel="mqtt:topic:26bcbec1ee:0770299351:switch", homekit="Lighting.OnState", alexa="PowerController.powerState" }
-Color Garage_Light_Left_Color "Garage Light (Left) Color" (Garage_Light_Left) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:0770299351:color_xy", homekit="Lighting.Hue, Lighting.Saturation", alexa="Endpoint.Light,ColorController.color" }
-Dimmer Garage_Light_Left_Dimmer "Garage Light (Left) Dimmer" (Garage_Light_Left) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:0770299351:brightness", homekit="Lighting.Brightness", alexa="BrightnessController.brightness" }
+Color Garage_Light_Left_Color "Garage Light (Left) Color" (Garage_Light_Left) ["Lightbulb"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0xb0ce18140006471f:light#color", homekit="Lighting.Hue, Lighting.Saturation" }
+Dimmer Garage_Light_Left_Dimmer "Garage Light (Left) Dimmer" (Garage_Light_Left,Front_Yard_Lights) ["Lightbulb"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0xb0ce18140006471f:light#color", homekit="Lighting.OnState, Lighting.Brightness" }
 
 Group Garage_Light_Middle "Garage Light (Middle)" (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
-Switch Garage_Light_Middle_Power "Garage Light (Middle) Power" (Garage_Light_Middle, Front_Yard_Lights) ["Switch"] { channel="mqtt:topic:26bcbec1ee:7135870555:switch", homekit="Lighting.OnState", alexa="PowerController.powerState" }
-Color Garage_Light_Middle_Color "Garage Light (Middle) Color" (Garage_Light_Middle) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:7135870555:color_xy", homekit="Lighting.Hue, Lighting.Saturation", alexa="Endpoint.Light,ColorController.color" }
-Dimmer Garage_Light_Middle_Dimmer "Garage Light (Middle) Dimmer" (Garage_Light_Middle) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:7135870555:brightness", homekit="Lighting.Brightness", alexa="BrightnessController.brightness" }
+Color Garage_Light_Middle_Color "Garage Light (Middle) Color" (Garage_Light_Middle) ["Lightbulb"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0xb0ce181400036122:light#color", homekit="Lighting.Hue, Lighting.Saturation" }
+Dimmer Garage_Light_Middle_Dimmer "Garage Light (Middle) Dimmer" (Garage_Light_Middle,Front_Yard_Lights) ["Lightbulb"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0xb0ce181400036122:light#color", homekit="Lighting.OnState, Lighting.Brightness" }
 
 Group Garage_Light_Right "Garage Light (Right)" (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
-Switch Garage_Light_Right_Power "Garage Light (Right) Power" (Garage_Light_Right, Front_Yard_Lights) ["Switch"] { channel="mqtt:topic:26bcbec1ee:a43cf13e9f:switch", homekit="Lighting.OnState", alexa="PowerController.powerState" }
-Color Garage_Light_Right_Color "Garage Light (Right) Color" (Garage_Light_Right) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:a43cf13e9f:color_xy", homekit="Lighting.Hue, Lighting.Saturation", alexa="Endpoint.Light,ColorController.color" }
-Dimmer Garage_Light_Right_Dimmer "Garage Light (Right) Dimmer" (Garage_Light_Right) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:a43cf13e9f:brightness", homekit="Lighting.Brightness", alexa="BrightnessController.brightness" }
+Color Garage_Light_Right_Color "Garage Light (Right) Color" (Garage_Light_Right) ["Lightbulb"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0xb0ce18140008629a:light#color", homekit="Lighting.Hue, Lighting.Saturation" }
+Dimmer Garage_Light_Right_Dimmer "Garage Light (Right) Dimmer" (Garage_Light_Right,Front_Yard_Lights) ["Lightbulb"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0xb0ce18140008629a:light#color", homekit="Lighting.OnState, Lighting.Brightness" }

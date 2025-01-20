@@ -23,6 +23,5 @@ String Backyard_Weather_Updated_At "Updated at" (Backyard_Weather_Station) ["Poi
 Switch Backyard_Outdoor_Decorations_Switch "Backyard Outdoor Decorations" <lightbulb> (Backyard) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:684e150c79:switch_binary" }
 
 Group Backyard_Lights "Backyard Lights" (Backyard) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
-Switch Backyard_Lights_Power "Backyard Lights Power" (Backyard_Lights) ["Switch"] { channel="mqtt:topic:26bcbec1ee:f1d284465f:switch", homekit="Lighting.OnState", alexa="PowerController.powerState" }
-Color Backyard_Lights_Color "Backyard Lights Color" (Backyard_Lights) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:f1d284465f:color_xy", homekit="Lighting.Hue, Lighting.Saturation", alexa="Endpoint.Light,ColorController.color" }
-Dimmer Backyard_Lights_Dimmer "Backyard Lights Dimmer" (Backyard_Lights) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:f1d284465f:brightness", homekit="Lighting.Brightness", alexa="BrightnessController.brightness" }
+Color Backyard_Lights_Color "Backyard Lights Color" (Backyard_Lights) ["Lightbulb"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F1221051039810110150109113116116_5F1:light#color", homekit="Lighting.Hue, Lighting.Saturation" }
+Dimmer Backyard_Lights_Dimmer "Backyard Lights Dimmer" (Backyard_Lights) ["Lightbulb"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F1221051039810110150109113116116_5F1:light#color", homekit="Lighting.OnState, Lighting.Brightness" }

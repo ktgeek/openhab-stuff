@@ -24,6 +24,5 @@ Number Side_Yard_Lights_LED_6_Color "Side Yard Lights Led 6 Color" (Side_Yard_Li
 Number Side_Yard_Lights_LED_7_Color "Side Yard Lights Led 7 Color" (Side_Yard_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:status_led_7_color" }
 
 Group Side_Yard_Light "Side Yard Light" (FF_Laundry_Room) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
-Switch Side_Yard_Light_Power "Side Yard Light Power" (Side_Yard_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:b0ee7778be:switch", homekit="Lighting.OnState", alexa="PowerController.powerState" }
-Color Side_Yard_Light_Color "Side Yard Light Color" (Side_Yard_Light) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:b0ee7778be:color_xy", homekit="Lighting.Hue, Lighting.Saturation", alexa="Endpoint.Light,ColorController.color" }
-Dimmer Side_Yard_Light_Dimmer "Side Yard Light Dimmer" (Side_Yard_Light) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:b0ee7778be:brightness", homekit="Lighting.Brightness", alexa="BrightnessController.brightness" }
+Color Side_Yard_Light_Color "Side Yard Light Color" (Side_Yard_Light) ["Lightbulb"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0xb0ce18140006f129:light#color", homekit="Lighting.Hue, Lighting.Saturation" }
+Dimmer Side_Yard_Light_Dimmer "Side Yard Light Dimmer" (Side_Yard_Light) ["Lightbulb"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0xb0ce18140006f129:light#color", homekit="Lighting.OnState, Lighting.Brightness" }

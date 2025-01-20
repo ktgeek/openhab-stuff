@@ -31,8 +31,8 @@ Switch Office_Lights_LED_7_Blink "Office Lights Led 7 Blink" (Office_Lights_Cont
 Number Office_Lights_Scene_1 "Scene 1" (Office_Lights_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:9b4942b136:scene-1" [profile="ruby:zwavejs_int_handler"] }
 
 Group Office_Presence (FF_Office) ["Equipment"]
-Switch Office_Presence_Sensor "Office Occupancy" (Office_Presence) ["Point"] { channel="mqtt:topic:26bcbec1ee:3e1aff917f:presence" [profile="ruby:zigbee2mqtt_onoff_handler"], homekit="OccupancySensor" }
-String Office_Presence_Event "Office Presence Event" (Office_Presence) ["Point"] { channel="mqtt:topic:26bcbec1ee:3e1aff917f:presence_event" }
+Switch Office_Presence_Sensor "Office Occupancy" (Office_Presence) ["Point"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x54ef441000589a03:presence", homekit="OccupancySensor" }
+String Office_Presence_Event "Office Presence Event" (Office_Presence) ["Point"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x54ef441000589a03:presence_event" }
 
 Group Office_Fan "Office Fan" (FF_Office) ["CeilingFan"] { homekit="BasicFan" }
 Switch Office_Fan_Power "Office Fan" (Office_Fan) ["Control"] { channel="mqtt:topic:26bcbec1ee:office_fan:power", autoupdate="false",  homekit="BasicFan.OnState" }
