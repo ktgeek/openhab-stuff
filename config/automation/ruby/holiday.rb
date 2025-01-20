@@ -1,6 +1,21 @@
 # frozen_string_literal: true
 
+require "color"
 require "tasmota"
+
+rule "its light out, turn off the holiday decorations" do
+  changed Sun_Status, to: "UP"
+
+  run do
+    ensure_states do
+      Porch_Decorations_Switch.off
+      Front_Yard_Side_Holiday_Decorations_Switch.off
+      Office_Door_LED_Power.off
+    end
+  end
+
+  only_if { Holiday_Mode.state.present? }
+end
 
 rule "decorations on at sunset at Halloween" do
   changed Sun_Status, to: "DOWN"
@@ -8,14 +23,17 @@ rule "decorations on at sunset at Halloween" do
   run do
     ensure_states do
       Porch_Decorations_Switch.on
-      Front_Yard_Outdoor_Decorations_Switch.on
+      Front_Yard_Side_Holiday_Decorations_Switch.on
+      HiddenRoom_Holiday_LED_Power.on
+      DinahsRoom_Holiday_LED_Power.on
+    end
 
-      if Zoom_Active_Switch.off?
-        Office_Door_LED_Power.on
-        Office_Door_LED_Fade.on
-        Office_Door_LED_Palette.command(Tasmota::Palette::PURPLE_FADE)
-        Office_Door_LED_Scheme.command(Tasmota::Scheme::CYCLE_UP)
-      end
+    if Zoom_Active_Switch.off?
+      Office_Door_LED_Power.on
+      Office_Door_LED_Fade.on
+      Office_Door_LED_Color.command(Color::PURPLE)
+      Office_Door_LED_Palette.command(Tasmota::Palette::PURPLE_FADE)
+      Office_Door_LED_Scheme.command(Tasmota::Scheme::CYCLE_UP)
     end
 
     # Leaving on this while testing to ensure this didn't trigger
@@ -43,8 +61,10 @@ rule "decorations off at night at Halloween" do
   run do
     ensure_states do
       Porch_Decorations_Switch.off
-      Front_Yard_Outdoor_Decorations_Switch.off
+      Front_Yard_Side_Holiday_Decorations_Switch.off
       Office_Door_LED_Power.off
+      HiddenRoom_Holiday_LED_Power.off
+      DinahsRoom_Holiday_LED_Power.off
     end
   end
 
@@ -70,8 +90,10 @@ rule "when we turn off VisitorMode" do
     when between("22:30".."23:59:59"), between("0:00".."3:01")
       ensure_states do
         Porch_Decorations_Switch.off
-        Front_Yard_Outdoor_Decorations_Switch.off
+        Front_Yard_Side_Holiday_Decorations_Switch.off
         Office_Door_LED_Power.off
+        HiddenRoom_Holiday_LED_Power.off
+        DinahsRoom_Holiday_LED_Power.off
       end
     end
   end
@@ -109,7 +131,20 @@ rule "christmas switch is turned on" do
   only_if { Holiday_Mode.state == "Christmas" }
 end
 
-# updated(Red_Button_Action, to: "single") { Misc_Decoration_Switch.toggle }
+# wolf_last_change = nil
+
+# updated(Front_Yard_Decoration_Mat_Contact, to: CLOSED) do
+#   now = Time.now
+#   logger.warn("Wolf mat triggered: #{wolf_last_change} now: #{now}")
+#   if wolf_last_change.nil? || wolf_last_change < 15.seconds.ago
+#     Front_Yard_Wolf_Decoration.toggle
+#     wolf_last_change = now
+#     Notification.send("Jeff triggered by mat!")
+#   end
+# end
+
+# received_command(Red_Button_Action, command: Zigbee::Events::SINGLE_TAP) { Misc_Decoration_Switch.toggle }
+# received_command(Red_Button_Action, command: Zigbee::Events::SINGLE_TAP) { Front_Yard_Wolf_Decoration.toggle }
 
 # every 15 minutes set a timer to set off jeff sometime in the next 15 mintues
 # rule "randomly shoot off jeff" do
@@ -126,7 +161,7 @@ end
 #   updated Christmas_Lights, Christmas_Lights_All, Christmas_Outside
 
 #   run do |event|
-#     items["#{event.item.name}_HK"].ensure.update(event.state)
+#     items["#{event.item.name}_HK"].ensure.update(event.state) if Holiday_Mode.state == "Christmas"
 #   end
 # end
 
