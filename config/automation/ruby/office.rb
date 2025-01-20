@@ -14,12 +14,10 @@ rule "when a zoom meeting is on" do
                                        Office_Door_LED_Speed
     end
 
-    ensure_states do
-      Office_Door_LED_Power.on
-      Office_Door_LED_Fade.off
-      Office_Door_LED_Scheme.command(Tasmota::Scheme::SINGLE_COLOR)
-      Office_Door_LED_Color.command(Color::RED)
-    end
+    Office_Door_LED_Power.on
+    Office_Door_LED_Fade.off
+    Office_Door_LED_Scheme.command(Tasmota::Scheme::SINGLE_COLOR)
+    Office_Door_LED_Color.command(Color::RED)
   end
 end
 
@@ -37,34 +35,15 @@ rule "when a zoom meeting is over" do
 end
 
 rule "turn on the light if someone enters the office" do
-  changed Office_Presence_Event, to: "enter"
+  changed Office_Presence_Sensor, to: ON
 
-  run do |event|
+  run do
     ensure_states do
       Office_Lights_Switch.on
       Office_Monitor_LED.on
-    end
-
-    # Sometimes if you walk in and out of the room too quickly, the light will not turn off as the presence sensor won't
-    # turn on. If it never turns on, it can never change to off so it won't trigger the turn off. 2 minutes is enough
-    # time for that to flip, so this will be a no op, but just in case, let's capture those edge cases where are too
-    # fast.
-    #
-    # There was recently a firmware update that greatly improved the speed to presence detection, to where the event and
-    # the presence are in a race condition.  This may not be needed anymore, but I'm leaving it in for now until more
-    # real world testing can be done.
-    timers.cancel(event.item)
-    after(120.seconds, id: event.item) do
-      if Office_Presence_Sensor.off?
-        ensure_states do
-          Office_Lights_Switch.off
-          Office_Monitor_LED.off
-        end
-      end
+      Office_Windows_Switch.on if Holiday_Mode.state == "Christmas" && Sun_Status.state == "UP"
     end
   end
-
-  # only_if { Office_Presence_Sensor.off? }
 end
 
 rule "turn off the light when the office is empty" do
@@ -74,13 +53,16 @@ rule "turn off the light when the office is empty" do
     ensure_states do
       Office_Lights_Switch.off
       Office_Monitor_LED.off
+      if Holiday_Mode.state == "Christmas" && Sun_Status.state == "UP" && Christmas_Lights.off?
+        Office_Windows_Switch.off
+      end
     end
   end
 end
 
 # Fan does 0-3, where 0 is a speed that is not off, but the slider does 0-4, so we need to add 1 to the value.
 changed Office_Fan_Speed_Actual do |event|
-  Office_Fan_Speed.ensure.update(event.state.to_i + 1)
+  Office_Fan_Speed.ensure.update(event.state.to_i.succ)
 end
 
 received_command Office_Fan_Speed do |event|
