@@ -1,2 +1,16 @@
-config/automation/lib/ruby/gem_home
+config/services
+!config/services/jruby.cfg
+config/.bundle
+config/.karaf
+config/.vscode
+config/sounds
+config/transform/de.map
+config/transform/en.map
+config/transform/readme.txt
 config/transform/lock_code.map
+readme.txt
+config/persistence
+!config/persistence/jdbc.persist
+config/automation/ruby/.gem
+config/html
+config/spec/examples.txt
