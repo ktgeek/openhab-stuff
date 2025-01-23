@@ -28,7 +28,7 @@ module Zigbee
           event "openhab/channels/*/triggered", types: "ChannelTriggeredEvent"
 
           run do |event|
-            return unless DEVICE_MODEL_IDS.include?(event.thing.properties["modelId"])
+            next unless DEVICE_MODEL_IDS.include?(event.thing.properties["modelId"])
 
             label = event.thing.label
             yield(label, event.event)
