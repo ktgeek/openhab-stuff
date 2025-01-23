@@ -18,12 +18,6 @@ Color LivingRoom_Light_2_Color "Living Room Light 2 Color" (LivingRoom_Light_2) 
 
 Group LivingRoom_Scene_Switch_Group "Living Room Scene Switch" <switch> (FF_LivingRoom)
 Switch LivingRoom_Scene_Switch "Living Room Scene Switch" <switch> (LivingRoom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:living_room_scene_switch:switch_binary" }
-Number LivingRoom_Scene_Switch_Scene_1 "Living Room Scene Switch Scene 1" (LivingRoom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:living_room_scene_switch:scene_1" [profile="ruby:zwavejs_int_handler"] }
-Number LivingRoom_Scene_Switch_Scene_2 "Living Room Scene Switch Scene 2" (LivingRoom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:living_room_scene_switch:scene_2" [profile="ruby:zwavejs_int_handler"] }
-Number LivingRoom_Scene_Switch_Scene_3 "Living Room Scene Switch Scene 3" (LivingRoom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:living_room_scene_switch:scene_3" [profile="ruby:zwavejs_int_handler"] }
-Number LivingRoom_Scene_Switch_Scene_4 "Living Room Scene Switch Scene 4" (LivingRoom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:living_room_scene_switch:scene_4" [profile="ruby:zwavejs_int_handler"] }
-Number LivingRoom_Scene_Switch_Scene_5 "Living Room Scene Switch Scene 5" (LivingRoom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:living_room_scene_switch:scene_5" [profile="ruby:zwavejs_int_handler"] }
-Number LivingRoom_Scene_Switch_Scene_6 "Living Room Scene Switch Scene 6" (LivingRoom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:living_room_scene_switch:scene_6" [profile="ruby:zwavejs_int_handler"] }
 
 Group Living_Room_Table_Light (FF_LivingRoom) ["PowerOutlet"]
 Switch Living_Room_Table_Light_Switch "Living Room Table Light" <poweroutlet_us> (Living_Room_Table_Light) ["Switch"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffed992e:switch", homekit="Lighting", alexa="Lighting" }

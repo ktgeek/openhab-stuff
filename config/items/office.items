@@ -27,7 +27,6 @@ Number Office_Lights_LED_6_Color "Office Lights Led 6 Color" (Office_Lights_Cont
 Switch Office_Lights_LED_6_Blink "Office Lights Led 6 Blink" (Office_Lights_Control, Small_Garage_Door_Open_LEDs_Blink) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_6_blink" }
 Number Office_Lights_LED_7_Color "Office Lights Led 7 Color" (Office_Lights_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_7_color" }
 Switch Office_Lights_LED_7_Blink "Office Lights Led 7 Blink" (Office_Lights_Control, Large_Garage_Door_Open_LEDs_Blink) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_7_blink" }
-Number Office_Lights_Scene_1 "Scene 1" (Office_Lights_Control) ["Point"] {channel="mqtt:topic:26bcbec1ee:9b4942b136:scene-1" [profile="ruby:zwavejs_int_handler"] }
 
 Group Office_Presence (FF_Office) ["Equipment"]
 Switch Office_Presence_Sensor "Office Occupancy" (Office_Presence) ["Point"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x54ef441000589a03:presence", homekit="OccupancySensor" }

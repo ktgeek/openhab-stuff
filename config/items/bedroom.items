@@ -39,10 +39,4 @@ Switch Bedroom_Sarah_Closet_Light "Sarah's Closet" (SF_Bedroom) ["Lighting"] { a
 
 Group Bedroom_Scene_Switch_Group "Bedroom Scene Switch" <switch> (SF_Bedroom)
 Switch Bedroom_Hallway_Light_Switch "Bedroom Hallway Light" <switch> (Bedroom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:162a22c6ce:switch_binary", homekit="Lighting", alexa="Lighting" }
-Number Bedroom_Scene_Switch_Scene_1 "Bedroom Scene Switch Scene 1" (Bedroom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:162a22c6ce:scene_1" [profile="ruby:zwavejs_int_handler"] }
-Number Bedroom_Scene_Switch_Scene_2 "Bedroom Scene Switch Scene 2" (Bedroom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:162a22c6ce:scene_2" [profile="ruby:zwavejs_int_handler"] }
-Number Bedroom_Scene_Switch_Scene_3 "Bedroom Scene Switch Scene 3" (Bedroom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:162a22c6ce:scene_3" [profile="ruby:zwavejs_int_handler"] }
-Number Bedroom_Scene_Switch_Scene_4 "Bedroom Scene Switch Scene 4" (Bedroom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:162a22c6ce:scene_4" [profile="ruby:zwavejs_int_handler"] }
-Number Bedroom_Scene_Switch_Scene_5 "Bedroom Scene Switch Scene 5" (Bedroom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:162a22c6ce:scene_5" [profile="ruby:zwavejs_int_handler"] }
-Number Bedroom_Scene_Switch_Scene_6 "Bedroom Scene Switch Scene 6" (Bedroom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:162a22c6ce:scene_6" [profile="ruby:zwavejs_int_handler"] }
 

@@ -42,15 +42,15 @@ changed Bedroom_Sarahs_Closet_Contact_Sensor, to: CLOSED do |event|
 end
 
 # sarah right, keith left
-changed Bedroom_Scene_Switch_Scene_1, to: ZWave::PADDLE_CLICK do
+channel("scene_1", thing: "mqtt:topic:26bcbec1ee:162a22c6ce", triggered: ZWave::PADDLE_CLICK) do
   Bedroom_Table_Light_Switch.toggle
 end
 
-changed Bedroom_Scene_Switch_Scene_2, to: ZWave::PADDLE_CLICK do
+channel("scene_2", thing: "mqtt:topic:26bcbec1ee:162a22c6ce", triggered: ZWave::PADDLE_CLICK) do
   Bedroom_Sarah_Light_Switch.toggle
 end
 
-changed Bedroom_Scene_Switch_Scene_3, to: ZWave::PADDLE_CLICK do
+channel("scene_3", thing: "mqtt:topic:26bcbec1ee:162a22c6ce", triggered: ZWave::PADDLE_CLICK) do
   if Bedroom_Ceiling_Fan_Power.on?
     Bedroom_Ceiling_Fan_Speed.command(0)
   else
@@ -58,10 +58,10 @@ changed Bedroom_Scene_Switch_Scene_3, to: ZWave::PADDLE_CLICK do
   end
 end
 
-changed Bedroom_Scene_Switch_Scene_4, to: ZWave::PADDLE_CLICK do
+channel("scene_4", thing: "mqtt:topic:26bcbec1ee:162a22c6ce", triggered: ZWave::PADDLE_CLICK) do
   Bedroom_Hallway_Light_Switch.toggle
 end
 
-changed Bedroom_Scene_Switch_Scene_5, to: ZWave::PADDLE_CLICK do
+channel("scene_5", thing: "mqtt:topic:26bcbec1ee:162a22c6ce", triggered: ZWave::PADDLE_CLICK) do
   Bedroom_Ceiling_Fan_Light_Power.toggle
 end
