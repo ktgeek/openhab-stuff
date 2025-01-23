@@ -63,10 +63,6 @@ Switch Basement_Movie_Mode_Switch "Basement Movie Mode" <cinema> (C_Basement) ["
 Switch Basement_Normal_Mode_Switch "Basement Normal Mode" <smiley> (C_Basement) ["WallSwitch"] { homekit="Switchable", alexa="Switchable" }
 
 Group Basement_NanomoteQuad "Nanomote Quad" (C_Basement) ["Equipment"]
-Number NanomoteQuad_Scene_1 "Nanomote Quad Scene 1" (Basement_NanomoteQuad) ["Point"] { channel="mqtt:topic:26bcbec1ee:f7c5f297b6:scene-1" [profile="ruby:zwavejs_int_handler"] }
-Number NanomoteQuad_Scene_2 "Nanomote Quad Scene 2" (Basement_NanomoteQuad) ["Point"] { channel="mqtt:topic:26bcbec1ee:f7c5f297b6:scene-2" [profile="ruby:zwavejs_int_handler"] }
-Number NanomoteQuad_Scene_3 "Nanomote Quad Scene 3" (Basement_NanomoteQuad) ["Point"] { channel="mqtt:topic:26bcbec1ee:f7c5f297b6:scene-3" [profile="ruby:zwavejs_int_handler"] }
-Number NanomoteQuad_Scene_4 "Nanomote Quad Scene 4" (Basement_NanomoteQuad) ["Point"] { channel="mqtt:topic:26bcbec1ee:f7c5f297b6:scene-4" [profile="ruby:zwavejs_int_handler"] }
 Number:Dimensionless NanomoteQuad_BatteryLevel "Nanomote Quad Battery [%.1f %%]" (Basement_NanomoteQuad) ["Point"] { unit="%", channel="mqtt:topic:26bcbec1ee:f7c5f297b6:battery-level" }
 
 Group Basement_Wall_Outlet "Basement Wall Outlet" <poweroutlet_us> (C_Basement) ["PowerOutlet"] { homekit="Outlet" }

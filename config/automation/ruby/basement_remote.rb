@@ -2,11 +2,15 @@
 
 require "zwave"
 
-changed(NanomoteQuad_Scene_1, to: 0) { Basement_Normal_Mode_Switch.on }
+channel("scene_1", thing: "mqtt:topic:26bcbec1ee:f7c5f297b6", triggered: ZWave::PADDLE_CLICK) do
+  Basement_Normal_Mode_Switch.on
+end
 
-changed(NanomoteQuad_Scene_2, to: 0) { Basement_Stairs_Switch.toggle }
+channel("scene_2", thing: "mqtt:topic:26bcbec1ee:f7c5f297b6", triggered: ZWave::PADDLE_CLICK) do
+  Basement_Stairs_Switch.toggle
+end
 
-changed NanomoteQuad_Scene_3, to: 0 do
+channel("scene_3", thing: "mqtt:topic:26bcbec1ee:f7c5f297b6", triggered: ZWave::PADDLE_CLICK) do
   ensure_states do
     if Basement_Room_Theater_Lights.state < 100 || Basement_Room_Bar_Lights.state < 100
       Basement_Room_Theater_Lights.command(100)
@@ -18,7 +22,9 @@ changed NanomoteQuad_Scene_3, to: 0 do
   end
 end
 
-changed(NanomoteQuad_Scene_4, to: 0) { Basement_Movie_Mode_Switch.on }
+channel("scene_4", thing: "mqtt:topic:26bcbec1ee:f7c5f297b6", triggered: ZWave::PADDLE_CLICK) do
+  Basement_Movie_Mode_Switch.on
+end
 
 changed(C_Basement_Scene_Top.members, to: ZWave::PADDLE_TWO_CLICKS) { Basement_Normal_Mode_Switch.on }
 
