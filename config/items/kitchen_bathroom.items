@@ -1,8 +1,8 @@
 Group FF_Kitchen_Bathroom "Kitchen Bathroom" <bath> (FF) ["Bathroom"]
 
 Group Kitchen_Bathroom_Contact_Sensor_Group "Kitchen Bathroom Contact Sensor" (FF_Kitchen_Bathroom) ["Door"] { homekit="ContactSensor" }
-Contact Kitchen_Bathroom_Contact_Sensor "Kitchen Bathroom Contact Sensor" (Kitchen_Bathroom_Contact_Sensor_Group) ["OpenState"] { homekit="ContactSensor.ContactSensorState", channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e2de:contact_binary_sensor" }
-Switch Kitchen_Bathroom_Contact_Battery_isLow "Kitchen Bathroom Contact Sensor Battery" (Kitchen_Bathroom_Contact_Sensor_Group) ["LowBattery"] { homekit="ContactSensor.BatteryLowStatus", channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e2de:battery_low_binary_sensor" }
+Contact Kitchen_Bathroom_Contact_Sensor "Kitchen Bathroom Contact Sensor" (Kitchen_Bathroom_Contact_Sensor_Group) ["OpenState"] { homekit="ContactSensor.ContactSensorState", channel="mqtt:topic:26bcbec1ee:9b365b4264:contact" }
+Switch Kitchen_Bathroom_Contact_Battery_isLow "Kitchen Bathroom Contact Sensor Battery" (Kitchen_Bathroom_Contact_Sensor_Group) ["LowBattery"] { homekit="ContactSensor.BatteryLowStatus", channel="mqtt:topic:26bcbec1ee:9b365b4264:battery_low" }
 
 Group Kitchen_Bathroom_Light_Group "Kitchen Bathroom Light Group" (FF_Kitchen_Bathroom) ["Lighting"]
 Switch Kitchen_Bathroom_Light_Switch "Kitchen Bathroom Light " (Kitchen_Bathroom_Light_Group) ["Lighting"] { homekit="Lighting", channel="mqtt:topic:26bcbec1ee:kb_light:binary_switch" }

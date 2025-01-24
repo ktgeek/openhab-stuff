@@ -41,7 +41,7 @@ Switch FamilyRoom_Christmas_Tree "Family Room Christmas Tree" <poweroutlet_us> (
 Switch LivingRoom_Christmas_Tree "Living Room Christmas Tree" <poweroutlet_us> (FF_LivingRoom) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:83f49b1e69:switch_binary" }
 
 // Switch Front_Yard_Wolf_Decoration "Werewolf Jeff" (FF_Porch) ["Point"] { homekit="Switchable", channel="mqtt:topic:26bcbec1ee:fa198888ad:power" }
-String Red_Button_Action "Red Button Action" (FF_Porch)
+// String Red_Button_Action "Red Button Action" (FF_Porch)
 
 Group Misc_Decoration_Outlet (SF_Upstairs) ["PowerOutlet"]
 Switch Misc_Decoration_Switch "Misc Decoration" <poweroutlet_us> (Misc_Decoration_Outlet) ["Switch"] { channel="mqtt:topic:26bcbec1ee:tasmota_misc_decoration:power", homekit="Outlet", alexa="Outlet", autoupdate="false" }

@@ -30,10 +30,9 @@ Switch Family_Room_Ceiling_Fan_Fan_Power "Family Room Ceiling Fan" (Family_Room_
 Switch Family_Room_Ceiling_Fan_Light_Power "Family Room Ceiling Fan Light" (Family_Room_Ceiling_Fan_With_Light) { homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:light#power" }
 
 Group Family_Room_Sensor "Family Room Sensor" (FF_FamilyRoom) ["Equpiment"]
-Number:Temperature Family_Room_Sensor_Temperature "Family Room Temperature" (Family_Room_Sensor) ["Measurement", "Temperature"] { unit="°C", homekit="TemperatureSensor.CurrentTemperature", channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:temperature" }
-Number:Dimensionless Family_Room_Sensor_Humidity "Family Room Humidity" (Family_Room_Sensor) ["Measurement", "Humidity"] { unit="%", homekit="HumiditySensor.CurrentRelativeHumidity", channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:humidity" }
-Number:Dimensionless Family_Room_Sensor_Battery_Level "Basement Flood Sensor Battery Level" (Family_Room_Sensor) ["Measurement", "Battery"] { unit="%", channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:battery" }
+Number:Temperature Family_Room_Sensor_Temperature "Family Room Temperature" (Family_Room_Sensor) ["Measurement", "Temperature"] { unit="°C", homekit="TemperatureSensor.CurrentTemperature", channel="mqtt:topic:26bcbec1ee:family_room_sensor:temperature" }
+Number:Dimensionless Family_Room_Sensor_Humidity "Family Room Humidity" (Family_Room_Sensor) ["Measurement", "Humidity"] { unit="%", homekit="HumiditySensor.CurrentRelativeHumidity", channel="mqtt:topic:26bcbec1ee:family_room_sensor:humidity" }
+Number:Dimensionless Family_Room_Sensor_Battery_Level "Basement Flood Sensor Battery Level" (Family_Room_Sensor) ["Measurement", "Battery"] { unit="%", channel="mqtt:topic:26bcbec1ee:family_room_sensor:battery" }
 
 Group Family_Room_Fan_Button "Family Room Fan Button" (FF_FamilyRoom) ["RemoteControl"]
-String Family_Room_Fan_Button_Action "Family Room Fan Button Action" (Family_Room_Fan_Button) ["Status"]
-Number Family_Room_Fan_Button_Battery "Family Room Fan Button Battery" (Family_Room_Fan_Button) ["Measurement", "Battery"] { unit="%", channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffee019e:battery_sensor" }
+Number Family_Room_Fan_Button_Battery "Family Room Fan Button Battery" (Family_Room_Fan_Button) ["Measurement", "Battery"] { unit="%", channel="mqtt:topic:26bcbec1ee:family_room_fan_button:battery" }

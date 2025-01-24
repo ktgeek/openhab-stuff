@@ -20,5 +20,5 @@ Group LivingRoom_Scene_Switch_Group "Living Room Scene Switch" <switch> (FF_Livi
 Switch LivingRoom_Scene_Switch "Living Room Scene Switch" <switch> (LivingRoom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:living_room_scene_switch:switch_binary" }
 
 Group Living_Room_Table_Light (FF_LivingRoom) ["PowerOutlet"]
-Switch Living_Room_Table_Light_Switch "Living Room Table Light" <poweroutlet_us> (Living_Room_Table_Light) ["Switch"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffed992e:switch", homekit="Lighting", alexa="Lighting" }
-Number:Power Living_Room_Table_Light_Watts "Living Room Table Light Power" (Living_Room_Table_Light) ["Power"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffed992e:power" }
+Switch Living_Room_Table_Light_Switch "Living Room Table Light" <poweroutlet_us> (Living_Room_Table_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:living_room_table_light:switch", homekit="Lighting", alexa="Lighting" }
+Number:Power Living_Room_Table_Light_Watts "Living Room Table Light Power" (Living_Room_Table_Light) ["Power"] { channel="mqtt:topic:26bcbec1ee:living_room_table_light:power" }

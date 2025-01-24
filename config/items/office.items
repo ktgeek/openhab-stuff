@@ -29,8 +29,7 @@ Number Office_Lights_LED_7_Color "Office Lights Led 7 Color" (Office_Lights_Cont
 Switch Office_Lights_LED_7_Blink "Office Lights Led 7 Blink" (Office_Lights_Control, Large_Garage_Door_Open_LEDs_Blink) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_7_blink" }
 
 Group Office_Presence (FF_Office) ["Equipment"]
-Switch Office_Presence_Sensor "Office Occupancy" (Office_Presence) ["Point"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x54ef441000589a03:presence", homekit="OccupancySensor" }
-String Office_Presence_Event "Office Presence Event" (Office_Presence) ["Point"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x54ef441000589a03:presence_event" }
+Switch Office_Presence_Sensor "Office Occupancy" (Office_Presence) ["Point"] { channel="mqtt:topic:26bcbec1ee:office_presence:presence", homekit="OccupancySensor" }
 
 Group Office_Fan "Office Fan" (FF_Office) ["CeilingFan"] { homekit="BasicFan" }
 Switch Office_Fan_Power "Office Fan" (Office_Fan) ["Control"] { channel="mqtt:topic:26bcbec1ee:office_fan:power", autoupdate="false",  homekit="BasicFan.OnState" }

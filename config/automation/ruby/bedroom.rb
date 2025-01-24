@@ -3,6 +3,8 @@
 require "zwave"
 require "zigbee"
 
+BEDROOM_REMOTES = %w[mqtt:topic:26bcbec1ee:bedroom_table_remote mqtt:topic:26bcbec1ee:bedroom_sarah_remote].freeze
+
 updated Bedroom_Ceiling_Fan_Speed do |event|
   next unless (0..3).cover?(event.state)
 
@@ -11,22 +13,22 @@ end
 
 received_command(Bedroom_Ceiling_Fan_Power, command: OFF) { Bedroom_Ceiling_Fan_Speed.command(0) }
 
-received_command(Bedroom_Remotes_Action.members, command: %w[1_single 2_single 3_single]) do |event|
-  Bedroom_Ceiling_Fan_Speed.command(event.command[0].to_i)
+channel("action", thing: BEDROOM_REMOTES, triggered: %w[1_single 2_single 3_single]) do |event|
+  Bedroom_Ceiling_Fan_Speed.command(event.event[0].to_i)
 end
 
-received_command(Bedroom_Remotes_Action.members, command: %w[1_double 2_double 3_double]) do
+channel("action", thing: BEDROOM_REMOTES, triggered: %w[1_double 2_double 3_double]) do
   Bedroom_Ceiling_Fan_Speed.command(0)
 end
 
-received_command(Bedroom_Remotes_Action.members, command: "4_single") do |event|
-  switch = items["Bedroom_#{event.item_name.split('_')[1]}_Light_Switch"]
+channel("action", thing: BEDROOM_REMOTES, triggered: "4_single") do |event|
+  switch = items["Bedroom_#{event.thing.label.split[1]}_Light_Switch"]
   switch&.toggle
 end
 
-received_command(Bedroom_Remotes_Action.members, command: "4_double") { Bedroom_Ceiling_Fan_Light_Power.toggle }
+channel("action", thing: BEDROOM_REMOTES, triggered: "4_double") { Bedroom_Ceiling_Fan_Light_Power.toggle }
 
-received_command(Bedroom_Table_Remote_Action, command: "4_hold") { Bedroom_Sarah_Light_Switch.toggle }
+channel("action", thing: BEDROOM_REMOTES.first, triggered: "4_hold") { Bedroom_Sarah_Light_Switch.toggle }
 
 changed Bedroom_Keiths_Closet_Contact_Sensor do |event|
   Bedroom_Keith_Closet_Light.ensure.command(event.state == OPEN)

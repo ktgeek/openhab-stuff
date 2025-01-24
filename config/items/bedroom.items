@@ -12,28 +12,26 @@ Switch Bedroom_Table_Light_Switch "Bedroom Table Light" <poweroutlet_us> (Bedroo
 Number:Power Bedroom_Table_Light_Watts "Bedroom Table Light Power" (Bedroom_Table_Light) ["Power"] { channel="mqtt:topic:26bcbec1ee:6d6b292248:currentPower" }
 
 Group Bedroom_Sarah_Light (SF_Bedroom) ["PowerOutlet"]
-Switch Bedroom_Sarah_Light_Switch "Bedroom Sarah Light" <poweroutlet_us> (Bedroom_Table_Light) ["Switch"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebd85f:switch", homekit="Lighting", alexa="Lighting" }
-Number:Power Bedroom_Sarah_Light_Watts "Bedroom Table Light Power" (Bedroom_Table_Light) ["Power"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebd85f:power" }
+Switch Bedroom_Sarah_Light_Switch "Bedroom Sarah Light" <poweroutlet_us> (Bedroom_Table_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:sarah_bedroom_table_light:switch", homekit="Lighting", alexa="Lighting" }
+Number:Power Bedroom_Sarah_Light_Watts "Bedroom Table Light Power" (Bedroom_Table_Light) ["Power"] { channel="mqtt:topic:26bcbec1ee:sarah_bedroom_table_light:power" }
 
 Group Bedroom_Remotes_Action (SF_Bedroom)
 
 Group Bedroom_Sarah_Remote (SF_Bedroom) ["RemoteControl"]
-String Bedroom_Sarah_Remote_Action "Action" (Bedroom_Sarah_Remote, Bedroom_Remotes_Action) ["Status"]
-Number:Dimensionless Bedroom_Sarah_Remote_Battery "Bedroom Sarah Remote Battery [%d %%]" (Bedroom_Sarah_Remote) ["Measurement", "Battery"] {channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x70ac08fffe5d0c17:battery"}
+Number:Dimensionless Bedroom_Sarah_Remote_Battery "Bedroom Sarah Remote Battery [%d %%]" (Bedroom_Sarah_Remote) ["Measurement", "Battery"] {channel="mqtt:topic:26bcbec1ee:bedroom_sarah_remote:battery"}
 
 Group Bedroom_Table_Remote (SF_Bedroom) ["RemoteControl"]
-String Bedroom_Table_Remote_Action "Action" (Bedroom_Table_Remote, Bedroom_Remotes_Action) ["Status"]
-Number:Dimensionless Bedroom_Table_Remote_Battery "Bedroom Table Remote Battery [%d %%]" (Bedroom_Table_Remote) ["Measurement", "Battery"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x70ac08fffe659186:battery_sensor" }
+Number:Dimensionless Bedroom_Table_Remote_Battery "Bedroom Table Remote Battery [%d %%]" (Bedroom_Table_Remote) ["Measurement", "Battery"] { channel="mqtt:topic:26bcbec1ee:bedroom_table_remote:battery" }
 
 Group Bedroom_Keiths_Closet_Contact_Sensor_Group "Keith's Closet Contact Sensor" (SF_Bedroom) ["Door"] { homekit="ContactSensor" }
-Contact Bedroom_Keiths_Closet_Contact_Sensor "Keith's Closet Contact Sensor" (Bedroom_Keiths_Closet_Contact_Sensor_Group) ["OpenState"] { homekit="ContactSensor.ContactSensorState", channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e2e9:contact" }
-Switch Bedroom_Keiths_Closet_Contact_Battery_isLow "Keith's Closet Contact Sensor Battery" (Bedroom_Keiths_Closet_Contact_Sensor_Group) ["LowBattery"] { homekit="ContactSensor.BatteryLowStatus", channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e2e9:battery_low" }
+Contact Bedroom_Keiths_Closet_Contact_Sensor "Keith's Closet Contact Sensor" (Bedroom_Keiths_Closet_Contact_Sensor_Group) ["OpenState"] { homekit="ContactSensor.ContactSensorState", channel="mqtt:topic:26bcbec1ee:7204377106:contact" }
+Switch Bedroom_Keiths_Closet_Contact_Battery_isLow "Keith's Closet Contact Sensor Battery" (Bedroom_Keiths_Closet_Contact_Sensor_Group) ["LowBattery"] { homekit="ContactSensor.BatteryLowStatus", channel="mqtt:topic:26bcbec1ee:7204377106:battery_low" }
 
 Switch Bedroom_Keith_Closet_Light "Keith's Closet" (SF_Bedroom) ["Lighting"] { autoupdate="false", channel="mqtt:topic:26bcbec1ee:bedroom_keith_closet:binary_switch", homekit="Lighting", alexa="Lighting" }
 
 Group Bedroom_Sarahs_Closet_Contact_Sensor_Group "Sarah's Closet Contact Sensor" (SF_Bedroom) ["Door"] { homekit="ContactSensor" }
-Contact Bedroom_Sarahs_Closet_Contact_Sensor "Sarah's Closet Contact Sensor" (Bedroom_Sarahs_Closet_Contact_Sensor_Group) ["OpenState"] { homekit="ContactSensor.ContactSensorState", channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e305:contact" }
-Switch Bedroom_Sarahs_Closet_Contact_Battery_isLow "Sarah's Closet Contact Sensor Battery" (Bedroom_Sarahs_Closet_Contact_Sensor_Group) ["LowBattery"] { homekit="ContactSensor.BatteryLowStatus", channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e305:battery_low" }
+Contact Bedroom_Sarahs_Closet_Contact_Sensor "Sarah's Closet Contact Sensor" (Bedroom_Sarahs_Closet_Contact_Sensor_Group) ["OpenState"] { homekit="ContactSensor.ContactSensorState", channel="mqtt:topic:26bcbec1ee:11c844735f:contact" }
+Switch Bedroom_Sarahs_Closet_Contact_Battery_isLow "Sarah's Closet Contact Sensor Battery" (Bedroom_Sarahs_Closet_Contact_Sensor_Group) ["LowBattery"] { homekit="ContactSensor.BatteryLowStatus", channel="mqtt:topic:26bcbec1ee:11c844735f:battery_low" }
 
 Switch Bedroom_Sarah_Closet_Light "Sarah's Closet" (SF_Bedroom) ["Lighting"] { autoupdate="false", channel="mqtt:topic:26bcbec1ee:bedroom_sarah_closet:binary_switch", homekit="Lighting", alexa="Lighting" }
 

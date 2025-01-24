@@ -88,11 +88,10 @@ Number Exercise_Room_Dimmer_Lights_LED_6_Color "Exercise Room Dimmer Led 6 Color
 Number Exercise_Room_Dimmer_Lights_LED_7_Color "Exercise Room Dimmer Led 7 Color" (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_7) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:status_led_7_color" }
 
 Group Exercise_Room_Bike_Trainer "Exercise Room Bike Trainer" (C_ExerciseRoom) ["PowerOutlet"] { homekit="Outlet" }
-Switch Exercise_Room_Bike_Trainer_Switch "Exercise Room Bike Trainer" <switch> (C_ExerciseRoom, Exercise_Room_Bike_Trainer) { homekit="Outlet.OnState", alexa="Outlet", channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:switch" }
-Number:ElectricPotential Exercise_Room_Bike_Trainer_Voltage "Exercise Room Voltage [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:voltage" }
-Number:ElectricCurrent Exercise_Room_Bike_Trainer_Current "Exercise Room Current [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:current" }
-Number:Power Exercise_Room_Bike_Trainer_TotalActivePower "Exercise Room Total Active Power [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:power"}
-Switch Exercise_Room_Bike_Trainer_In_Use "Exercise Room Outlet In Use [RB(outletinuse.rb):%s]" (Exercise_Room_Bike_Trainer) ["Point"] { homekit="Outlet.InUseStatus", channel="mqtt:homeassistant:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:power" }
+Switch Exercise_Room_Bike_Trainer_Switch "Exercise Room Bike Trainer" <switch> (C_ExerciseRoom, Exercise_Room_Bike_Trainer) { homekit="Outlet.OnState", alexa="Outlet", channel="mqtt:topic:26bcbec1ee:exercise_room_outlet:switch" }
+Number:ElectricCurrent Exercise_Room_Bike_Trainer_Current "Exercise Room Current [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:exercise_room_outlet:current" }
+Number:Power Exercise_Room_Bike_Trainer_TotalActivePower "Exercise Room Total Active Power [%.1f %unit%]" (Exercise_Room_Bike_Trainer) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:exercise_room_outlet:power"}
+Switch Exercise_Room_Bike_Trainer_In_Use "Exercise Room Outlet In Use [RB(outletinuse.rb):%s]" (Exercise_Room_Bike_Trainer) ["Point"] { homekit="Outlet.InUseStatus", channel="mqtt:topic:26bcbec1ee:exercise_room_outlet:power" }
 
 Switch Exercise_Room_Bike_Trainer_Enabled (C_ExerciseRoom) ["Switch"]
 
