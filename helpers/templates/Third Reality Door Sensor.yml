@@ -1,0 +1,38 @@
+label: Third Reality Door Sensor 3RDS17BZ
+thingTypeUID: mqtt:topic
+configuration:
+  payloadNotAvailable: offline
+  payloadAvailable: online
+  transformationPattern:
+    - JSONPATH:$.state
+  availabilityTopic: zigbee2mqtt/<%= path %>/availability
+bridgeUID: <%= bridgeUID %>
+location: Bedroom
+channels:
+  - id: contact
+    channelTypeUID: mqtt:contact
+    label: Contact
+    configuration:
+      stateTopic: zigbee2mqtt/<%= path %>
+      transformationPattern:
+        - JSONPATH:$.contact
+      off: "true"
+      on: "false"
+  - id: battery
+    channelTypeUID: mqtt:number
+    label: Battery
+    configuration:
+      min: 0
+      stateTopic: zigbee2mqtt/<%= path %>
+      transformationPattern:
+        - JSONPATH:$.battery
+      max: 100
+  - id: battery_low
+    channelTypeUID: mqtt:switch
+    label: Battery Low
+    configuration:
+      stateTopic: zigbee2mqtt/<%= path %>
+      transformationPattern:
+        - JSONPATH:$.battery_low
+      off: "false"
+      on: "true"
