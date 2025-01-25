@@ -1,0 +1,30 @@
+# Third Reality Zigbee / BLE smart plug with power
+label: Third Reality 3rsp02028bz
+thingTypeUID: mqtt:topic
+configuration:
+  payloadNotAvailable: offline
+  payloadAvailable: online
+  transformationPattern: JSONPATH:$.state
+  availabilityTopic: zigbee2mqtt/<%= path %>/availability
+bridgeUID: <%= bridgeUID %>
+channels:
+  - id: switch
+    channelTypeUID: mqtt:switch
+    label: Switch
+    description: null
+    configuration:
+      formatBeforePublish: '{"state": "%s"}'
+      commandTopic: zigbee2mqtt/<%= path %>/set
+      stateTopic: zigbee2mqtt/<%= path %>/state
+  - id: power
+    channelTypeUID: mqtt:number
+    label: Power
+    description: null
+    configuration:
+      stateTopic: zigbee2mqtt/<%= path %>/power
+  - id: current
+    channelTypeUID: mqtt:number
+    label: Current
+    description: null
+    configuration:
+      stateTopic: zigbee2mqtt/<%= path %>/current

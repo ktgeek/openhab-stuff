@@ -1,0 +1,25 @@
+label: Aqara Presence sensor FP1
+thingTypeUID: mqtt:topic
+configuration:
+  payloadNotAvailable: offline
+  payloadAvailable: online
+  transformationPattern:
+    - JSONPATH:$.state
+  availabilityTopic: zigbee2mqtt/<%= path %>/availability
+bridgeUID: <%= bridgeUID %>
+location: Office
+channels:
+  - id: presence
+    channelTypeUID: mqtt:switch
+    label: presence
+    description: ""
+    configuration:
+      stateTopic: zigbee2mqtt/<%= path %>/presence
+      off: "false"
+      on: "true"
+  - id: presence_event
+    channelTypeUID: mqtt:trigger
+    label: presence_event
+    description: ""
+    configuration:
+      stateTopic: zigbee2mqtt/<%= path %>/presence_event

@@ -1,0 +1,32 @@
+label: Third Realty Temperature and Humidity Sensor
+thingTypeUID: mqtt:topic
+configuration:
+  payloadNotAvailable: offline
+  payloadAvailable: online
+  transformationPattern:
+    - JSONPATH:$.state
+  availabilityTopic: zigbee2mqtt/<%= path %>/availability
+bridgeUID: <%= bridgeUID %>
+channels:
+  - id: temperature
+    channelTypeUID: mqtt:number
+    label: temperature
+    configuration:
+      stateTopic: zigbee2mqtt/<%= path %>/temperature
+      unit: ºC
+  - id: humidity
+    channelTypeUID: mqtt:number
+    label: humidity
+    configuration:
+      unit: "%"
+      min: 0
+      stateTopic: zigbee2mqtt/<%= path %>/humidity
+      max: 100
+  - id: battery
+    channelTypeUID: mqtt:number
+    label: battery
+    configuration:
+      unit: "%"
+      min: 0
+      stateTopic: zigbee2mqtt/<%= path %>/battery
+      max: 100

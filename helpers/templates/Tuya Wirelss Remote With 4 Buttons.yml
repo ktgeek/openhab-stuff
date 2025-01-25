@@ -1,0 +1,24 @@
+# Tuya Wirelss Switch With 4 Buttons
+label: Tuya Wirelss Switch With 4 Buttons
+thingTypeUID: mqtt:topic
+configuration:
+  payloadNotAvailable: offline
+  payloadAvailable: online
+  transformationPattern: JSONPATH:$.state
+  availabilityTopic: zigbee2mqtt/<%= path %>/availability
+bridgeUID: <%= bridgeUID %>
+location: Bedroom
+channels:
+  - id: battery
+    channelTypeUID: mqtt:number
+    label: battery
+    configuration:
+      unit: "%"
+      min: 0
+      stateTopic: zigbee2mqtt/<%= path %>/battery
+      max: 100
+  - id: action
+    channelTypeUID: mqtt:trigger
+    label: action
+    configuration:
+      stateTopic: zigbee2mqtt/<%= path %>/action

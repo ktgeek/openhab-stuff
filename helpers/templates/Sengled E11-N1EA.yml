@@ -1,0 +1,34 @@
+label: (Sengled E11-N1EA)
+thingTypeUID: mqtt:topic
+configuration:
+  payloadNotAvailable: offline
+  payloadAvailable: online
+  transformationPattern: JSONPATH:$.state
+  availabilityTopic: zigbee2mqtt/<%= path %>/availability
+bridgeUID: <%= bridgeUID %>
+channels:
+  - id: switch
+    channelTypeUID: mqtt:switch
+    label: switch
+    configuration:
+      formatBeforePublish: '{"state": "%s"}'
+      commandTopic: zigbee2mqtt/<%= path %>/set
+      stateTopic: zigbee2mqtt/<%= path %>/state
+  - id: color_xy
+    channelTypeUID: mqtt:color
+    label: Color Value
+    configuration:
+      commandTopic: zigbee2mqtt/<%= path %>/set
+      colorMode: XYY
+      transformationPatternOut: rb:zigbee2mqtt_colorxy_out.rb
+      stateTopic: zigbee2mqtt/<%= path %>
+      transformationPattern: rb:zigbee2mqtt_colorxy_in.rb
+  - id: brightness
+    channelTypeUID: mqtt:dimmer
+    label: brightness
+    configuration:
+      commandTopic: zigbee2mqtt/<%= path %>/set
+      min: 0
+      formatBeforePublish: '{"brightness": "%s"}'
+      stateTopic: zigbee2mqtt/<%= path %>/brightness
+      max: 254

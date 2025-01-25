@@ -1,0 +1,25 @@
+# Third Realty single button remote
+label: (Third Realty Smart Button)
+thingTypeUID: mqtt:topic
+configuration:
+  payloadNotAvailable: offline
+  payloadAvailable: online
+  transformationPattern: JSONPATH:$.state
+  availabilityTopic: zigbee2mqtt/<%= path %>/availability
+bridgeUID: <%= bridgeUID %>
+channels:
+  - id: action
+    channelTypeUID: mqtt:trigger
+    label: action
+    configuration:
+      stateTopic: zigbee2mqtt/<%= path %>/action
+  - id: battery
+    channelTypeUID: mqtt:number
+    label: Battery
+    configuration:
+      unit: "%"
+      stateTopic: zigbee2mqtt/<%= path %>
+      max: 100
+      min: 0
+      transformationPattern: JSONPATH:$.battery
+

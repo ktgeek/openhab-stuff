@@ -1,0 +1,38 @@
+label: (Zoom Zen77 800LR)
+thingTypeUID: mqtt:topic
+configuration:
+  payloadNotAvailable: "false"
+  payloadAvailable: "true"
+  transformationPattern: JSONPATH:$.value
+  availabilityTopic: zwave/<%= path %>/status
+bridgeUID: <%= bridgeUID %>
+channels:
+  - id: dimmer
+    channelTypeUID: mqtt:dimmer
+    label: Dimmer
+    description: ""
+    configuration:
+      commandTopic: zwave/<%= path %>/switch_multilevel/endpoint_0/targetValue/set
+      min: 0
+      stateTopic: zwave/<%= path %>/switch_multilevel/endpoint_0/currentValue
+      transformationPattern: JSONPATH:$.value
+      max: 99
+  - id: scene_1
+    channelTypeUID: mqtt:trigger
+    label: Scene 1
+    description: null
+    configuration:
+      stateTopic: zwave/<%= path %>/central_scene/endpoint_0/scene/001
+  - id: scene_2
+    channelTypeUID: mqtt:trigger
+    label: Scene 2
+    description: null
+    configuration:
+      stateTopic: zwave/<%= path %>/central_scene/endpoint_0/scene/002
+  - id: zwave_id
+    channelTypeUID: mqtt:number
+    label: Zwave Channel ID
+    description: null
+    configuration:
+      stateTopic: zwave/<%= path %>/status
+      transformationPattern: JSONPATH:$.nodeId

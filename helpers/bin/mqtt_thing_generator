@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+#
+# frozen_string_literal: true
+
+ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../Gemfile", __dir__)
+
+require "bundler/setup"
+require "optparse"
+require "tty-prompt"
+require "yaml"
+require "erb"
+
+TEMPLATE_PATH = "#{__dir__}/../templates".freeze
+DEFAULTS_FILE = "#{__dir__}/../config/defaults.yml".freeze
+
+defaults = File.exist?(DEFAULTS_FILE) ? YAML.load_file(DEFAULTS_FILE) : {}
+
+options = Struct.new(:path, :template).new
+OptionParser.new do |parser|
+  parser.on("-p", "--path PATH", "Zwave Path for your device") do |path|
+    options.path = path
+  end
+  parser.on("-t", "--template TEMPLATE", "Template to use") do |template|
+    options.template = template
+  end
+  parser.on("-h", "--help", "Prints this help") do
+    puts parser
+    exit
+  end
+end.parse!
+
+prompt = TTY::Prompt.new
+
+options.path = prompt.ask("mqtt path to your device:", required: true, modify: :strip) unless options.path
+
+unless options.template
+  templates = Dir.glob("#{TEMPLATE_PATH}/*.yml").map { |file| File.basename(file, ".yml") }.sort
+  options.template = prompt.select("Select a template:", templates, per_page: 20, cycle: true, filter: true)
+end
+
+template = File.read(File.expand_path("#{TEMPLATE_PATH}/#{options.template}.yml"))
+erb = ERB.new(template, trim_mode: "%-")
+puts erb.result_with_hash(path: options.path, bridgeUID: defaults["bridgeUID"])

@@ -1,0 +1,52 @@
+label: (Aeotec Nanomote Quad)
+thingTypeUID: mqtt:topic
+configuration:
+  payloadNotAvailable: "false"
+  payloadAvailable: "true"
+  transformationPattern: JSONPATH:$.value
+  availabilityTopic: zwave/<%= path %>/status
+bridgeUID: <%= bridgeUID %>
+location: Basement
+channels:
+  - id: battery-level
+    channelTypeUID: mqtt:number
+    label: Battery Level
+    description: ""
+    configuration:
+      min: 0
+      stateTopic: zwave/<%= path %>/battery/endpoint_0/level
+      transformationPattern: JSONPATH:$.value
+      max: 100
+  - id: scene_1
+    channelTypeUID: mqtt:trigger
+    label: Scene 1
+    description: ""
+    configuration:
+      stateTopic: zwave/<%= path %>/central_scene/endpoint_0/scene/001
+      transformationPattern:
+        - JSONPATH:$.value
+  - id: scene_2
+    channelTypeUID: mqtt:trigger
+    label: Scene 2
+    description: null
+    configuration:
+      stateTopic: zwave/<%= path %>/central_scene/endpoint_0/scene/002
+      transformationPattern:
+        - JSONPATH:$.value
+  - id: scene_3
+    channelTypeUID: mqtt:trigger
+    label: Scene 3
+    description: null
+    configuration:
+      stateTopic: zwave/<%= path %>/central_scene/endpoint_0/scene/003
+      transformationPattern:
+        - JSONPATH:$.value
+  - id: scene_4
+    channelTypeUID: mqtt:trigger
+    label: Scene 4
+    description: null
+    configuration:
+      stateTopic: zwave/<%= path %>/central_scene/endpoint_0/scene/004
+      transformationPattern:
+        - JSONPATH:$.value
+

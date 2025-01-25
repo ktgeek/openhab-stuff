@@ -1,0 +1,170 @@
+label: (HS-WX300 Wall Dimmer & Switch)
+thingTypeUID: mqtt:topic
+configuration:
+  payloadNotAvailable: "false"
+  payloadAvailable: "true"
+  transformationPattern: JSONPATH:$.value
+  availabilityTopic: zwave/<%= path %>/status
+bridgeUID: <%= bridgeUID %>
+channels:
+  - id: switch_binary
+    channelTypeUID: mqtt:switch
+    label: Switch
+    description: Switch the power on and off
+    configuration:
+      commandTopic: zwave/<%= path %>/switch_binary/endpoint_0/targetValue/set
+      stateTopic: zwave/<%= path %>/switch_binary/endpoint_0/currentValue
+      transformationPattern: JSONPATH:$.value
+      off: "false"
+      on: "true"
+  - id: scene_1
+    channelTypeUID: mqtt:trigger
+    label: Scene 1
+    description: null
+    configuration:
+      stateTopic: zwave/<%= path %>/central_scene/endpoint_0/scene/001
+      transformationPattern:
+        - JSONPATH:$.value
+  - id: scene_2
+    channelTypeUID: mqtt:trigger
+    label: Scene 2
+    description: null
+    configuration:
+      stateTopic: zwave/<%= path %>/central_scene/endpoint_0/scene/002
+      transformationPattern:
+        - JSONPATH:$.value
+  - id: status_led_1_color
+    channelTypeUID: mqtt:number
+    label: Status LED 1 Color
+    description: ""
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_1_Color/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_1_Color
+      transformationPattern: JSONPATH:$.value
+  - id: status_led_2_color
+    channelTypeUID: mqtt:number
+    label: Status LED 2 Color
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_2_Color/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_2_Color
+      transformationPattern: JSONPATH:$.value
+  - id: status_led_3_color
+    channelTypeUID: mqtt:number
+    label: Status LED 3 Color
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_3_Color/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_3_Color
+      transformationPattern: JSONPATH:$.value
+  - id: status_led_4_color
+    channelTypeUID: mqtt:number
+    label: Status LED 4 Color
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_4_Color/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_4_Color
+      transformationPattern: JSONPATH:$.value
+  - id: status_led_5_color
+    channelTypeUID: mqtt:number
+    label: Status LED 5 Color
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_5_Color/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_5_Color
+      transformationPattern: JSONPATH:$.value
+  - id: status_led_6_color
+    channelTypeUID: mqtt:number
+    label: Status LED 6 Color
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_6_Color/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_6_Color
+      transformationPattern: JSONPATH:$.value
+  - id: status_led_7_color
+    channelTypeUID: mqtt:number
+    label: Status LED 7 Color
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_7_Color/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/Status_LED_7_Color
+      transformationPattern: JSONPATH:$.value
+  - id: blink_frequency
+    channelTypeUID: mqtt:number
+    label: Blink Frequency
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/Blink_Frequency/set
+      min: 0
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/Blink_Frequency
+      transformationPattern: JSONPATH:$.value
+  - id: status_led_1_blink
+    channelTypeUID: mqtt:switch
+    label: Status LED 1 Blink Status
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/LED_1_Blink_Status/1/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/LED_1_Blink_Status/1
+      transformationPattern: JSONPATH:$.value
+      off: "0"
+      on: "1"
+  - id: status_led_2_blink
+    channelTypeUID: mqtt:switch
+    label: Status LED 2 Blink Status
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/LED_2_Blink_Status/2/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/LED_2_Blink_Status/2
+      transformationPattern: JSONPATH:$.value
+      off: "0"
+      on: "1"
+  - id: status_led_3_blink
+    channelTypeUID: mqtt:switch
+    label: Status LED 3 Blink Status
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/LED_3_Blink_Status/4/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/LED_3_Blink_Status/4
+      transformationPattern: JSONPATH:$.value
+      off: "0"
+      on: "1"
+  - id: status_led_4_blink
+    channelTypeUID: mqtt:switch
+    label: Status LED 4 Blink Status
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/LED_4_Blink_Status/8/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/LED_4_Blink_Status/8
+      transformationPattern: JSONPATH:$.value
+      off: "0"
+      on: "1"
+  - id: status_led_5_blink
+    channelTypeUID: mqtt:switch
+    label: Status LED 5 Blink Status
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/LED_5_Blink_Status/16/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/LED_5_Blink_Status/16
+      transformationPattern: JSONPATH:$.value
+      off: "0"
+      on: "1"
+  - id: status_led_6_blink
+    channelTypeUID: mqtt:switch
+    label: Status LED 6 Blink Status
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/LED_6_Blink_Status/32/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/LED_6_Blink_Status/32
+      transformationPattern: JSONPATH:$.value
+      off: "0"
+      on: "1"
+  - id: status_led_7_blink
+    channelTypeUID: mqtt:switch
+    label: Status LED 7 Blink Status
+    description: null
+    configuration:
+      commandTopic: zwave/<%= path %>/configuration/endpoint_0/LED_7_Blink_Status/64/set
+      stateTopic: zwave/<%= path %>/configuration/endpoint_0/LED_7_Blink_Status/64
+      transformationPattern: JSONPATH:$.value
+      off: "0"
+      on: "1"
