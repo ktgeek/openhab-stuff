@@ -12,14 +12,16 @@ channels:
   - id: presence
     channelTypeUID: mqtt:switch
     label: presence
-    description: ""
     configuration:
-      stateTopic: zigbee2mqtt/<%= path %>/presence
+      stateTopic: zigbee2mqtt/<%= path %>
       off: "false"
       on: "true"
+      transformationPattern:
+        - JSONPATH:$.presence
   - id: presence_event
-    channelTypeUID: mqtt:trigger
+    channelTypeUID: mqtt:string
     label: presence_event
-    description: ""
     configuration:
-      stateTopic: zigbee2mqtt/<%= path %>/presence_event
+      stateTopic: zigbee2mqtt/<%= path %>
+      transformationPattern:
+        - JSONPATH:$.presence_event

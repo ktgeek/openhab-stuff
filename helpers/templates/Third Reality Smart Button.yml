@@ -12,7 +12,8 @@ channels:
     channelTypeUID: mqtt:trigger
     label: action
     configuration:
-      stateTopic: zigbee2mqtt/<%= path %>/action
+      stateTopic: zigbee2mqtt/<%= path %>
+      transformationPattern: JSONPATH:$.action
   - id: battery
     channelTypeUID: mqtt:number
     label: Battery

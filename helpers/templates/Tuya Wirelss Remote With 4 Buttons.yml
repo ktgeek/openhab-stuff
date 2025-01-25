@@ -15,10 +15,14 @@ channels:
     configuration:
       unit: "%"
       min: 0
-      stateTopic: zigbee2mqtt/<%= path %>/battery
+      stateTopic: zigbee2mqtt/<%= path %>
       max: 100
+      transformationPattern:
+        - JSONPATH:$.battery
   - id: action
     channelTypeUID: mqtt:trigger
     label: action
     configuration:
-      stateTopic: zigbee2mqtt/<%= path %>/action
+      stateTopic: zigbee2mqtt/<%= path %>
+      transformationPattern:
+        - JSONPATH:$.action

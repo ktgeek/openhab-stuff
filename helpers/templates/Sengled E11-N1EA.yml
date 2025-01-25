@@ -13,7 +13,9 @@ channels:
     configuration:
       formatBeforePublish: '{"state": "%s"}'
       commandTopic: zigbee2mqtt/<%= path %>/set
-      stateTopic: zigbee2mqtt/<%= path %>/state
+      stateTopic: zigbee2mqtt/<%= path %>
+      transformationPattern:
+        - JSONPATH:$.state
   - id: color_xy
     channelTypeUID: mqtt:color
     label: Color Value
@@ -30,5 +32,7 @@ channels:
       commandTopic: zigbee2mqtt/<%= path %>/set
       min: 0
       formatBeforePublish: '{"brightness": "%s"}'
-      stateTopic: zigbee2mqtt/<%= path %>/brightness
+      stateTopic: zigbee2mqtt/<%= path %>
       max: 254
+      transformationPattern:
+        - JSONPATH:$.brightness

@@ -12,21 +12,27 @@ channels:
     channelTypeUID: mqtt:number
     label: temperature
     configuration:
-      stateTopic: zigbee2mqtt/<%= path %>/temperature
+      stateTopic: zigbee2mqtt/<%= path %>
       unit: ºC
+      transformationPattern:
+        - JSONPATH:$.temperature
   - id: humidity
     channelTypeUID: mqtt:number
     label: humidity
     configuration:
       unit: "%"
       min: 0
-      stateTopic: zigbee2mqtt/<%= path %>/humidity
+      stateTopic: zigbee2mqtt/<%= path %>
       max: 100
+      transformationPattern:
+        - JSONPATH:$.humidity
   - id: battery
     channelTypeUID: mqtt:number
     label: battery
     configuration:
       unit: "%"
       min: 0
-      stateTopic: zigbee2mqtt/<%= path %>/battery
+      stateTopic: zigbee2mqtt/<%= path %>
       max: 100
+      transformationPattern:
+        - JSONPATH:$.battery
