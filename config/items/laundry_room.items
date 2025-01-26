@@ -13,8 +13,6 @@ Number Laundry_Room_Lights_LED_7_Color "Laundry Room Lights Led 7 Color" (Laundr
 
 Group Side_Yard_Lights_Control (FF_Laundry_Room) ["Equipment"]
 Switch Side_Yard_Lights_Switch "Side Yard Lights" (Side_Yard_Lights_Control) ["Switch", "Light"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:switch_binary" }
-Number Side_Yard_Lights_Scene_Number_Top "Kitchen Lights Scene Number Top Paddle" (Side_Yard_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:scene-1" [profile="ruby:zwavejs_int_handler"] }
-Number Side_Yard_Lights_Scene_Number_Bottom "Kitchen Lights Scene Number Bottom Paddle" (Side_Yard_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:scene-2" [profile="ruby:zwavejs_int_handler"] }
 Number Side_Yard_Lights_LED_1_Color "Side Yard Lights Led 1 Color" (Side_Yard_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:status_led_1_color" }
 Number Side_Yard_Lights_LED_2_Color "Side Yard Lights Led 2 Color" (Side_Yard_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:status_led_2_color" }
 Number Side_Yard_Lights_LED_3_Color "Side Yard Lights Led 3 Color" (Side_Yard_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:7f0a376172:status_led_3_color" }
