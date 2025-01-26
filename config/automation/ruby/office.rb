@@ -27,10 +27,10 @@ rule "when a zoom meeting is over" do
   run do
     if stored_led_states
       stored_led_states&.restore_changes
-      stored_led_states = nil
     else
       Office_Door_LED_Power.ensure.off
     end
+    stored_led_states = nil
   end
 end
 
