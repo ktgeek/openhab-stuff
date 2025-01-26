@@ -10,8 +10,6 @@ Group    FF_Kitchen_Lights_Scene_Bottom (FF_Kitchen)
 
 Group Kitchen_Backyard_Lights (FF_Kitchen) ["Equipment"]
 Switch Kitchen_Backyard_Lights_Switch <lightbulb> (Kitchen_Backyard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:27cfce6609:switch_binary" }
-Number Kitchen_Backyard_Lights_Scene_1 (Kitchen_Backyard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:27cfce6609:scene-1" [profile="ruby:zwavejs_int_handler"] }
-Number Kitchen_Backyard_Lights_Scene_2 (Kitchen_Backyard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:27cfce6609:scene-2" [profile="ruby:zwavejs_int_handler"] }
 
 Group Kitchen_Accent_Desk_Control (FF_Kitchen) ["Equipment"]
 Dimmer Kitchen_Accent_Desk_Dimmer "Kitchen Accent Lights (Desk) [%d]" <lightbulb> (Kitchen_Accent_Desk_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:6b7ddb0bfb:switch_dimmer" }

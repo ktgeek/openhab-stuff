@@ -10,8 +10,6 @@ Dimmer FamilyRoom_Accent_Lights_Dimmer "Family Room Accents [%d]" <lightbulb> (F
 
 Group FamilyRoom_Backyard_Lights(FF_FamilyRoom) ["Equpiment"]
 Switch FamilyRoom_Backyard_Lights_Switch "Backyard Lights in Family Room" <lightbulb> (FamilyRoom_Backyard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:80a71c1f40:switch_binary" }
-Number FamilyRoom_Backyard_Lights_Scene_1 "Backyard Lights in Family Room Scene 1" <lightbulb> (FamilyRoom_Backyard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:80a71c1f40:scene-1" [profile="ruby:zwavejs_int_handler"] }
-Number FamilyRoom_Backyard_Lights_Scene_2 "Backyard Lights in Family Room Scene 2" <lightbulb> (FamilyRoom_Backyard_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:80a71c1f40:scene-2" [profile="ruby:zwavejs_int_handler"] }
 
 Group FamilyRoom_Wall_Outlet "Family Room Wall Outlet" <poweroutlet_us> (FF_FamilyRoom) ["PowerOutlet"] { homekit="Outlet" }
 Switch FamilyRoom_Wall_Outlet_Switch "Family Room Wall Outlet" <poweroutlet_us> (Christmas_Lights, Christmas_Lights_All, FamilyRoom_Christmas_Tree, FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.OnState", alexa="Outlet", channel="mqtt:topic:26bcbec1ee:bae88ef977:switch_binary" }
