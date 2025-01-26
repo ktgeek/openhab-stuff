@@ -26,6 +26,6 @@ channel("scene_4", thing: "mqtt:topic:26bcbec1ee:f7c5f297b6", triggered: ZWave::
   Basement_Movie_Mode_Switch.on
 end
 
-changed(C_Basement_Scene_Top.members, to: ZWave::PADDLE_TWO_CLICKS) { Basement_Normal_Mode_Switch.on }
-
-changed(C_Basement_Scene_Bottom.members, to: ZWave::PADDLE_TWO_CLICKS) { Basement_Movie_Mode_Switch.on }
+BASEMENT_SCENES = C_Basement_Scenes.members.map(&:thing)
+channel("scene_1", thing: BASEMENT_SCENES, triggered: ZWave::PADDLE_TWO_CLICKS) { Basement_Normal_Mode_Switch.on }
+channel("scene_2", thing: BASEMENT_SCENES, triggered: ZWave::PADDLE_TWO_CLICKS) { Basement_Movie_Mode_Switch.on }
