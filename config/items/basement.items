@@ -72,8 +72,6 @@ Switch Exercise_Room_Light "Exercise Room Light" <lightbulb> (C_ExerciseRoom, C_
 
 Group Exercise_Room_Dimmer_Lights_Control (C_ExerciseRoom) ["Equipment"]
 Dimmer Exercise_Room_Dimmer "Exercise Room Dimmer [%d %%]" <lightbulb> (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom, C_All_Lights) ["SetPoint", "Light"] { unit="%", homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:dc860bf0d1:switch_dimmer" }
-Number Exercise_Room_Dimmer_Scene_Number_Top "Scene number Top Paddle" (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:scene_top" [profile="ruby:zwavejs_int_handler"] }
-Number Exercise_Room_Dimmer_Scene_Number_Bottom "Scene number Bottom Paddle" (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:scene_bottom" [profile="ruby:zwavejs_int_handler"] }
 Number Exercise_Room_Dimmer_Lights_LED_1_Color "Exercise Room Dimmer Led 1 Color" (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_1) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:status_led_1_color" }
 Number Exercise_Room_Dimmer_Lights_LED_2_Color "Exercise Room Dimmer Led 2 Color" (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_2) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:status_led_2_color" }
 Number Exercise_Room_Dimmer_Lights_LED_3_Color "Exercise Room Dimmer Led 3 Color" (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_3) ["Point"] { channel="mqtt:topic:26bcbec1ee:dc860bf0d1:status_led_3_color" }
@@ -92,8 +90,6 @@ Switch Exercise_Room_Bike_Trainer_Enabled (C_ExerciseRoom) ["Switch"]
 
 Group Basement_Hallway_Lights_Control (C_Basement_Hallway) ["Equipment"]
 Switch Basement_Hallway_Lights_Switch "Basement Hallway Lights" (Basement_Hallway_Lights_Control, C_Basement_Hallway, C_All_Lights) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:21a4ffc685:switch_binary"}
-Number Basement_Hallway_Lights_Scene_Number_Top "Basement Hallway Lights Scene Number Top Paddle" (Basement_Hallway_Lights_Control, C_Basement_Hallway) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:scene_top" [profile="ruby:zwavejs_int_handler"] }
-Number Basement_Hallway_Lights_Scene_Number_Bottom "Basement Hallway Lights Scene Number Bottom Paddle" (Basement_Hallway_Lights_Control, C_Basement_Hallway) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:scene_bottom" [profile="ruby:zwavejs_int_handler"] }
 Number Basement_Hallway_Lights_LED_1_Color "Basement Hallway Lights Led 1 Color" (Basement_Hallway_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:status_led_1_color" }
 Number Basement_Hallway_Lights_LED_2_Color "Basement Hallway Lights Led 2 Color" (Basement_Hallway_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:status_led_2_color" }
 Number Basement_Hallway_Lights_LED_3_Color "Basement Hallway Lights Led 3 Color" (Basement_Hallway_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:21a4ffc685:status_led_3_color" }
