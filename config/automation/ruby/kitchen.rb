@@ -17,26 +17,26 @@ def reset_basement
   C_All_Lights.members.ensure.off
 end
 
-changed FF_Kitchen_Accents_Scene_Bottom.members, to: ZWave::PADDLE_TWO_CLICKS do
+channel("scene_2", thing: FF_Kitchen_Accents_Scene.members.map(&:thing), triggered: ZWave::PADDLE_TWO_CLICKS) do
   reset_basement
 end
 
-changed FF_Kitchen_Lights_Scene_Top.members, to: [ZWave::PADDLE_HOLD, ZWave::PADDLE_TWO_CLICKS] do
+channel("scene_1", thing: FF_Kitchen_Lights_Scene.members.map(&:thing), triggered: ZWave::PADDLE_TWO_CLICKS) do
   Normal_Kitchen_Lights.members.ensure.on
 end
 
-changed FF_Kitchen_Lights_Scene_Top.members, to: ZWave::PADDLE_THREE_CLICKS do
+channel("scene_1", thing: FF_Kitchen_Lights_Scene.members.map(&:thing), triggered: ZWave::PADDLE_THREE_CLICKS) do
   All_Kitchen_Lights.members.ensure.on
 end
 
-changed FF_Kitchen_Lights_Scene_Bottom.members, to: [ZWave::PADDLE_HOLD, ZWave::PADDLE_TWO_CLICKS] do
+channel("scene_2", thing: FF_Kitchen_Lights_Scene.members.map(&:thing), triggered: ZWave::PADDLE_TWO_CLICKS) do
   Normal_Kitchen_Lights.members.ensure.off
 end
 
-changed FF_Kitchen_Lights_Scene_Bottom.members, to: ZWave::PADDLE_THREE_CLICKS do
+channel("scene_2", thing: FF_Kitchen_Lights_Scene.members.map(&:thing), triggered: ZWave::PADDLE_THREE_CLICKS) do
   All_Kitchen_Lights.members.ensure.off
 end
 
-changed FF_Kitchen_Lights_Scene_Bottom.members, to: ZWave::PADDLE_FOUR_CLICKS do
+channel("scene_2", thing: FF_Kitchen_Lights_Scene_Bottom.members.map(&:thing), triggered: ZWave::PADDLE_FOUR_CLICKS) do
   reset_basement
 end
