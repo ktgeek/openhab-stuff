@@ -1,0 +1,16 @@
+/services
+!services/jruby.cfg
+/.bundle
+/.karaf
+/.vscode
+/sounds
+/transform/de.map
+/transform/en.map
+/transform/readme.txt
+/transform/lock_code.map
+readme.txt
+/persistence
+!/persistence/jdbc.persist
+/automation/ruby/.gem
+/html
+/spec/examples.txt
