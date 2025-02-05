@@ -37,6 +37,6 @@ channel("scene_2", thing: FF_Kitchen_Lights_Scene.members.map(&:thing), triggere
   All_Kitchen_Lights.members.ensure.off
 end
 
-channel("scene_2", thing: FF_Kitchen_Lights_Scene_Bottom.members.map(&:thing), triggered: ZWave::PADDLE_FOUR_CLICKS) do
+channel("scene_2", thing: FF_Kitchen_Lights_Scene.members.map(&:thing), triggered: ZWave::PADDLE_FOUR_CLICKS) do
   reset_basement
 end
