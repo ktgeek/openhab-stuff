@@ -1,4 +1,3 @@
-
 Group Backyard_Weather_Station "Backyard Weather Station" <sun> (Backyard) ["Equipment"]
 Number:Temperature Backyard_Temperature "Backyard Temperature [%.1f%unit%]" <temperature> (Backyard_Weather_Station) ["Measurement", "Temperature"] { homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="mqtt:topic:26bcbec1ee:ccb02631ce:tempF" }
 Number:Temperature Backyard_FeelsLike_Temperature "Backyard Feels Like Temperature [%.1f%unit%]" <temperature> (Backyard_Weather_Station) ["Measurement", "Temperature"] { channel="mqtt:topic:26bcbec1ee:ccb02631ce:feelsF" }

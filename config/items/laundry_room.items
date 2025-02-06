@@ -1,4 +1,3 @@
-
 Contact Laundry_Room_Door_Contact "Laundry Room Door" (FF_Laundry_Room, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_4" }
 
 Group Laundry_Room_Lights_Control (FF_Laundry_Room) ["Equipment"]
