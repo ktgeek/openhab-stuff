@@ -41,7 +41,7 @@ String Holiday_Mode "Holiday Mode" (FF_Entrance) ["Point"]
 Switch Outdoor_Biking_Season "Am I biking outside?" (FF_Garage) ["Point"]
 
 Group Entrance_Hall_MultiSensor (FF_Entrance) ["Equipment"]
-Number:Temperature Entrance_Temperature "Entrance Temperature" (Entrance_Hall_MultiSensor) ["Measurement", "Temperature"] { homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="mqtt:topic:26bcbec1ee:ab320d3541:sensor_temperature"}
+Number:Temperature Entrance_Temperature "Entrance Temperature" (Entrance_Hall_MultiSensor) ["Measurement", "Temperature"] { unit="°F", homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="mqtt:topic:26bcbec1ee:ab320d3541:sensor_temperature"}
 Number:Illuminance Entrance_Luminance "Entrance Luminance" (Entrance_Hall_MultiSensor) ["Measurement", "Light"] { homekit="LightSensor", channel="mqtt:topic:26bcbec1ee:ab320d3541:sensor_luminance"}
 Switch Entrance_Alarm_Motion "Entrance Motion alarm" (Entrance_Hall_MultiSensor) {channel="mqtt:topic:26bcbec1ee:ab320d3541:alarm_motion"}
 Number Entrance_Hall_MultiSensor_Battery_Level "Entrance Battery level" (Entrance_Hall_MultiSensor) ["Measurement", "Battery"]  {channel="mqtt:topic:26bcbec1ee:ab320d3541:battery-level"}
