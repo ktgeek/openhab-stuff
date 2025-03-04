@@ -3,6 +3,7 @@
 require "color"
 require "tasmota"
 require "zigbee"
+require "holidays"
 
 rule "its light out, turn off the holiday decorations" do
   changed Sun_Status, to: "UP"
@@ -38,7 +39,7 @@ rule "decorations on at sunset at Halloween" do
     end
   end
 
-  only_if { Holiday_Mode.state == "Halloween" }
+  only_if { Holiday_Mode.state == Holidays::HALLOWEEN }
 end
 
 rule "decorations on at sunset at Christmas" do
@@ -49,7 +50,7 @@ rule "decorations on at sunset at Christmas" do
     Christmas_Lights.members.ensure.on
   end
 
-  only_if { Holiday_Mode.state == "Christmas" }
+  only_if { Holiday_Mode.state == Holidays::CHRISTMAS }
 end
 
 rule "decorations off at night at Halloween" do
@@ -65,7 +66,7 @@ rule "decorations off at night at Halloween" do
     end
   end
 
-  only_if { VisitorMode_Switch.off? && Holiday_Mode.state == "Halloween" }
+  only_if { VisitorMode_Switch.off? && Holiday_Mode.state == Holidays::HALLOWEEN }
 end
 
 rule "decorations off at night at Christmas" do
@@ -76,7 +77,7 @@ rule "decorations off at night at Christmas" do
     Christmas_Lights_All.members.ensure.off
   end
 
-  only_if { VisitorMode_Switch.off? && Holiday_Mode.state == "Christmas" }
+  only_if { VisitorMode_Switch.off? && Holiday_Mode.state == Holidays::CHRISTMAS }
 end
 
 rule "when we turn off VisitorMode" do
@@ -95,7 +96,7 @@ rule "when we turn off VisitorMode" do
     end
   end
 
-  only_if { Holiday_Mode.state == "Halloween" }
+  only_if { Holiday_Mode.state == Holidays::HALLOWEEN }
 end
 
 rule "when we turn off VisitorMode" do
@@ -109,7 +110,7 @@ rule "when we turn off VisitorMode" do
     end
   end
 
-  only_if { Holiday_Mode.state == "Christmas" }
+  only_if { Holiday_Mode.state == Holidays::CHRISTMAS }
 end
 
 rule "christmas switch is turned on" do
@@ -125,7 +126,7 @@ rule "christmas switch is turned on" do
     end
   end
 
-  only_if { Holiday_Mode.state == "Christmas" }
+  only_if { Holiday_Mode.state == Holidays::CHRISTMAS }
 end
 
 # wolf_last_change = nil
@@ -158,7 +159,7 @@ end
 #   updated Christmas_Lights, Christmas_Lights_All, Christmas_Outside
 
 #   run do |event|
-#     items["#{event.item.name}_HK"].ensure.update(event.state) if Holiday_Mode.state == "Christmas"
+#     items["#{event.item.name}_HK"].ensure.update(event.state) if Holiday_Mode.state == Holidays::CHRISTMAS
 #   end
 # end
 
