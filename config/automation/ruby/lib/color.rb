@@ -8,4 +8,5 @@ module Color
   RED = OpenHAB::Core::Types::HSBType.new(0, 100, 100)
   WARM_WHITE = OpenHAB::Core::Types::HSBType.new(44, 13, 100)
   PURPLE = OpenHAB::Core::Types::HSBType.new(300, 100, 100)
+  GREEN = OpenHAB::Core::Types::HSBType.new(120, 100, 100)
 end

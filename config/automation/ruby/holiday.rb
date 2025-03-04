@@ -42,6 +42,27 @@ rule "decorations on at sunset at Halloween" do
   only_if { Holiday_Mode.state == Holidays::HALLOWEEN }
 end
 
+rule "decorations on at sunset at St. Patty" do
+  changed Sun_Status, to: "DOWN"
+
+  run do
+    if Zoom_Active_Switch.off?
+      Office_Door_LED_Power.on
+      Office_Door_LED_Color.command(Color::GREEN)
+    end
+  end
+
+  only_if { Holiday_Mode.state == Holidays::STPATRICKS }
+end
+
+rule "decorations off at night at St.Patty" do
+  cron "0 30 22 ? * *"
+
+  run { Office_Door_LED_Power.ensure.off }
+
+  only_if { VisitorMode_Switch.off? && Holiday_Mode.state == Holidays::STPATRICKS }
+end
+
 rule "decorations on at sunset at Christmas" do
   changed Sun_Status, to: "DOWN"
 
