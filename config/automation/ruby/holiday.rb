@@ -36,10 +36,6 @@ rule "decorations on at sunset at Halloween" do
       Office_Door_LED_Palette.command(Tasmota::Palette::PURPLE_FADE)
       Office_Door_LED_Scheme.command(Tasmota::Scheme::CYCLE_UP)
     end
-
-    # Leaving on this while testing to ensure this didn't trigger
-    # Kitchen_Echo_TTS.command("Spooky! Scary! Halloween!")
-    # Basement_Echo_TTS.command("Spooky! Scary! Halloween!")
   end
 
   only_if { Holiday_Mode.state == "Halloween" }
