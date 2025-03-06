@@ -1,7 +1,7 @@
-Group    SF_DinahsRoom        "Dinah's room"   <girl_2>        (SF)               ["Bedroom"]
-Group    SF_EvansRoom         "Evan's room"    <boy_1>         (SF)               ["Bedroom"]
-Group    SF_Hallway           "Hallway"        <corridor>      (SF)               ["Corridor"]
-Group    SF_HiddenRoom        "Hidden Room"    <girl_2>        (SF)               ["Room"]
+Group  SF_DinahsRoom  "Dinah's room"  <girl_2>    (SF)  ["Bedroom"]
+Group  SF_EvansRoom   "Evan's room"   <boy_1>     (SF)  ["Bedroom"]
+Group  SF_Hallway     "Hallway"       <corridor>  (SF)  ["Corridor"]
+Group  SF_HiddenRoom  "Hidden Room"   <girl_2>    (SF)  ["Room"]
 
 Group Upstairs_Hallway_Wall_Outlet "Upstairs Wall Outlet" <poweroutlet_us> (SF_Hallway) ["PowerOutlet"] { homekit="Outlet" }
 Switch Upstairs_Hallway_Wall_Outlet_Switch "Upstairs Wall Outlet" <poweroutlet_us> (SF_Hallway, All_Hall_Lights, Upstairs_Hallway_Wall_Outlet, Christmas_Lights, Christmas_Lights_All) ["Switch"] { homekit="Outlet.OnState", alexa="Outlet", channel="mqtt:topic:26bcbec1ee:4d1108d146:switch_binary" }
@@ -9,4 +9,4 @@ Number:Energy Upstairs_Hallway_Wall_Outlet_kWh "Upstairs Wall Outlet Power [%.1f
 Number:Power Upstairs_Hallway_Wall_Outlet_Watts "Upstairs Wall Outlet Power [%.1f W]" (Upstairs_Hallway_Wall_Outlet) ["Point", "Energy"] { channel="mqtt:topic:26bcbec1ee:4d1108d146:meter_watts" }
 Switch Upstairs_Hallway_Wall_Outlet_In_Use "Upstairs Hallway Wall Outlet In Use [RB(outletinuse.rb):%s]" (Upstairs_Hallway_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="mqtt:topic:26bcbec1ee:4d1108d146:meter_watts" }
 
-Switch HiddenRoom_Light_Switch "Hidden Room Lights" <lightbulb> (SF_HiddenRoom) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:cbf21f26ec:binary_switch" }
+Switch  HiddenRoom_Light_Switch  "Hidden Room Lights"  <lightbulb>  (SF_HiddenRoom)  ["Switch", "Light"]  {homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:cbf21f26ec:binary_switch"}

@@ -1,27 +1,27 @@
-Group Backyard_Weather_Station "Backyard Weather Station" <sun> (Backyard) ["Equipment"]
-Number:Temperature Backyard_Temperature "Backyard Temperature [%.1f%unit%]" <temperature> (Backyard_Weather_Station) ["Measurement", "Temperature"] { unit="°F", homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="mqtt:topic:26bcbec1ee:24803daf2c:temperature_f" }
-Number:Temperature Backyard_FeelsLike_Temperature "Backyard Feels Like Temperature [%.1f%unit%]" <temperature> (Backyard_Weather_Station) ["Measurement", "Temperature"] { unit="°F", channel="mqtt:topic:26bcbec1ee:ccb02631ce:feelsF" }
-String Backyard_Temperature_Trend "Backyard Temperature Trend" (Backyard_Weather_Station) { channel="mqtt:topic:26bcbec1ee:ccb02631ce:tempF_trend" }
-Number:Dimensionless Backyard_Humidity "Backyard Humidity [%d %%]" <humidity> (Backyard_Weather_Station) ["Measurement", "Humidity"] { unit="%", homekit="HumiditySensor", channel="mqtt:topic:26bcbec1ee:24803daf2c:humidity" }
-Number:Pressure Backyard_Barometric_Pressure "Barometric pressure [%.2f%unit%]" <pressure> (Backyard_Weather_Station) ["Measurement"] { channel="mqtt:topic:26bcbec1ee:bf9cbe799b:pressure" }
-String Backyard_Barometric_Pressure_Trend "Backyard Barometric Pressure Trend" (Backyard_Weather_Station) ["Point"] { channel="mqtt:topic:26bcbec1ee:ccb02631ce:pressure_trend" }
+Group                 Backyard_Weather_Station            "Backyard Weather Station"                      <sun>          (Backyard)                  ["Equipment"]
+Number:Temperature    Backyard_Temperature                "Backyard Temperature [%.1f%unit%]"             <temperature>  (Backyard_Weather_Station)  ["Measurement", "Temperature"]  {unit="°F", homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="mqtt:topic:26bcbec1ee:24803daf2c:temperature_f"}
+Number:Temperature    Backyard_FeelsLike_Temperature      "Backyard Feels Like Temperature [%.1f%unit%]"  <temperature>  (Backyard_Weather_Station)  ["Measurement", "Temperature"]  {unit="°F", channel="mqtt:topic:26bcbec1ee:ccb02631ce:feelsF"}
+String                Backyard_Temperature_Trend          "Backyard Temperature Trend"                                   (Backyard_Weather_Station)                                  {channel="mqtt:topic:26bcbec1ee:ccb02631ce:tempF_trend"}
+Number:Dimensionless  Backyard_Humidity                   "Backyard Humidity [%d %%]"                     <humidity>     (Backyard_Weather_Station)  ["Measurement", "Humidity"]     {unit="%", homekit="HumiditySensor", channel="mqtt:topic:26bcbec1ee:24803daf2c:humidity"}
+Number:Pressure       Backyard_Barometric_Pressure        "Barometric pressure [%.2f%unit%]"              <pressure>     (Backyard_Weather_Station)  ["Measurement"]                 {channel="mqtt:topic:26bcbec1ee:bf9cbe799b:pressure"}
+String                Backyard_Barometric_Pressure_Trend  "Backyard Barometric Pressure Trend"                           (Backyard_Weather_Station)  ["Point"]                       {channel="mqtt:topic:26bcbec1ee:ccb02631ce:pressure_trend"}
 
-Number:Length Backyard_Daily_Rain "Daily rain [%.2f in]" <rain> (Backyard_Weather_Station) ["Measurement"] { channel="mqtt:topic:26bcbec1ee:ccb02631ce:rainTotalIN_today" }
-Number:Length Backyard_Rain "Rain [%.2f in]" <rain> (Backyard_Weather_Station) ["Measurement"] { channel="mqtt:topic:26bcbec1ee:ccb02631ce:rainIN" }
+Number:Length         Backyard_Daily_Rain                 "Daily rain [%.2f in]"                          <rain>         (Backyard_Weather_Station)  ["Measurement"]                 {channel="mqtt:topic:26bcbec1ee:ccb02631ce:rainTotalIN_today"}
+Number:Length         Backyard_Rain                       "Rain [%.2f in]"                                <rain>         (Backyard_Weather_Station)  ["Measurement"]                 {channel="mqtt:topic:26bcbec1ee:ccb02631ce:rainIN"}
 
-Number:Temperature Backyard_Dew_Point "Dew point [%.1f%unit%]" <temperature> (Backyard_Weather_Station) ["Measurement", "Temperature"] { unit="°F", channel="mqtt:topic:26bcbec1ee:ccb02631ce:dewptF" }
+Number:Temperature    Backyard_Dew_Point                  "Dew point [%.1f%unit%]"                        <temperature>  (Backyard_Weather_Station)  ["Measurement", "Temperature"]  {unit="°F", channel="mqtt:topic:26bcbec1ee:ccb02631ce:dewptF"}
 
-Number:Angle Backyard_Wind_Direction "Wind direction [%d°]" <wind> (Backyard_Weather_Station) ["Measurement"] { unit="°", channel="mqtt:topic:26bcbec1ee:24803daf2c:wind_dir_deg"}
-Number:Speed Backyard_Wind_Speed "Wind speed [%d %unit%]" <wind> (Backyard_Weather_Station) ["Measurement"] { unit="mph", channel="mqtt:topic:26bcbec1ee:24803daf2c:wind_avg_mi_h"}
-Number:Speed Backyard_Windgust "Windgust [%d %unit%]" <wind> (Backyard_Weather_Station) ["Measurement"] {channel="mqtt:topic:26bcbec1ee:ccb02631ce:windGustMPH"}
-Number:Angle Backyard_Windgust_Direction "Windgust direction [%dº]" <wind> (Backyard_Weather_Station) ["Measurement"] {channel="mqtt:topic:26bcbec1ee:ccb02631ce:windGustDEG"}
-Number:Speed Backyard_Windspeed_Average "Windspeed average [%d %unit%]" <wind> (Backyard_Weather_Station) ["Measurement"] {channel="mqtt:topic:26bcbec1ee:ccb02631ce:windAvgMPH"}
+Number:Angle          Backyard_Wind_Direction             "Wind direction [%d°]"                          <wind>         (Backyard_Weather_Station)  ["Measurement"]                 {unit="°", channel="mqtt:topic:26bcbec1ee:24803daf2c:wind_dir_deg"}
+Number:Speed          Backyard_Wind_Speed                 "Wind speed [%d %unit%]"                        <wind>         (Backyard_Weather_Station)  ["Measurement"]                 {unit="mph", channel="mqtt:topic:26bcbec1ee:24803daf2c:wind_avg_mi_h"}
+Number:Speed          Backyard_Windgust                   "Windgust [%d %unit%]"                          <wind>         (Backyard_Weather_Station)  ["Measurement"]                 {channel="mqtt:topic:26bcbec1ee:ccb02631ce:windGustMPH"}
+Number:Angle          Backyard_Windgust_Direction         "Windgust direction [%dº]"                      <wind>         (Backyard_Weather_Station)  ["Measurement"]                 {channel="mqtt:topic:26bcbec1ee:ccb02631ce:windGustDEG"}
+Number:Speed          Backyard_Windspeed_Average          "Windspeed average [%d %unit%]"                 <wind>         (Backyard_Weather_Station)  ["Measurement"]                 {channel="mqtt:topic:26bcbec1ee:ccb02631ce:windAvgMPH"}
 
-String Backyard_Weather_Updated_At "Updated at" (Backyard_Weather_Station) ["Point"] { channel="mqtt:topic:26bcbec1ee:ccb02631ce:lastUpdatedDate" }
+String                Backyard_Weather_Updated_At         "Updated at"                                                   (Backyard_Weather_Station)  ["Point"]                       {channel="mqtt:topic:26bcbec1ee:ccb02631ce:lastUpdatedDate"}
 
-Switch Backyard_Outdoor_Decorations_Switch "Backyard Outdoor Decorations" <lightbulb> (Backyard) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:684e150c79:switch_binary" }
+Switch  Backyard_Outdoor_Decorations_Switch  "Backyard Outdoor Decorations"  <lightbulb>  (Backyard)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:684e150c79:switch_binary"}
 
-Group Backyard_Lights "Backyard Lights" (Backyard) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
-Switch Backyard_Lights_Power "Backyard Lights Power" (Backyard_Lights) ["Switch"] { channel="mqtt:topic:26bcbec1ee:backyard_lights:switch", homekit="Lighting.OnState", alexa="PowerController.powerState", autoupdate="false" }
-Color Backyard_Lights_Color "Backyard Lights Color" (Backyard_Lights) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:backyard_lights:color_xy", homekit="Lighting.Hue, Lighting.Saturation", alexa="Endpoint.Light,ColorController.color", autoupdate="false" }
-Dimmer Backyard_Lights_Dimmer "Backyard Lights Dimmer" (Backyard_Lights) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:backyard_lights:brightness", homekit="Lighting.Brightness", alexa="BrightnessController.brightness", autoupdate="false" }
+Group   Backyard_Lights         "Backyard Lights"         (Backyard)         ["Lightbulb"]  {homekit="Lighting", alexa="Endpoint.Light"}
+Switch  Backyard_Lights_Power   "Backyard Lights Power"   (Backyard_Lights)  ["Switch"]     {channel="mqtt:topic:26bcbec1ee:backyard_lights:switch", homekit="Lighting.OnState", alexa="PowerController.powerState", autoupdate="false"}
+Color   Backyard_Lights_Color   "Backyard Lights Color"   (Backyard_Lights)  ["Lightbulb"]  {channel="mqtt:topic:26bcbec1ee:backyard_lights:color_xy", homekit="Lighting.Hue, Lighting.Saturation", alexa="Endpoint.Light,ColorController.color", autoupdate="false"}
+Dimmer  Backyard_Lights_Dimmer  "Backyard Lights Dimmer"  (Backyard_Lights)  ["Lightbulb"]  {channel="mqtt:topic:26bcbec1ee:backyard_lights:brightness", homekit="Lighting.Brightness", alexa="BrightnessController.brightness", autoupdate="false"}

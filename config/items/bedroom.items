@@ -1,40 +1,40 @@
-Group    SF_Bedroom     "Bedroom" <bedroom>       (SF)               ["Bedroom"]
+Group  SF_Bedroom  "Bedroom"  <bedroom>  (SF)  ["Bedroom"]
 
-Switch Bedroom_Wall_Outlet "Bedroom Outlet" <poweroutlet_us> (SF_Bedroom, Christmas_Lights, Christmas_Lights_All) ["WallSwitch"] { homekit="Outlet", alexa="Outlet", channel="mqtt:topic:26bcbec1ee:8aa3a1de8e:switch_binary" }
+Switch  Bedroom_Wall_Outlet  "Bedroom Outlet"  <poweroutlet_us>  (SF_Bedroom, Christmas_Lights, Christmas_Lights_All)  ["WallSwitch"]  {homekit="Outlet", alexa="Outlet", channel="mqtt:topic:26bcbec1ee:8aa3a1de8e:switch_binary"}
 
-Group Bedroom_Ceiling_Fan_With_Light "Bedroom Ceiling Fan With Light" (SF_Bedroom) ["CeilingFan"] { homekit="BasicFan,Lighting" }
-Switch Bedroom_Ceiling_Fan_Power "Bedroom Ceiling Fan Power" <fan_ceiling> (Bedroom_Ceiling_Fan_With_Light) ["Control"] { autoupdate="false", homekit="BasicFan.OnState" }
-Number Bedroom_Ceiling_Fan_Speed "Bedroom Ceiling Fan Speed" <fan_ceiling> (Bedroom_Ceiling_Fan_With_Light) ["Control"] { channel="bondhome:bondFan:ZZFG29355:fc689f4ca68ab358:fan#rawSpeed", autoupdate="false", homekit="BasicFan.RotationSpeed" [ minValue=0, maxValue=3 ] }
-Switch Bedroom_Ceiling_Fan_Light_Power "Bedroom Ceiling Fan Light" (Bedroom_Ceiling_Fan_With_Light) ["Switch"] { homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:fc689f4ca68ab358:light#power", autoupdate="false" }
+Group   Bedroom_Ceiling_Fan_With_Light   "Bedroom Ceiling Fan With Light"                 (SF_Bedroom)                      ["CeilingFan"]  {homekit="BasicFan,Lighting"}
+Switch  Bedroom_Ceiling_Fan_Power        "Bedroom Ceiling Fan Power"       <fan_ceiling>  (Bedroom_Ceiling_Fan_With_Light)  ["Control"]     {autoupdate="false", homekit="BasicFan.OnState"}
+Number  Bedroom_Ceiling_Fan_Speed        "Bedroom Ceiling Fan Speed"       <fan_ceiling>  (Bedroom_Ceiling_Fan_With_Light)  ["Control"]     {channel="bondhome:bondFan:ZZFG29355:fc689f4ca68ab358:fan#rawSpeed", autoupdate="false", homekit="BasicFan.RotationSpeed" [ minValue=0, maxValue=3 ]}
+Switch  Bedroom_Ceiling_Fan_Light_Power  "Bedroom Ceiling Fan Light"                      (Bedroom_Ceiling_Fan_With_Light)  ["Switch"]      {homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:fc689f4ca68ab358:light#power", autoupdate="false"}
 
-Group Bedroom_Table_Light (SF_Bedroom) ["PowerOutlet"]
-Switch Bedroom_Table_Light_Switch "Bedroom Table Light" <poweroutlet_us> (Bedroom_Table_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:6d6b292248:power", homekit="Lighting", alexa="Lighting" }
-Number:Power Bedroom_Table_Light_Watts "Bedroom Table Light Power" (Bedroom_Table_Light) ["Power"] { channel="mqtt:topic:26bcbec1ee:6d6b292248:currentPower" }
+Group         Bedroom_Table_Light                                                        (SF_Bedroom)           ["PowerOutlet"]
+Switch        Bedroom_Table_Light_Switch  "Bedroom Table Light"        <poweroutlet_us>  (Bedroom_Table_Light)  ["Switch"]       {channel="mqtt:topic:26bcbec1ee:6d6b292248:power", homekit="Lighting", alexa="Lighting"}
+Number:Power  Bedroom_Table_Light_Watts   "Bedroom Table Light Power"                    (Bedroom_Table_Light)  ["Power"]        {channel="mqtt:topic:26bcbec1ee:6d6b292248:currentPower"}
 
-Group Bedroom_Sarah_Light (SF_Bedroom) ["PowerOutlet"]
-Switch Bedroom_Sarah_Light_Switch "Bedroom Sarah Light" <poweroutlet_us> (Bedroom_Table_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:sarah_bedroom_table_light:switch", homekit="Lighting", alexa="Lighting" }
-Number:Power Bedroom_Sarah_Light_Watts "Bedroom Table Light Power" (Bedroom_Table_Light) ["Power"] { channel="mqtt:topic:26bcbec1ee:sarah_bedroom_table_light:power" }
+Group         Bedroom_Sarah_Light                                                        (SF_Bedroom)           ["PowerOutlet"]
+Switch        Bedroom_Sarah_Light_Switch  "Bedroom Sarah Light"        <poweroutlet_us>  (Bedroom_Table_Light)  ["Switch"]       {channel="mqtt:topic:26bcbec1ee:sarah_bedroom_table_light:switch", homekit="Lighting", alexa="Lighting"}
+Number:Power  Bedroom_Sarah_Light_Watts   "Bedroom Table Light Power"                    (Bedroom_Table_Light)  ["Power"]        {channel="mqtt:topic:26bcbec1ee:sarah_bedroom_table_light:power"}
 
-Group Bedroom_Remotes_Action (SF_Bedroom)
+Group  Bedroom_Remotes_Action  (SF_Bedroom)
 
-Group Bedroom_Sarah_Remote (SF_Bedroom) ["RemoteControl"]
-Number:Dimensionless Bedroom_Sarah_Remote_Battery "Bedroom Sarah Remote Battery [%d %%]" (Bedroom_Sarah_Remote) ["Measurement", "Battery"] {channel="mqtt:topic:26bcbec1ee:bedroom_sarah_remote:battery"}
+Group                 Bedroom_Sarah_Remote                                                  (SF_Bedroom)            ["RemoteControl"]
+Number:Dimensionless  Bedroom_Sarah_Remote_Battery  "Bedroom Sarah Remote Battery [%d %%]"  (Bedroom_Sarah_Remote)  ["Measurement", "Battery"]  {channel="mqtt:topic:26bcbec1ee:bedroom_sarah_remote:battery"}
 
-Group Bedroom_Table_Remote (SF_Bedroom) ["RemoteControl"]
-Number:Dimensionless Bedroom_Table_Remote_Battery "Bedroom Table Remote Battery [%d %%]" (Bedroom_Table_Remote) ["Measurement", "Battery"] { channel="mqtt:topic:26bcbec1ee:bedroom_table_remote:battery" }
+Group                 Bedroom_Table_Remote                                                  (SF_Bedroom)            ["RemoteControl"]
+Number:Dimensionless  Bedroom_Table_Remote_Battery  "Bedroom Table Remote Battery [%d %%]"  (Bedroom_Table_Remote)  ["Measurement", "Battery"]  {channel="mqtt:topic:26bcbec1ee:bedroom_table_remote:battery"}
 
-Group Bedroom_Keiths_Closet_Contact_Sensor_Group "Keith's Closet Contact Sensor" (SF_Bedroom) ["Door"] { homekit="ContactSensor" }
-Contact Bedroom_Keiths_Closet_Contact_Sensor "Keith's Closet Contact Sensor" (Bedroom_Keiths_Closet_Contact_Sensor_Group) ["OpenState"] { homekit="ContactSensor.ContactSensorState", channel="mqtt:topic:26bcbec1ee:7204377106:contact" }
-Switch Bedroom_Keiths_Closet_Contact_Battery_isLow "Keith's Closet Contact Sensor Battery" (Bedroom_Keiths_Closet_Contact_Sensor_Group) ["LowBattery"] { homekit="ContactSensor.BatteryLowStatus", channel="mqtt:topic:26bcbec1ee:7204377106:battery_low" }
+Group    Bedroom_Keiths_Closet_Contact_Sensor_Group   "Keith's Closet Contact Sensor"          (SF_Bedroom)                                  ["Door"]        {homekit="ContactSensor"}
+Contact  Bedroom_Keiths_Closet_Contact_Sensor         "Keith's Closet Contact Sensor"          (Bedroom_Keiths_Closet_Contact_Sensor_Group)  ["OpenState"]   {homekit="ContactSensor.ContactSensorState", channel="mqtt:topic:26bcbec1ee:7204377106:contact"}
+Switch   Bedroom_Keiths_Closet_Contact_Battery_isLow  "Keith's Closet Contact Sensor Battery"  (Bedroom_Keiths_Closet_Contact_Sensor_Group)  ["LowBattery"]  {homekit="ContactSensor.BatteryLowStatus", channel="mqtt:topic:26bcbec1ee:7204377106:battery_low"}
 
-Switch Bedroom_Keith_Closet_Light "Keith's Closet" (SF_Bedroom) ["Lighting"] { autoupdate="false", channel="mqtt:topic:26bcbec1ee:bedroom_keith_closet:binary_switch", homekit="Lighting", alexa="Lighting" }
+Switch  Bedroom_Keith_Closet_Light  "Keith's Closet"  (SF_Bedroom)  ["Lighting"]  {autoupdate="false", channel="mqtt:topic:26bcbec1ee:bedroom_keith_closet:binary_switch", homekit="Lighting", alexa="Lighting"}
 
-Group Bedroom_Sarahs_Closet_Contact_Sensor_Group "Sarah's Closet Contact Sensor" (SF_Bedroom) ["Door"] { homekit="ContactSensor" }
-Contact Bedroom_Sarahs_Closet_Contact_Sensor "Sarah's Closet Contact Sensor" (Bedroom_Sarahs_Closet_Contact_Sensor_Group) ["OpenState"] { homekit="ContactSensor.ContactSensorState", channel="mqtt:topic:26bcbec1ee:11c844735f:contact" }
-Switch Bedroom_Sarahs_Closet_Contact_Battery_isLow "Sarah's Closet Contact Sensor Battery" (Bedroom_Sarahs_Closet_Contact_Sensor_Group) ["LowBattery"] { homekit="ContactSensor.BatteryLowStatus", channel="mqtt:topic:26bcbec1ee:11c844735f:battery_low" }
+Group    Bedroom_Sarahs_Closet_Contact_Sensor_Group   "Sarah's Closet Contact Sensor"          (SF_Bedroom)                                  ["Door"]        {homekit="ContactSensor"}
+Contact  Bedroom_Sarahs_Closet_Contact_Sensor         "Sarah's Closet Contact Sensor"          (Bedroom_Sarahs_Closet_Contact_Sensor_Group)  ["OpenState"]   {homekit="ContactSensor.ContactSensorState", channel="mqtt:topic:26bcbec1ee:11c844735f:contact"}
+Switch   Bedroom_Sarahs_Closet_Contact_Battery_isLow  "Sarah's Closet Contact Sensor Battery"  (Bedroom_Sarahs_Closet_Contact_Sensor_Group)  ["LowBattery"]  {homekit="ContactSensor.BatteryLowStatus", channel="mqtt:topic:26bcbec1ee:11c844735f:battery_low"}
 
-Switch Bedroom_Sarah_Closet_Light "Sarah's Closet" (SF_Bedroom) ["Lighting"] { autoupdate="false", channel="mqtt:topic:26bcbec1ee:bedroom_sarah_closet:binary_switch", homekit="Lighting", alexa="Lighting" }
+Switch  Bedroom_Sarah_Closet_Light  "Sarah's Closet"  (SF_Bedroom)  ["Lighting"]  {autoupdate="false", channel="mqtt:topic:26bcbec1ee:bedroom_sarah_closet:binary_switch", homekit="Lighting", alexa="Lighting"}
 
-Group Bedroom_Scene_Switch_Group "Bedroom Scene Switch" <switch> (SF_Bedroom)
-Switch Bedroom_Hallway_Light_Switch "Bedroom Hallway Light" <switch> (Bedroom_Scene_Switch_Group) ["Point"] { channel="mqtt:topic:26bcbec1ee:162a22c6ce:switch_binary", homekit="Lighting", alexa="Lighting" }
+Group   Bedroom_Scene_Switch_Group    "Bedroom Scene Switch"   <switch>  (SF_Bedroom)
+Switch  Bedroom_Hallway_Light_Switch  "Bedroom Hallway Light"  <switch>  (Bedroom_Scene_Switch_Group)  ["Point"]  {channel="mqtt:topic:26bcbec1ee:162a22c6ce:switch_binary", homekit="Lighting", alexa="Lighting"}
 
