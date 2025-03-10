@@ -18,11 +18,9 @@ module Weather
                  wind_chill(temp:, wind_speed:)
                elsif temp >= 80
                  heat_index(temp:, humidity: humidity.to_i)
-               else
-                 temp
                end
 
-      result.round(1)
+      result&.round(1) || temp
     end
 
     private
