@@ -18,3 +18,7 @@ changed(Backyard_Temperature, Backyard_Humidity, Backyard_Wind_Speed) do
     )
   )
 end
+
+changed(Backyard_Temperature, Backyard_Humidity) do
+  Backyard_Dew_Point.update(Weather.dew_point(temp: Backyard_Temperature.state, humidity: Backyard_Humidity.state))
+end

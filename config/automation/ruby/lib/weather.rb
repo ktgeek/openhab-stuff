@@ -23,7 +23,23 @@ module Weather
       result&.round(1) || temp
     end
 
+    # Calculates the dew point based on temperature and humidity
+    # Formulate from https://en.wikipedia.org/wiki/Dew_point
+    # temp is in Fahrenheit
+    def dew_point(temp:, humidity:)
+      t = f_to_c(temp.to_f)
+
+      n = Math.log(humidity.to_i / 100.0) + ((DP_B * t) / (DP_C + t))
+      td = (DP_C * n) / (DP_B - n)
+
+      c_to_f(td).round(1)
+    end
+
     private
+
+    # Constants used in the dew point calculation
+    DP_B = 17.625
+    DP_C = 243.04
 
     # Calculates the head index based on temperature and humidity
     # @param temp [Float] Temperature in Fahrenheit
@@ -53,6 +69,14 @@ module Weather
 
       wind_pow = wind_speed**0.16
       35.74 + (0.6215 * temp) - (35.75 * wind_pow) + (0.4275 * temp * wind_pow)
+    end
+
+    def f_to_c(temp)
+      (temp - 32.0) * 5 / 9
+    end
+
+    def c_to_f(temp)
+      (temp * 9.0 / 5) + 32
     end
   end
 end
