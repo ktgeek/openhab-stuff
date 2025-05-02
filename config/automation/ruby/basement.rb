@@ -126,20 +126,20 @@ rule "when the exercise room door is open" do
   only_if { Hiome_Basement_Occupancy_Count.state < 1 }
 end
 
-channel("scene_1", thing: Exercise_Room_Dimmer.thing, triggered: ZWave::PADDLE_TWO_CLICKS) do
+channel("scene_1", thing: Exercise_Room_Dimmer.thing, triggered: ZWave::Paddle::TWO_CLICKS) do
   Basement_Stairs_Switch.ensure.on
 end
 
-channel("scene_1", thing: Exercise_Room_Dimmer.thing, triggered: ZWave::PADDLE_THREE_CLICKS) do
+channel("scene_1", thing: Exercise_Room_Dimmer.thing, triggered: ZWave::Paddle::THREE_CLICKS) do
   Exercise_Room_Bike_Trainer_Enabled.on
   Exercise_Room_Bike_Trainer_Switch.ensure.on
 end
 
-channel("scene_2", thing: Exercise_Room_Dimmer.thing, triggered: ZWave::PADDLE_TWO_CLICKS) do
+channel("scene_2", thing: Exercise_Room_Dimmer.thing, triggered: ZWave::Paddle::TWO_CLICKS) do
   Basement_Stairs_Switch.ensure.off
 end
 
-channel("scene_2", thing: Exercise_Room_Dimmer.thing, triggered: ZWave::PADDLE_THREE_CLICKS) do
+channel("scene_2", thing: Exercise_Room_Dimmer.thing, triggered: ZWave::Paddle::THREE_CLICKS) do
   Exercise_Room_Bike_Trainer_Enabled.off
   Exercise_Room_Bike_Trainer_Switch.ensure.off
 end
