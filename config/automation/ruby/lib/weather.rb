@@ -35,6 +35,13 @@ module Weather
       c_to_f(td).round(1)
     end
 
+    def post_to_weather_services(params)
+      station_id = OpenHAB::Core::Actions::Transformation.transform("MAP", "weather_secrets.map", "station_id")
+      response = post_to_pwsweather(station_id:, params: )
+      logger.info("PWSWeather response: #{response}")
+
+    end
+
     private
 
     # Constants used in the dew point calculation
@@ -78,5 +85,16 @@ module Weather
     def c_to_f(temp)
       (temp * 9.0 / 5) + 32
     end
+    def post_to_pwsweather(station_id:, params:)
+      params[:ID] = station_id
+      params[:PASSWORD] = OpenHAB::Core::Actions::Transformation.transform("MAP", "weather_secrets.map", "pws_key")
+
+      url = URI("https://pwsupdate.pwsweather.com/api/v1/submitwx")
+      url.query = URI.encode_www_form(params)
+
+      response = Net::HTTP.get_response(url)
+      response.body
+    end
+
   end
 end
