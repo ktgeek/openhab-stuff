@@ -9,11 +9,8 @@ channel("scene_1", thing: BACKYARD_LIGHT_SWITCHES, triggered: ZWave::Paddle::CLI
 
 channel("scene_2", thing: BACKYARD_LIGHT_SWITCHES, triggered: ZWave::Paddle::CLICK) { Backyard_Lights_Power.ensure.off }
 
-rule "core weather data has changed" do
-  changed Backyard_Temperature, Backyard_Humidity, Backyard_Wind_Speed
-
-  delay 3.seconds
-  run do
+changed(Backyard_Temperature, Backyard_Humidity, Backyard_Wind_Speed) do
+  after(3.seconds, id: "update_feels_like", reschedule: false) do
     Backyard_FeelsLike_Temperature.update(
       Weather.feels_like(
         temp: Backyard_Temperature.state,
@@ -35,7 +32,8 @@ every 1.minute do
     humidity: Backyard_Humidity.state.to_i,
     baromin: Backyard_Barometric_Pressure.state.to_f,
     winddir: Backyard_Wind_Direction.state.to_i,
-    windspeedmph: Backyard_Wind_Speed.average_since(2.minutes.ago).to_f,
+    windspeedmph: Backyard_Wind_Speed.state.to_f,
+    windspdmph_avg2m: Backyard_Wind_Speed.average_since(2.minutes.ago).to_f,
     windgustmph: Backyard_Wind_Speed.maximum_since(60.minutes.ago).to_f,
     rainin: Backyard_Rain.sum_since(1.hour.ago).to_i,
     dewptf: Backyard_Dew_Point.state.to_f,

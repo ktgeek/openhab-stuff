@@ -37,9 +37,13 @@ module Weather
 
     def post_to_weather_services(params)
       station_id = OpenHAB::Core::Actions::Transformation.transform("MAP", "weather_secrets.map", "station_id")
-      response = post_to_pwsweather(station_id:, params: )
-      logger.info("PWSWeather response: #{response}")
+      params[:ID] = station_id
 
+      response = post_to_pwsweather(params: params.dup)
+      logger.debug { "PWSWeather response: #{response}" }
+
+      response = post_to_wunderground(params: params.dup)
+      logger.debug { "Wunderground response: #{response}" }
     end
 
     private
@@ -85,16 +89,32 @@ module Weather
     def c_to_f(temp)
       (temp * 9.0 / 5) + 32
     end
-    def post_to_pwsweather(station_id:, params:)
-      params[:ID] = station_id
+
+    def post_to_pwsweather(params:)
+      logger.debug { "Posting to PWSWeather with params: #{params}" }
       params[:PASSWORD] = OpenHAB::Core::Actions::Transformation.transform("MAP", "weather_secrets.map", "pws_key")
 
-      url = URI("https://pwsupdate.pwsweather.com/api/v1/submitwx")
-      url.query = URI.encode_www_form(params)
-
-      response = Net::HTTP.get_response(url)
-      response.body
+      post_to_service_frd(url: "https://www.pwsweather.com/pwsupdate/pwsupdate.php", params:)
     end
 
+    def post_to_wunderground(params:)
+      params[:action] = "updateraw"
+      logger.debug { "Posting to Wunderground with params: #{params}" }
+
+      params[:PASSWORD] = OpenHAB::Core::Actions::Transformation.transform("MAP", "weather_secrets.map", "wu_password")
+
+      post_to_service_frd(
+        url: "https://weatherstation.wunderground.com/weatherstation/updateweatherstation.php",
+        params:
+      )
+    end
+
+    def post_to_service_frd(url:, params:)
+      uri = URI(url)
+      uri.query = URI.encode_www_form(params)
+
+      response = Net::HTTP.get_response(uri)
+      response.body
+    end
   end
 end
