@@ -6,60 +6,66 @@ ensure_states!
 
 TEMP_SETTINGS = {
   FF_Thermostat => {
-    day_temp: 73,
-    night_temp: 65,
-    week: { day_start: "6am", night_start: "9:30pm" },
-    weekend: { day_start: "7:00am", night_start: "10:15pm" }
+    temps: {
+      ZWave::Thermostat::Mode::HEAT => { day: 73, night: 65 }
+    },
+    schedule: [
+      { name: "weekday", days: %i[monday tuesday wednesday thursday friday], day_start: "6am", night_start: "9:30pm",
+        mode: ZWave::Thermostat::Mode::HEAT },
+      { name: "weekend", days: %i[saturday sunday], day_start: "7:00am", night_end: "10:15pm",
+        mode: ZWave::Thermostat::Mode::HEAT }
+    ]
   },
   SF_Thermostat => {
-    day_temp: 73,
-    night_temp: 68,
-    week: { day_start: "5:15am", night_start: "9:30pm" },
-    weekend: { day_start: "7:15am", night_start: "10:15pm" }
+    temps: {
+      ZWave::Thermostat::Mode::HEAT => { day: 73, night: 68 }
+    },
+    schedule: [
+      { name: "weekday", days: %i[monday tuesday wednesday thursday friday], day_start: "5:15am",
+        night_start: "9:30pm", mode: ZWave::Thermostat::Mode::HEAT },
+      { name: "weekend", days: %i[saturday sunday], day_start: "7:15am", night_start: "10:15pm",
+        mode: ZWave::Thermostat::Mode::HEAT }
+    ]
   }
 }.freeze
 
 TEMP_SETTINGS.each do |thermostat, tsettings|
-  name = thermostat.name
-  set_point = items["#{name}_Min_Set_Point"]
-  mode = items["#{name}_Mode"]
+  thermostat_name = thermostat.name
+  set_point = items["#{thermostat_name}_Min_Set_Point"]
+  thermostat_mode = items["#{thermostat_name}_Mode"]
 
-  rule "weekday morning #{name} temp change" do
-    every :monday, :tuesday, :wednesday, :thursday, :friday, at: tsettings.dig(:week, :day_start)
-    run { set_point.command(tsettings[:day_temp]) }
-    only_if { mode.state == ZWave::Thermostat::Mode::HEAT }
-  end
+  tsettings[:schedule].each do |schedule|
+    rule "#{thermostat_name} #{schedule[:name]} day temp change" do
+      every(*schedule[:days], at: schedule[:day_start])
+      run { set_point.command(tsettings.dig(:temps, schedule[:mode], :day)) }
+      only_if { thermostat_mode.state.to_i == schedule[:mode] }
+    end
 
-  rule "weekday evening #{name} temp change" do
-    every :monday, :tuesday, :wednesday, :thursday, :friday, at: tsettings.dig(:week, :night_start)
-    run { set_point.command(tsettings[:night_temp]) }
-    only_if { mode.state == ZWave::Thermostat::Mode::HEAT }
-  end
-
-  rule "weekend morning #{name} temp change" do
-    every :saturday, :sunday, at: tsettings.dig(:weekend, :day_start)
-    run { set_point.command(tsettings[:day_temp]) }
-    only_if { mode.state == ZWave::Thermostat::Mode::HEAT }
-  end
-
-  rule "weekend evening #{name} temp change" do
-    every :saturday, :sunday, at: tsettings.dig(:weekend, :night_start)
-    run { set_point.command(tsettings[:night_temp]) }
-    only_if { mode.state == ZWave::Thermostat::Mode::HEAT }
+    rule "#{thermostat_name} #{schedule[:name]} night temp change" do
+      every(*schedule[:days], at: schedule[:night_start])
+      run { set_point.command(tsettings.dig(:temps, schedule[:mode], :night_temp)) }
+      only_if { thermostat_mode.state.to_i == schedule[:mode] }
+    end
   end
 end
 
-changed(FF_Thermostat_Mode, SF_Thermostat_Mode, to: ZWave::Thermostat::Mode::HEAT) do |event|
-  item = event.item
-  set_point = items["#{item.groups.first.name}_Min_Set_Point"]
+changed(FF_Thermostat_Mode, SF_Thermostat_Mode) do |event|
+  thermostat = event.item.groups.first
+  tsetting = TEMP_SETTINGS[thermostat]
 
   time = Time.now
-  times = TEMP_SETTINGS.dig(item, (time.weekend? ? :weekend : :week))
+  day_of_week = time.strftime("%A").downcase!.to_sym
+
+  schedule = tsetting[:schedule].find { |s| s[:mode] == event.state.to_i && s[:days].include?(day_of_week) }
+
+  next unless schedule
+
+  set_point = items["#{thermostat.name}_Min_Set_Point"]
 
   case time
-  when between(times[:day_start]..times[:night_start])
-    set_point.command(TEMP_SETTINGS.dig(item, :day_temp))
-  when between(times[:night_start]..times[:day_start])
-    set_point.command(TEMP_SETTINGS.dig(item, :night_temp))
+  when between(schedule[:day_start]..schedule[:night_start])
+    set_point.command(tsetting[:day_temp])
+  when between(schedule[:night_start]..schedule[:day_start])
+    set_point.command(tsetting[:night_temp])
   end
 end
