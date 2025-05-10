@@ -6,25 +6,41 @@ ensure_states!
 
 TEMP_SETTINGS = {
   FF_Thermostat => {
-    temps: {
-      ZWave::Thermostat::Mode::HEAT => { day: 73, night: 65 }
-    },
+    temps: { ZWave::Thermostat::Mode::HEAT => { day: 73, night: 65 } },
     schedule: [
-      { name: "weekday", days: %i[monday tuesday wednesday thursday friday], day_start: "6am", night_start: "9:30pm",
-        mode: ZWave::Thermostat::Mode::HEAT },
-      { name: "weekend", days: %i[saturday sunday], day_start: "7:00am", night_end: "10:15pm",
-        mode: ZWave::Thermostat::Mode::HEAT }
+      {
+        name: "weekday",
+        days: %i[monday tuesday wednesday thursday friday],
+        day_start: "6am",
+        night_start: "9:30pm",
+        mode: ZWave::Thermostat::Mode::HEAT
+      },
+      {
+        name: "weekend",
+        days: %i[saturday sunday],
+        day_start: "7:00am",
+        night_end: "10:15pm",
+        mode: ZWave::Thermostat::Mode::HEAT
+      }
     ]
   },
   SF_Thermostat => {
-    temps: {
-      ZWave::Thermostat::Mode::HEAT => { day: 73, night: 68 }
-    },
+    temps: { ZWave::Thermostat::Mode::HEAT => { day: 73, night: 68 } },
     schedule: [
-      { name: "weekday", days: %i[monday tuesday wednesday thursday friday], day_start: "5:15am",
-        night_start: "9:30pm", mode: ZWave::Thermostat::Mode::HEAT },
-      { name: "weekend", days: %i[saturday sunday], day_start: "7:15am", night_start: "10:15pm",
-        mode: ZWave::Thermostat::Mode::HEAT }
+      {
+        name: "weekday",
+        days: %i[monday tuesday wednesday thursday friday],
+        day_start: "5:15am",
+        night_start: "9:30pm",
+        mode: ZWave::Thermostat::Mode::HEAT
+      },
+      {
+        name: "weekend",
+        days: %i[saturday sunday],
+        day_start: "7:15am",
+        night_start: "10:15pm",
+        mode: ZWave::Thermostat::Mode::HEAT
+      }
     ]
   }
 }.freeze
