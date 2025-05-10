@@ -68,6 +68,8 @@ TEMP_SETTINGS.each do |thermostat, tsettings|
 end
 
 changed(FF_Thermostat_Mode, SF_Thermostat_Mode) do |event|
+  next if event.state.to_i == ZWave::Thermostat::Mode::OFF
+
   thermostat = event.item.groups.first
   tsetting = TEMP_SETTINGS[thermostat]
   mode = event.state.to_i
