@@ -35,15 +35,17 @@ TEMP_SETTINGS.each do |thermostat, tsettings|
   thermostat_mode = items["#{thermostat_name}_Mode"]
 
   tsettings[:schedule].each do |schedule|
+    temps = tsettings.dig(:temps, schedule[:mode])
+
     rule "#{thermostat_name} #{schedule[:name]} day temp change" do
       every(*schedule[:days], at: schedule[:day_start])
-      run { set_point.command(tsettings.dig(:temps, schedule[:mode], :day)) }
+      run { set_point.command(temps[:day]) }
       only_if { thermostat_mode.state.to_i == schedule[:mode] }
     end
 
     rule "#{thermostat_name} #{schedule[:name]} night temp change" do
       every(*schedule[:days], at: schedule[:night_start])
-      run { set_point.command(tsettings.dig(:temps, schedule[:mode], :night_temp)) }
+      run { set_point.command(temps[:night]) }
       only_if { thermostat_mode.state.to_i == schedule[:mode] }
     end
   end
@@ -52,20 +54,22 @@ end
 changed(FF_Thermostat_Mode, SF_Thermostat_Mode) do |event|
   thermostat = event.item.groups.first
   tsetting = TEMP_SETTINGS[thermostat]
+  mode = event.state.to_i
 
   time = Time.now
   day_of_week = time.strftime("%A").downcase!.to_sym
 
-  schedule = tsetting[:schedule].find { |s| s[:mode] == event.state.to_i && s[:days].include?(day_of_week) }
+  schedule = tsetting[:schedule].find { |s| s[:mode] == mode && s[:days].include?(day_of_week) }
 
   next unless schedule
 
   set_point = items["#{thermostat.name}_Min_Set_Point"]
+  temps = tsetting.dig(:temps, mode)
 
   case time
   when between(schedule[:day_start]..schedule[:night_start])
-    set_point.command(tsetting[:day_temp])
+    set_point.command(temps[:day])
   when between(schedule[:night_start]..schedule[:day_start])
-    set_point.command(tsetting[:night_temp])
+    set_point.command(temps[:night])
   end
 end
