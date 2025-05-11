@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "zwave"
+require "time_helpers"
 
 ensure_states!
 
@@ -75,9 +76,7 @@ changed(FF_Thermostat_Mode, SF_Thermostat_Mode) do |event|
   mode = event.state.to_i
 
   time = Time.now
-  day_of_week = time.strftime("%A").downcase!.to_sym
-
-  schedule = tsetting[:schedule].find { |s| s[:mode] == mode && s[:days].include?(day_of_week) }
+  schedule = tsetting[:schedule].find { |s| s[:mode] == mode && s[:days].include?(TimeHelpers::DAY_OF_WEEK[time.wday]) }
 
   next unless schedule
 
