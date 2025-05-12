@@ -10,17 +10,31 @@ TEMP_SETTINGS = {
     temps: { ZWave::Thermostat::Mode::HEAT => { day: 73, night: 65 } },
     schedule: [
       {
+        name: "sunday",
+        days: %i[sunday],
+        day_start: "7:15am",
+        night_start: "9:30pm",
+        mode: ZWave::Thermostat::Mode::HEAT
+      },
+      {
         name: "weekday",
-        days: %i[monday tuesday wednesday thursday friday],
+        days: %i[monday tuesday wednesday thursday],
         day_start: "6am",
         night_start: "9:30pm",
         mode: ZWave::Thermostat::Mode::HEAT
       },
       {
-        name: "weekend",
-        days: %i[saturday sunday],
-        day_start: "7:00am",
-        night_end: "10:15pm",
+        name: "friday",
+        days: %i[friday],
+        day_start: "6am",
+        night_start: "10:15pm",
+        mode: ZWave::Thermostat::Mode::HEAT
+      },
+      {
+        name: "saturday",
+        days: %i[saturday],
+        day_start: "7:15am",
+        night_start: "10:15pm",
         mode: ZWave::Thermostat::Mode::HEAT
       }
     ]
@@ -29,16 +43,30 @@ TEMP_SETTINGS = {
     temps: { ZWave::Thermostat::Mode::HEAT => { day: 73, night: 68 } },
     schedule: [
       {
+        name: "sunday",
+        days: %i[sunday],
+        day_start: "7:00am",
+        night_start: "9:30pm",
+        mode: ZWave::Thermostat::Mode::HEAT
+      },
+      {
         name: "weekday",
-        days: %i[monday tuesday wednesday thursday friday],
+        days: %i[monday tuesday wednesday thursday],
         day_start: "5:15am",
         night_start: "9:30pm",
         mode: ZWave::Thermostat::Mode::HEAT
       },
       {
-        name: "weekend",
-        days: %i[saturday sunday],
-        day_start: "7:15am",
+        name: "friday",
+        days: %i[friday],
+        day_start: "5:15am",
+        night_start: "10:15pm",
+        mode: ZWave::Thermostat::Mode::HEAT
+      },
+      {
+        name: "saturday",
+        days: %i[saturday],
+        day_start: "7:00am",
         night_start: "10:15pm",
         mode: ZWave::Thermostat::Mode::HEAT
       }
