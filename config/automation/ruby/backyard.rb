@@ -3,6 +3,8 @@
 require "zwave"
 require "weather"
 
+no_update_notification_sent = false
+
 BACKYARD_LIGHT_SWITCHES = [Kitchen_Backyard_Lights_Switch.thing, FamilyRoom_Backyard_Lights_Switch.thing].freeze
 
 channel("scene_1", thing: BACKYARD_LIGHT_SWITCHES, triggered: ZWave::Paddle::CLICK) { Backyard_Lights_Power.ensure.on }
@@ -22,10 +24,24 @@ changed(Backyard_Temperature, Backyard_Humidity, Backyard_Wind_Speed) do
 end
 
 changed(Backyard_Temperature, Backyard_Humidity) do
-  Backyard_Dew_Point.update(Weather.dew_point(temp: Backyard_Temperature.state, humidity: Backyard_Humidity.state))
+  after(3.seconds, id: "update_dew_point", reschedule: false) do
+    Backyard_Dew_Point.update(Weather.dew_point(temp: Backyard_Temperature.state, humidity: Backyard_Humidity.state))
+  end
 end
 
 every 1.minute do
+  last_update = Backyard_Last_Updated.state
+
+  if last_update < 2.hours.ago && !no_update_notification_sent
+    logger.info("Backyard weather not updated in hours, last update: #{last_update}")
+    Notification.send("Backyard weather not updated in hours, last update: #{last_update}")
+    no_update_notification_sent = true
+  end
+
+  next if last_update < 1.minute.ago
+
+  no_update_notification_sent = false
+
   params = {
     dateutc: Time.now.utc.strftime("%Y-%m-%d %H:%M:%S"),
     tempf: Backyard_Temperature.state.to_f,

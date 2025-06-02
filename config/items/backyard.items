@@ -13,6 +13,8 @@ Number:Speed          Backyard_Wind_Speed                 "Wind speed [%d %unit%
 Number:Speed          Backyard_Windgust                   "Windgust [%d %unit%]"                          <wind>         (Backyard_Weather_Station)  ["Measurement"]                 {unit="mph"}
 Number:Dimensionless  Backyard_UV                         "UV index [%d]"                                 <sun>          (Backyard_Weather_Station)  ["Measurement"]                 {channel="mqtt:topic:26bcbec1ee:24803daf2c:uv"}
 
+DateTime              Backyard_Last_Updated              "Station Last Updated" <time>        (Backyard_Weather_Station)  ["Measurement"]                 {channel="mqtt:topic:26bcbec1ee:24803daf2c:time"}
+
 Switch  Backyard_Outdoor_Decorations_Switch  "Backyard Outdoor Decorations"  <lightbulb>  (Backyard)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:684e150c79:switch_binary"}
 
 Group   Backyard_Lights         "Backyard Lights"         (Backyard)         ["Lightbulb"]  {homekit="Lighting", alexa="Endpoint.Light"}
