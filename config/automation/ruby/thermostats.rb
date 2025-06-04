@@ -101,8 +101,10 @@ changed(FF_Thermostat_Mode, SF_Thermostat_Mode) do |event|
   mode = event.state.to_i
   mode_setting = TEMP_SETTINGS.dig(thermostat, mode)
 
+  next unless mode_setting
+
   time = Time.now
-  schedule = mode_setting[:schedule].find { |s| s[:days].include?(TimeHelpers::DAY_OF_WEEK[time.wday]) }
+  schedule = mode_setting[:schedule]&.find { |s| s[:days].include?(TimeHelpers::DAY_OF_WEEK[time.wday]) }
 
   next unless schedule
 
