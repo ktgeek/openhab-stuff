@@ -5,11 +5,12 @@ require "weather"
 
 no_update_notification_sent = false
 
-BACKYARD_LIGHT_SWITCHES = [Kitchen_Backyard_Lights_Switch.thing, FamilyRoom_Backyard_Lights_Switch.thing].freeze
-
-channel("scene_1", thing: BACKYARD_LIGHT_SWITCHES, triggered: ZWave::Paddle::CLICK) { Backyard_Lights_Power.ensure.on }
-
-channel("scene_2", thing: BACKYARD_LIGHT_SWITCHES, triggered: ZWave::Paddle::CLICK) { Backyard_Lights_Power.ensure.off }
+channel("scene_1", thing: Kitchen_Backyard_Lights_Switch.thing, triggered: ZWave::Paddle::CLICK) do
+  Backyard_Lights_Power.ensure.on
+end
+channel("scene_2", thing: Kitchen_Backyard_Lights_Switch.thing, triggered: ZWave::Paddle::CLICK) do
+  Backyard_Lights_Power.ensure.off
+end
 
 changed(Backyard_Temperature, Backyard_Humidity, Backyard_Wind_Speed) do
   after(3.seconds, id: "update_feels_like", reschedule: false) do
