@@ -70,12 +70,18 @@ TEMP_SETTINGS = {
   }
 }.freeze
 
+SETPOINTS = {
+  ZWave::Thermostat::Mode::HEAT => "Heat_Setpoint",
+  ZWave::Thermostat::Mode::COOL => "Cool_Setpoint"
+}
+
 TEMP_SETTINGS.each do |thermostat, tsettings|
   thermostat_name = thermostat.name
-  set_point = items["#{thermostat_name}_Min_Set_Point"]
   thermostat_mode = items["#{thermostat_name}_Mode"]
 
   tsettings.each do |mode, mode_settings|
+    set_point = items["#{thermostat_name}_#{SETPOINTS[mode]}"]
+
     mode_settings[:schedule].each do |schedule|
       temps = mode_settings[:temps]
 
@@ -108,7 +114,7 @@ changed(FF_Thermostat_Mode, SF_Thermostat_Mode) do |event|
 
   next unless schedule
 
-  set_point = items["#{thermostat.name}_Min_Set_Point"]
+  set_point = items["#{thermostat.name}_#{SETPOINTS[mode]}"]
   temps = mode_setting[:temps]
 
   case time

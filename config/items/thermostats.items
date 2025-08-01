@@ -1,23 +1,17 @@
-Group                 FF_Thermostat                "First Floor Thermostat"                               (FF_Dining)      ["Equipment"]                         {homekit="Thermostat"}
-Number:Temperature    FF_Thermostat_CurrentTemp    "First Floor Thermostat Current Temperature"           (FF_Thermostat)  ["Measurement", "Temperature"]        {unit="°F", homekit="CurrentTemperature", channel="mqtt:topic:26bcbec1ee:first_floor_thermostat:temperature"}
-Number:Dimensionless  FF_Thermostat_Humidity       "First Floor Humidity"                                 (FF_Dining)      ["Measurement", "Humidity"]           {unit="%", homekit="HumiditySensor", channel="mqtt:topic:26bcbec1ee:first_floor_thermostat:humidity"}
-
-Number:Temperature    FF_Thermostat_Max_Set_Point  "First Floor Thermostat Max set point"                 (FF_Thermostat)  ["Setpoint", "Temperature", "COOL"]   {unit="°F", autoupdate="true", homekit="CoolingThresholdTemperature", channel="mqtt:topic:26bcbec1ee:first_floor_thermostat:setpoint_cooling"}
-Number:Temperature    FF_Thermostat_Min_Set_Point  "First Floor Thermostat Min set point"                 (FF_Thermostat)  ["Setpoint", "Temperature", "HEAT"]   {unit="°F", autoupdate="true", homekit="HeatingThresholdTemperature", channel="mqtt:topic:26bcbec1ee:first_floor_thermostat:setpoint_heating"}
-
-Number                FF_Thermostat_Mode           "First Floor Thermostat Heating/Cooling Mode"          (FF_Thermostat)  ["Point"]                             {homekit="TargetHeatingCoolingMode" [OFF="0", HEAT="1", COOL="2", AUTO="3"], autoupdate="true", channel="mqtt:topic:26bcbec1ee:first_floor_thermostat:mode"}
-
-Number                FF_Thermostat_Current_Mode   "First Floor Thermostat Current Heating/Cooling Mode"  (FF_Thermostat)  ["Point"]                             {homekit="CurrentHeatingCoolingMode" [OFF="0", HEAT="1", COOL="2"], channel="mqtt:topic:26bcbec1ee:first_floor_thermostat:state"}
+Group                 FF_Thermostat                "First Floor Thermostat"                        (FF_Dining)      ["HVAC"]                        {matter="Thermostat"}
+Number:Temperature    FF_Thermostat_CurrentTemp    "First Floor Thermostat Temperature [%d °F]"    (FF_Thermostat)  ["Measurement", "Temperature"]  {matter="thermostat.localTemperature", unit="°F", channel="mqtt:topic:26bcbec1ee:first_floor_thermostat:temperature"}
+Number:Temperature    FF_Thermostat_Heat_Setpoint  "First Floor Thermostat Heat Setpoint [%d °F]"  (FF_Thermostat)  ["Setpoint", "Temperature"]     {matter="thermostat.occupiedHeatingSetpoint", unit="°F", channel="mqtt:topic:26bcbec1ee:first_floor_thermostat:setpoint_heating"}
+Number:Temperature    FF_Thermostat_Cool_Setpoint  "First Floor Thermostat Cool Setpoint [%d °F]"  (FF_Thermostat)  ["Setpoint", "Temperature"]     {matter="thermostat.occupiedCoolingSetpoint", unit="°F", channel="mqtt:topic:26bcbec1ee:first_floor_thermostat:setpoint_cooling"}
+Number                FF_Thermostat_Mode           "First Floor Thermostat Mode [%s]"              (FF_Thermostat)  ["Control"]                     {matter="thermostat.systemMode" [OFF="0", HEAT="1", COOL="2", AUTO="3"], channel="mqtt:topic:26bcbec1ee:first_floor_thermostat:mode"}
+Number                FF_Thermostat_Current_Mode   "First Floor Thermostat Current Mode [%s]"      (FF_Thermostat)  ["Point"]                       {matter="thermostat.runningMode" [OFF="0", HEAT="1", COOL="2"], channel="mqtt:topic:26bcbec1ee:first_floor_thermostat:state"}
+Number:Dimensionless  FF_Thermostat_Humidity       "First Floor Humidity"                          (FF_Dining)      ["Measurement", "Humidity"]     {unit="%", homekit="HumiditySensor", channel="mqtt:topic:26bcbec1ee:first_floor_thermostat:humidity"}
 
 // ---
 
-Group                 SF_Thermostat                "Upstairs Thermostat"                               (SF_Hallway)     ["Equipment"]                        {homekit="Thermostat"}
-Number:Temperature    SF_Thermostat_CurrentTemp    "Upstairs Thermostat Current Temperature"           (SF_Thermostat)  ["Measurement", "Temperature"]       {unit="°F", homekit="CurrentTemperature", channel="mqtt:topic:26bcbec1ee:upstairs_thermostat:temperature"}
-Number:Dimensionless  SF_Thermostat_Humidity       "Upstairs Humidity"                                 (SF_Hallway)     ["Measurement", "Humidity"]          {unit="%", homekit="HumiditySensor", channel="mqtt:topic:26bcbec1ee:upstairs_thermostat:humidity"}
-
-Number:Temperature    SF_Thermostat_Max_Set_Point  "Upstairs Thermostat Max set point"                 (SF_Thermostat)  ["Setpoint", "Temperature", "COOL"]  {unit="°F", autoupdate="true", homekit="CoolingThresholdTemperature", channel="mqtt:topic:26bcbec1ee:upstairs_thermostat:setpoint_cooling"}
-Number:Temperature    SF_Thermostat_Min_Set_Point  "Upstairs Thermostat Min set point"                 (SF_Thermostat)  ["Setpoint", "Temperature", "HEAT"]  {unit="°F", autoupdate="true", homekit="HeatingThresholdTemperature", channel="mqtt:topic:26bcbec1ee:upstairs_thermostat:setpoint_heating"}
-
-Number                SF_Thermostat_Mode           "Upstairs Thermostat Heating/Cooling Mode"          (SF_Thermostat)  ["Point"]                            {homekit="TargetHeatingCoolingMode" [OFF="0", HEAT="1", COOL="2", AUTO="3"], autoupdate="true", channel="mqtt:topic:26bcbec1ee:upstairs_thermostat:mode"}
-
-Number                SF_Thermostat_Current_Mode   "Upstairs Thermostat Current Heating/Cooling Mode"  (SF_Thermostat)  ["Point"]                            {homekit="CurrentHeatingCoolingMode" [OFF="0", HEAT="1", COOL="2"], channel="mqtt:topic:26bcbec1ee:upstairs_thermostat:state"}
+Group                 SF_Thermostat                "Upstairs Thermostat"                           (SF_Hallway)     ["HVAC"]                        {matter="Thermostat"}
+Number:Temperature    SF_Thermostat_CurrentTemp    "Upstairs Thermostat Temperature [%d °F]"       (SF_Thermostat)  ["Measurement", "Temperature"]  {matter="thermostat.localTemperature", unit="°F", channel="mqtt:topic:26bcbec1ee:upstairs_thermostat:temperature"}
+Number:Temperature    SF_Thermostat_Heat_Setpoint  "Upstairs Thermostat Heat Setpoint [%d °F]"     (SF_Thermostat)  ["Setpoint", "Temperature"]     {matter="thermostat.occupiedHeatingSetpoint", unit="°F", channel="mqtt:topic:26bcbec1ee:upstairs_thermostat:setpoint_heating"}
+Number:Temperature    SF_Thermostat_Cool_Setpoint  "Upstairs Thermostat Cool Setpoint [%d °F]"     (SF_Thermostat)  ["Setpoint", "Temperature"]     {matter="thermostat.occupiedCoolingSetpoint", unit="°F", channel="mqtt:topic:26bcbec1ee:upstairs_thermostat:setpoint_cooling"}
+Number                SF_Thermostat_Mode           "Upstairs Thermostat Mode [%s]"                 (SF_Thermostat)  ["Point"]                       {matter="thermostat.systemMode" [OFF="0", HEAT="1", COOL="2", AUTO="3"], channel="mqtt:topic:26bcbec1ee:upstairs_thermostat:mode"}
+Number                SF_Thermostat_Current_Mode   "Upstairs Thermostat Current Mode [%s]"         (SF_Thermostat)  ["Point"]                       {matter="thermostat.runningMode" [OFF="0", HEAT="1", COOL="2"], channel="mqtt:topic:26bcbec1ee:upstairs_thermostat:state"}
+Number:Dimensionless  SF_Thermostat_Humidity       "Upstairs Humidity"                             (SF_Hallway)     ["Measurement", "Humidity"]     {unit="%", homekit="HumiditySensor", channel="mqtt:topic:26bcbec1ee:upstairs_thermostat:humidity"}
