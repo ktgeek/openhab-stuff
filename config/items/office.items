@@ -2,9 +2,8 @@ Group Office_Window_Decorations (FF_Office) ["PowerOutlet"]
 Switch Office_Windows_Switch "Office Window Lights" <poweroutlet_us> (Office_Window_Decorations, Christmas_Lights, Christmas_Lights_All) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:c0750d0653:power" }
 Number:Power Office_Windows_Decorations_Watts "Office Window Decorations Power" (Office_Window_Decorations) ["Power"] { channel="mqtt:topic:26bcbec1ee:c0750d0653:currentPower" }
 
-Group Office_Door_LED "Office Door" (FF_Office) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
-Switch Office_Door_LED_Power "Office Door Power" (Christmas_Lights, Christmas_Lights_All, Office_Door_LED) ["Switch"] { homekit="Lighting.OnState", alexa="PowerController.powerState", channel="mqtt:topic:26bcbec1ee:fc6154bf8b:power" }
-Color Office_Door_LED_Color "Office Door Color" (Office_Door_LED) ["Point"] { channel="mqtt:topic:26bcbec1ee:fc6154bf8b:Color", homekit="Lighting.Hue, Lighting.Brightness, Lighting.Saturation", alexa="BrightnessController.brightness,ColorController.color" }
+Group Office_Door_LED "Office Door" (FF_Office) ["Lightbulb"]
+Color Office_Door_LED_Color "Office Door Color" (Christmas_Lights, Christmas_Lights_All, Office_Door_LED) ["Color"] { matter="ColorLight" [label="Office Door LED", fixedLabels="room=Office"], channel="mqtt:topic:26bcbec1ee:fc6154bf8b:Color" }
 Switch Office_Door_LED_Fade "Office Door Fade" (Office_Door_LED) ["Switch"] { channel="mqtt:topic:26bcbec1ee:fc6154bf8b:fade" }
 String Office_Door_LED_Palette "Office Door Palette" (Office_Door_LED) ["Point"] { channel="mqtt:topic:26bcbec1ee:fc6154bf8b:palette" }
 Number Office_Door_LED_Speed "Office Door Speed" (Office_Door_LED) ["SetPoint"] { channel="mqtt:topic:26bcbec1ee:fc6154bf8b:speed", stateDescription=""[min="0", max="40", step="1"] }

@@ -10,12 +10,11 @@ rule "when a zoom meeting is on" do
   changed Zoom_Active_Switch, to: ON
 
   run do
-    if Office_Door_LED_Power.on?
+    if Office_Door_LED_Color.on?
       stored_led_states = store_states Office_Door_LED_Palette, Office_Door_LED_Fade, Office_Door_LED_Scheme,
                                        Office_Door_LED_Speed
     end
 
-    Office_Door_LED_Power.on
     Office_Door_LED_Fade.off
     Office_Door_LED_Scheme.command(Tasmota::Scheme::SINGLE_COLOR)
     Office_Door_LED_Color.command(Color::RED)
@@ -29,7 +28,7 @@ rule "when a zoom meeting is over" do
     if stored_led_states
       stored_led_states&.restore_changes
     else
-      Office_Door_LED_Power.ensure.off
+      Office_Door_LED_Color.ensure.off
     end
     stored_led_states = nil
   end
