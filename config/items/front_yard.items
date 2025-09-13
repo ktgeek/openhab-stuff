@@ -4,10 +4,10 @@ Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Po
 
 String FrontDoor_Lights_Button_Action "Front Door Lights Button Action" (FF_Porch) ["Point"] { channel="mqtt:topic:26bcbec1ee:916c8e28e1:button_action" }
 
-Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights) ["Lightbulb"] { alexa="Lighting", channel="mqtt:topic:26bcbec1ee:37cedf44a0:switch_binary" }
-//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard) ["Lightbulb"] { alexa="Lighting", channel="mqtt:topic:26bcbec1ee:37cedf44a0:switch_binary" }
+Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights) ["Lightbulb"] { alexa="Lighting", channel="mqtt:topic:26bcbec1ee:275d436d16:first_power" }
+//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard) ["Lightbulb"] { alexa="Lighting", channel="mqtt:topic:26bcbec1ee:275d436d16:first_power" }
 Switch Porch_Decorations_Switch "Porch Decorations" <party> (Front_Yard, Christmas_Outside) ["WallSwitch"] { homekit="Switchable", alexa="Switchable", channel="mqtt:topic:26bcbec1ee:aa9f284e8e:switch_binary" }
-Switch Front_Yard_Side_Holiday_Decorations_Switch "Side Holiday Decorations" <party> (Front_Yard, Christmas_Outside) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:f1bccd086b:switch_binary" }
+Switch Front_Yard_Side_Holiday_Decorations_Switch "Side Holiday Decorations" <party> (Front_Yard, Christmas_Outside) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:275d436d16:second_power" }
 
 Contact Front_Yard_Decoration_Mat_Contact "Front Yard Decoration Mat" (Front_Yard) ["Sensor"] { channel="mqtt:topic:26bcbec1ee:41888ff891:mat_sensor" }
 
