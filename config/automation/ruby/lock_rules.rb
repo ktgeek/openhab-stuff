@@ -4,6 +4,7 @@ require "homekit"
 require "homeseer"
 require "kwikset"
 require "json"
+require "tv_notification"
 
 updated Front_Door_Lock_Alarm_Type, to: [Kwikset::Alarm::KEYPAD_JAMMED,
                                          Kwikset::Alarm::REMOTE_JAMMED,
@@ -18,6 +19,7 @@ updated Front_Door_Lock_Keypad_Unlock_UserId do |event|
 
   logger.info(message)
   Notification.send(message)
+  TvNotification.notify(message:)
 end
 
 rule "Front Door Lock: proxy changes to actual back to target" do
@@ -45,7 +47,9 @@ end
 rule "when our perimeter has a change" do
   changed House_Perimeter_Contacts, Front_Door_Lock
 
-  run do
+  run do |event|
+    item = event.item
+
     color = if House_Perimeter_Contacts.open?
               Homeseer::LedColor::RED
             elsif Front_Door_Lock.off?
@@ -53,8 +57,9 @@ rule "when our perimeter has a change" do
             else
               Homeseer::LedColor::OFF
             end
-
     House_Perimeter_LEDs.members.ensure.command(color)
+
+    TvNotification.notify(message: "#{item.name} is now #{item.state}", avoid_appletv: (item == Front_Door_Lock))
   end
 end
 

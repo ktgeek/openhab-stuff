@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "homeseer"
+require "tv_notification"
 
 GARAGE_STATE_INFO = {
   "OPENING" => { target_state: ON, blink_state: ON, color: Homeseer::LedColor::RED },
@@ -22,7 +23,7 @@ rule "garage doors state" do
 
     items["#{group.name}_Target_State"].update(info[:target_state])
 
-    TV_Notifications.command("#{group.label} #{state}")
+    TvNotification.notify(message: "#{group.label} #{state}", avoid_appletv: true)
 
     leds = items["#{group.name}_Open_LEDs"]
     blink_leds = items["#{group.name}_Open_LEDs_Blink"]

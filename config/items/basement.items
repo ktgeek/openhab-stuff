@@ -66,6 +66,15 @@ Number:Energy  Basement_Wall_Outlet_kWh     "Baesment Wall Outlet Power [%.1f kW
 Number:Power   Basement_Wall_Outlet_Watts   "Basement Wall Outlet Power [%.1f Ws]"                                   (Basement_Wall_Outlet)                                    ["Point", "Energy"]  {channel="mqtt:topic:26bcbec1ee:86e9bd7e73:meter_watts"}
 Switch         Basement_Wall_Outlet_In_Use  "Basement Wall Outlet In Use [RB(outletinuse.rb):%s]"                    (Basement_Wall_Outlet)                                    ["Point"]            {homekit="Outlet.InUseStatus", channel="mqtt:topic:26bcbec1ee:86e9bd7e73:meter_watts"}
 
+Group   Basement_TV        "Family Room TV"        (C_Basement)   ["Television"]
+Switch  Basement_TV_Power  "Power"                 (Basement_TV)                  {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:power"}
+String  Basement_TV_Toast  "Family Room TV Toast"  (Basement_TV)  ["SetPoint"]    {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:toast"}
+String  Basement_TV_App    "Application"           (Basement_TV)  ["Status"]      {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:appLauncher"}
+
+Group   Basement_Receiver               "Basement Receiver"                    (C_Basement)
+Switch  Basement_Receiver_Power         "Basement Receiver Power"              (Basement_Receiver)  {channel="onkyo:onkyoAVR:3dcaa2f926:zone1#power"}
+Number  Basement_Receiver_Input_Source  "Basement Receiver Input Source [%d]"  (Basement_Receiver)  {channel="onkyo:onkyoAVR:3dcaa2f926:zone1#input"}
+
 // -- Exercise Room --
 
 Switch  Exercise_Room_Light  "Exercise Room Light"  <lightbulb>  (C_ExerciseRoom, C_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:df5eba5645:switch_binary"}

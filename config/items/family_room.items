@@ -31,3 +31,11 @@ Number:Dimensionless Family_Room_Sensor_Battery_Level "Basement Flood Sensor Bat
 
 Group Family_Room_Fan_Button "Family Room Fan Button" (FF_FamilyRoom) ["RemoteControl"]
 Number Family_Room_Fan_Button_Battery "Family Room Fan Button Battery" (Family_Room_Fan_Button) ["Measurement", "Battery"] { unit="%", channel="mqtt:topic:26bcbec1ee:family_room_fan_button:battery" }
+
+Group FamilyRoom_TV "Family Room TV" (FF_FamilyRoom) ["Television"]
+Switch FamilyRoom_TV_Power "Power" (FamilyRoom_TV) {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:power"}
+String FamilyRoom_TV_Toast "Family Room TV Toast" (FamilyRoom_TV) ["SetPoint"] {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:toast"}
+String FamilyRoom_TV_App "Application" (FamilyRoom_TV) ["Status"] {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:appLauncher"}
+
+Switch FamilyRoom_Receiver_Power "Power" {channel="onkyo:onkyoUnsupported:b0ef2e6f-006f-2eBB-b000-0009b0ef2e6f:zone1#power"}
+Number FamilyRoom_Receiver_Input_Source "Input source" {channel="onkyo:onkyoUnsupported:b0ef2e6f-006f-2eBB-b000-0009b0ef2e6f:zone1#input"}

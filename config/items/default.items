@@ -11,8 +11,6 @@ Group FF_Laundry_Room "Laundry Room"               (FF)    ["LaundryRoom"]
 Group Backyard     "Backyard"                      (Home)  ["Outdoor"]
 Group Front_Yard   "Front Yard"                    (Home)  ["Outdoor"]
 
-Group TV_Notifications "TV Notifications" <screen> (Home) ["Status"]
-
 // First Floor - Entrance
 Group:Switch:OR(ON,OFF) All_Hall_Lights "Hall Lights" <lightbulb> (FF_Entrance) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
 Switch Switch_Entrance_Hall_Light "Hall Table Light" <lightbulb> (All_Hall_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:797755fdad:switch_binary" }

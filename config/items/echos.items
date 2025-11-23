@@ -5,7 +5,3 @@ String Basement_Echo_TTS "Basement Echo Text to Speech" (C_Basement) ["Point"] {
 String Evan_Bedroom_Echo_TTS "Evan's Bedroom Echo Text to Speech" (SF_EvansRoom) ["Point"] { channel="amazonechocontrol:echo:41d92e02:G090L909702605D0:textToSpeech" }
 
 String Kitchen_Echo_TTS "Kitchen Echo Show Text To Speech" (FF_Kitchen) ["Point"] { channel="amazonechocontrol:echoshow:41d92e02:14b8af0958:textToSpeech" }
-
-String Basement_TV_Toast "Basement TV Toast" (C_Basement, TV_Notifications) ["Point", "Status"] {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:toast"}
-
-String FamilyRoom_TV_Toast "Family Room TV Toast" (FF_FamilyRoom, TV_Notifications) ["Point", "Status"] {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:toast"}

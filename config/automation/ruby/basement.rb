@@ -2,6 +2,7 @@
 
 require "homeseer"
 require "zwave"
+require "tv_notification"
 
 # OCCUPANCY_COUNT_LED_GROUPS = Array.new(7) { |i| items["Basement_Occupancy_Count_#{i.succ}"] }.freeze
 
@@ -50,7 +51,11 @@ rule "when someone enters/leaves downstairs" do
     if C_Total_Basement_Occupancy.state.positive?
       if C_Total_Basement_Occupancy.previous_state(skip_equal: true) < C_Total_Basement_Occupancy.state
         Basement_Stairs_Switch.ensure.on
-        Basement_TV_Toast.command("Someone has entered the basement")
+        TvNotification.notify(
+          message: "Someone has entered the basement",
+          only: Basement_TV_Toast,
+          avoid_appletv: false
+        )
       end
     else
       after(120.seconds, id: event.item) { C_All_Lights.members.ensure.off }
