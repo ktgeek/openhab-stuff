@@ -3,7 +3,7 @@
 require "homeseer"
 require "zwave"
 
-OCCUPANCY_COUNT_LED_GROUPS = Array.new(7) { |i| items["Basement_Occupancy_Count_#{i.succ}"] }.freeze
+# OCCUPANCY_COUNT_LED_GROUPS = Array.new(7) { |i| items["Basement_Occupancy_Count_#{i.succ}"] }.freeze
 
 received_command Basement_Movie_Mode_Switch, command: ON do
   Basement_Stairs_Switch.ensure.off
@@ -60,12 +60,13 @@ rule "when someone enters/leaves downstairs" do
       C_Occupancy_LEDs.members.command([C_Total_Basement_Occupancy.state, Homeseer::LedColor::WHITE].min)
 
       # Turn on and off LEDs to do a "meter" of how many people are in the basement
-      OCCUPANCY_COUNT_LED_GROUPS[0, C_Total_Basement_Occupancy.state].each do |led_group|
-        led_group.members.command(Homeseer::LedColor::BLUE)
-      end
-      OCCUPANCY_COUNT_LED_GROUPS[C_Total_Basement_Occupancy.state..]&.each do |led_group|
-        led_group.members.command(Homeseer::LedColor::OFF)
-      end
+      # commenting out for now. It was fun to figure out but not super useful and just causes a zwave event storm.
+      # OCCUPANCY_COUNT_LED_GROUPS[0, C_Total_Basement_Occupancy.state].each do |led_group|
+      #   led_group.members.command(Homeseer::LedColor::BLUE)
+      # end
+      # OCCUPANCY_COUNT_LED_GROUPS[C_Total_Basement_Occupancy.state..]&.each do |led_group|
+      #   led_group.members.command(Homeseer::LedColor::OFF)
+      # end
     end
   end
 end
