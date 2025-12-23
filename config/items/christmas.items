@@ -23,11 +23,11 @@ Switch DiningRoom_Windows_Switch "Dining Room Windows" <poweroutlet_us> (Christm
 Number:Power DiningRoom_Window_Watts "Dining Room Window Power" (DiningRoom_Window) ["Point", "Power"] { channel="mqtt:topic:26bcbec1ee:5b60187d69:currentPower" }
 
 Group DinahsRoom_Holiday_LED "Dinah's Room Holiday LED" (SF_DinahsRoom) ["Equipment"]
-Switch DinahsRoom_Holiday_LED_Power "Dinah's Room Holiday LED Power" (Christmas_Outside, DinahsRoom_Holiday_LED) ["Switch", "Light"] { channel="wled:segment:4cebd6d8fc9f:e8aad3b253:masterControls" }
+Switch DinahsRoom_Holiday_LED_Power "Dinah's Room Holiday LED Power" (Christmas_Outside, DinahsRoom_Holiday_LED) ["Switch", "Light"] { channel="wled:json:4cebd6d8fc9f:globalBrightness" }
 //String DinahsRoom_Holiday_LED_Presets "Dinah's Room Holiday LED Presets" (DinahsRoom_Holiday_LED) ["Point"] { channel="wled:json:4cebd6d8fc9f:presets" }
 
 Group HiddenRoom_Holiday_LED "Hidden Room Holiday LED" (SF_HiddenRoom) ["Equipment"]
-Switch HiddenRoom_Holiday_LED_Power "HiddenRoom Holiday LED Power" (Christmas_Outside, HiddenRoom_Holiday_LED) ["Switch", "Light"] { channel="wled:segment:9c9c1f429df9:9d76fc260a:masterControls" }
+Switch HiddenRoom_Holiday_LED_Power "HiddenRoom Holiday LED Power" (Christmas_Outside, HiddenRoom_Holiday_LED) ["Switch", "Light"] { channel="wled:json:9c9c1f429df9:globalBrightness" }
 //String HiddenRoom_Holiday_LED_Presets "HiddenRoom Holiday LED Presets" (HiddenRoom_Holiday_LED) ["Point"] { channel="wled:json:9c9c1f429df9:presets" }
 
 //Group Bathroom
