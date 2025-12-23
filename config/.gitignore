@@ -1,5 +1,5 @@
-/services
-!services/jruby.cfg
+/services/*
+!/services/jruby.cfg
 /.bundle
 /.karaf
 /.vscode
@@ -9,7 +9,7 @@
 /transform/readme.txt
 /transform/lock_code.map
 readme.txt
-/persistence
+/persistence/*
 !/persistence/jdbc.persist
 /automation/ruby/.gem
 /html

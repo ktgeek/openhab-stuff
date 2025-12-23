@@ -1,0 +1,24 @@
+// Some stuff
+//Strategies {
+//  everyHour : "0 0 * * * ?"
+//}
+
+Items {
+  FF_Thermostat_CurrentTemp : strategy = everyUpdate
+  FF_Thermostat_Current_Mode : strategy = everyUpdate, restoreOnStartup
+  FF_Thermostat_Humidity : strategy = everyUpdate
+  SF_Thermostat_CurrentTemp : strategy = everyUpdate
+  SF_Thermostat_Current_Mode : strategy = everyUpdate, restoreOnStartup
+  SF_Thermostat_Humidity : strategy = everyUpdate
+  Basement_FloodSensor_TemperatureSensor : strategy = everyUpdate
+  Power_Family_Room_Christmas_Tree : strategy = everyUpdate
+
+  FamilyRoom_Wall_Outlet_kWh, FamilyRoom_Wall_Outlet_Watts : strategy = everyChange
+  LivingRoom_Wall_Outlet_kWh, LivingRoom_Wall_Outlet_Watts : strategy = everyChange
+  Upstairs_Hallway_Wall_Outlet_kWh, Upstairs_Hallway_Wall_Outlet_Watts : strategy = everyChange
+
+  Backyard_Rain, Backyard_Wind_Speed : strategy = everyUpdate
+
+  * : strategy = everyChange, restoreOnStartup
+}
+
