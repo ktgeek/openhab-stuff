@@ -34,3 +34,17 @@ Group Office_Fan "Office Fan" (FF_Office) ["CeilingFan"] { homekit="BasicFan" }
 Switch Office_Fan_Power "Office Fan" (Office_Fan) ["Control"] { channel="mqtt:topic:26bcbec1ee:office_fan:power", autoupdate="false",  homekit="BasicFan.OnState" }
 Number Office_Fan_Speed "Office Fan Speed" (Office_Fan) ["Control"] { homekit="BasicFan.RotationSpeed" [minValue=0, maxValue=4] }
 Number Office_Fan_Speed_Actual "Office Fan Speed" (Office_Fan) ["Control"] { channel="mqtt:topic:26bcbec1ee:office_fan:speed", autoupdate="false" }
+
+Group Awtrix_Clock "Awtrix Clock" <screen> (FF_Office)
+Switch Awtrix_Clock_Display_Power "Awtrix Clock Display Power" (Awtrix_Clock) ["Power"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:display" }
+Dimmer Awtrix_Clock_Display_Brightness "Brightness [%d %%]" (Awtrix_Clock) ["Brightness"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:brightness" }
+Switch Awtrix_Clock_Display_AutoBrightness "Auto Brightness" (Awtrix_Clock) ["Switch"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:auto-brightness" }
+Number Awtrix_Clock_Display_Battery "Battery Level [%d %%]" (Awtrix_Clock) ["Battery"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:battery-level" }
+Switch Awtrix_Clock_Display_LowBattery "Low Battery" (Awtrix_Clock) ["Alert"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:low-battery" }
+
+// Washing Machine App items
+Group Awtrix_Clock_Outdoor_Temp "Awtrix Clock Outdoor Temp App"
+Switch Awtrix_Clock_Outdoor_Temp_Active "Outdoor Temp Active" (Awtrix_Clock_Outdoor_Temp) { channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:active" }
+String Awtrix_Clock_Outdoor_Temp_Text "Outdoor Temp Text" (Awtrix_Clock_Outdoor_Temp) { channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:text" }
+Color Awtrix_Clock_Outdoor_Temp_Color "Outdoor Temp Color" (Awtrix_Clock_Outdoor_Temp) { channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:color" }
+String Awtrix_Clock_Outdoor_Temp_Icon "Outdoor Temp Icon" (Awtrix_Clock_Outdoor_Temp) { channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:icon" }

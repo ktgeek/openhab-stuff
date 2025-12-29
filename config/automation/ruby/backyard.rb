@@ -14,13 +14,13 @@ end
 
 changed(Backyard_Temperature, Backyard_Humidity, Backyard_Wind_Speed) do
   after(3.seconds, id: "update_feels_like", reschedule: false) do
-    Backyard_FeelsLike_Temperature.update(
-      Weather.feels_like(
-        temp: Backyard_Temperature.state,
-        humidity: Backyard_Humidity.state,
-        wind_speed: Backyard_Wind_Speed.state
-      )
+    temp = Weather.feels_like(
+      temp: Backyard_Temperature.state,
+      humidity: Backyard_Humidity.state,
+      wind_speed: Backyard_Wind_Speed.state
     )
+    Backyard_FeelsLike_Temperature.update(temp)
+    Awtrix_Clock_Outdoor_Temp_Text.ensure.command("#{temp}°F")
   end
 end
 
