@@ -10,8 +10,8 @@ Number Office_Door_LED_Speed "Office Door Speed" (Office_Door_LED) ["SetPoint"] 
 Number Office_Door_LED_Scheme "Office Door Scheme" (Office_Door_LED) ["Point"] { channel="mqtt:topic:26bcbec1ee:fc6154bf8b:scheme" }
 
 Group:Switch:OR(ON,OFF) Zoom_Active_Switch "Zoom Active" (FF_Office) ["Status"]
-Switch Office_m1_work_laptop_Zoom "m1 Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="mqtt:homie300:26bcbec1ee:m1-work-laptop:zoom_2Dactivity#status" }
-Switch Office_bugg_Zoom "bugg Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="mqtt:homie300:26bcbec1ee:bugg-zoom:zoom_2Dactivity#status" }
+Switch Office_m1_work_laptop_Zoom "m1 Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="homie:device:26bcbec1ee:m1-work-laptop:zoom_2Dactivity#status" }
+Switch Office_bugg_Zoom "bugg Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="homie:device:26bcbec1ee:bugg-zoom:zoom_2Dactivity#status" }
 
 Switch Office_Monitor_LED "Monitor LEDs" (FF_Office) ["Lightbulb"] { homekit="Lighting", channel="hyperion:serverNG:3072a6de25:leddevice"}
 
