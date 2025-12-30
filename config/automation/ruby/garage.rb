@@ -12,19 +12,15 @@ GARAGE_STATE_INFO = {
   "CLOSING" => { target_state: OFF, blink_state: ON, color: Homeseer::LedColor::GREEN,
                  awtrix_color: Awtrix3::Color::GREEN, awtrix_icon: "garagedoorclose" },
   "CLOSED" => { target_state: OFF, blink_state: OFF, color: Homeseer::LedColor::GREEN,
-                awtrix_color: Awtrix3::Color::GREEN, awtrix_icon: "garageclosed" }
+                awtrix_color: nil, awtrix_icon: "garageclosed" }
 }.freeze
 
-def send_notifications(notification_text, info)
-  TvNotification.notify(message: notification_text, avoid_appletv: true)
+def awtrix_notifications(message:, info:)
+  awtrix = Awtrix3.new(Awtrix_Clock_Display_Power.thing)
 
-  params = {
-    "text" => notification_text,
-    "icon" => info[:awtrix_icon],
-    "color" => info[:awtrix_color]
-  }
-  Awtrix3.actions(Awtrix_Clock_Display_Power.thing)
-         .show_custom_notification(params.to_java, false, true, true, "", "", false)
+  awtrix.set_indicator_color(Awtrix3::INDICATORS[group], info[:awtrix_color], blink: info[:blink_state] == ON)
+
+  awtrix.show_custom_notification(message:, icon: info[:awtrix_icon], color: info[:awtrix_color])
 end
 
 rule "garage doors state" do
@@ -40,7 +36,9 @@ rule "garage doors state" do
 
     items["#{group.name}_Target_State"].update(info[:target_state])
 
-    send_notifications("#{group.label} #{state.humanize}", info)
+    message = "#{group.label} #{state.humanize}"
+    TvNotification.notify(message:, avoid_appletv: true)
+    awtrix_notifications(message:, info:)
 
     leds = items["#{group.name}_Open_LEDs"]
     blink_leds = items["#{group.name}_Open_LEDs_Blink"]

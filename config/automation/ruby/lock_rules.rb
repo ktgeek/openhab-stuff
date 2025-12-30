@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
+require "json"
 require "homekit"
 require "homeseer"
 require "kwikset"
-require "json"
 require "tv_notification"
+require "awtrix3"
 
 updated Front_Door_Lock_Alarm_Type, to: [Kwikset::Alarm::KEYPAD_JAMMED,
                                          Kwikset::Alarm::REMOTE_JAMMED,
@@ -20,6 +21,10 @@ updated Front_Door_Lock_Keypad_Unlock_UserId do |event|
   logger.info(message)
   Notification.send(message)
   TvNotification.notify(message:)
+  Awtrix3.new(Awtrix_Clock_Display_Power.thing).show_custom_notification(
+    message: message,
+    icon: "front_door_lock"
+  )
 end
 
 rule "Front Door Lock: proxy changes to actual back to target" do
@@ -51,15 +56,20 @@ rule "when our perimeter has a change" do
     item = event.item
 
     color = if House_Perimeter_Contacts.open?
-              Homeseer::LedColor::RED
+              { homeseer: Homeseer::LedColor::RED, awtrix: Awtrix3::Color::RED }
             elsif Front_Door_Lock.off?
-              Homeseer::LedColor::YELLOW
+              { homeseer: Homeseer::LedColor::YELLOW, awtrix: Awtrix3::Color::YELLOW }
             else
-              Homeseer::LedColor::OFF
+              { homeseer: Homeseer::LedColor::OFF, awtrix: nil }
             end
-    House_Perimeter_LEDs.members.ensure.command(color)
+    House_Perimeter_LEDs.members.ensure.command(color[:homeseer])
 
-    TvNotification.notify(message: "#{item.name} is now #{item.state}", avoid_appletv: (item == Front_Door_Lock))
+    awtrix = Awtrix3.new(Awtrix_Clock_Display_Power.thing)
+    awtrix.set_indicator_color(Awtrix3::INDICATORS[House_Perimeter_Contacts], color[:awtrix])
+
+    message = "#{item.label} is now #{item.state.to_s.humanize}"
+    awtrix.show_custom_notification(message:, icon: "door", color: color[:awtrix])
+    TvNotification.notify(message:, avoid_appletv: (item == Front_Door_Lock))
   end
 end
 
