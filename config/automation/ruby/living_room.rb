@@ -4,9 +4,9 @@ require "zwave"
 
 LIVING_ROOM_SCENE_SWITCH = "mqtt:topic:26bcbec1ee:living_room_scene_switch"
 
-channel("scene_1", thing: LIVING_ROOM_SCENE_SWITCH, triggered: ZWave::Paddle::CLICK) { LivingRoom_Light_2_Power.toggle }
+channel("scene_1", thing: LIVING_ROOM_SCENE_SWITCH, triggered: ZWave::Paddle::CLICK) { LivingRoom_Light_2_Color.toggle }
 
-channel("scene_2", thing: LIVING_ROOM_SCENE_SWITCH, triggered: ZWave::Paddle::CLICK) { LivingRoom_Light_1_Power.toggle }
+channel("scene_2", thing: LIVING_ROOM_SCENE_SWITCH, triggered: ZWave::Paddle::CLICK) { LivingRoom_Light_1_Color.toggle }
 
 channel("scene_3", thing: LIVING_ROOM_SCENE_SWITCH, triggered: ZWave::Paddle::CLICK) do
   LivingRoom_Wall_Outlet_Switch.toggle
