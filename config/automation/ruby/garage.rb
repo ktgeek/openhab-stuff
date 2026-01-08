@@ -15,10 +15,10 @@ GARAGE_STATE_INFO = {
                 awtrix_color: nil, awtrix_icon: "garageclosed" }
 }.freeze
 
-def awtrix_notifications(message:, info:)
+def awtrix_notifications(message:, info:, item:)
   awtrix = Awtrix3.new(Awtrix_Clock_Display_Power.thing)
 
-  awtrix.set_indicator_color(Awtrix3::INDICATORS[group], info[:awtrix_color], blink: info[:blink_state] == ON)
+  awtrix.set_indicator_color(Awtrix3::INDICATORS[item], info[:awtrix_color], blink: info[:blink_state] == ON)
 
   awtrix.show_custom_notification(message:, icon: info[:awtrix_icon], color: info[:awtrix_color])
 end
@@ -38,7 +38,7 @@ rule "garage doors state" do
 
     message = "#{group.label} #{state.humanize}"
     TvNotification.notify(message:, avoid_appletv: true)
-    awtrix_notifications(message:, info:)
+    awtrix_notifications(message:, info:, item: group)
 
     leds = items["#{group.name}_Open_LEDs"]
     blink_leds = items["#{group.name}_Open_LEDs_Blink"]
