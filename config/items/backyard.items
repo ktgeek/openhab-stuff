@@ -16,8 +16,9 @@ Number:Dimensionless  Backyard_UV                         "UV index [%d]"       
 DateTime              Backyard_Last_Updated              "Station Last Updated" <time>        (Backyard_Weather_Station)  ["Measurement"]                 {channel="mqtt:topic:26bcbec1ee:24803daf2c:time"}
 
 Switch  Backyard_Outdoor_Decorations_Switch  "Backyard Outdoor Decorations"  <lightbulb>  (Backyard)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:684e150c79:switch_binary"}
+Switch  Backyard_Patio_Decorations_Switch  "Backyard Patio Decorations"  <lightbulb>  (Backyard, Christmas_Outside)  ["Lightbulb"]  {channel="mqtt:topic:26bcbec1ee:4c50e9aad7:binary_switch"}
 
 Group   Backyard_Lights         "Backyard Lights"         (Backyard)         ["Lightbulb"]  {homekit="Lighting", alexa="Endpoint.Light"}
-Switch  Backyard_Lights_Power   "Backyard Lights Power"   (Backyard_Lights)  ["Switch"]     {channel="mqtt:topic:26bcbec1ee:backyard_lights:switch", homekit="Lighting.OnState", alexa="PowerController.powerState", autoupdate="false"}
+Switch  Backyard_Lights_Power   "Backyard Lights Power"   (Backyard_Lights, Christmas_Outside)  ["Switch"]     {channel="mqtt:topic:26bcbec1ee:backyard_lights:switch", homekit="Lighting.OnState", alexa="PowerController.powerState", autoupdate="false"}
 Color   Backyard_Lights_Color   "Backyard Lights Color"   (Backyard_Lights)  ["Lightbulb"]  {channel="mqtt:topic:26bcbec1ee:backyard_lights:color_xy", homekit="Lighting.Hue, Lighting.Saturation", alexa="Endpoint.Light,ColorController.color", autoupdate="false"}
 Dimmer  Backyard_Lights_Dimmer  "Backyard Lights Dimmer"  (Backyard_Lights)  ["Lightbulb"]  {channel="mqtt:topic:26bcbec1ee:backyard_lights:brightness", homekit="Lighting.Brightness", alexa="BrightnessController.brightness", autoupdate="false"}
