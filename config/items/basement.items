@@ -57,8 +57,8 @@ Number  Basement_Room_Theater_Lights_LED_7_Color  "Basement Theater Lights Led 7
 Switch  C_Basement_Movie_Switch   "Basement Movie"   <cinema>  (C_Basement)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable"}
 Switch  C_Basement_Normal_Switch  "Basement Normal"  <smiley>  (C_Basement)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable"}
 
-Group                 Basement_NanomoteQuad      "Nanomote Quad"                    (C_Basement)             ["Equipment"]
-Number:Dimensionless  NanomoteQuad_BatteryLevel  "Nanomote Quad Battery [%.1f %%]"  (Basement_NanomoteQuad)  ["Point"]      {unit="%", channel="mqtt:topic:26bcbec1ee:f7c5f297b6:battery-level"}
+Group                 C_Basement_NanomoteQuad            "Nanomote Quad"                    (C_Basement)               ["Equipment"]
+Number:Dimensionless  C_Basement_NanomoteQuad_BatteryLevel  "Nanomote Quad Battery [%.1f %%]"  (C_Basement_NanomoteQuad)  ["Point"]      {unit="%", channel="mqtt:topic:26bcbec1ee:f7c5f297b6:battery-level"}
 
 Group          Basement_Wall_Outlet         "Basement Wall Outlet"                                 <poweroutlet_us>  (C_Basement)                                              ["PowerOutlet"]      {homekit="Outlet"}
 Switch         Basement_Wall_Outlet_Switch  "Basement Wall Outlet"                                 <poweroutlet_us>  (C_Basement, Basement_Wall_Outlet, Christmas_Lights_All)  ["Point"]            {homekit="Outlet.OnState", alexa="Outlet.OnState", channel="mqtt:topic:26bcbec1ee:86e9bd7e73:switch_binary"}
