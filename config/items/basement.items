@@ -54,8 +54,8 @@ Number  Basement_Room_Theater_Lights_LED_5_Color  "Basement Theater Lights Led 5
 Number  Basement_Room_Theater_Lights_LED_6_Color  "Basement Theater Lights Led 6 Color"               (Basement_Room_Theater_Lights_Control, Basement_Occupancy_Count_6)                   ["Point"]      {channel="mqtt:topic:26bcbec1ee:c91984f858:status_led_6_color"}
 Number  Basement_Room_Theater_Lights_LED_7_Color  "Basement Theater Lights Led 7 Color"               (Basement_Room_Theater_Lights_Control, Basement_Occupancy_Count_7)                   ["Point"]      {channel="mqtt:topic:26bcbec1ee:c91984f858:status_led_7_color"}
 
-Switch  Basement_Movie_Mode_Switch   "Basement Movie Mode"   <cinema>  (C_Basement)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable"}
-Switch  Basement_Normal_Mode_Switch  "Basement Normal Mode"  <smiley>  (C_Basement)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable"}
+Switch  C_Basement_Movie_Switch   "Basement Movie"   <cinema>  (C_Basement)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable"}
+Switch  C_Basement_Normal_Switch  "Basement Normal"  <smiley>  (C_Basement)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable"}
 
 Group                 Basement_NanomoteQuad      "Nanomote Quad"                    (C_Basement)             ["Equipment"]
 Number:Dimensionless  NanomoteQuad_BatteryLevel  "Nanomote Quad Battery [%.1f %%]"  (Basement_NanomoteQuad)  ["Point"]      {unit="%", channel="mqtt:topic:26bcbec1ee:f7c5f297b6:battery-level"}

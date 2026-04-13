@@ -6,22 +6,22 @@ require "tv_notification"
 
 # OCCUPANCY_COUNT_LED_GROUPS = Array.new(7) { |i| items["Basement_Occupancy_Count_#{i.succ}"] }.freeze
 
-received_command Basement_Movie_Mode_Switch, command: ON do
+received_command Basement_Movie_Switch, command: ON do
   Basement_Stairs_Switch.ensure.off
   Basement_Room_Lights_Switch.ensure.off
   Basement_Room_Theater_Lights.ensure.command(9)
   Basement_Room_Bar_Lights.ensure.command(2)
 
-  after(10.seconds) { Basement_Movie_Mode_Switch.update(OFF) }
+  after(10.seconds) { Basement_Movie_Switch.update(OFF) }
 end
 
 # when normal mode is turned on
-received_command Basement_Normal_Mode_Switch, command: ON do
+received_command Basement_Normal_Switch, command: ON do
   Basement_Stairs_Switch.ensure.on
   Basement_Room_Theater_Lights.ensure.command(100)
   Basement_Room_Bar_Lights.ensure.command(100)
 
-  after(10.seconds) { Basement_Normal_Mode_Switch.update(OFF) }
+  after(10.seconds) { Basement_Normal_Switch.update(OFF) }
 end
 
 rule "When the count of the occupancy sensor changes" do
