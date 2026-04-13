@@ -8,6 +8,7 @@
 /transform/en.map
 /transform/readme.txt
 /transform/lock_code.map
+/transform/weather_secrets.map
 readme.txt
 /persistence/*
 !/persistence/jdbc.persist
