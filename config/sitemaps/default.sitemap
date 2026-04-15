@@ -26,12 +26,12 @@ sitemap default label="Garner House" {
             Default item=Basement_Room_Lights_Switch label="Basement Room Lights"
             Default item=Basement_Room_Bar_Lights label="Basement Bar Lights"
             Default item=Basement_Room_Theater_Lights label="Basement Theater Lights"
-            Default item=Basement_Movie_Mode_Switch label="Basement Movie Mode"
-            Default item=Basement_Normal_Mode_Switch label="Basement Normal Mode"
+            Default item=C_Basement_Movie_Switch label="Basement Movie Mode"
+            Default item=C_Basement_Normal_Switch label="Basement Normal Mode"
             Default item=Basement_Wall_Outlet label="Basement Wall Outlet"
             Default item=Basement_Wall_Outlet_Switch label="Basement Wall Outlet"
             Default item=Basement_Christmas_Tree label="Basement Christmas Tree"
-            Default item=NanomoteQuad_BatteryLevel label="Nanomote Quad Battery"
+            Default item=C_Basement_NanomoteQuad_BatteryLevel label="Nanomote Quad Battery"
         }
 
         Text item=C_ExerciseRoom label="Exercise Room" icon="cellar" {
