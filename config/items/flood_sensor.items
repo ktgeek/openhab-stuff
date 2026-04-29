@@ -1,6 +1,6 @@
 Group Basement_FloodSensor (C) ["Sensor"] { homekit="LeakSensor" }
-Number:Temperature Basement_FloodSensor_Temperature "Basement Flood Sensor Temperature" (Basement_FloodSensor) ["Point", "Temperature"] { unit="°C", channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:sensor_temperature", homekit="TemperatureSensor" }
-Number:Dimensionless Basement_FloodSensor_BatteryLevel "Basement Flood Sensor Battery Level" (Basement_FloodSensor) ["Measurement", "Battery"] { unit="%", channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:battery-level" }
-Switch Basement_FloodSensor_BatteryLevel_Low "Basement Flood Sensor Battery Level isLow" (Basement_FloodSensor) ["Point"] { channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:battery_low", homekit="BatteryLowStatus"}
-Switch Basement_FloodSensor_Flood_Alarm "Basement Flood Sensor Flood Alarm" (Basement_FloodSensor) ["Point"] { channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:water_alarm", homekit="LeakDetectedState" }
-Switch Basement_FloodSensor_Tamper_Alarm "Basement Flood Sensor Tamper Alarm" (Basement_FloodSensor) ["Point"] { channel="mqtt:topic:26bcbec1ee:4a3ba8c4e0:tamper_alarm", homekit="TamperedStatus" }
+Number:Temperature Basement_FloodSensor_Temperature "Basement Flood Sensor Temperature" (Basement_FloodSensor) ["Point", "Temperature"] { unit="°C", channel="zwavejs:node:c503e1bad6:node63:multilevel-sensor-air-temperature", homekit="TemperatureSensor" }
+Number:Dimensionless Basement_FloodSensor_BatteryLevel "Basement Flood Sensor Battery Level" (Basement_FloodSensor) ["Measurement", "Battery"] { unit="%", channel="zwavejs:node:c503e1bad6:node63:battery-level" }
+Switch Basement_FloodSensor_BatteryLevel_Low "Basement Flood Sensor Battery Level isLow" (Basement_FloodSensor) ["Point"] { channel="zwavejs:node:c503e1bad6:node63:battery-level" [profile="ruby:is_low_state", threshold="20"], homekit="BatteryLowStatus"}
+Switch Basement_FloodSensor_Flood_Alarm "Basement Flood Sensor Flood Alarm" (Basement_FloodSensor) ["Point"] { channel="zwavejs:node:c503e1bad6:node63:notification-water-alarm-sensor-status", homekit="LeakDetectedState" }
+Switch Basement_FloodSensor_Tamper_Alarm "Basement Flood Sensor Tamper Alarm" (Basement_FloodSensor) ["Point"] { channel="zwavejs:node:c503e1bad6:node63:notification-home-security-cover-status", homekit="TamperedStatus" }

@@ -61,10 +61,10 @@ Group                 C_Basement_NanomoteQuad            "Nanomote Quad"        
 Number:Dimensionless  C_Basement_NanomoteQuad_BatteryLevel  "Nanomote Quad Battery [%.1f %%]"  (C_Basement_NanomoteQuad)  ["Point"]      {unit="%", channel="mqtt:topic:26bcbec1ee:f7c5f297b6:battery-level"}
 
 Group          Basement_Wall_Outlet         "Basement Wall Outlet"                                 <poweroutlet_us>  (C_Basement)                                              ["PowerOutlet"]      {homekit="Outlet"}
-Switch         Basement_Wall_Outlet_Switch  "Basement Wall Outlet"                                 <poweroutlet_us>  (C_Basement, Basement_Wall_Outlet, Christmas_Lights_All)  ["Point"]            {homekit="Outlet.OnState", alexa="Outlet.OnState", channel="mqtt:topic:26bcbec1ee:86e9bd7e73:switch_binary"}
-Number:Energy  Basement_Wall_Outlet_kWh     "Baesment Wall Outlet Power [%.1f kWh]"                                  (Basement_Wall_Outlet)                                    ["Point", "Energy"]  {channel="mqtt:topic:26bcbec1ee:86e9bd7e73:meter_kwh"}
-Number:Power   Basement_Wall_Outlet_Watts   "Basement Wall Outlet Power [%.1f Ws]"                                   (Basement_Wall_Outlet)                                    ["Point", "Energy"]  {channel="mqtt:topic:26bcbec1ee:86e9bd7e73:meter_watts"}
-Switch         Basement_Wall_Outlet_In_Use  "Basement Wall Outlet In Use [RB(outletinuse.rb):%s]"                    (Basement_Wall_Outlet)                                    ["Point"]            {homekit="Outlet.InUseStatus", channel="mqtt:topic:26bcbec1ee:86e9bd7e73:meter_watts"}
+Switch         Basement_Wall_Outlet_Switch  "Basement Wall Outlet"                                 <poweroutlet_us>  (C_Basement, Basement_Wall_Outlet, Christmas_Lights_All)  ["Point"]            {homekit="Outlet.OnState", alexa="Outlet.OnState", channel="zwavejs:node:c503e1bad6:node60:binary-switch-value"}
+Number:Energy  Basement_Wall_Outlet_kWh     "Baesment Wall Outlet Power [%.1f kWh]"                                  (Basement_Wall_Outlet)                                    ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node60:meter-value-65537"}
+Number:Power   Basement_Wall_Outlet_Watts   "Basement Wall Outlet Power [%.1f Ws]"                                   (Basement_Wall_Outlet)                                    ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node60:meter-value-66049"}
+Switch         Basement_Wall_Outlet_In_Use  "Basement Wall Outlet In Use [RB(outletinuse.rb):%s]"                    (Basement_Wall_Outlet)                                    ["Point"]            {homekit="Outlet.InUseStatus", channel="zwavejs:node:c503e1bad6:node60:meter-value-66049"}
 
 Group   Basement_TV        "Family Room TV"        (C_Basement)   ["Television"]
 Switch  Basement_TV_Power  "Power"                 (Basement_TV)                  {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:power"}

@@ -51,3 +51,13 @@ profile(:number_channel_switch) do |event, callback:, state:, command:|
     true
   end
 end
+
+profile(:is_low_state) do |event, callback:, state:, configuration:|
+  next true unless event == :state_from_handler
+
+  threshold = configuration.fetch("threshold", 20).to_i
+
+  callback.send_update(state.to_i < threshold ? ON : OFF)
+
+  false
+end

@@ -13,7 +13,7 @@ Group Front_Yard   "Front Yard"                    (Home)  ["Outdoor"]
 
 // First Floor - Entrance
 Group:Switch:OR(ON,OFF) All_Hall_Lights "Hall Lights" <lightbulb> (FF_Entrance) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
-Switch Switch_Entrance_Hall_Light "Hall Table Light" <lightbulb> (All_Hall_Lights) ["Point"] { channel="mqtt:topic:26bcbec1ee:797755fdad:switch_binary" }
+Switch Switch_Entrance_Hall_Light "Hall Table Light" <lightbulb> (All_Hall_Lights) ["Point"] { channel="zwavejs:node:c503e1bad6:node8:binary-switch-value" }
 
 // Virtual test
 Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF_Entrance) ["WallSwitch"] { alexa="Switchable", homekit="Switchable" }
