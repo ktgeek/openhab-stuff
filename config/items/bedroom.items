@@ -27,13 +27,13 @@ Group    Bedroom_Keiths_Closet_Contact_Sensor_Group   "Keith's Closet Contact Se
 Contact  Bedroom_Keiths_Closet_Contact_Sensor         "Keith's Closet Contact Sensor"          (Bedroom_Keiths_Closet_Contact_Sensor_Group)  ["OpenState"]   {homekit="ContactSensor.ContactSensorState", channel="mqtt:topic:26bcbec1ee:7204377106:contact"}
 Switch   Bedroom_Keiths_Closet_Contact_Battery_isLow  "Keith's Closet Contact Sensor Battery"  (Bedroom_Keiths_Closet_Contact_Sensor_Group)  ["LowBattery"]  {homekit="ContactSensor.BatteryLowStatus", channel="mqtt:topic:26bcbec1ee:7204377106:battery_low"}
 
-Switch  Bedroom_Keith_Closet_Light  "Keith's Closet"  (SF_Bedroom)  ["Lighting"]  {autoupdate="false", channel="mqtt:topic:26bcbec1ee:bedroom_keith_closet:binary_switch", homekit="Lighting", alexa="Lighting"}
+Switch  Bedroom_Keith_Closet_Light  "Keith's Closet"  (SF_Bedroom)  ["Lighting"]  {autoupdate="false", channel="zwavejs:node:c503e1bad6:node265:binary-switch-value", homekit="Lighting", alexa="Lighting"}
 
 Group    Bedroom_Sarahs_Closet_Contact_Sensor_Group   "Sarah's Closet Contact Sensor"          (SF_Bedroom)                                  ["Door"]        {homekit="ContactSensor"}
 Contact  Bedroom_Sarahs_Closet_Contact_Sensor         "Sarah's Closet Contact Sensor"          (Bedroom_Sarahs_Closet_Contact_Sensor_Group)  ["OpenState"]   {homekit="ContactSensor.ContactSensorState", channel="mqtt:topic:26bcbec1ee:11c844735f:contact"}
 Switch   Bedroom_Sarahs_Closet_Contact_Battery_isLow  "Sarah's Closet Contact Sensor Battery"  (Bedroom_Sarahs_Closet_Contact_Sensor_Group)  ["LowBattery"]  {homekit="ContactSensor.BatteryLowStatus", channel="mqtt:topic:26bcbec1ee:11c844735f:battery_low"}
 
-Switch  Bedroom_Sarah_Closet_Light  "Sarah's Closet"  (SF_Bedroom)  ["Lighting"]  {autoupdate="false", channel="mqtt:topic:26bcbec1ee:bedroom_sarah_closet:binary_switch", homekit="Lighting", alexa="Lighting"}
+Switch  Bedroom_Sarah_Closet_Light  "Sarah's Closet"  (SF_Bedroom)  ["Lighting"]  {autoupdate="false", channel="zwavejs:node:c503e1bad6:node262:binary-switch-value", homekit="Lighting", alexa="Lighting"}
 
 Group   Bedroom_Scene_Switch_Group    "Bedroom Scene Switch"   <switch>  (SF_Bedroom)
 Switch  Bedroom_Hallway_Light_Switch  "Bedroom Hallway Light"  <switch>  (Bedroom_Scene_Switch_Group)  ["Point"]  {channel="mqtt:topic:26bcbec1ee:162a22c6ce:switch_binary", homekit="Lighting", alexa="Lighting"}
