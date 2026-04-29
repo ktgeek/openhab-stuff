@@ -15,8 +15,8 @@ Number:Dimensionless  Backyard_UV                         "UV index [%d]"       
 
 DateTime              Backyard_Last_Updated              "Station Last Updated" <time>        (Backyard_Weather_Station)  ["Measurement"]                 {channel="mqtt:topic:26bcbec1ee:24803daf2c:time"}
 
-Switch  Backyard_Outdoor_Decorations_Switch  "Backyard Outdoor Decorations"  <lightbulb>  (Backyard)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:684e150c79:switch_binary"}
-Switch  Backyard_Patio_Decorations_Switch  "Backyard Patio Decorations"  <lightbulb>  (Backyard, Christmas_Outside)  ["Lightbulb"]  {channel="mqtt:topic:26bcbec1ee:4c50e9aad7:binary_switch"}
+Switch  Backyard_Outdoor_Decorations_Switch  "Backyard Outdoor Decorations"  <lightbulb>  (Backyard)                     ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node107:binary-switch-value"}
+Switch  Backyard_Patio_Decorations_Switch    "Backyard Patio Decorations"    <lightbulb>  (Backyard, Christmas_Outside)  ["Lightbulb"]  {channel="zwavejs:node:c503e1bad6:node16:binary-switch-value"}
 
 Group   Backyard_Lights         "Backyard Lights"         (Backyard)         ["Lightbulb"]  {homekit="Lighting", alexa="Endpoint.Light"}
 Switch  Backyard_Lights_Power   "Backyard Lights Power"   (Backyard_Lights, Christmas_Outside)  ["Switch"]     {channel="mqtt:topic:26bcbec1ee:backyard_lights:switch", homekit="Lighting.OnState", alexa="PowerController.powerState", autoupdate="false"}

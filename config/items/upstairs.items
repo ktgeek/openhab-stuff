@@ -9,4 +9,4 @@ Number:Energy Upstairs_Hallway_Wall_Outlet_kWh "Upstairs Wall Outlet Power [%.1f
 Number:Power Upstairs_Hallway_Wall_Outlet_Watts "Upstairs Wall Outlet Power [%.1f W]" (Upstairs_Hallway_Wall_Outlet) ["Point", "Energy"] { channel="zwavejs:node:c503e1bad6:node56:meter-value-66049" }
 Switch Upstairs_Hallway_Wall_Outlet_In_Use "Upstairs Hallway Wall Outlet In Use [RB(outletinuse.rb):%s]" (Upstairs_Hallway_Wall_Outlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwavejs:node:c503e1bad6:node56:meter-value-66049" }
 
-Switch  HiddenRoom_Light_Switch  "Hidden Room Lights"  <lightbulb>  (SF_HiddenRoom)  ["Switch", "Light"]  {homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:cbf21f26ec:binary_switch"}
+Switch  HiddenRoom_Light_Switch  "Hidden Room Lights"  <lightbulb>  (SF_HiddenRoom)  ["Switch", "Light"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node55:binary-switch-value"}
