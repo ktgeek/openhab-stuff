@@ -57,8 +57,13 @@ Number  Basement_Room_Theater_Lights_LED_7_Color  "Basement Theater Lights Led 7
 Switch  C_Basement_Movie_Switch   "Basement Movie"   <cinema>  (C_Basement)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable"}
 Switch  C_Basement_Normal_Switch  "Basement Normal"  <smiley>  (C_Basement)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable"}
 
-Group                 C_Basement_NanomoteQuad            "Nanomote Quad"                    (C_Basement)               ["Equipment"]
-Number:Dimensionless  C_Basement_NanomoteQuad_BatteryLevel  "Nanomote Quad Battery [%.1f %%]"  (C_Basement_NanomoteQuad)  ["Point"]      {unit="%", channel="mqtt:topic:26bcbec1ee:f7c5f297b6:battery-level"}
+Group                 C_Basement_NanomoteQuad               "Nanomote Quad"                    (C_Basement)               ["Equipment"]
+Group                 C_Basement_NanomoteQuad_Scenes        "Nanomote Quad Scenes"             (C_Basement_NanomoteQuad)  ["Point"]
+Number:Dimensionless  C_Basement_NanomoteQuad_BatteryLevel  "Nanomote Quad Battery [%.1f %%]"  (C_Basement_NanomoteQuad)  ["Point"]      {unit="%", channel="zwavejs:node:c503e1bad6:node53:battery-level"}
+Number                C_Basement_NanomoteQuad_Scene_1       "Nanomote Quad Scene 1"            (C_Basement_NanomoteQuad_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-001"}
+Number                C_Basement_NanomoteQuad_Scene_2       "Nanomote Quad Scene 2"            (C_Basement_NanomoteQuad_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-002"}
+Number                C_Basement_NanomoteQuad_Scene_3       "Nanomote Quad Scene 3"            (C_Basement_NanomoteQuad_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-003"}
+Number                C_Basement_NanomoteQuad_Scene_4       "Nanomote Quad Scene 4"            (C_Basement_NanomoteQuad_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-004"}
 
 Group          Basement_Wall_Outlet         "Basement Wall Outlet"                                 <poweroutlet_us>  (C_Basement)                                              ["PowerOutlet"]      {homekit="Outlet"}
 Switch         Basement_Wall_Outlet_Switch  "Basement Wall Outlet"                                 <poweroutlet_us>  (C_Basement, Basement_Wall_Outlet, Christmas_Lights_All)  ["Point"]            {homekit="Outlet.OnState", alexa="Outlet.OnState", channel="zwavejs:node:c503e1bad6:node60:binary-switch-value"}
