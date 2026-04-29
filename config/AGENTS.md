@@ -1,8 +1,10 @@
 # OpenHAB Configuration — Agent Guide
 
-This directory (`/etc/openhab`) is the configuration directory for an OpenHAB home automation installation. It is **not** a software project — there is no build step. OpenHAB reads configuration files directly from this directory at runtime.
+This directory (`/etc/openhab`) is the configuration directory for an OpenHAB home automation installation. It is
+**not** a software project — there is no build step. OpenHAB reads configuration files directly from this directory at
+runtime.
 
-Primary automation language: **JRuby DSL** via the `openhab-scripting` gem.  
+Primary automation language: **JRuby DSL** via the `openhab-scripting` gem.
 Key ecosystems integrated: HomeKit, Alexa, Z-Wave JS, Zigbee (via zigbee2mqtt), MQTT, Matter.
 
 ---
@@ -12,6 +14,7 @@ Key ecosystems integrated: HomeKit, Alexa, Z-Wave JS, Zigbee (via zigbee2mqtt), 
 **All changes to this repository must go through plan mode. No file may be created or modified without an approved plan.**
 
 Before making any edits:
+
 1. Enter plan mode and thoroughly explore the relevant parts of the codebase.
 2. Write a plan describing what will change and why.
 3. Wait for explicit user approval of the plan.
@@ -54,11 +57,13 @@ Pattern: `Location_Feature_Detail_Type`
 Examples: `FF_Kitchen_Island_Dimmer`, `SF_Thermostat`, `C_Basement_Occupancy`
 
 **Groups** are used extensively for scene control and logical hierarchy:
+
 ```
 All_Kitchen_Lights → Normal_Kitchen_Lights → FF_Kitchen
 ```
 
 **Semantic tags** are applied for cross-ecosystem compatibility:
+
 ```
 ["Lightbulb"]  ["Switch"]  ["Measurement"]  ["Setpoint"]
 ```
@@ -76,6 +81,7 @@ Configured in `services/jruby.cfg`. The following are **auto-required on startup
 - `active_support/core_ext/string/inflections` — `.underscore`, `.camelize`, etc.
 
 Additional libraries must be explicitly required:
+
 ```ruby
 require "zwave"        # loads automation/ruby/lib/zwave.rb
 require "time_helpers" # loads automation/ruby/lib/time_helpers.rb
@@ -98,6 +104,7 @@ profiles.rb       sun.rb            thermostats.rb
 ```
 
 **Common automation patterns:**
+
 - Z-Wave paddle multi-click triggers: `SINGLE`, `TWO`, `THREE`, `FOUR` clicks → scene changes
 - Occupancy-based automation via Hiome sensors (REST API)
 - Sun position triggers for outdoor/evening lighting (`sun.rb`, `evening_lights.rb`)
@@ -105,6 +112,7 @@ profiles.rb       sun.rb            thermostats.rb
 - LED status indicators (7-color) mapped to house state via HomeSeer
 
 **Custom profiles** (in `profiles.rb`):
+
 - `zwavejs_int_handler` — JSON path extraction for Z-Wave events
 - `upcase_state` — String normalization
 - `binary_open_state` — Contact sensor state inversion
@@ -189,6 +197,7 @@ bundle exec rubocop --autocorrect     # auto-fix safe violations
 ```
 
 Key rules enforced by `.rubocop.yml`:
+
 - Double-quoted strings required
 - Target Ruby version: 3.4
 - Plugins: `rubocop-openhab-scripting`, `rubocop-performance`, `rubocop-rspec`
@@ -217,8 +226,8 @@ When changes to `services/*.cfg` are required: explain the specific field and va
 
 ## Transformation Files
 
-- **`.map` files** — Simple key→value state mappings loaded by the Map transformation service.  
-  Example — `lock_user.map`: `1=Keith`, `2=Sarah`, `3=kids`, `4=Cleaning Service`
+- **`.map` files** — Simple key→value state mappings loaded by the Map transformation service.
+  Example — `lock_user.map`: `1=Keith`, `2=Sarah`, `3=kids`
 - **`.rb` files** — Ruby-based transformers (e.g., `zigbee2mqtt_colorxy_in.rb` / `zigbee2mqtt_colorxy_out.rb` for XY↔RGB color conversion)
 
 ---
