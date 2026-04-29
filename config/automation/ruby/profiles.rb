@@ -37,3 +37,17 @@ profile(:adjust_rainin_state) do |event, callback:, state:|
 
   false
 end
+
+# Number channel that has 0 for off and 1 for on, but we want to have it as a switch in openHAB
+profile(:number_channel_switch) do |event, callback:, state:, command:|
+  case event
+  when :state_from_handler
+    callback.send_update(state == "1" ? ON : OFF)
+    false
+  when :command_from_item
+    callback.handle_command(command == ON ? "1" : "0")
+    false
+  else
+    true
+  end
+end

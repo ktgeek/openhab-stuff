@@ -16,16 +16,16 @@ Switch Office_bugg_Zoom "bugg Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] {
 Switch Office_Monitor_LED "Monitor LEDs" (FF_Office) ["Lightbulb"] { homekit="Lighting", channel="hyperion:serverNG:3072a6de25:leddevice"}
 
 Group Office_Lights_Control (FF_Office) ["Equipment"]
-Switch Office_Lights_Switch "Office Lights" (Office_Lights_Control) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:9b4942b136:switch_binary" }
-Number Office_Lights_LED_1_Color "Office Lights Led 1 Color" (Office_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_1_color" }
-Number Office_Lights_LED_2_Color "Office Lights Led 2 Color" (Office_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_2_color" }
-Number Office_Lights_LED_3_Color "Office Lights Led 3 Color" (Office_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_3_color" }
-Number Office_Lights_LED_4_Color "Office Lights Led 4 Color" (Office_Lights_Control) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_4_color" }
-Number Office_Lights_LED_5_Color "Office Lights Led 5 Color" (Office_Lights_Control, House_Perimeter_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_5_color" }
-Number Office_Lights_LED_6_Color "Office Lights Led 6 Color" (Office_Lights_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_6_color" }
-Switch Office_Lights_LED_6_Blink "Office Lights Led 6 Blink" (Office_Lights_Control, Small_Garage_Door_Open_LEDs_Blink) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_6_blink" }
-Number Office_Lights_LED_7_Color "Office Lights Led 7 Color" (Office_Lights_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_7_color" }
-Switch Office_Lights_LED_7_Blink "Office Lights Led 7 Blink" (Office_Lights_Control, Large_Garage_Door_Open_LEDs_Blink) ["Point"] { channel="mqtt:topic:26bcbec1ee:9b4942b136:status_led_7_blink" }
+Switch Office_Lights_Switch "Office Lights" (Office_Lights_Control) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node96:binary-switch-value" }
+Number Office_Lights_LED_1_Color "Office Lights Led 1 Color" (Office_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-1-color" }
+Number Office_Lights_LED_2_Color "Office Lights Led 2 Color" (Office_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-2-color" }
+Number Office_Lights_LED_3_Color "Office Lights Led 3 Color" (Office_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-3-color" }
+Number Office_Lights_LED_4_Color "Office Lights Led 4 Color" (Office_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-4-color" }
+Number Office_Lights_LED_5_Color "Office Lights Led 5 Color" (Office_Lights_Control, House_Perimeter_LEDs) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-5-color" }
+Number Office_Lights_LED_6_Color "Office Lights Led 6 Color" (Office_Lights_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-6-color" }
+Switch Office_Lights_LED_6_Blink "Office Lights Led 6 Blink" (Office_Lights_Control, Small_Garage_Door_Open_LEDs_Blink) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-led-6-blink-status-32" [profile="ruby:number_channel_switch"] }
+Number Office_Lights_LED_7_Color "Office Lights Led 7 Color" (Office_Lights_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-7-color" }
+Switch Office_Lights_LED_7_Blink "Office Lights Led 7 Blink" (Office_Lights_Control, Large_Garage_Door_Open_LEDs_Blink) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-led-7-blink-status-64" [profile="ruby:number_channel_switch"] }
 
 Group Office_Presence (FF_Office) ["Equipment"]
 Switch Office_Presence_Sensor "Office Occupancy" (Office_Presence) ["Point"] { channel="mqtt:topic:26bcbec1ee:office_presence:presence", homekit="OccupancySensor" }
