@@ -12,8 +12,12 @@ end
 
 changed(Laundry_Room_Door_Contact, to: CLOSED) { Side_Yard_Light_Power.ensure.off }
 
-channel("mqtt:topic:26bcbec1ee:7f0a376172:scene_1", triggered: ZWave::Paddle::CLICK) { Side_Yard_Light_Power.ensure.on }
+changed Side_Yard_Lights_Scenes.members do |event|
+  next if event.null?
 
-channel("mqtt:topic:26bcbec1ee:7f0a376172:scene_2", triggered: ZWave::Paddle::CLICK) do
-  Side_Yard_Light_Power.ensure.off
+  event.item.update(NULL)
 end
+
+updated(Side_Yard_Lights_Scene_1, to: ZWave::Paddle::CLICK) { Side_Yard_Light_Power.ensure.on }
+
+updated(Side_Yard_Lights_Scene_2, to: ZWave::Paddle::CLICK) { Side_Yard_Light_Power.ensure.off }

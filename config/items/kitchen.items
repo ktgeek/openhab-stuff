@@ -51,4 +51,4 @@ Switch Kitchen_Table_Lights "Kitchen Table Lights" <lightbulb> (Kitchen_Table_Li
 Contact Kitchen_Back_Door_Contact "Back Door" (FF_Kitchen, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_3" }
 
 Group Kitchen_Sink_Light_Control (FF_Kitchen) ["WallSwitch"]
-Switch Kitchen_Sink_Light "Kitchen Sink Light" <lightbulb> (Kitchen_Sink_Light_Control) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:1f174fc2b3:switch_binary" }
+Switch Kitchen_Sink_Light "Kitchen Sink Light" <lightbulb> (Kitchen_Sink_Light_Control) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node80:binary-switch-value" }
