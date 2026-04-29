@@ -5,10 +5,17 @@ require "weather"
 
 no_update_notification_sent = false
 
-channel("scene_1", thing: Kitchen_Backyard_Lights_Switch.thing, triggered: ZWave::Paddle::CLICK) do
+changed Kitchen_Backyard_Lights_Scenes.members do |event|
+  next if event.null?
+
+  event.item.update(NULL)
+end
+
+updated Kitchen_Backyard_Lights_Scene_1, to: ZWave::Paddle::CLICK do
   Backyard_Lights_Power.ensure.on
 end
-channel("scene_2", thing: Kitchen_Backyard_Lights_Switch.thing, triggered: ZWave::Paddle::CLICK) do
+
+updated Kitchen_Backyard_Lights_Scene_2, to: ZWave::Paddle::CLICK do
   Backyard_Lights_Power.ensure.off
 end
 

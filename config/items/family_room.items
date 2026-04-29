@@ -2,11 +2,11 @@ Group    FF_FamilyRoom        "Family Room"    <sofa>          (FF)             
 
 Group:Switch:AND(ON,OFF) FamilyRoom_All_Lights "All Family Room Lights" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { alexa="Lighting" }
 
-Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:8a0457e90b:switch_binary" }
+Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node76:binary-switch-value" }
 
-Switch FamilyRoom_Fireplace_Lights_Switch "Fireplace Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="mqtt:topic:26bcbec1ee:570f9cd536:switch_binary" }
+Switch FamilyRoom_Fireplace_Lights_Switch "Fireplace Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node77:binary-switch-value" }
 
-Dimmer FamilyRoom_Accent_Lights_Dimmer "Family Room Accents [%d]" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness" [ minValue=0, maxValue=99 ], alexa="Lighting", channel="mqtt:topic:26bcbec1ee:f7bd40773a:dimmer" }
+Dimmer FamilyRoom_Accent_Lights_Dimmer "Family Room Accents [%d]" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness" [ minValue=0, maxValue=99 ], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node78:multilevel-switch-value" }
 
 Group FamilyRoom_Wall_Outlet "Family Room Wall Outlet" <poweroutlet_us> (FF_FamilyRoom) ["PowerOutlet"] { homekit="Outlet" }
 Switch FamilyRoom_Wall_Outlet_Switch "Family Room Wall Outlet" <poweroutlet_us> (Christmas_Lights, Christmas_Lights_All, FamilyRoom_Wall_Outlet) ["Point"] { homekit="Outlet.OnState", alexa="Outlet", channel="zwavejs:node:c503e1bad6:node17:binary-switch-value" }

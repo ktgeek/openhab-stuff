@@ -5,7 +5,7 @@ Contact Kitchen_Bathroom_Contact_Sensor "Kitchen Bathroom Contact Sensor" (Kitch
 Switch Kitchen_Bathroom_Contact_Battery_isLow "Kitchen Bathroom Contact Sensor Battery" (Kitchen_Bathroom_Contact_Sensor_Group) ["LowBattery"] { homekit="ContactSensor.BatteryLowStatus", channel="mqtt:topic:26bcbec1ee:9b365b4264:battery_low" }
 
 Group Kitchen_Bathroom_Light_Group "Kitchen Bathroom Light Group" (FF_Kitchen_Bathroom) ["Lighting"]
-Switch Kitchen_Bathroom_Light_Switch "Kitchen Bathroom Light " (Kitchen_Bathroom_Light_Group) ["Lighting"] { homekit="Lighting", channel="mqtt:topic:26bcbec1ee:kb_light:binary_switch" }
+Switch Kitchen_Bathroom_Light_Switch "Kitchen Bathroom Light " (Kitchen_Bathroom_Light_Group) ["Lighting"] { homekit="Lighting", channel="zwavejs:node:c503e1bad6:node66:binary-switch-value" }
 
 Group Kitchen_Bathroom_Fan_Group "Kitchen Bathroom Fan Group" (FF_Kitchen_Bathroom) ["Fan"]
-Switch Kitchen_Bathroom_Fan_Switch "Kitchen Bathroom Fan" (Kitchen_Bathroom_Fan_Group) ["Fan"] { homekit="Fan", channel="mqtt:topic:26bcbec1ee:kb_fan:binary_switch" }
+Switch Kitchen_Bathroom_Fan_Switch "Kitchen Bathroom Fan" (Kitchen_Bathroom_Fan_Group) ["Fan"] { homekit="Fan", channel="zwavejs:node:c503e1bad6:node85:binary-switch-value" }

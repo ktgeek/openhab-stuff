@@ -1,1 +1,1 @@
-Switch Evan_Bedroom_Light "Evan's Bedroom Light" (SF_EvansRoom) ["Lighting"] { autoupdate="false", channel="mqtt:topic:26bcbec1ee:evan_bedroom_lights:binary_switch", homekit="Lighting", alexa="Lighting" }
+Switch Evan_Bedroom_Light "Evan's Bedroom Light" (SF_EvansRoom) ["Lighting"] { autoupdate="false", channel="zwavejs:node:c503e1bad6:node69:binary-switch-value", homekit="Lighting", alexa="Lighting" }
