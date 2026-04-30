@@ -36,5 +36,12 @@ Switch   Bedroom_Sarahs_Closet_Contact_Battery_isLow  "Sarah's Closet Contact Se
 Switch  Bedroom_Sarah_Closet_Light  "Sarah's Closet"  (SF_Bedroom)  ["Lighting"]  {autoupdate="false", channel="zwavejs:node:c503e1bad6:node262:binary-switch-value", homekit="Lighting", alexa="Lighting"}
 
 Group   Bedroom_Scene_Switch_Group    "Bedroom Scene Switch"   <switch>  (SF_Bedroom)
-Switch  Bedroom_Hallway_Light_Switch  "Bedroom Hallway Light"  <switch>  (Bedroom_Scene_Switch_Group)  ["Point"]  {channel="mqtt:topic:26bcbec1ee:162a22c6ce:switch_binary", homekit="Lighting", alexa="Lighting"}
+Group   Bedroom_Scene_Switch_Scenes   "Bedroom Scene Switch - Scenes" <switch>  (Bedroom_Scene_Switch_Group)
+Switch  Bedroom_Hallway_Light_Switch  "Bedroom Hallway Light"  <switch>  (Bedroom_Scene_Switch_Group)  ["Point"]  {channel="zwavejs:node:c503e1bad6:node88:binary-switch-value", homekit="Lighting", alexa="Lighting"}
+Number  Bedroom_Hallway_Light_Scene_1  "Bedroom Hallway Light Scene 1"  (Bedroom_Scene_Switch_Scenes)  {channel="zwavejs:node:c503e1bad6:node88:central-scene-scene-001"}
+Number  Bedroom_Hallway_Light_Scene_2  "Bedroom Hallway Light Scene 2"  (Bedroom_Scene_Switch_Scenes)  {channel="zwavejs:node:c503e1bad6:node88:central-scene-scene-002"}
+Number  Bedroom_Hallway_Light_Scene_3  "Bedroom Hallway Light Scene 3"  (Bedroom_Scene_Switch_Scenes)  {channel="zwavejs:node:c503e1bad6:node88:central-scene-scene-003"}
+Number  Bedroom_Hallway_Light_Scene_4  "Bedroom Hallway Light Scene 4"  (Bedroom_Scene_Switch_Scenes)  {channel="zwavejs:node:c503e1bad6:node88:central-scene-scene-004"}
+Number  Bedroom_Hallway_Light_Scene_5  "Bedroom Hallway Light Scene 5"  (Bedroom_Scene_Switch_Scenes)  {channel="zwavejs:node:c503e1bad6:node88:central-scene-scene-005"}
+Number  Bedroom_Hallway_Light_Scene_6  "Bedroom Hallway Light Scene 6"  (Bedroom_Scene_Switch_Scenes)  {channel="zwavejs:node:c503e1bad6:node88:central-scene-scene-006"}
 
