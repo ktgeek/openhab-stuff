@@ -6,6 +6,7 @@ require "homeseer"
 require "kwikset"
 require "tv_notification"
 require "awtrix3"
+require "active_support/core_ext/hash/indifferent_access"
 
 updated Front_Door_Lock_Alarm_Type, to: [Kwikset::Alarm::KEYPAD_JAMMED,
                                          Kwikset::Alarm::REMOTE_JAMMED,
@@ -13,18 +14,25 @@ updated Front_Door_Lock_Alarm_Type, to: [Kwikset::Alarm::KEYPAD_JAMMED,
   Front_Door_Lock_Actual_Homekit.update(Homekit::LockStatus::JAMMED)
 end
 
-updated Front_Door_Lock_Keypad_Unlock_UserId do |event|
-  user = transform("MAP", "lock_user.map", event.state)
+updated Front_Door_Lock_Raw_Notification do |event|
+  data = event.state? ? JSON.parse(event.state).with_indifferent_access : {}
 
-  message = "Front Door keypad unlocked by #{user}"
+  if data[:event] == 6 && data[:type] == 6
+    user_id = data.dig("parameters", "userId")
+    user = transform("MAP", "lock_user.map", user_id)
 
-  logger.info(message)
-  Notification.send(message)
-  TvNotification.notify(message:)
-  Awtrix3.new(Awtrix_Clock_Display_Power.thing).show_custom_notification(
-    message: message,
-    icon: "front_door_lock"
-  )
+    message = "Front Door keypad unlocked by #{user}"
+
+    logger.info(message)
+    Notification.send(message)
+    TvNotification.notify(message:)
+    Awtrix3.new(Awtrix_Clock_Display_Power.thing).show_custom_notification(
+      message: message,
+      icon: "front_door_lock"
+    )
+  end
+
+  event.item.ensure.update(NULL)
 end
 
 rule "Front Door Lock: proxy changes to actual back to target" do
