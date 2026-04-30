@@ -132,20 +132,23 @@ rule "when the exercise room door is open" do
   only_if { Hiome_Basement_Occupancy_Count.state < 1 }
 end
 
-channel("scene_1", thing: Exercise_Room_Dimmer.thing, triggered: ZWave::Paddle::TWO_CLICKS) do
-  Basement_Stairs_Switch.ensure.on
+changed Exercise_Room_Dimmer_Lights_Scenes.members do |event|
+  next if event.null?
+
+  event.item.update(NULL)
 end
 
-channel("scene_1", thing: Exercise_Room_Dimmer.thing, triggered: ZWave::Paddle::THREE_CLICKS) do
+
+updated(Exercise_Room_Dimmer_Lights_Scene_1, to: ZWave::Paddle::TWO_CLICKS) { Basement_Stairs_Switch.ensure.on }
+
+updated(Exercise_Room_Dimmer_Lights_Scene_1, to: ZWave::Paddle::THREE_CLICKS) do
   Exercise_Room_Bike_Trainer_Enabled.on
   Exercise_Room_Bike_Trainer_Switch.ensure.on
 end
 
-channel("scene_2", thing: Exercise_Room_Dimmer.thing, triggered: ZWave::Paddle::TWO_CLICKS) do
-  Basement_Stairs_Switch.ensure.off
-end
+updated(Exercise_Room_Dimmer_Lights_Scene_2, to: ZWave::Paddle::TWO_CLICKS) { Basement_Stairs_Switch.ensure.off}
 
-channel("scene_2", thing: Exercise_Room_Dimmer.thing, triggered: ZWave::Paddle::THREE_CLICKS) do
+updated(Exercise_Room_Dimmer_Lights_Scene_2, to: ZWave::Paddle::THREE_CLICKS) do
   Exercise_Room_Bike_Trainer_Enabled.off
   Exercise_Room_Bike_Trainer_Switch.ensure.off
 end

@@ -1,19 +1,19 @@
 Group Dining_Room_Table_Lights_Control (FF_Dining) ["Equipment"]
-Dimmer Dining_Room_Table_Lights "Dining Room Table Lights [%d]" <lightbulb> (Dining_Room_Table_Lights_Control) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness, Lighting.OnState" [minValue=0, maxValue=99], alexa="Lighting", channel="mqtt:topic:dining_room_table_lights:switch_dimmer" }
-Number Dining_Room_Table_Lights_LED_1_Color "Dining Room Table Lights Led 1 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_1_color" }
-Number Dining_Room_Table_Lights_LED_2_Color "Dining Room Table Lights Led 2 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_2_color" }
-Number Dining_Room_Table_Lights_LED_3_Color "Dining Room Table Lights Led 3 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_3_color" }
-Number Dining_Room_Table_Lights_LED_4_Color "Dining Room Table Lights Led 4 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_4_color" }
-Number Dining_Room_Table_Lights_LED_5_Color "Dining Room Table Lights Led 5 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_5_color" }
-Number Dining_Room_Table_Lights_LED_6_Color "Dining Room Table Lights Led 6 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_6_color" }
-Number Dining_Room_Table_Lights_LED_7_Color "Dining Room Table Lights Led 7 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_table_lights:status_led_7_color" }
+Dimmer Dining_Room_Table_Lights "Dining Room Table Lights [%d]" <lightbulb> (Dining_Room_Table_Lights_Control) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness, Lighting.OnState" [minValue=0, maxValue=99], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node72:multilevel-switch-value" }
+Number Dining_Room_Table_Lights_LED_1_Color "Dining Room Table Lights Led 1 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node72:configuration-status-led-1-color" }
+Number Dining_Room_Table_Lights_LED_2_Color "Dining Room Table Lights Led 2 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node72:configuration-status-led-2-color" }
+Number Dining_Room_Table_Lights_LED_3_Color "Dining Room Table Lights Led 3 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node72:configuration-status-led-3-color" }
+Number Dining_Room_Table_Lights_LED_4_Color "Dining Room Table Lights Led 4 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node72:configuration-status-led-4-color" }
+Number Dining_Room_Table_Lights_LED_5_Color "Dining Room Table Lights Led 5 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node72:configuration-status-led-5-color" }
+Number Dining_Room_Table_Lights_LED_6_Color "Dining Room Table Lights Led 6 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node72:configuration-status-led-6-color" }
+Number Dining_Room_Table_Lights_LED_7_Color "Dining Room Table Lights Led 7 Color" (Dining_Room_Table_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node72:configuration-status-led-7-color" }
 
 Group Dining_Room_Can_Lights_Control (FF_Dining) ["Equipment"]
-Dimmer Dining_Room_Can_Lights "Dining Room Can Lights [%d]" <lightbulb> (Dining_Room_Can_Lights_Control) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness, Lighting.OnState" [minValue=0, maxValue=99], alexa="Lighting", channel="mqtt:topic:dining_room_can_lights:switch_dimmer" }
-Number Dining_Room_Can_Lights_LED_1_Color "Dining Room Can Lights Led 1 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_1_color" }
-Number Dining_Room_Can_Lights_LED_2_Color "Dining Room Can Lights Led 2 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_2_color" }
-Number Dining_Room_Can_Lights_LED_3_Color "Dining Room Can Lights Led 3 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_3_color" }
-Number Dining_Room_Can_Lights_LED_4_Color "Dining Room Can Lights Led 4 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_4_color" }
-Number Dining_Room_Can_Lights_LED_5_Color "Dining Room Can Lights Led 5 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_5_color" }
-Number Dining_Room_Can_Lights_LED_6_Color "Dining Room Can Lights Led 6 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_6_color" }
-Number Dining_Room_Can_Lights_LED_7_Color "Dining Room Can Lights Led 7 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="mqtt:topic:dining_room_can_lights:status_led_7_color" }
+Dimmer Dining_Room_Can_Lights "Dining Room Can Lights [%d]" <lightbulb> (Dining_Room_Can_Lights_Control) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness, Lighting.OnState" [minValue=0, maxValue=99], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node74:multilevel-switch-value" }
+Number Dining_Room_Can_Lights_LED_1_Color "Dining Room Can Lights Led 1 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node74:configuration-status-led-1-color" }
+Number Dining_Room_Can_Lights_LED_2_Color "Dining Room Can Lights Led 2 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node74:configuration-status-led-2-color" }
+Number Dining_Room_Can_Lights_LED_3_Color "Dining Room Can Lights Led 3 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node74:configuration-status-led-3-color" }
+Number Dining_Room_Can_Lights_LED_4_Color "Dining Room Can Lights Led 4 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node74:configuration-status-led-4-color" }
+Number Dining_Room_Can_Lights_LED_5_Color "Dining Room Can Lights Led 5 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node74:configuration-status-led-5-color" }
+Number Dining_Room_Can_Lights_LED_6_Color "Dining Room Can Lights Led 6 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node74:configuration-status-led-6-color" }
+Number Dining_Room_Can_Lights_LED_7_Color "Dining Room Can Lights Led 7 Color" (Dining_Room_Can_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node74:configuration-status-led-7-color" }
