@@ -113,10 +113,11 @@ profiles.rb       sun.rb            thermostats.rb
 
 **Custom profiles** (in `profiles.rb`):
 
-- `zwavejs_int_handler` — JSON path extraction for Z-Wave events
 - `upcase_state` — String normalization
 - `binary_open_state` — Contact sensor state inversion
 - `adjust_rainin_state` — Rain sensor calibration
+- `number_channel_switch` — Converts a 0/1 Number channel for a ON/OFF Switch Item
+- `is_low_state` — Converts a Number channel to a ON/OFF Switch Item given a threshold configuration
 
 ---
 
