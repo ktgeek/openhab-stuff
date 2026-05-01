@@ -26,6 +26,5 @@ updated C_Basement_NanomoteQuad_Scene_4, to: ZWave::Paddle::CLICK do
   C_Basement_Movie_Switch.on
 end
 
-BASEMENT_SCENES = C_Basement_Scenes.members.map(&:thing)
-channel("scene_1", thing: BASEMENT_SCENES, triggered: ZWave::Paddle::TWO_CLICKS) { C_Basement_Normal_Switch.on }
-channel("scene_2", thing: BASEMENT_SCENES, triggered: ZWave::Paddle::TWO_CLICKS) { C_Basement_Movie_Switch.on }
+updated(C_Basement_Scenes_1.members, to: ZWave::Paddle::TWO_CLICKS) { C_Basement_Normal_Switch.on }
+updated(C_Basement_Scenes_2.members, to: ZWave::Paddle::TWO_CLICKS) { C_Basement_Movie_Switch.on }
