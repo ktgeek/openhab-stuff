@@ -2,12 +2,6 @@
 
 require "zwave"
 
-changed C_Basement_NanomoteQuad_Scenes.members do |event|
-  next if event.null?
-
-  event.item.update(NULL)
-end
-
 updated C_Basement_NanomoteQuad_Scene_1, to: ZWave::Paddle::CLICK do
   C_Basement_Normal_Switch.on
 end

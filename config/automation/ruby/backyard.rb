@@ -5,12 +5,6 @@ require "weather"
 
 no_update_notification_sent = false
 
-changed Kitchen_Backyard_Lights_Scenes.members do |event|
-  next if event.null?
-
-  event.item.update(NULL)
-end
-
 updated Kitchen_Backyard_Lights_Scene_1, to: ZWave::Paddle::CLICK do
   Backyard_Lights_Power.ensure.on
 end

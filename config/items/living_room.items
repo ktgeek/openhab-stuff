@@ -10,14 +10,13 @@ Color LivingRoom_Light_1_Color "Living Room Light 1" (FF_LivingRoom, Christmas_L
 Color LivingRoom_Light_2_Color "Living Room Light 2" (FF_LivingRoom, Christmas_Lights, Christmas_Lights_All) ["Point"] { matter="ColorLight" [label="Living Room Light 2", fixedLabels="room=Living Room"], channel="mqtt:topic:26bcbec1ee:99fe3ab847:color" }
 
 Group LivingRoom_Scene_Switch_Group "Living Room Scene Switch" <switch> (FF_LivingRoom)
-Group LivingRoom_Scene_Switch_Scenes "Living Room Scene Switch - Scenes" <switch> (LivingRoom_Scene_Switch_Group)
 Switch LivingRoom_Scene_Switch "Living Room Scene Switch" <switch> (LivingRoom_Scene_Switch_Group) ["Point"] { channel="zwavejs:node:c503e1bad6:node65:binary-switch-value" }
-Number LivingRoom_Scene_Switch_Scene_1 "Living Room Scene Switch Scene 1" (LivingRoom_Scene_Switch_Scenes) {channel="zwavejs:node:c503e1bad6:node65:central-scene-scene-001"}
-Number LivingRoom_Scene_Switch_Scene_2 "Living Room Scene Switch Scene 2" (LivingRoom_Scene_Switch_Scenes) {channel="zwavejs:node:c503e1bad6:node65:central-scene-scene-002"}
-Number LivingRoom_Scene_Switch_Scene_3 "Living Room Scene Switch Scene 3" (LivingRoom_Scene_Switch_Scenes) {channel="zwavejs:node:c503e1bad6:node65:central-scene-scene-003"}
-Number LivingRoom_Scene_Switch_Scene_4 "Living Room Scene Switch Scene 4" (LivingRoom_Scene_Switch_Scenes) {channel="zwavejs:node:c503e1bad6:node65:central-scene-scene-004"}
-Number LivingRoom_Scene_Switch_Scene_5 "Living Room Scene Switch Scene 5" (LivingRoom_Scene_Switch_Scenes) {channel="zwavejs:node:c503e1bad6:node65:central-scene-scene-005"}
-Number LivingRoom_Scene_Switch_Scene_6 "Living Room Scene Switch Scene 6" (LivingRoom_Scene_Switch_Scenes) {channel="zwavejs:node:c503e1bad6:node65:central-scene-scene-006"}
+Number LivingRoom_Scene_Switch_Scene_1 "Living Room Scene Switch Scene 1" (LivingRoom_Scene_Switch_Group, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node65:central-scene-scene-001"}
+Number LivingRoom_Scene_Switch_Scene_2 "Living Room Scene Switch Scene 2" (LivingRoom_Scene_Switch_Group, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node65:central-scene-scene-002"}
+Number LivingRoom_Scene_Switch_Scene_3 "Living Room Scene Switch Scene 3" (LivingRoom_Scene_Switch_Group, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node65:central-scene-scene-003"}
+Number LivingRoom_Scene_Switch_Scene_4 "Living Room Scene Switch Scene 4" (LivingRoom_Scene_Switch_Group, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node65:central-scene-scene-004"}
+Number LivingRoom_Scene_Switch_Scene_5 "Living Room Scene Switch Scene 5" (LivingRoom_Scene_Switch_Group, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node65:central-scene-scene-005"}
+Number LivingRoom_Scene_Switch_Scene_6 "Living Room Scene Switch Scene 6" (LivingRoom_Scene_Switch_Group, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node65:central-scene-scene-006"}
 
 Group Living_Room_Table_Light (FF_LivingRoom) ["PowerOutlet"]
 Switch Living_Room_Table_Light_Switch "Living Room Table Light" <poweroutlet_us> (Living_Room_Table_Light) ["Switch"] { channel="mqtt:topic:26bcbec1ee:living_room_table_light:switch", homekit="Lighting", alexa="Lighting" }

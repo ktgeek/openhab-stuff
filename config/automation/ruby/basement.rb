@@ -132,13 +132,6 @@ rule "when the exercise room door is open" do
   only_if { Hiome_Basement_Occupancy_Count.state < 1 }
 end
 
-changed Exercise_Room_Dimmer_Lights_Scenes.members do |event|
-  next if event.null?
-
-  event.item.update(NULL)
-end
-
-
 updated(Exercise_Room_Dimmer_Lights_Scene_1, to: ZWave::Paddle::TWO_CLICKS) { Basement_Stairs_Switch.ensure.on }
 
 updated(Exercise_Room_Dimmer_Lights_Scene_1, to: ZWave::Paddle::THREE_CLICKS) do

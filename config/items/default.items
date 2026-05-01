@@ -11,6 +11,8 @@ Group FF_Laundry_Room "Laundry Room"               (FF)    ["LaundryRoom"]
 Group Backyard     "Backyard"                      (Home)  ["Outdoor"]
 Group Front_Yard   "Front Yard"                    (Home)  ["Outdoor"]
 
+Group Clear_Scenes "Clear Scenes"
+
 // First Floor - Entrance
 Group:Switch:OR(ON,OFF) All_Hall_Lights "Hall Lights" <lightbulb> (FF_Entrance) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
 Switch Switch_Entrance_Hall_Light "Hall Table Light" <lightbulb> (All_Hall_Lights) ["Point"] { channel="zwavejs:node:c503e1bad6:node8:binary-switch-value" }

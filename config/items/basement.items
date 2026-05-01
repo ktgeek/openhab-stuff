@@ -58,12 +58,11 @@ Switch  C_Basement_Movie_Switch   "Basement Movie"   <cinema>  (C_Basement)  ["W
 Switch  C_Basement_Normal_Switch  "Basement Normal"  <smiley>  (C_Basement)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable"}
 
 Group                 C_Basement_NanomoteQuad               "Nanomote Quad"                    (C_Basement)               ["Equipment"]
-Group                 C_Basement_NanomoteQuad_Scenes        "Nanomote Quad Scenes"             (C_Basement_NanomoteQuad)  ["Point"]
 Number:Dimensionless  C_Basement_NanomoteQuad_BatteryLevel  "Nanomote Quad Battery [%.1f %%]"  (C_Basement_NanomoteQuad)  ["Point"]      {unit="%", channel="zwavejs:node:c503e1bad6:node53:battery-level"}
-Number                C_Basement_NanomoteQuad_Scene_1       "Nanomote Quad Scene 1"            (C_Basement_NanomoteQuad_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-001"}
-Number                C_Basement_NanomoteQuad_Scene_2       "Nanomote Quad Scene 2"            (C_Basement_NanomoteQuad_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-002"}
-Number                C_Basement_NanomoteQuad_Scene_3       "Nanomote Quad Scene 3"            (C_Basement_NanomoteQuad_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-003"}
-Number                C_Basement_NanomoteQuad_Scene_4       "Nanomote Quad Scene 4"            (C_Basement_NanomoteQuad_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-004"}
+Number                C_Basement_NanomoteQuad_Scene_1       "Nanomote Quad Scene 1"            (C_Basement_NanomoteQuad, Clear_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-001"}
+Number                C_Basement_NanomoteQuad_Scene_2       "Nanomote Quad Scene 2"            (C_Basement_NanomoteQuad, Clear_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-002"}
+Number                C_Basement_NanomoteQuad_Scene_3       "Nanomote Quad Scene 3"            (C_Basement_NanomoteQuad, Clear_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-003"}
+Number                C_Basement_NanomoteQuad_Scene_4       "Nanomote Quad Scene 4"            (C_Basement_NanomoteQuad, Clear_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-004"}
 
 Group          Basement_Wall_Outlet         "Basement Wall Outlet"                                 <poweroutlet_us>  (C_Basement)                                              ["PowerOutlet"]      {homekit="Outlet"}
 Switch         Basement_Wall_Outlet_Switch  "Basement Wall Outlet"                                 <poweroutlet_us>  (C_Basement, Basement_Wall_Outlet, Christmas_Lights_All)  ["Point"]            {homekit="Outlet.OnState", alexa="Outlet.OnState", channel="zwavejs:node:c503e1bad6:node60:binary-switch-value"}
@@ -84,7 +83,6 @@ Number  Basement_Receiver_Input_Source  "Basement Receiver Input Source [%d]"  (
 
 Switch  Exercise_Room_Light  "Exercise Room Light"  <lightbulb>  (C_ExerciseRoom, C_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node10:binary-switch-value"}
 
-Group   Exercise_Room_Dimmer_Lights_Control                                                       (C_ExerciseRoom)                                                     ["Equipment"]
 Group   Exercise_Room_Dimmer_Lights_Scenes                                                        (Exercise_Room_Dimmer_Lights_Control)                                ["Point"]
 Dimmer  Exercise_Room_Dimmer                     "Exercise Room Dimmer [%d %%]"      <lightbulb>  (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom, C_All_Lights)  ["SetPoint", "Light"]  {unit="%", homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node11:multilevel-switch-value"}
 Number  Exercise_Room_Dimmer_Lights_LED_1_Color  "Exercise Room Dimmer Led 1 Color"               (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_1)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-1-color"}
@@ -94,8 +92,8 @@ Number  Exercise_Room_Dimmer_Lights_LED_4_Color  "Exercise Room Dimmer Led 4 Col
 Number  Exercise_Room_Dimmer_Lights_LED_5_Color  "Exercise Room Dimmer Led 5 Color"               (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_5)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-5-color"}
 Number  Exercise_Room_Dimmer_Lights_LED_6_Color  "Exercise Room Dimmer Led 6 Color"               (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_6)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-6-color"}
 Number  Exercise_Room_Dimmer_Lights_LED_7_Color  "Exercise Room Dimmer Led 7 Color"               (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_7)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-7-color"}
-Number  Exercise_Room_Dimmer_Lights_Scene_1      "Exercise Room Dimmer Scene 1"                   (Exercise_Room_Dimmer_Lights_Scenes)                                                        {channel="zwavejs:node:c503e1bad6:node11:central-scene-scene-001"}
-Number  Exercise_Room_Dimmer_Lights_Scene_2      "Exercise Room Dimmer Scene 2"                   (Exercise_Room_Dimmer_Lights_Scenes)                                                        {channel="zwavejs:node:c503e1bad6:node11:central-scene-scene-002"}
+Number  Exercise_Room_Dimmer_Lights_Scene_1      "Exercise Room Dimmer Scene 1"                   (Exercise_Room_Dimmer_Lights_Control, Clear_Scenes)                                                        {channel="zwavejs:node:c503e1bad6:node11:central-scene-scene-001"}
+Number  Exercise_Room_Dimmer_Lights_Scene_2      "Exercise Room Dimmer Scene 2"                   (Exercise_Room_Dimmer_Lights_Control, Clear_Scenes)                                                        {channel="zwavejs:node:c503e1bad6:node11:central-scene-scene-002"}
 
 
 Group                   Exercise_Room_Bike_Trainer                   "Exercise Room Bike Trainer"                                     (C_ExerciseRoom)                              ["PowerOutlet"]      {homekit="Outlet"}

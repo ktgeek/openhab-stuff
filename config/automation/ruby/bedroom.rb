@@ -43,12 +43,6 @@ changed Bedroom_Sarahs_Closet_Contact_Sensor, to: CLOSED do |event|
   after(30.seconds, id: event.item) { Bedroom_Sarah_Closet_Light.ensure.off }
 end
 
-changed Bedroom_Scene_Switch_Scenes.members do |event|
-  next if event.null?
-
-  event.item.update(NULL)
-end
-
 # sarah right, keith left
 updated(Bedroom_Hallway_Light_Scene_1, to: ZWave::Paddle::CLICK) { Bedroom_Table_Light_Switch.toggle }
 

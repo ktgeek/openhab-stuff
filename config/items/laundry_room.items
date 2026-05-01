@@ -11,7 +11,6 @@ Number Laundry_Room_Lights_LED_6_Color "Laundry Room Lights Led 6 Color" (Laundr
 Number Laundry_Room_Lights_LED_7_Color "Laundry Room Lights Led 7 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-7-color" }
 
 Group Side_Yard_Lights_Control (FF_Laundry_Room) ["Equipment"]
-Group Side_Yard_Lights_Scenes (FF_Laundry_Room) ["Scene"]
 Switch Side_Yard_Lights_Switch "Side Yard Lights" (Side_Yard_Lights_Control) ["Switch", "Light"] { channel="zwavejs:node:c503e1bad6:node28:binary-switch-value" }
 Number Side_Yard_Lights_LED_1_Color "Side Yard Lights Led 1 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-1-color" }
 Number Side_Yard_Lights_LED_2_Color "Side Yard Lights Led 2 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-2-color" }
@@ -20,8 +19,8 @@ Number Side_Yard_Lights_LED_4_Color "Side Yard Lights Led 4 Color" (Side_Yard_Li
 Number Side_Yard_Lights_LED_5_Color "Side Yard Lights Led 5 Color" (Side_Yard_Lights_Control, House_Perimeter_LEDs) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-5-color" }
 Number Side_Yard_Lights_LED_6_Color "Side Yard Lights Led 6 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-6-color" }
 Number Side_Yard_Lights_LED_7_Color "Side Yard Lights Led 7 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-7-color" }
-Number Side_Yard_Lights_Scene_1 "Side Yard Lights Scene 1" (Side_Yard_Lights_Scenes) {channel="zwavejs:node:c503e1bad6:node28:central-scene-scene-001"}
-Number Side_Yard_Lights_Scene_2 "Side Yard Lights Scene 2" (Side_Yard_Lights_Scenes) {channel="zwavejs:node:c503e1bad6:node28:central-scene-scene-002"}
+Number Side_Yard_Lights_Scene_1 "Side Yard Lights Scene 1" (Side_Yard_Lights_Control, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node28:central-scene-scene-001"}
+Number Side_Yard_Lights_Scene_2 "Side Yard Lights Scene 2" (Side_Yard_Lights_Control, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node28:central-scene-scene-002"}
 
 
 Group Side_Yard_Light "Side Yard Light" (FF_Laundry_Room) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
