@@ -30,7 +30,7 @@ Number:Dimensionless Family_Room_Sensor_Humidity "Family Room Humidity" (Family_
 Number:Dimensionless Family_Room_Sensor_Battery_Level "Basement Flood Sensor Battery Level" (Family_Room_Sensor) ["Measurement", "Battery"] { unit="%", channel="mqtt:topic:26bcbec1ee:family_room_sensor:battery" }
 
 Group Family_Room_Fan_Button "Family Room Fan Button" (FF_FamilyRoom) ["RemoteControl"]
-Number Family_Room_Fan_Button_Battery "Family Room Fan Button Battery" (Family_Room_Fan_Button) ["Measurement", "Battery"] { unit="%", channel="mqtt:topic:26bcbec1ee:family_room_fan_button:battery" }
+Number Family_Room_Fan_Button_Battery "Family Room Fan Button Battery" (Family_Room_Fan_Button) ["Measurement", "Battery"] { unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffee019e:battery" }
 
 Group FamilyRoom_TV "Family Room TV" (FF_FamilyRoom) ["Television"]
 Switch FamilyRoom_TV_Power "Power" (FamilyRoom_TV) {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:power"}

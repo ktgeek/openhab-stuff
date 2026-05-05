@@ -3,7 +3,7 @@
 require "zwave"
 require "zigbee"
 
-BEDROOM_REMOTES = %w[mqtt:topic:26bcbec1ee:bedroom_table_remote mqtt:topic:26bcbec1ee:bedroom_sarah_remote].freeze
+BEDROOM_REMOTES = [Bedroom_Table_Remote_Battery.thing, Bedroom_Sarah_Remote_Battery.thing].freeze
 
 updated Bedroom_Ceiling_Fan_Speed do |event|
   next unless (0..3).cover?(event.state)
@@ -13,33 +13,33 @@ end
 
 received_command(Bedroom_Ceiling_Fan_Power, command: OFF) { Bedroom_Ceiling_Fan_Speed.command(0) }
 
-channel("action", thing: BEDROOM_REMOTES, triggered: %w[1_single 2_single 3_single]) do |event|
+channel(%w[1_single 2_single 3_single], thing: BEDROOM_REMOTES) do |event|
   Bedroom_Ceiling_Fan_Speed.command(event.event[0].to_i)
 end
 
-channel("action", thing: BEDROOM_REMOTES, triggered: %w[1_double 2_double 3_double]) do
+channel(%w[1_double 2_double 3_double], thing: BEDROOM_REMOTES) do
   Bedroom_Ceiling_Fan_Speed.command(0)
 end
 
-channel("action", thing: BEDROOM_REMOTES, triggered: "4_single") do |event|
+channel("4_single", thing: BEDROOM_REMOTES) do |event|
   switch = items["Bedroom_#{event.thing.label.split[1]}_Light_Switch"]
   switch&.toggle
 end
 
-channel("action", thing: BEDROOM_REMOTES, triggered: "4_double") { Bedroom_Ceiling_Fan_Light_Power.toggle }
+channel("4_double", thing: BEDROOM_REMOTES) { Bedroom_Ceiling_Fan_Light_Power.toggle }
 
-channel("action", thing: BEDROOM_REMOTES.first, triggered: "4_hold") { Bedroom_Sarah_Light_Switch.toggle }
+channel("4_hold", thing: BEDROOM_REMOTES.first) { Bedroom_Sarah_Light_Switch.toggle }
 
 changed Bedroom_Keiths_Closet_Contact_Sensor do |event|
-  Bedroom_Keith_Closet_Light.ensure.command(event.state == OPEN)
+  Bedroom_Keith_Closet_Light.ensure.command(event.state == ON)
 end
 
-changed Bedroom_Sarahs_Closet_Contact_Sensor, to: OPEN do |event|
+changed Bedroom_Sarahs_Closet_Contact_Sensor, to: ON do |event|
   timers.cancel(event.item)
   Bedroom_Sarah_Closet_Light.ensure.on
 end
 
-changed Bedroom_Sarahs_Closet_Contact_Sensor, to: CLOSED do |event|
+changed Bedroom_Sarahs_Closet_Contact_Sensor, to: OFF do |event|
   after(30.seconds, id: event.item) { Bedroom_Sarah_Closet_Light.ensure.off }
 end
 

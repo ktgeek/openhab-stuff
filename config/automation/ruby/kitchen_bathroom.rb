@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-changed(Kitchen_Bathroom_Contact_Sensor, to: "OPEN") do
+changed(Kitchen_Bathroom_Contact_Sensor, to: ON) do
   timers.cancel(Kitchen_Bathroom_Light_Switch)
   timers.cancel(Kitchen_Bathroom_Fan_Switch)
 
@@ -8,7 +8,7 @@ changed(Kitchen_Bathroom_Contact_Sensor, to: "OPEN") do
   after(5.minutes, id: Kitchen_Bathroom_Fan_Switch) { Kitchen_Bathroom_Fan_Switch.ensure.off }
 end
 
-changed(Kitchen_Bathroom_Contact_Sensor, to: "CLOSED") do
+changed(Kitchen_Bathroom_Contact_Sensor, to: OFF) do
   timers.cancel(Kitchen_Bathroom_Light_Switch)
   timers.cancel(Kitchen_Bathroom_Fan_Switch)
 end
