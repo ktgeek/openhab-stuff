@@ -32,7 +32,7 @@ Number Kitchen_Accent_Sink_LED_1_Color "Kitchen Accent Sink Led 1 Color" (Kitche
 Number Kitchen_Accent_Sink_LED_2_Color "Kitchen Accent Sink Led 2 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwavejs:node:c503e1bad6:node40:configuration-status-led-2-color"}
 Number Kitchen_Accent_Sink_LED_3_Color "Kitchen Accent Sink Led 3 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwavejs:node:c503e1bad6:node40:configuration-status-led-3-color"}
 Number Kitchen_Accent_Sink_LED_4_Color "Kitchen Accent Sink Led 4 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwavejs:node:c503e1bad6:node40:configuration-status-led-4-color"}
-Number Kitchen_Accent_Sink_LED_5_Color "Kitchen Accent Sink Led 5 Color" (Kitchen_Accent_Sink_Control, House_Perimeter_LEDs) ["Point"] {channel="mzwavejs:node:c503e1bad6:node40:configuration-status-led-5-color"}
+Number Kitchen_Accent_Sink_LED_5_Color "Kitchen Accent Sink Led 5 Color" (Kitchen_Accent_Sink_Control, House_Perimeter_LEDs) ["Point"] {channel="zwavejs:node:c503e1bad6:node40:configuration-status-led-5-color"}
 Number Kitchen_Accent_Sink_LED_6_Color "Kitchen Accent Sink Led 6 Color" (Kitchen_Accent_Sink_Control, Small_Garage_Door_Open_LEDs) ["Point"] {channel="zwavejs:node:c503e1bad6:node40:configuration-status-led-6-color"}
 Switch Kitchen_Accent_Sink_LED_6_Blink "Kitchen Accent Sink Led 7 Blink" (Kitchen_Accent_Sink_Control, Small_Garage_Door_Open_LEDs_Blink) ["Point"] {channel="zwavejs:node:c503e1bad6:node40:configuration-led-6-blink-status-32" [profile="ruby:number_channel_switch"]}
 Number Kitchen_Accent_Sink_LED_7_Color "Kitchen Accent Sink Led 7 Color" (Kitchen_Accent_Sink_Control, Large_Garage_Door_Open_LEDs) ["Point"] {channel="zwavejs:node:c503e1bad6:node40:configuration-status-led-7-color"}
