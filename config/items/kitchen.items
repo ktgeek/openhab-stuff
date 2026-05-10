@@ -57,7 +57,7 @@ Switch Kitchen_Table_Lights "Kitchen Table Lights" <lightbulb> (Kitchen_Table_Li
 Number Kitchen_Table_Lights_Scene_1 "Kitchen Table Lights Scene 1" (Kitchen_Table_Lights_Control, FF_Kitchen_Lights_Scenes_1, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node110:central-scene-scene-001"}
 Number Kitchen_Table_Lights_Scene_2 "Kitchen Table Lights Scene 2" (Kitchen_Table_Lights_Control, FF_Kitchen_Lights_Scenes_2, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node110:central-scene-scene-002"}
 
-Contact Kitchen_Back_Door_Contact "Back Door" (FF_Kitchen, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_3" }
+Switch Kitchen_Back_Door_Contact "Back Door" (FF_Kitchen, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="homeassistant:device:26bcbec1ee:84f3ebcbcbab:zone_3" }
 
 Group Kitchen_Sink_Light_Control (FF_Kitchen) ["WallSwitch"]
 Switch Kitchen_Sink_Light "Kitchen Sink Light" <lightbulb> (Kitchen_Sink_Light_Control) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node80:binary-switch-value" }

@@ -7,7 +7,7 @@ Group Small_Garage_Door_Open_LEDs_Blink (FF_Garage) ["Equipment"]
 
 String Garage_OutdoorLights_Button_Action "Outdoor Garage Lights Button Action" (FF_Porch) ["Point"] { channel="mqtt:topic:26bcbec1ee:1e9a931646:button_action" }
 
-Contact Garage_House_Door_Contact "Garage House Door" (FF_Garage, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_2" }
+Switch Garage_House_Door_Contact "Garage House Door" (FF_Garage, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="homeassistant:device:26bcbec1ee:84f3ebcbcbab:zone_2" }
 
 Group Small_Garage_Door "Small Garage Door" (FF_Garage) ["Door"] { homekit="GarageDoorOpener", alexa="GarageDoor" }
 String Small_Garage_Door_State "Small Garage Door State" (Small_Garage_Door) { channel="mqtt:topic:26bcbec1ee:sgdo:door_state" [profile="ruby:upcase_state"], autoupdate="false", homekit="GarageDoorOpener.CurrentDoorState" }

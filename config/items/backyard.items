@@ -2,7 +2,7 @@ Group                 Backyard_Weather_Station            "Backyard Weather Stat
 Number:Temperature    Backyard_Temperature                "Backyard Temperature [%.1f%unit%]"             <temperature>  (Backyard_Weather_Station)  ["Measurement", "Temperature"]  {unit="°F", homekit="TemperatureSensor" [minValue=-40, maxValue=120], channel="mqtt:topic:26bcbec1ee:24803daf2c:temperature_f"}
 Number:Temperature    Backyard_FeelsLike_Temperature      "Backyard Feels Like Temperature [%.1f%unit%]"  <temperature>  (Backyard_Weather_Station)  ["Measurement", "Temperature"]  {unit="°F"}
 Number:Dimensionless  Backyard_Humidity                   "Backyard Humidity [%d %%]"                     <humidity>     (Backyard_Weather_Station)  ["Measurement", "Humidity"]     {unit="%", homekit="HumiditySensor", channel="mqtt:topic:26bcbec1ee:24803daf2c:humidity"}
-Number:Pressure       Backyard_Barometric_Pressure        "Barometric pressure [%.2f%unit%]"              <pressure>     (Backyard_Weather_Station)  ["Measurement"]                 {channel="mqtt:topic:26bcbec1ee:bf9cbe799b:pressure"}
+Number:Pressure       Backyard_Barometric_Pressure        "Barometric pressure [%.2f%unit%]"              <pressure>     (Backyard_Weather_Station)  ["Measurement"]                 {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x00158d000af1cca1:pressure"}
 
 Number:Length         Backyard_Rain                       "Rain [%.2f in]"                                <rain>         (Backyard_Weather_Station)  ["Measurement"]                 {unit="in", channel="mqtt:topic:26bcbec1ee:24803daf2c:rain_in" [profile="ruby:adjust_rainin_state"]}
 
@@ -19,6 +19,4 @@ Switch  Backyard_Outdoor_Decorations_Switch  "Backyard Outdoor Decorations"  <li
 Switch  Backyard_Patio_Decorations_Switch    "Backyard Patio Decorations"    <lightbulb>  (Backyard, Christmas_Outside)  ["Lightbulb"]  {channel="zwavejs:node:c503e1bad6:node16:binary-switch-value"}
 
 Group   Backyard_Lights         "Backyard Lights"         (Backyard)         ["Lightbulb"]  {homekit="Lighting", alexa="Endpoint.Light"}
-Switch  Backyard_Lights_Power   "Backyard Lights Power"   (Backyard_Lights, Christmas_Outside)  ["Switch"]     {channel="mqtt:topic:26bcbec1ee:backyard_lights:switch", homekit="Lighting.OnState", alexa="PowerController.powerState", autoupdate="false"}
-Color   Backyard_Lights_Color   "Backyard Lights Color"   (Backyard_Lights)  ["Lightbulb"]  {channel="mqtt:topic:26bcbec1ee:backyard_lights:color_xy", homekit="Lighting.Hue, Lighting.Saturation", alexa="Endpoint.Light,ColorController.color", autoupdate="false"}
-Dimmer  Backyard_Lights_Dimmer  "Backyard Lights Dimmer"  (Backyard_Lights)  ["Lightbulb"]  {channel="mqtt:topic:26bcbec1ee:backyard_lights:brightness", homekit="Lighting.Brightness", alexa="BrightnessController.brightness", autoupdate="false"}
+Color   Backyard_Lights_Color   "Backyard Lights Color"   (Backyard_Lights, Christmas_Outside)  ["Lightbulb"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F1221051039810110150109113116116_5F1:light#color", homekit="Lighting.OnState, Lighting.Brightness, Lighting.Hue, Lighting.Saturation", alexa="PowerController.powerState,BrightnessController.brightness,Endpoint.Light,ColorController.color", autoupdate="false"}

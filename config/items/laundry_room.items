@@ -1,4 +1,4 @@
-Contact Laundry_Room_Door_Contact "Laundry Room Door" (FF_Laundry_Room, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_4" }
+Switch Laundry_Room_Door_Contact "Laundry Room Door" (FF_Laundry_Room, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="homeassistant:device:26bcbec1ee:84f3ebcbcbab:zone_4" }
 
 Group Laundry_Room_Lights_Control (FF_Laundry_Room) ["Equipment"]
 Switch Laundry_Room_Lights_Switch "Laundry Room Lights" (Laundry_Room_Lights_Control) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node29:binary-switch-value" }

@@ -34,8 +34,8 @@ Number Front_Door_Lock_User_ID_Status_4 "Front Door Lock Code Status" (gFront_Do
 Switch Front_Door_Lock_Cleaning_Switch "Cleaning Service Entry Allowed" (FF_Entrance) ["Point"] { homekit="Switchable" }
 
 Group House_Perimeter_LEDs (Home) ["Equipment"]
-Group:Contact:OR(OPEN,CLOSED) House_Perimeter_Contacts "House Permiter Contacts" (Home) ["Eqiupment"]
-Contact Front_Door_Contact "Front Door" (FF_Entrance, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="mqtt:topic:26bcbec1ee:konnected_esphome:zone_1" }
+Group:Switch:OR(ON,OFF) House_Perimeter_Contacts "House Permiter Contacts" (Home) ["Eqiupment"]
+Switch Front_Door_Contact "Front Door" (FF_Entrance, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="homeassistant:device:26bcbec1ee:84f3ebcbcbab:zone_1" }
 
 String Holiday_Mode "Holiday Mode" (FF_Entrance) ["Point"]
 Switch Outdoor_Biking_Season "Am I biking outside?" (FF_Garage) ["Point"]

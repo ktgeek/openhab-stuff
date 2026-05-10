@@ -6,11 +6,11 @@ require "weather"
 no_update_notification_sent = false
 
 updated Kitchen_Backyard_Lights_Scene_1, to: ZWave::Paddle::CLICK do
-  Backyard_Lights_Power.ensure.on
+  Backyard_Lights_Color.ensure.on
 end
 
 updated Kitchen_Backyard_Lights_Scene_2, to: ZWave::Paddle::CLICK do
-  Backyard_Lights_Power.ensure.off
+  Backyard_Lights_Color.ensure.off
 end
 
 changed(Backyard_Temperature, Backyard_Humidity, Backyard_Wind_Speed) do

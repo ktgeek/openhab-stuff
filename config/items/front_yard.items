@@ -13,9 +13,7 @@ Switch Front_Yard_Side_Holiday_Decorations_Switch "Side Holiday Decorations" <pa
 Contact Front_Yard_Decoration_Mat_Contact "Front Yard Decoration Mat" (Front_Yard) ["Sensor"] { channel="mqtt:topic:26bcbec1ee:41888ff891:mat_sensor" }
 
 Group Porch_Lights "Porch Lights" (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
-Switch Porch_Lights_Power "Porch Lights Power" (Porch_Lights, Front_Yard_Lights) ["Switch"] { channel="mqtt:topic:26bcbec1ee:porch_lights:switch", homekit="Lighting.OnState", alexa="PowerController.powerState", autoupdate="false" }
-Color Porch_Lights_Color "Porch Lights Color" (Porch_Lights) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:porch_lights:color_xy", homekit="Lighting.Hue, Lighting.Saturation", alexa="Endpoint.Light,ColorController.color", autoupdate="false" }
-Dimmer Porch_Lights_Dimmer "Porch Lights Dimmer" (Porch_Lights) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:porch_lights:brightness", homekit="Lighting.Brightness", alexa="BrightnessController.brightness", autoupdate="false" }
+Color Porch_Lights_Color "Porch Lights Color" (Porch_Lights, Front_Yard_Lights) ["Lightbulb"] { channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F1221051039810110150109113116116_5F2:light#color", homekit="Lighting.OnState, Lighting.Brightness, Lighting.Hue, Lighting.Saturation", alexa="PowerController.powerState,BrightnessController.brightness,Endpoint.Light,ColorController.color", autoupdate="false" }
 
 Group Garage_Light_Left "Garage Light (Left)" (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
 Switch Garage_Light_Left_Power "Garage Light (Left) Power" (Garage_Light_Left, Front_Yard_Lights) ["Switch"] { channel="mqtt:topic:26bcbec1ee:garage_light_left:switch", homekit="Lighting.OnState", autoupdate="false" }
