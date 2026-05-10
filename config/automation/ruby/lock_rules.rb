@@ -57,28 +57,31 @@ rule "Front Door Lock: proxy lock command" do
   end
 end
 
-rule "when our perimeter has a change" do
-  changed House_Perimeter_Contacts, Front_Door_Lock
+changed(House_Perimeter_Contacts, Front_Door_Lock) do |event|
+  item = event.item
 
-  run do |event|
-    item = event.item
+  color = if House_Perimeter_Contacts.on?
+            { homeseer: Homeseer::LedColor::RED, awtrix: Awtrix3::Color::RED }
+          elsif Front_Door_Lock.off?
+            { homeseer: Homeseer::LedColor::YELLOW, awtrix: Awtrix3::Color::YELLOW }
+          else
+            { homeseer: Homeseer::LedColor::OFF, awtrix: nil }
+          end
+  House_Perimeter_LEDs.members.ensure.command(color[:homeseer])
 
-    color = if House_Perimeter_Contacts.open?
-              { homeseer: Homeseer::LedColor::RED, awtrix: Awtrix3::Color::RED }
-            elsif Front_Door_Lock.off?
-              { homeseer: Homeseer::LedColor::YELLOW, awtrix: Awtrix3::Color::YELLOW }
-            else
-              { homeseer: Homeseer::LedColor::OFF, awtrix: nil }
-            end
-    House_Perimeter_LEDs.members.ensure.command(color[:homeseer])
+  awtrix = Awtrix3.new(Awtrix_Clock_Display_Power.thing)
+  awtrix.set_indicator_color(Awtrix3::INDICATORS[House_Perimeter_Contacts], color[:awtrix])
 
-    awtrix = Awtrix3.new(Awtrix_Clock_Display_Power.thing)
-    awtrix.set_indicator_color(Awtrix3::INDICATORS[House_Perimeter_Contacts], color[:awtrix])
+  print_state = case item
+    when Front_Door_Lock
+      item.off? ? "Unlocked" : "Locked"
+    when House_Perimeter_Contacts
+      item.on? ? "Open" : "Closed"
+    end
 
-    message = "#{item.label} is now #{item.state.to_s.humanize}"
-    awtrix.show_custom_notification(message:, icon: "door", color: color[:awtrix])
-    TvNotification.notify(message:, avoid_appletv: (item == Front_Door_Lock))
-  end
+  message = "#{item.label} is now #{print_state}"
+  awtrix.show_custom_notification(message:, icon: "door", color: color[:awtrix])
+  TvNotification.notify(message:, avoid_appletv: (item == Front_Door_Lock))
 end
 
 # updated Front_Door_Lock_User_ID_Status_4 do |event|
