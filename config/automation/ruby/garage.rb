@@ -50,11 +50,7 @@ rule "garage doors state" do
   end
 end
 
-rule "real garage door target" do
-  received_command Small_Garage_Door_Target_State, Large_Garage_Door_Target_State
-
-  run do |event|
-    name = event.item.groups.first.name
-    items["#{name}_State"].command(event.on? ? "OPEN" : "CLOSE")
-  end
+received_command(Small_Garage_Door_Target_State, Large_Garage_Door_Target_State) do |event|
+  name = event.item.groups.first.name
+  items["#{name}_Position"].command(event.on? ? UP : DOWN)
 end
