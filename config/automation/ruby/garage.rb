@@ -23,30 +23,26 @@ def awtrix_notifications(message:, info:, item:)
   awtrix.show_custom_notification(message:, icon: info[:awtrix_icon], color: info[:awtrix_color])
 end
 
-rule "garage doors state" do
-  changed Small_Garage_Door_State, Large_Garage_Door_State
+changed(Small_Garage_Door_State, Large_Garage_Door_State) do |event|
+  state = event.state.to_s
+  info = GARAGE_STATE_INFO[state]
 
-  run do |event|
-    state = event.state.to_s
-    info = GARAGE_STATE_INFO[state]
+  next unless info
 
-    next unless info
+  group = event.item.groups.first
 
-    group = event.item.groups.first
+  items["#{group.name}_Target_State"].update(info[:target_state])
 
-    items["#{group.name}_Target_State"].update(info[:target_state])
+  message = "#{group.label} #{state.humanize}"
+  TvNotification.notify(message:, avoid_appletv: true)
+  awtrix_notifications(message:, info:, item: group)
 
-    message = "#{group.label} #{state.humanize}"
-    TvNotification.notify(message:, avoid_appletv: true)
-    awtrix_notifications(message:, info:, item: group)
+  leds = items["#{group.name}_Open_LEDs"]
+  blink_leds = items["#{group.name}_Open_LEDs_Blink"]
 
-    leds = items["#{group.name}_Open_LEDs"]
-    blink_leds = items["#{group.name}_Open_LEDs_Blink"]
-
-    ensure_states do
-      leds.members.command(info[:color])
-      blink_leds.members.command(info[:blink_state])
-    end
+  ensure_states do
+    leds.members.command(info[:color])
+    blink_leds.members.command(info[:blink_state])
   end
 end
 
