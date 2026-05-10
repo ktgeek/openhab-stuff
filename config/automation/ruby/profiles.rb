@@ -13,7 +13,7 @@ end
 profile(:binary_open_state) do |event, callback:, state:|
   next true unless event == :state_from_handler
 
-  callback.send_update(state == "closed" ? OFF : ON)
+  callback.send_update(state&.upcase == "CLOSED" ? OFF : ON)
 
   false
 end
