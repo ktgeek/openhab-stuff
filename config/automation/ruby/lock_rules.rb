@@ -36,33 +36,33 @@ updated Front_Door_Lock_Raw_Notification do |event|
   event.item.ensure.update(NULL)
 end
 
-rule "Front Door Lock: proxy changes to actual back to target" do
-  changed Front_Door_Lock_Actual
+# Front Door Lock: proxy changes to actual back to target
+changed(Front_Door_Lock_Actual) do |event|
+  item = event.item
+  basename = item.name[0..-8]
+  lock_item = items[basename]
+  lock_actual_item_homekit = items["#{basename}_Actual_Homekit"]
 
-  run do |event|
-    basename = event.item.name[0..-8]
-    lock_item = items[basename]
-    lock_actual_item_homekit = items["#{basename}_Actual_Homekit"]
+  state = item.state.to_i
+  new_state = if ZWave::Lock::Mode::UNSECURED_GROUP.include?(state)
+                { state: OFF, homekit: Homekit::LockStatus::UNSECURED }
+              elsif state == ZWave::Lock::Mode::SECURED
+                { state: ON, homekit: Homekit::LockStatus::SECURED }
+              else
+                logger.warn("Unknown lock state #{state} for item #{item.name}")
+                next
+              end
 
-    new_state = if event.state == ZWave::Lock::Mode::SECURED
-                  { state: ON, homekit: Homekit::LockStatus::SECURED }
-                else
-                  { state: OFF, homekit: Homekit::LockStatus::UNSECURED }
-                end
-
-    lock_item.update(new_state[:state])
-    lock_actual_item_homekit.update(new_state[:homekit])
-  end
+  lock_item.update(new_state[:state])
+  lock_actual_item_homekit.update(new_state[:homekit])
 end
 
-rule "Front Door Lock: proxy lock command" do
-  received_command Front_Door_Lock
-
-  run do |event|
-    lock_item_actual = items["#{event.item.name}_Actual"]
-    target_state = event.item.state.on? ? ZWave::Lock::Mode::SECURED : ZWave::Lock::Mode::UNSECURED
-    lock_item_actual.ensure.command(target_state)
-  end
+# Front Door Lock: proxy lock command
+received_command(Front_Door_Lock) do |event|
+  item = event.item
+  lock_item_actual = items["#{item.name}_Actual"]
+  target_state = item.state.on? ? ZWave::Lock::Mode::SECURED : ZWave::Lock::Mode::UNSECURED
+  lock_item_actual.ensure.command(target_state)
 end
 
 changed(House_Perimeter_Contacts, Front_Door_Lock) do |event|
