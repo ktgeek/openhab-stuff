@@ -4,6 +4,7 @@ require "json"
 require "homekit"
 require "homeseer"
 require "kwikset"
+require "zwave"
 require "tv_notification"
 require "awtrix3"
 require "active_support/core_ext/hash/indifferent_access"
@@ -43,8 +44,14 @@ rule "Front Door Lock: proxy changes to actual back to target" do
     lock_item = items[basename]
     lock_actual_item_homekit = items["#{basename}_Actual_Homekit"]
 
-    lock_item.update(event.state)
-    lock_actual_item_homekit.update(event.state.on? ? Homekit::LockStatus::SECURED : Homekit::LockStatus::UNSECURED)
+    new_state = if event.state == ZWave::Lock::Mode::SECURED
+      { state: ON, homekit: Homekit::LockStatus::SECURED }
+    else
+      { state: OFF, homekit: Homekit::LockStatus::UNSECURED }
+    end
+
+    lock_item.update(new_state[:state])
+    lock_actual_item_homekit.update(new_state[:homekit])
   end
 end
 
@@ -53,7 +60,8 @@ rule "Front Door Lock: proxy lock command" do
 
   run do |event|
     lock_item_actual = items["#{event.item.name}_Actual"]
-    lock_item_actual.ensure.command(event.item.state)
+    target_state = event.item.state.on? ? ZWave::Lock::Mode::SECURED : ZWave::Lock::Mode::UNSECURED
+    lock_item_actual.ensure.command(target_state)
   end
 end
 

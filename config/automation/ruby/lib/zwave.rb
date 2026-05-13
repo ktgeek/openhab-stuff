@@ -12,6 +12,19 @@ module ZWave
     FIVE_CLICKS = 6
   end
 
+  module Lock
+    module Mode
+      UNSECURED = 0
+      UNSECURED_WITH_TIMEOUT = 1
+      INSIDE_UNSECURED = 16
+      INSIDE_UNSECURED_WITH_TIMEOUT = 17
+      OUTSIDE_UNSECURED = 32
+      OUTSIDE_UNSECURED_WITH_TIMEOUT = 33
+      UNKNOWN = 254
+      SECURED = 255
+    end
+  end
+
   module Thermostat
     module Mode
       OFF = 0

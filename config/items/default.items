@@ -24,7 +24,7 @@ String Sun_Status "Is the sun up or down?" <sun> (Home) ["Status"]
 
 Group gFront_Door_Lock "Front Door Lock" (FF_Entrance) ["Equipment"] { homekit="Lock" }
 Switch Front_Door_Lock "Front Door Lock" <lock> (gFront_Door_Lock) ["Lock"] { homekit="Lock.LockTargetState", alexa="LockController.lockState" [itemSensor="Front_Door_Lock_Actual_Homekit"] }
-Switch Front_Door_Lock_Actual "Front Door Lock Actual" <lock> (gFront_Door_Lock) { channel="zwavejs:node:c503e1bad6:node64:door-lock-mode", autoupdate="false" }
+Number Front_Door_Lock_Actual "Front Door Lock Actual" <lock> (gFront_Door_Lock) { channel="zwavejs:node:c503e1bad6:node64:door-lock-mode", autoupdate="false" }
 Number Front_Door_Lock_Actual_Homekit "Front Door Actual Homekit" (gFront_Door_Lock) { homekit="Lock.LockCurrentState" }
 Number Front_Door_Lock_Alarm_Type "Front Door Lock Alarm Type" (gFront_Door_Lock) ["Point"] { channel="zwavejs:node:c503e1bad6:node64:notification-alarm-type" }
 String Front_Door_Lock_Raw_Notification "Raw notification" (gFront_Door_Lock) {channel="zwavejs:node:c503e1bad6:node64:notification-virtual"}
