@@ -45,10 +45,10 @@ rule "Front Door Lock: proxy changes to actual back to target" do
     lock_actual_item_homekit = items["#{basename}_Actual_Homekit"]
 
     new_state = if event.state == ZWave::Lock::Mode::SECURED
-      { state: ON, homekit: Homekit::LockStatus::SECURED }
-    else
-      { state: OFF, homekit: Homekit::LockStatus::UNSECURED }
-    end
+                  { state: ON, homekit: Homekit::LockStatus::SECURED }
+                else
+                  { state: OFF, homekit: Homekit::LockStatus::UNSECURED }
+                end
 
     lock_item.update(new_state[:state])
     lock_actual_item_homekit.update(new_state[:homekit])
@@ -81,11 +81,11 @@ changed(House_Perimeter_Contacts, Front_Door_Lock) do |event|
   awtrix.set_indicator_color(Awtrix3::INDICATORS[House_Perimeter_Contacts], color[:awtrix])
 
   print_state = case item
-    when Front_Door_Lock
-      item.off? ? "Unlocked" : "Locked"
-    when House_Perimeter_Contacts
-      item.on? ? "Open" : "Closed"
-    end
+                when Front_Door_Lock
+                  item.off? ? "Unlocked" : "Locked"
+                when House_Perimeter_Contacts
+                  item.on? ? "Open" : "Closed"
+                end
 
   message = "#{item.label} is now #{print_state}"
   awtrix.show_custom_notification(message:, icon: "door", color: color[:awtrix])

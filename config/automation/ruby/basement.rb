@@ -139,7 +139,7 @@ updated(Exercise_Room_Dimmer_Lights_Scene_1, to: ZWave::Paddle::THREE_CLICKS) do
   Exercise_Room_Bike_Trainer_Switch.ensure.on
 end
 
-updated(Exercise_Room_Dimmer_Lights_Scene_2, to: ZWave::Paddle::TWO_CLICKS) { Basement_Stairs_Switch.ensure.off}
+updated(Exercise_Room_Dimmer_Lights_Scene_2, to: ZWave::Paddle::TWO_CLICKS) { Basement_Stairs_Switch.ensure.off }
 
 updated(Exercise_Room_Dimmer_Lights_Scene_2, to: ZWave::Paddle::THREE_CLICKS) do
   Exercise_Room_Bike_Trainer_Enabled.off

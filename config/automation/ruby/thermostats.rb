@@ -73,7 +73,7 @@ TEMP_SETTINGS = {
 SETPOINTS = {
   ZWave::Thermostat::Mode::HEAT => "Heat_Setpoint",
   ZWave::Thermostat::Mode::COOL => "Cool_Setpoint"
-}
+}.freeze
 
 TEMP_SETTINGS.each do |thermostat, tsettings|
   thermostat_name = thermostat.name

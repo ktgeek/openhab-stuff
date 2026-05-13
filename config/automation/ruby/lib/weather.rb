@@ -46,11 +46,11 @@ module Weather
       logger.debug { "Wunderground response: #{response}" }
     end
 
-    private
-
     # Constants used in the dew point calculation
     DP_B = 17.625
     DP_C = 243.04
+
+    private
 
     # Calculates the head index based on temperature and humidity
     # @param temp [Float] Temperature in Fahrenheit
@@ -60,7 +60,7 @@ module Weather
       hi = 0.5 * (temp + 61.0 + ((temp - 68.0) * 1.2) + (humidity * 0.094))
       # In practice, the simple formula is computed first and the result averaged with the temperature. If this heat
       # index value is 80 degrees F or higher, the full regression equation along with any adjustment is applied.
-      return ((hi + temp) / 2) if hi < 80
+      return (hi + temp) / 2 if hi < 80
 
       hi = -42.379 + (2.04901523 * temp) + (10.14333127 * humidity) - (0.22475541 * temp * humidity) -
            (0.00683783 * temp * temp) - (0.05481717 * humidity * humidity) + (0.00122874 * temp * temp * humidity) +
