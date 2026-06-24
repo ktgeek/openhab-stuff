@@ -1,50 +1,49 @@
-Group Office_WindowDecorations (FF_Office) ["PowerOutlet"]
-Switch Office_WindowDecorations_Switch "Office Window Lights" <poweroutlet_us> (Office_WindowDecorations, Christmas_Lights, Christmas_Lights_All) ["WallSwitch"] { channel="mqtt:topic:26bcbec1ee:c0750d0653:power" }
-Number:Power Office_WindowDecorations_Watts "Office Window Decorations Power" (Office_WindowDecorations) ["Power"] { channel="mqtt:topic:26bcbec1ee:c0750d0653:currentPower" }
+Group         Office_WindowDecorations                                                              (Office)                                                            ["PowerOutlet"]
+Switch        Office_WindowDecorations_Switch  "Office Window Lights"             <poweroutlet_us>  (Office_WindowDecorations, Christmas_Lights, Christmas_Lights_All)  ["WallSwitch"]   {channel="mqtt:topic:26bcbec1ee:c0750d0653:power"}
+Number:Power  Office_WindowDecorations_Watts   "Office Window Decorations Power"                    (Office_WindowDecorations)                                          ["Power"]        {channel="mqtt:topic:26bcbec1ee:c0750d0653:currentPower"}
 
-Group Office_DoorLED "Office Door" (FF_Office) ["Lightbulb"]
-Color Office_DoorLED_Color "Office Door Color" (Christmas_Lights, Christmas_Lights_All, Office_DoorLED) ["Color"] { matter="ColorLight" [label="Office Door LED", fixedLabels="room=Office"], channel="mqtt:topic:26bcbec1ee:fc6154bf8b:Color" }
-Switch Office_DoorLED_Fade "Office Door Fade" (Office_DoorLED) ["Switch"] { channel="mqtt:topic:26bcbec1ee:fc6154bf8b:fade" }
-String Office_DoorLED_Palette "Office Door Palette" (Office_DoorLED) ["Point"] { channel="mqtt:topic:26bcbec1ee:fc6154bf8b:palette" }
-Number Office_DoorLED_Speed "Office Door Speed" (Office_DoorLED) ["SetPoint"] { channel="mqtt:topic:26bcbec1ee:fc6154bf8b:speed", stateDescription=""[min="0", max="40", step="1"] }
-Number Office_DoorLED_Scheme "Office Door Scheme" (Office_DoorLED) ["Point"] { channel="mqtt:topic:26bcbec1ee:fc6154bf8b:scheme" }
+Group   Office_DoorLED          "Office Door"          (Office)                                                  ["Lightbulb"]
+Color   Office_DoorLED_Color    "Office Door Color"    (Christmas_Lights, Christmas_Lights_All, Office_DoorLED)  ["Color"]      {matter="ColorLight" [label="Office Door LED", fixedLabels="room=Office"], channel="mqtt:topic:26bcbec1ee:fc6154bf8b:Color"}
+Switch  Office_DoorLED_Fade     "Office Door Fade"     (Office_DoorLED)                                          ["Switch"]     {channel="mqtt:topic:26bcbec1ee:fc6154bf8b:fade"}
+String  Office_DoorLED_Palette  "Office Door Palette"  (Office_DoorLED)                                          ["Point"]      {channel="mqtt:topic:26bcbec1ee:fc6154bf8b:palette"}
+Number  Office_DoorLED_Speed    "Office Door Speed"    (Office_DoorLED)                                          ["SetPoint"]   {channel="mqtt:topic:26bcbec1ee:fc6154bf8b:speed", stateDescription=""[min="0", max="40", step="1"]}
+Number  Office_DoorLED_Scheme   "Office Door Scheme"   (Office_DoorLED)                                          ["Point"]      {channel="mqtt:topic:26bcbec1ee:fc6154bf8b:scheme"}
 
-Group:Switch:OR(ON,OFF) Zoom_Active_Switch "Zoom Active" (FF_Office) ["Status"]
-Switch Office_M1Laptop_Zoom "m1 Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="homie:device:26bcbec1ee:m1-work-laptop:zoom_2Dactivity#status" }
-Switch Office_Bugg_Zoom "bugg Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="homie:device:26bcbec1ee:bugg-zoom:zoom_2Dactivity#status" }
+Group:Switch:OR(ON,OFF)  Zoom_Active_Switch    "Zoom Active"  (Office)                      ["Status"]
+Switch                   Office_M1Laptop_Zoom  "m1 Zoom"      (Office, Zoom_Active_Switch)  ["Status"]  {channel="homie:device:26bcbec1ee:m1-work-laptop:zoom_2Dactivity#status"}
+Switch                   Office_Bugg_Zoom      "bugg Zoom"    (Office, Zoom_Active_Switch)  ["Status"]  {channel="homie:device:26bcbec1ee:bugg-zoom:zoom_2Dactivity#status"}
 
-//Switch Office_Monitor_LED "Monitor LEDs" (FF_Office) ["Lightbulb"] { homekit="Lighting", channel="hyperion:serverNG:3072a6de25:leddevice"}
+//Switch Office_Monitor_LED "Monitor LEDs" (Office) ["Lightbulb"] { homekit="Lighting", channel="hyperion:serverNG:3072a6de25:leddevice"}
 
-Group Office_Lights_Control (FF_Office) ["Equipment"]
-Switch Office_Lights_Switch "Office Lights" (Office_Lights_Control) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node96:binary-switch-value" }
-Number Office_Lights_LED_1_Color "Office Lights Led 1 Color" (Office_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-1-color" }
-Number Office_Lights_LED_2_Color "Office Lights Led 2 Color" (Office_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-2-color" }
-Number Office_Lights_LED_3_Color "Office Lights Led 3 Color" (Office_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-3-color" }
-Number Office_Lights_LED_4_Color "Office Lights Led 4 Color" (Office_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-4-color" }
-Number Office_Lights_LED_5_Color "Office Lights Led 5 Color" (Office_Lights_Control, House_Perimeter_LEDs) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-5-color" }
-Number Office_Lights_LED_6_Color "Office Lights Led 6 Color" (Office_Lights_Control, Small_Garage_Door_Open_LEDs) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-6-color" }
-Switch Office_Lights_LED_6_Blink "Office Lights Led 6 Blink" (Office_Lights_Control, Small_Garage_Door_Open_LEDs_Blink) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-led-6-blink-status-32" [profile="ruby:number_channel_switch"] }
-Number Office_Lights_LED_7_Color "Office Lights Led 7 Color" (Office_Lights_Control, Large_Garage_Door_Open_LEDs) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-7-color" }
-Switch Office_Lights_LED_7_Blink "Office Lights Led 7 Blink" (Office_Lights_Control, Large_Garage_Door_Open_LEDs_Blink) ["Point"] { channel="zwavejs:node:c503e1bad6:node96:configuration-led-7-blink-status-64" [profile="ruby:number_channel_switch"] }
+Group   Office_Lights_Control                                   (Office)                                                    ["Equipment"]
+Switch  Office_Lights_Switch       "Office Lights"              (Office_Lights_Control)                                     ["Switch", "Light"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node96:binary-switch-value"}
+Number  Office_Lights_LED_1_Color  "Office Lights Led 1 Color"  (Office_Lights_Control)                                     ["Point"]            {channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-1-color"}
+Number  Office_Lights_LED_2_Color  "Office Lights Led 2 Color"  (Office_Lights_Control)                                     ["Point"]            {channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-2-color"}
+Number  Office_Lights_LED_3_Color  "Office Lights Led 3 Color"  (Office_Lights_Control)                                     ["Point"]            {channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-3-color"}
+Number  Office_Lights_LED_4_Color  "Office Lights Led 4 Color"  (Office_Lights_Control)                                     ["Point"]            {channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-4-color"}
+Number  Office_Lights_LED_5_Color  "Office Lights Led 5 Color"  (Office_Lights_Control, House_Perimeter_LEDs)               ["Point"]            {channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-5-color"}
+Number  Office_Lights_LED_6_Color  "Office Lights Led 6 Color"  (Office_Lights_Control, Small_Garage_Door_Open_LEDs)        ["Point"]            {channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-6-color"}
+Switch  Office_Lights_LED_6_Blink  "Office Lights Led 6 Blink"  (Office_Lights_Control, Small_Garage_Door_Open_LEDs_Blink)  ["Point"]            {channel="zwavejs:node:c503e1bad6:node96:configuration-led-6-blink-status-32" [profile="ruby:number_channel_switch"]}
+Number  Office_Lights_LED_7_Color  "Office Lights Led 7 Color"  (Office_Lights_Control, Large_Garage_Door_Open_LEDs)        ["Point"]            {channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-7-color"}
+Switch  Office_Lights_LED_7_Blink  "Office Lights Led 7 Blink"  (Office_Lights_Control, Large_Garage_Door_Open_LEDs_Blink)  ["Point"]            {channel="zwavejs:node:c503e1bad6:node96:configuration-led-7-blink-status-64" [profile="ruby:number_channel_switch"]}
 
-Group Office_Presence (FF_Office) ["Equipment"]
-Switch Office_Presence_Sensor "Office Occupancy" (Office_Presence) ["Point"] { channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x54ef441000589a03:presence", homekit="OccupancySensor" }
+Group   Office_Presence                             (Office)           ["Equipment"]
+Switch  Office_Presence_Sensor  "Office Occupancy"  (Office_Presence)  ["Point"]      {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x54ef441000589a03:presence", homekit="OccupancySensor"}
 
-Group Office_Fan "Office Fan" (FF_Office) ["CeilingFan"] { homekit="BasicFan" }
-Switch Office_Fan_Power "Office Fan" (Office_Fan) ["Control"] { channel="mqtt:topic:26bcbec1ee:office_fan:power", autoupdate="false",  homekit="BasicFan.OnState" }
-Number Office_Fan_Speed "Office Fan Speed" (Office_Fan) ["Control"] { homekit="BasicFan.RotationSpeed" [minValue=0, maxValue=4] }
-Number Office_Fan_Speed_Actual "Office Fan Speed" (Office_Fan) ["Control"] { channel="mqtt:topic:26bcbec1ee:office_fan:speed", autoupdate="false" }
+Group   Office_Fan               "Office Fan"        (Office)      ["CeilingFan"]  {homekit="BasicFan"}
+Switch  Office_Fan_Power         "Office Fan"        (Office_Fan)  ["Control"]     {channel="mqtt:topic:26bcbec1ee:office_fan:power", autoupdate="false",  homekit="BasicFan.OnState"}
+Number  Office_Fan_Speed         "Office Fan Speed"  (Office_Fan)  ["Control"]     {homekit="BasicFan.RotationSpeed" [minValue=0, maxValue=4]}
+Number  Office_Fan_Speed_Actual  "Office Fan Speed"  (Office_Fan)  ["Control"]     {channel="mqtt:topic:26bcbec1ee:office_fan:speed", autoupdate="false"}
 
-Group Office_AwtrixClock "Awtrix Clock" <screen> (FF_Office)
-Switch Office_AwtrixClock_Power "Awtrix Clock Display Power" (Office_AwtrixClock) ["Power"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:display" }
-Dimmer Office_AwtrixClock_Brightness "Brightness [%d %%]" (Office_AwtrixClock) ["Brightness"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:brightness" }
-Switch Office_AwtrixClock_AutoBrightness "Auto Brightness" (Office_AwtrixClock) ["Switch"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:auto-brightness" }
-Number Office_AwtrixClock_Battery "Battery Level [%d %%]" (Office_AwtrixClock) ["Battery"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:battery-level" }
-Switch Office_AwtrixClock_LowBattery "Low Battery" (Office_AwtrixClock) ["Alert"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:low-battery" }
+Group   Office_AwtrixClock                 "Awtrix Clock"                <screen>  (Office)
+Switch  Office_AwtrixClock_Power           "Awtrix Clock Display Power"            (Office_AwtrixClock)  ["Power"]       {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:display"}
+Dimmer  Office_AwtrixClock_Brightness      "Brightness [%d %%]"                    (Office_AwtrixClock)  ["Brightness"]  {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:brightness"}
+Switch  Office_AwtrixClock_AutoBrightness  "Auto Brightness"                       (Office_AwtrixClock)  ["Switch"]      {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:auto-brightness"}
+Number  Office_AwtrixClock_Battery         "Battery Level [%d %%]"                 (Office_AwtrixClock)  ["Battery"]     {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:battery-level"}
+Switch  Office_AwtrixClock_LowBattery      "Low Battery"                           (Office_AwtrixClock)  ["Alert"]       {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:low-battery"}
 
-// Washing Machine App items
-Group Office_Awtrix_OutdoorTemp_App "Awtrix Clock Outdoor Temp App"
-Switch Office_Awtrix_OutdoorTemp_Active "Outdoor Temp Active" (Office_Awtrix_OutdoorTemp_App) { channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:active" }
-String Office_Awtrix_OutdoorTemp_Text "Outdoor Temp Text" (Office_Awtrix_OutdoorTemp_App) { channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:text" }
-Color Office_Awtrix_OutdoorTemp_Color "Outdoor Temp Color" (Office_Awtrix_OutdoorTemp_App) { channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:color" }
-String Office_Awtrix_OutdoorTemp_Icon "Outdoor Temp Icon" (Office_Awtrix_OutdoorTemp_App) { channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:icon" }
+Group   Office_Awtrix_OutdoorTemp_App     "Awtrix Clock Outdoor Temp App"
+Switch  Office_Awtrix_OutdoorTemp_Active  "Outdoor Temp Active"            (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:active"}
+String  Office_Awtrix_OutdoorTemp_Text    "Outdoor Temp Text"              (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:text"}
+Color   Office_Awtrix_OutdoorTemp_Color   "Outdoor Temp Color"             (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:color"}
+String  Office_Awtrix_OutdoorTemp_Icon    "Outdoor Temp Icon"              (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:icon"}

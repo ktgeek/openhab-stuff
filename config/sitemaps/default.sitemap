@@ -94,10 +94,10 @@ sitemap default label="Garner House" {
     }
 
     Frame label="Second Floor" icon="firstfloor" {
-        Group item=SF_Hallway
-        Group item=SF_Bedroom
-        Group item=SF_DinahsRoom
-        Group item=SF_HiddenRoom
-        Group item=SF_EvansRoom
+        Group item=Upstairs
+        Group item=Bedroom
+        Group item=DinahsRoom
+        Group item=HiddenRoom
+        Group item=EvansRoom
     }
 }
