@@ -24,13 +24,13 @@ Group Family_Room_Ceiling_Fan_With_Light "Family Room Ceiling Fan With Light" (F
 Switch Family_Room_Ceiling_Fan_Fan_Power "Family Room Ceiling Fan" (Family_Room_Ceiling_Fan_With_Light) { homekit="BasicFan.OnState", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:common#power" }
 Switch Family_Room_Ceiling_Fan_Light_Power "Family Room Ceiling Fan Light" (Family_Room_Ceiling_Fan_With_Light) { homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:light#power" }
 
-Group Family_Room_Sensor "Family Room Sensor" (FF_FamilyRoom) ["Equpiment"]
-Number:Temperature Family_Room_Sensor_Temperature "Family Room Temperature" (Family_Room_Sensor) ["Measurement", "Temperature"] { unit="°C", homekit="TemperatureSensor.CurrentTemperature", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:temperature" }
-Number:Dimensionless Family_Room_Sensor_Humidity "Family Room Humidity" (Family_Room_Sensor) ["Measurement", "Humidity"] { unit="%", homekit="HumiditySensor.CurrentRelativeHumidity", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:humidity" }
-Number:Dimensionless Family_Room_Sensor_Battery_Level "Basement Flood Sensor Battery Level" (Family_Room_Sensor) ["Measurement", "Battery"] { unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:battery" }
+Group FamilyRoom_Sensor "Family Room Sensor" (FF_FamilyRoom) ["Equpiment"]
+Number:Temperature Family_Room_Sensor_Temperature "Family Room Temperature" (FamilyRoom_Sensor) ["Measurement", "Temperature"] { unit="°C", homekit="TemperatureSensor.CurrentTemperature", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:temperature" }
+Number:Dimensionless Family_Room_Sensor_Humidity "Family Room Humidity" (FamilyRoom_Sensor) ["Measurement", "Humidity"] { unit="%", homekit="HumiditySensor.CurrentRelativeHumidity", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:humidity" }
+Number:Dimensionless FamilyRoom_Sensor_Battery_Level "Basement Flood Sensor Battery Level" (FamilyRoom_Sensor) ["Measurement", "Battery"] { unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:battery" }
 
-Group Family_Room_Fan_Button "Family Room Fan Button" (FF_FamilyRoom) ["RemoteControl"]
-Number Family_Room_Fan_Button_Battery "Family Room Fan Button Battery" (Family_Room_Fan_Button) ["Measurement", "Battery"] { unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffee019e:battery" }
+Group FamilyRoom_Fan_Button "Family Room Fan Button" (FF_FamilyRoom) ["RemoteControl"]
+Number FamilyRoom_Fan_Button_Battery "Family Room Fan Button Battery" (FamilyRoom_Fan_Button) ["Measurement", "Battery"] { unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffee019e:battery" }
 
 Group FamilyRoom_TV "Family Room TV" (FF_FamilyRoom) ["Television"]
 Switch FamilyRoom_TV_Power "Power" (FamilyRoom_TV) {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:power"}
