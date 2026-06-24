@@ -1,18 +1,18 @@
 Group  SF_Bedroom  "Bedroom"  <bedroom>  (SF)  ["Bedroom"]
 
-Switch  Bedroom_Wall_Outlet  "Bedroom Outlet"  <poweroutlet_us>  (SF_Bedroom, Christmas_Lights, Christmas_Lights_All)  ["WallSwitch"]  {homekit="Outlet", channel="zwavejs:node:c503e1bad6:node62:binary-switch-value"}
+Switch  Bedroom_WallOutlet  "Bedroom Outlet"  <poweroutlet_us>  (SF_Bedroom, Christmas_Lights, Christmas_Lights_All)  ["WallSwitch"]  {homekit="Outlet", channel="zwavejs:node:c503e1bad6:node62:binary-switch-value"}
 
-Group   Bedroom_Ceiling_Fan_With_Light   "Bedroom Ceiling Fan"                  (SF_Bedroom)                      ["CeilingFan"]  {homekit="Fan,Lighting"}
-Dimmer  Bedroom_Ceiling_Fan_Speed        "Bedroom Ceiling Fan Speed"        <fan_ceiling>  (Bedroom_Ceiling_Fan_With_Light)  ["Control"]     {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x881a14fffe41c829:fan#speed", autoupdate="false", homekit="Fan.ActiveStatus, Fan.RotationSpeed"}
-Dimmer  Bedroom_Ceiling_Fan_Light        "Bedroom Ceiling Fan Light"                       (Bedroom_Ceiling_Fan_With_Light)  ["Dimmer"]      {alexa="Lighting" [name="Bedroom Lights"], homekit="Lighting.OnState, Lighting.Brightness", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x881a14fffe41c829:light", autoupdate="false"}
+Group   Bedroom_CeilingFan_With_Light   "Bedroom Ceiling Fan"                  (SF_Bedroom)                      ["CeilingFan"]  {homekit="Fan,Lighting"}
+Dimmer  Bedroom_CeilingFan_Speed        "Bedroom Ceiling Fan Speed"        <fan_ceiling>  (Bedroom_CeilingFan_With_Light)  ["Control"]     {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x881a14fffe41c829:fan#speed", autoupdate="false", homekit="Fan.ActiveStatus, Fan.RotationSpeed"}
+Dimmer  Bedroom_CeilingFan_Light        "Bedroom Ceiling Fan Light"                       (Bedroom_CeilingFan_With_Light)  ["Dimmer"]      {alexa="Lighting" [name="Bedroom Lights"], homekit="Lighting.OnState, Lighting.Brightness", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x881a14fffe41c829:light", autoupdate="false"}
 
-Group         Bedroom_Table_Light                                                        (SF_Bedroom)           ["PowerOutlet"]
-Switch        Bedroom_Table_Light_Switch  "Bedroom Table Light"        <poweroutlet_us>  (Bedroom_Table_Light)  ["Switch"]       {channel="mqtt:topic:26bcbec1ee:6d6b292248:power", homekit="Lighting", alexa="Lighting"}
-Number:Power  Bedroom_Table_Light_Watts   "Bedroom Table Light Power"                    (Bedroom_Table_Light)  ["Power"]        {channel="mqtt:topic:26bcbec1ee:6d6b292248:currentPower"}
+Group         Bedroom_TableLight                                                         (SF_Bedroom)            ["PowerOutlet"]
+Switch        Bedroom_TableLight_Switch  "Bedroom Table Light"        <poweroutlet_us>   (Bedroom_TableLight)    ["Switch"]  {channel="mqtt:topic:26bcbec1ee:6d6b292248:power", homekit="Lighting", alexa="Lighting"}
+Number:Power  Bedroom_TableLight_Watts   "Bedroom Table Light Power"                     (Bedroom_TableLight)    ["Power"]   {channel="mqtt:topic:26bcbec1ee:6d6b292248:currentPower"}
 
-Group         Bedroom_Sarah_Light                                                        (SF_Bedroom)           ["PowerOutlet"]
-Switch        Bedroom_Sarah_Light_Switch  "Bedroom Sarah Light"        <poweroutlet_us>  (Bedroom_Table_Light)  ["Switch"]       {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebd85f:switch", homekit="Lighting", alexa="Lighting"}
-Number:Power  Bedroom_Sarah_Light_Watts   "Bedroom Table Light Power"                    (Bedroom_Table_Light)  ["Power"]        {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebd85f:power"}
+Group         Bedroom_SarahLight                                                         (SF_Bedroom)            ["PowerOutlet"]
+Switch        Bedroom_SarahLight_Switch  "Bedroom Sarah Light"        <poweroutlet_us>   (Bedroom_SarahLight)    ["Switch"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebd85f:switch", homekit="Lighting", alexa="Lighting"}
+Number:Power  Bedroom_SarahLight_Watts   "Bedroom Table Light Power"                     (Bedroom_SarahLight)    ["Power"]   {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebd85f:power"}
 
 Group  Bedroom_Remotes_Action  (SF_Bedroom)
 
@@ -22,17 +22,17 @@ Number:Dimensionless  Bedroom_Sarah_Remote_Battery  "Bedroom Sarah Remote Batter
 Group                 Bedroom_Table_Remote                                                  (SF_Bedroom)            ["RemoteControl"]
 Number:Dimensionless  Bedroom_Table_Remote_Battery  "Bedroom Table Remote Battery [%d %%]"  (Bedroom_Table_Remote)  ["Measurement", "Battery"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x70ac08fffe659186:battery"}
 
-Group   Bedroom_Keiths_Closet_Contact_Sensor_Group   "Keith's Closet Contact Sensor"          (SF_Bedroom)                                  ["Door"]        {homekit="ContactSensor"}
-Switch  Bedroom_Keiths_Closet_Contact_Sensor         "Keith's Closet Contact Sensor"          (Bedroom_Keiths_Closet_Contact_Sensor_Group)  ["OpenState"]   {homekit="ContactSensor.ContactSensorState", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e2e9:contact"}
-Switch  Bedroom_Keiths_Closet_Contact_Battery_isLow  "Keith's Closet Contact Sensor Battery"  (Bedroom_Keiths_Closet_Contact_Sensor_Group)  ["LowBattery"]  {homekit="ContactSensor.BatteryLowStatus", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e2e9:battery_low"}
+Group   Bedroom_KeithsCloset_ContactSensor_Group   "Keith's Closet Contact Sensor"          (SF_Bedroom)                                    ["Door"]       {homekit="ContactSensor"}
+Switch  Bedroom_KeithsCloset_ContactSensor         "Keith's Closet Contact Sensor"          (Bedroom_KeithsCloset_ContactSensor_Group)      ["OpenState"]  {homekit="ContactSensor.ContactSensorState", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e2e9:contact"}
+Switch  Bedroom_KeithsCloset_ContactSensor_BatteryLow  "Keith's Closet Contact Sensor Battery"  (Bedroom_KeithsCloset_ContactSensor_Group)  ["LowBattery"] {homekit="ContactSensor.BatteryLowStatus", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e2e9:battery_low"}
 
-Switch  Bedroom_Keith_Closet_Light  "Keith's Closet"  (SF_Bedroom)  ["Lighting"]  {autoupdate="false", channel="zwavejs:node:c503e1bad6:node265:binary-switch-value", homekit="Lighting"}
+Switch  Bedroom_KeithsCloset_Light  "Keith's Closet"  (SF_Bedroom)  ["Lighting"]  {autoupdate="false", channel="zwavejs:node:c503e1bad6:node265:binary-switch-value", homekit="Lighting"}
 
-Group   Bedroom_Sarahs_Closet_Contact_Sensor_Group   "Sarah's Closet Contact Sensor"          (SF_Bedroom)                                  ["Door"]        {homekit="ContactSensor"}
-Switch  Bedroom_Sarahs_Closet_Contact_Sensor         "Sarah's Closet Contact Sensor"          (Bedroom_Sarahs_Closet_Contact_Sensor_Group)  ["OpenState"]   {homekit="ContactSensor.ContactSensorState", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e305:contact"}
-Switch  Bedroom_Sarahs_Closet_Contact_Battery_isLow  "Sarah's Closet Contact Sensor Battery"  (Bedroom_Sarahs_Closet_Contact_Sensor_Group)  ["LowBattery"]  {homekit="ContactSensor.BatteryLowStatus", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e305:battery_low"}
+Group   Bedroom_SarahsCloset_ContactSensor_Group   "Sarah's Closet Contact Sensor"          (SF_Bedroom)                                    ["Door"]       {homekit="ContactSensor"}
+Switch  Bedroom_SarahsCloset_ContactSensor         "Sarah's Closet Contact Sensor"          (Bedroom_SarahsCloset_ContactSensor_Group)      ["OpenState"]  {homekit="ContactSensor.ContactSensorState", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e305:contact"}
+Switch  Bedroom_SarahsCloset_ContactSensor_BatteryLow  "Sarah's Closet Contact Sensor Battery"  (Bedroom_SarahsCloset_ContactSensor_Group)  ["LowBattery"] {homekit="ContactSensor.BatteryLowStatus", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e305:battery_low"}
 
-Switch  Bedroom_Sarah_Closet_Light  "Sarah's Closet"  (SF_Bedroom)  ["Lighting"]  {autoupdate="false", channel="zwavejs:node:c503e1bad6:node262:binary-switch-value", homekit="Lighting"}
+Switch  Bedroom_SarahsCloset_Light  "Sarah's Closet"  (SF_Bedroom)  ["Lighting"]  {autoupdate="false", channel="zwavejs:node:c503e1bad6:node262:binary-switch-value", homekit="Lighting"}
 
 Group   Bedroom_Scene_Switch_Group    "Bedroom Scene Switch"   <switch>  (SF_Bedroom)
 Switch  Bedroom_Hallway_Light_Switch  "Bedroom Hallway Light"  <switch>  (Bedroom_Scene_Switch_Group)  ["Point"]  {channel="zwavejs:node:c503e1bad6:node88:binary-switch-value", homekit="Lighting"}
