@@ -161,8 +161,8 @@ end
 #   end
 # end
 
-# channel("mqtt:topic:26bcbec1ee:red_button:action", triggered: Zigbee::SINGLE_TAP) { Misc_Decoration_Switch.toggle }
-# channel("mqtt:topic:26bcbec1ee:red_button:action", triggered: Zigbee::SINGLE_TAP) { Front_Yard_Wolf_Decoration.toggle }
+# channel(Zigbee::SINGLE_TAP, thing: "homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffee04e8") { Misc_Decoration_Switch.toggle }
+# channel(Zigbee::SINGLE_TAP, thing: "homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffee04e8") { Front_Yard_Wolf_Decoration.toggle }
 
 # every 15 minutes set a timer to set off jeff sometime in the next 15 mintues
 # rule "randomly shoot off jeff" do
