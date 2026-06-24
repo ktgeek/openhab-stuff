@@ -30,7 +30,7 @@ rule "When the count of the occupancy sensor changes" do
   run do |event|
     after(25.milliseconds) { C_Total_Basement_Occupancy.update(Basement_Occupancy_Counters.members.sum(&:state)) }
 
-    sensor = items["#{event.item.name[6..-7]}_Sensor"]
+    sensor = items["#{event.item.name.partition('_').first}_Occupancy_Sensor"]
     sensor.update(event.state.positive? ? ON : OFF)
   end
 end
@@ -82,8 +82,8 @@ rule "when someone enters/leaves the exercise room" do
   run do
     ensure_states do
       if ExerciseRoom_Hiome_Occupancy_Count.state.positive?
-        Exercise_Room_Light.on
-        Exercise_Room_Bike_Trainer_Switch.on if Exercise_Room_Bike_Trainer_Enabled.on?
+        ExerciseRoom_Light.on
+        ExerciseRoom_BikeTrainer_Switch.on if ExerciseRoom_BikeTrainer_Enabled.on?
       end
     end
   end
@@ -98,8 +98,8 @@ rule "when someone leaves the deadend" do
     if C_Basement_Deadend_Occupancy.state < 1
       after(90.seconds, id: event.item) do
         ensure_states do
-          Exercise_Room_Light.off
-          Exercise_Room_Bike_Trainer_Switch.off
+          ExerciseRoom_Light.off
+          ExerciseRoom_BikeTrainer_Switch.off
         end
       end
     end
@@ -113,8 +113,8 @@ rule "when the exercise room door is closed" do
     ensure_states do
       if C_Basement_Deadend_Occupancy.state < 1
         Basement_Hallway_Lights_Switch.off
-        Exercise_Room_Light.off
-        Exercise_Room_Bike_Trainer_Switch.off
+        ExerciseRoom_Light.off
+        ExerciseRoom_BikeTrainer_Switch.off
 
         Basement_Deadend_Occupancy_Counters.members.each { |i| timers.cancel(i) }
       end
@@ -132,27 +132,27 @@ rule "when the exercise room door is open" do
   only_if { Basement_Hiome_Occupancy_Count.state < 1 }
 end
 
-updated(Exercise_Room_Dimmer_Lights_Scene_1, to: ZWave::Paddle::TWO_CLICKS) { Basement_Stairs_Switch.ensure.on }
+updated(ExerciseRoom_DimmerLights_Scene_1, to: ZWave::Paddle::TWO_CLICKS) { Basement_Stairs_Switch.ensure.on }
 
-updated(Exercise_Room_Dimmer_Lights_Scene_1, to: ZWave::Paddle::THREE_CLICKS) do
-  Exercise_Room_Bike_Trainer_Enabled.on
-  Exercise_Room_Bike_Trainer_Switch.ensure.on
+updated(ExerciseRoom_DimmerLights_Scene_1, to: ZWave::Paddle::THREE_CLICKS) do
+  ExerciseRoom_BikeTrainer_Enabled.on
+  ExerciseRoom_BikeTrainer_Switch.ensure.on
 end
 
-updated(Exercise_Room_Dimmer_Lights_Scene_2, to: ZWave::Paddle::TWO_CLICKS) { Basement_Stairs_Switch.ensure.off }
+updated(ExerciseRoom_DimmerLights_Scene_2, to: ZWave::Paddle::TWO_CLICKS) { Basement_Stairs_Switch.ensure.off }
 
-updated(Exercise_Room_Dimmer_Lights_Scene_2, to: ZWave::Paddle::THREE_CLICKS) do
-  Exercise_Room_Bike_Trainer_Enabled.off
-  Exercise_Room_Bike_Trainer_Switch.ensure.off
+updated(ExerciseRoom_DimmerLights_Scene_2, to: ZWave::Paddle::THREE_CLICKS) do
+  ExerciseRoom_BikeTrainer_Enabled.off
+  ExerciseRoom_BikeTrainer_Switch.ensure.off
 end
 
 rule "when someone enters the basement hallway" do
-  changed Basement_Hallway_Hiome_Occupancy_Count
+  changed BasementHallway_Hiome_Occupancy_Count
 
   run do |event|
     timers.cancel(event.item)
 
-    if Basement_Hallway_Hiome_Occupancy_Count.state.positive?
+    if BasementHallway_Hiome_Occupancy_Count.state.positive?
       Basement_Hallway_Lights_Switch.ensure.on
     else
       after(60.seconds, id: event.item) { Basement_Hallway_Lights_Switch.ensure.off }

@@ -23,10 +23,10 @@ Switch  Basement_Occupancy_Sensor       "Basement Occupancy"                    
 Group    ExerciseRoom_Hiome                   "Exercise Room Hiome"           <motion>       (C_ExerciseRoom)                                                                        ["Equipment"]
 Number   ExerciseRoom_Hiome_Occupancy_Count  "Exercise Room Occupancy [%d]"  <parents_1_1>  (ExerciseRoom_Hiome, Basement_Occupancy_Counters, Basement_Deadend_Occupancy_Counters)  ["Point"]      {channel="mqtt:topic:c0853ba2:2"}
 Contact  ExerciseRoom_Hiome_Door_Contact     "Exercise Room Door Contact"                   (ExerciseRoom_Hiome)                                                                    ["Point"]      {channel="mqtt:topic:c0853ba2:3"}
-Switch   Exercise_Room_Occupancy_Sensor       "Exercise Room Occupancy"                      (ExerciseRoom_Hiome)                                                                    ["Point"]      {homekit="OccupancySensor"}
+Switch   ExerciseRoom_Occupancy_Sensor       "Exercise Room Occupancy"                      (ExerciseRoom_Hiome)                                                                    ["Point"]      {homekit="OccupancySensor"}
 
-Number  Basement_Hallway_Hiome_Occupancy_Count  "Basement Hallway Occupancy [%d]"  <parents_1_1>  (C_Basement_Hallway, Basement_Occupancy_Counters, Basement_Deadend_Occupancy_Counters)  ["Point"]  {channel="mqtt:topic:c0853ba2:4"}
-Switch  Basement_Hallway_Occupancy_Sensor       "Basement Hallway Occupancy"                      (C_Basement_Hallway)                                                                    ["Point"]  {homekit="OccupancySensor"}
+Number  BasementHallway_Hiome_Occupancy_Count  "Basement Hallway Occupancy [%d]"  <parents_1_1>  (C_Basement_Hallway, Basement_Occupancy_Counters, Basement_Deadend_Occupancy_Counters)  ["Point"]  {channel="mqtt:topic:c0853ba2:4"}
+Switch  BasementHallway_Occupancy_Sensor       "Basement Hallway Occupancy"                      (C_Basement_Hallway)                                                                    ["Point"]  {homekit="OccupancySensor"}
 
 Number  C_Total_Basement_Occupancy    "Total Basement Occupancy"    <parents_1_1>  (C)  ["Point"]
 Number  C_Basement_Deadend_Occupancy  "Basement Deadend Occupancy"  <parents_1_1>  (C)  ["Point"]
@@ -86,28 +86,28 @@ Number  Basement_Receiver_Input_Source  "Basement Receiver Input Source [%d]"  (
 
 // -- Exercise Room --
 
-Switch  Exercise_Room_Light  "Exercise Room Light"  <lightbulb>  (C_ExerciseRoom, C_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node10:binary-switch-value"}
+Switch  ExerciseRoom_Light  "Exercise Room Light"  <lightbulb>  (C_ExerciseRoom, C_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node10:binary-switch-value"}
 
-Group   Exercise_Room_Dimmer_Lights_Scenes                                                        (Exercise_Room_Dimmer_Lights_Control)                                ["Point"]
-Dimmer  Exercise_Room_Dimmer                     "Exercise Room Dimmer [%d %%]"      <lightbulb>  (Exercise_Room_Dimmer_Lights_Control, C_ExerciseRoom, C_All_Lights)  ["SetPoint", "Light"]  {unit="%", homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node11:multilevel-switch-value"}
-Number  Exercise_Room_Dimmer_Lights_LED_1_Color  "Exercise Room Dimmer Led 1 Color"               (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_1)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-1-color"}
-Number  Exercise_Room_Dimmer_Lights_LED_2_Color  "Exercise Room Dimmer Led 2 Color"               (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_2)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-2-color"}
-Number  Exercise_Room_Dimmer_Lights_LED_3_Color  "Exercise Room Dimmer Led 3 Color"               (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_3)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-3-color"}
-Number  Exercise_Room_Dimmer_Lights_LED_4_Color  "Exercise Room Dimmer Led 4 Color"               (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_4)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-4-color"}
-Number  Exercise_Room_Dimmer_Lights_LED_5_Color  "Exercise Room Dimmer Led 5 Color"               (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_5)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-5-color"}
-Number  Exercise_Room_Dimmer_Lights_LED_6_Color  "Exercise Room Dimmer Led 6 Color"               (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_6)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-6-color"}
-Number  Exercise_Room_Dimmer_Lights_LED_7_Color  "Exercise Room Dimmer Led 7 Color"               (Exercise_Room_Dimmer_Lights_Control, Basement_Occupancy_Count_7)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-7-color"}
-Number  Exercise_Room_Dimmer_Lights_Scene_1      "Exercise Room Dimmer Scene 1"                   (Exercise_Room_Dimmer_Lights_Control, Clear_Scenes)                                         {channel="zwavejs:node:c503e1bad6:node11:central-scene-scene-001"}
-Number  Exercise_Room_Dimmer_Lights_Scene_2      "Exercise Room Dimmer Scene 2"                   (Exercise_Room_Dimmer_Lights_Control, Clear_Scenes)                                         {channel="zwavejs:node:c503e1bad6:node11:central-scene-scene-002"}
+Group   ExerciseRoom_DimmerLights_Scenes                                                       (ExerciseRoom_DimmerLights_Control)                                ["Point"]
+Dimmer  ExerciseRoom_Dimmer                     "Exercise Room Dimmer [%d %%]"      <lightbulb>  (ExerciseRoom_DimmerLights_Control, C_ExerciseRoom, C_All_Lights)  ["SetPoint", "Light"]  {unit="%", homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node11:multilevel-switch-value"}
+Number  ExerciseRoom_DimmerLights_LED_1_Color  "Exercise Room Dimmer Led 1 Color"               (ExerciseRoom_DimmerLights_Control, Basement_Occupancy_Count_1)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-1-color"}
+Number  ExerciseRoom_DimmerLights_LED_2_Color  "Exercise Room Dimmer Led 2 Color"               (ExerciseRoom_DimmerLights_Control, Basement_Occupancy_Count_2)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-2-color"}
+Number  ExerciseRoom_DimmerLights_LED_3_Color  "Exercise Room Dimmer Led 3 Color"               (ExerciseRoom_DimmerLights_Control, Basement_Occupancy_Count_3)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-3-color"}
+Number  ExerciseRoom_DimmerLights_LED_4_Color  "Exercise Room Dimmer Led 4 Color"               (ExerciseRoom_DimmerLights_Control, Basement_Occupancy_Count_4)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-4-color"}
+Number  ExerciseRoom_DimmerLights_LED_5_Color  "Exercise Room Dimmer Led 5 Color"               (ExerciseRoom_DimmerLights_Control, Basement_Occupancy_Count_5)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-5-color"}
+Number  ExerciseRoom_DimmerLights_LED_6_Color  "Exercise Room Dimmer Led 6 Color"               (ExerciseRoom_DimmerLights_Control, Basement_Occupancy_Count_6)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-6-color"}
+Number  ExerciseRoom_DimmerLights_LED_7_Color  "Exercise Room Dimmer Led 7 Color"               (ExerciseRoom_DimmerLights_Control, Basement_Occupancy_Count_7)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-7-color"}
+Number  ExerciseRoom_DimmerLights_Scene_1      "Exercise Room Dimmer Scene 1"                   (ExerciseRoom_DimmerLights_Control, Clear_Scenes)                                         {channel="zwavejs:node:c503e1bad6:node11:central-scene-scene-001"}
+Number  ExerciseRoom_DimmerLights_Scene_2      "Exercise Room Dimmer Scene 2"                   (ExerciseRoom_DimmerLights_Control, Clear_Scenes)                                         {channel="zwavejs:node:c503e1bad6:node11:central-scene-scene-002"}
 
 
-Group                   Exercise_Room_Bike_Trainer                   "Exercise Room Bike Trainer"                                     (C_ExerciseRoom)                              ["PowerOutlet"]      {homekit="Outlet"}
-Switch                  Exercise_Room_Bike_Trainer_Switch            "Exercise Room Bike Trainer"                           <switch>  (C_ExerciseRoom, Exercise_Room_Bike_Trainer)                       {homekit="Outlet.OnState", alexa="Outlet", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:switch"}
-Number:ElectricCurrent  Exercise_Room_Bike_Trainer_Current           "Exercise Room Current [%.1f %unit%]"                            (Exercise_Room_Bike_Trainer)                  ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:current"}
-Number:Power            Exercise_Room_Bike_Trainer_TotalActivePower  "Exercise Room Total Active Power [%.1f %unit%]"                 (Exercise_Room_Bike_Trainer)                  ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:power"}
-Switch                  Exercise_Room_Bike_Trainer_In_Use            "Exercise Room Outlet In Use [RB(outletinuse.rb):%s]"            (Exercise_Room_Bike_Trainer)                  ["Point"]            {homekit="Outlet.InUseStatus", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:power"}
+Group                   ExerciseRoom_BikeTrainer                   "Exercise Room Bike Trainer"                                     (C_ExerciseRoom)                           ["PowerOutlet"]      {homekit="Outlet"}
+Switch                  ExerciseRoom_BikeTrainer_Switch            "Exercise Room Bike Trainer"                           <switch>  (C_ExerciseRoom, ExerciseRoom_BikeTrainer)                       {homekit="Outlet.OnState", alexa="Outlet", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:switch"}
+Number:ElectricCurrent  ExerciseRoom_BikeTrainer_Current           "Exercise Room Current [%.1f %unit%]"                            (ExerciseRoom_BikeTrainer)                  ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:current"}
+Number:Power            ExerciseRoom_BikeTrainer_TotalActivePower  "Exercise Room Total Active Power [%.1f %unit%]"                 (ExerciseRoom_BikeTrainer)                  ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:power"}
+Switch                  ExerciseRoom_BikeTrainer_In_Use            "Exercise Room Outlet In Use [RB(outletinuse.rb):%s]"            (ExerciseRoom_BikeTrainer)                  ["Point"]            {homekit="Outlet.InUseStatus", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:power"}
 
-Switch  Exercise_Room_Bike_Trainer_Enabled  (C_ExerciseRoom)  ["Switch"]
+Switch  ExerciseRoom_BikeTrainer_Enabled  (C_ExerciseRoom)  ["Switch"]
 
 Group   Basement_Hallway_Lights_Control                                             (C_Basement_Hallway)                                                  ["Equipment"]
 Switch  Basement_Hallway_Lights_Switch       "Basement Hallway Lights"              (Basement_Hallway_Lights_Control, C_Basement_Hallway, C_All_Lights)   ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node13:binary-switch-value"}

@@ -22,7 +22,7 @@ sitemap default label="Garner House" {
         Default item=C_Total_Basement_Occupancy label="Total Basement Occpancy [%d]"
         Default item=Basement_Hiome_Occupancy_Count label="Basement Occupancy [%d]"
         Default item=ExerciseRoom_Hiome_Occupancy_Count label="Exercise Room Occupancy [%d]"
-        Default item=Basement_Hallway_Hiome_Occupancy_Count label="Basement Hallway Occupancy [%d]"
+        Default item=BasementHallway_Hiome_Occupancy_Count label="Basement Hallway Occupancy [%d]"
 
         Text item=C_Basement label="Basement" icon="cellar" {
             Default item=Basement_Hiome_Occupancy_Count label="Basement Occupancy [%d]"
@@ -39,10 +39,10 @@ sitemap default label="Garner House" {
         }
 
         Text item=C_ExerciseRoom label="Exercise Room" icon="cellar" {
-            Default item=Exercise_Room_Light label="Exercise Room Light"
-            Default item=Exercise_Room_Dimmer label="Exercise Room Dimmer"
-            Default item=Exercise_Room_Bike_Trainer_Switch label="Bike Trainer"
-            Default item=Exercise_Room_Bike_Trainer_Enabled label="Bike Trainer Enabled"
+            Default item=ExerciseRoom_Light label="Exercise Room Light"
+            Default item=ExerciseRoom_Dimmer label="Exercise Room Dimmer"
+            Default item=ExerciseRoom_BikeTrainer_Switch label="Bike Trainer"
+            Default item=ExerciseRoom_BikeTrainer_Enabled label="Bike Trainer Enabled"
         }
 
         Switch item=Basement_Hallway_Lights_Switch
