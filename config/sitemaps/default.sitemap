@@ -85,8 +85,8 @@ sitemap default label="Garner House" {
 
         Text item=FF_Garage label="Garage" icon="garage" {
             Default item=Garage_OutdoorLights_Switch label="Outdoor Garage Lights"
-            Default item=Large_Garage_Door_Status label="Large Garage Door"
-            Default item=Small_Garage_Door_Status label="Small Garage Door"
+            Default item=Garage_LargeDoor_State label="Large Garage Door"
+            Default item=Garage_SmallDoor_State label="Small Garage Door"
         }
 
         Group item=FF_Dining

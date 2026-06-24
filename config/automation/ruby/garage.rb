@@ -23,7 +23,7 @@ def awtrix_notifications(message:, info:, item:)
   awtrix.show_custom_notification(message:, icon: info[:awtrix_icon], color: info[:awtrix_color])
 end
 
-changed(Small_Garage_Door_State, Large_Garage_Door_State) do |event|
+changed(Garage_SmallDoor_State, Garage_LargeDoor_State) do |event|
   state = event.state.to_s
   info = GARAGE_STATE_INFO[state]
 
@@ -46,7 +46,7 @@ changed(Small_Garage_Door_State, Large_Garage_Door_State) do |event|
   end
 end
 
-received_command(Small_Garage_Door_Target_State, Large_Garage_Door_Target_State) do |event|
+received_command(Garage_SmallDoor_Target_State, Garage_LargeDoor_Target_State) do |event|
   name = event.item.groups.first.name
   items["#{name}_Position"].command(event.on? ? UP : DOWN)
 end

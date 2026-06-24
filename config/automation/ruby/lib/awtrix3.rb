@@ -8,8 +8,8 @@ class Awtrix3
   def_delegators :@actions, :activate_indicator, :blink_indicator, :deactivate_indicator
 
   INDICATORS = {
-    ::Large_Garage_Door => 1,
-    ::Small_Garage_Door => 2,
+    ::Garage_LargeDoor => 1,
+    ::Garage_SmallDoor => 2,
     ::House_Perimeter_Contacts => 3
   }.freeze
 
