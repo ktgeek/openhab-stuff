@@ -13,7 +13,7 @@ Items {
   Basement_FloodSensor_TemperatureSensor : strategy = everyUpdate
   Power_Family_Room_Christmas_Tree : strategy = everyUpdate
 
-  FamilyRoom_Wall_Outlet_kWh, FamilyRoom_Wall_Outlet_Watts : strategy = everyChange
+  FamilyRoom_WallOutlet_kWh, FamilyRoom_WallOutlet_Watts : strategy = everyChange
   LivingRoom_WallOutlet_kWh, LivingRoom_WallOutlet_Watts : strategy = everyChange
   SF_Hallway_WallOutlet_kWh, SF_Hallway_WallOutlet_Watts : strategy = everyChange
 

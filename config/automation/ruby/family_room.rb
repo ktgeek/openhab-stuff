@@ -10,6 +10,6 @@ end
 
 channel(Zigbee::SINGLE_TAP, thing: FamilyRoom_Fan_Button_Battery.thing) { FamilyRoom_Lights_Switch.toggle }
 
-channel(Zigbee::DOUBLE_TAP, thing: FamilyRoom_Fan_Button_Battery.thing) { Family_Room_Ceiling_Fan_Light_Power.toggle }
+channel(Zigbee::DOUBLE_TAP, thing: FamilyRoom_Fan_Button_Battery.thing) { FamilyRoom_CeilingFan_Light_Power.toggle }
 
-channel(Zigbee::HOLD, thing: FamilyRoom_Fan_Button_Battery.thing) { Family_Room_Ceiling_Fan_Fan_Power.toggle }
+channel(Zigbee::HOLD, thing: FamilyRoom_Fan_Button_Battery.thing) { FamilyRoom_CeilingFan_Power.toggle }
