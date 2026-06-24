@@ -49,18 +49,18 @@ sitemap default label="Garner House" {
     }
 
     Frame label="First Floor" icon="groundfloor" {
-	    Group item=FF_Porch
+        Group item=Porch
 
-        Text item=FF_Entrance label="Entrance" icon="corridor" {
+        Text item=Entrance label="Entrance" icon="corridor" {
             Switch item=All_Hall_Lights label="Hall Lights"
             Default item=Entrance_FrontDoor_Lock_Target label="Front Door Lock"
             Default item=Entrance_FrontDoor_Lock_Battery_Level label="Front Door Lock Battery level"
             Default item=Entrance_FrontDoor_Contact label="Front Door"
         }
 
-	    Group item=FF_LivingRoom
+        Group item=LivingRoom
 
-        Group item=FF_Office {
+        Group item=Office {
             Switch item=Office_Lights_Switch label="Office Lights"
             // Switch item=Office_Monitor_LED label="Monitor LEDs"
             Text item=Zoom_Active_Switch label="Zoom Active [%s]"
@@ -83,20 +83,20 @@ sitemap default label="Garner House" {
         }
 
 
-        Text item=FF_Garage label="Garage" icon="garage" {
+        Text item=Garage label="Garage" icon="garage" {
             Default item=Garage_OutdoorLights_Switch label="Outdoor Garage Lights"
             Default item=Garage_LargeDoor_State label="Large Garage Door"
             Default item=Garage_SmallDoor_State label="Small Garage Door"
         }
 
-        Group item=FF_Dining
-	    Group item=FF_FamilyRoom
+        Group item=DiningRoom
+        Group item=FamilyRoom
     }
 
     Frame label="Second Floor" icon="firstfloor" {
         Group item=SF_Hallway
-	    Group item=SF_Bedroom
-	    Group item=SF_DinahsRoom
+        Group item=SF_Bedroom
+        Group item=SF_DinahsRoom
         Group item=SF_HiddenRoom
         Group item=SF_EvansRoom
     }

@@ -1,41 +1,41 @@
-Group    FF_FamilyRoom        "Family Room"    <sofa>          (FF)               ["FamilyRoom"]
+Group  FamilyRoom  "Family Room"  <sofa>  (FF)  ["FamilyRoom"]
 
-Group:Switch:AND(ON,OFF) FamilyRoom_All_Lights "All Family Room Lights" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { alexa="Lighting" }
+Group:Switch:AND(ON,OFF) FamilyRoom_All_Lights "All Family Room Lights" <lightbulb> (FamilyRoom) ["Lightbulb"] { alexa="Lighting" }
 
-Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node76:binary-switch-value" }
+Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FamilyRoom_All_Lights, FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node76:binary-switch-value" }
 
-Switch FamilyRoom_Fireplace_Lights_Switch "Fireplace Lights" <lightbulb> (FamilyRoom_All_Lights, FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node77:binary-switch-value" }
+Switch FamilyRoom_Fireplace_Lights_Switch "Fireplace Lights" <lightbulb> (FamilyRoom_All_Lights, FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node77:binary-switch-value" }
 
-Dimmer FamilyRoom_AccentLights_Dimmer "Family Room Accents [%d]" <lightbulb> (FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness" [ minValue=0, maxValue=99 ], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node78:multilevel-switch-value" }
+Dimmer FamilyRoom_AccentLights_Dimmer "Family Room Accents [%d]" <lightbulb> (FamilyRoom) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness" [ minValue=0, maxValue=99 ], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node78:multilevel-switch-value" }
 
-Group FamilyRoom_WallOutlet "Family Room Wall Outlet" <poweroutlet_us> (FF_FamilyRoom) ["PowerOutlet"] { homekit="Outlet" }
-Switch FamilyRoom_WallOutlet_Switch "Family Room Wall Outlet" <poweroutlet_us> (Christmas_Lights, Christmas_Lights_All, FamilyRoom_WallOutlet) ["Point"] { homekit="Outlet.OnState", alexa="Outlet", channel="zwavejs:node:c503e1bad6:node17:binary-switch-value" }
-Number:Energy FamilyRoom_WallOutlet_kWh "Family Room Wall Outlet Power [%.1f kWh]" (FamilyRoom_WallOutlet) ["Point", "Energy"] { channel="zwavejs:node:c503e1bad6:node17:meter-value-65537" }
-Number:Power FamilyRoom_WallOutlet_Watts "Family Room Wall Outlet Power [%.1f Ws]" (FamilyRoom_WallOutlet) ["Point", "Energy"] { channel="zwavejs:node:c503e1bad6:node17:meter-value-66049" }
-Switch FamilyRoom_WallOutlet_In_Use "Family Room Wall Outlet In Use [RB(outletinuse.rb):%s]" (FamilyRoom_WallOutlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwavejs:node:c503e1bad6:node17:meter-value-66049" }
+Group          FamilyRoom_WallOutlet         "Family Room Wall Outlet"                                 <poweroutlet_us>  (FamilyRoom)                                                     ["PowerOutlet"]      {homekit="Outlet"}
+Switch         FamilyRoom_WallOutlet_Switch  "Family Room Wall Outlet"                                 <poweroutlet_us>  (Christmas_Lights, Christmas_Lights_All, FamilyRoom_WallOutlet)  ["Point"]            {homekit="Outlet.OnState", alexa="Outlet", channel="zwavejs:node:c503e1bad6:node17:binary-switch-value"}
+Number:Energy  FamilyRoom_WallOutlet_kWh     "Family Room Wall Outlet Power [%.1f kWh]"                                  (FamilyRoom_WallOutlet)                                          ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node17:meter-value-65537"}
+Number:Power   FamilyRoom_WallOutlet_Watts   "Family Room Wall Outlet Power [%.1f Ws]"                                   (FamilyRoom_WallOutlet)                                          ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node17:meter-value-66049"}
+Switch         FamilyRoom_WallOutlet_In_Use  "Family Room Wall Outlet In Use [RB(outletinuse.rb):%s]"                    (FamilyRoom_WallOutlet)                                          ["Point"]            {homekit="Outlet.InUseStatus", channel="zwavejs:node:c503e1bad6:node17:meter-value-66049"}
 
-Group FamilyRoom_LED "Family Room LEDs" (FF_FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
-Switch FamilyRoom_LED_Power "Family Room LED Power" (FamilyRoom_LED) ["Switch"] { homekit="Lighting.OnState", alexa="PowerController.powerState", channel="mqtt:topic:26bcbec1ee:7c3c7016a5:power" }
-Color FamilyRoom_LED_Color "Family Room LED Color" (FamilyRoom_LED) ["Point"] { homekit="Lighting.Hue, Lighting.Brightness, Lighting.Saturation", alexa="BrightnessController.brightness,ColorController.color", channel="mqtt:topic:26bcbec1ee:7c3c7016a5:Color" }
-Switch FamilyRoom_LED_Fade "Family Room LED Fade" (FamilyRoom_LED) ["Point"] { channel="mqtt:topic:26bcbec1ee:7c3c7016a5:fade" }
-Number FamilyRoom_LED_Speed "Family Room LED Speed" (FamilyRoom_LED) ["Point"] { channel="mqtt:topic:26bcbec1ee:7c3c7016a5:speed", stateDescription=""[min="0", max="40"] }
+Group   FamilyRoom_LED        "Family Room LEDs"       (FamilyRoom)      ["Lightbulb"]  {homekit="Lighting", alexa="Endpoint.Light"}
+Switch  FamilyRoom_LED_Power  "Family Room LED Power"  (FamilyRoom_LED)  ["Switch"]     {homekit="Lighting.OnState", alexa="PowerController.powerState", channel="mqtt:topic:26bcbec1ee:7c3c7016a5:power"}
+Color   FamilyRoom_LED_Color  "Family Room LED Color"  (FamilyRoom_LED)  ["Point"]      {homekit="Lighting.Hue, Lighting.Brightness, Lighting.Saturation", alexa="BrightnessController.brightness,ColorController.color", channel="mqtt:topic:26bcbec1ee:7c3c7016a5:Color"}
+Switch  FamilyRoom_LED_Fade   "Family Room LED Fade"   (FamilyRoom_LED)  ["Point"]      {channel="mqtt:topic:26bcbec1ee:7c3c7016a5:fade"}
+Number  FamilyRoom_LED_Speed  "Family Room LED Speed"  (FamilyRoom_LED)  ["Point"]      {channel="mqtt:topic:26bcbec1ee:7c3c7016a5:speed", stateDescription=""[min="0", max="40"]}
 
-Group FamilyRoom_CeilingFan_With_Light "Family Room Ceiling Fan With Light" (FF_FamilyRoom) { homekit="BasicFan,Lighting" }
-Switch FamilyRoom_CeilingFan_Power "Family Room Ceiling Fan" (FamilyRoom_CeilingFan_With_Light) { homekit="BasicFan.OnState", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:common#power" }
-Switch FamilyRoom_CeilingFan_Light_Power "Family Room Ceiling Fan Light" (FamilyRoom_CeilingFan_With_Light) { homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:light#power" }
+Group   FamilyRoom_CeilingFan_With_Light   "Family Room Ceiling Fan With Light"  (FamilyRoom)                        {homekit="BasicFan,Lighting"}
+Switch  FamilyRoom_CeilingFan_Power        "Family Room Ceiling Fan"             (FamilyRoom_CeilingFan_With_Light)  {homekit="BasicFan.OnState", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:common#power"}
+Switch  FamilyRoom_CeilingFan_Light_Power  "Family Room Ceiling Fan Light"       (FamilyRoom_CeilingFan_With_Light)  {homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:light#power"}
 
-Group FamilyRoom_Sensor "Family Room Sensor" (FF_FamilyRoom) ["Equpiment"]
-Number:Temperature FamilyRoom_Sensor_Temperature "Family Room Temperature" (FamilyRoom_Sensor) ["Measurement", "Temperature"] { unit="°C", homekit="TemperatureSensor.CurrentTemperature", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:temperature" }
-Number:Dimensionless FamilyRoom_Sensor_Humidity "Family Room Humidity" (FamilyRoom_Sensor) ["Measurement", "Humidity"] { unit="%", homekit="HumiditySensor.CurrentRelativeHumidity", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:humidity" }
-Number:Dimensionless FamilyRoom_Sensor_Battery_Level "Basement Flood Sensor Battery Level" (FamilyRoom_Sensor) ["Measurement", "Battery"] { unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:battery" }
+Group                 FamilyRoom_Sensor                "Family Room Sensor"                   (FamilyRoom)         ["Equpiment"]
+Number:Temperature    FamilyRoom_Sensor_Temperature    "Family Room Temperature"              (FamilyRoom_Sensor)  ["Measurement", "Temperature"]  {unit="°C", homekit="TemperatureSensor.CurrentTemperature", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:temperature"}
+Number:Dimensionless  FamilyRoom_Sensor_Humidity       "Family Room Humidity"                 (FamilyRoom_Sensor)  ["Measurement", "Humidity"]     {unit="%", homekit="HumiditySensor.CurrentRelativeHumidity", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:humidity"}
+Number:Dimensionless  FamilyRoom_Sensor_Battery_Level  "Basement Flood Sensor Battery Level"  (FamilyRoom_Sensor)  ["Measurement", "Battery"]      {unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:battery"}
 
-Group FamilyRoom_Fan_Button "Family Room Fan Button" (FF_FamilyRoom) ["RemoteControl"]
-Number FamilyRoom_Fan_Button_Battery "Family Room Fan Button Battery" (FamilyRoom_Fan_Button) ["Measurement", "Battery"] { unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffee019e:battery" }
+Group   FamilyRoom_Fan_Button          "Family Room Fan Button"          (FamilyRoom)             ["RemoteControl"]
+Number  FamilyRoom_Fan_Button_Battery  "Family Room Fan Button Battery"  (FamilyRoom_Fan_Button)  ["Measurement", "Battery"]  {unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffee019e:battery"}
 
-Group FamilyRoom_TV "Family Room TV" (FF_FamilyRoom) ["Television"]
-Switch FamilyRoom_TV_Power "Power" (FamilyRoom_TV) {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:power"}
-String FamilyRoom_TV_Toast "Family Room TV Toast" (FamilyRoom_TV) ["SetPoint"] {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:toast"}
-String FamilyRoom_TV_App "Application" (FamilyRoom_TV) ["Status"] {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:appLauncher"}
+Group   FamilyRoom_TV        "Family Room TV"        (FamilyRoom)     ["Television"]
+Switch  FamilyRoom_TV_Power  "Power"                 (FamilyRoom_TV)                  {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:power"}
+String  FamilyRoom_TV_Toast  "Family Room TV Toast"  (FamilyRoom_TV)  ["SetPoint"]    {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:toast"}
+String  FamilyRoom_TV_App    "Application"           (FamilyRoom_TV)  ["Status"]      {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:appLauncher"}
 
-Switch FamilyRoom_Receiver_Power "Power" {channel="onkyo:onkyoUnsupported:b0ef2e6f-006f-2eBB-b000-0009b0ef2e6f:zone1#power"}
-Number FamilyRoom_Receiver_Input_Source "Input source" {channel="onkyo:onkyoUnsupported:b0ef2e6f-006f-2eBB-b000-0009b0ef2e6f:zone1#input"}
+Switch  FamilyRoom_Receiver_Power         "Power"         {channel="onkyo:onkyoUnsupported:b0ef2e6f-006f-2eBB-b000-0009b0ef2e6f:zone1#power"}
+Number  FamilyRoom_Receiver_Input_Source  "Input source"  {channel="onkyo:onkyoUnsupported:b0ef2e6f-006f-2eBB-b000-0009b0ef2e6f:zone1#input"}
