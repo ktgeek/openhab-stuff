@@ -21,7 +21,7 @@ changed(Backyard_Temperature, Backyard_Humidity, Backyard_Wind_Speed) do
       wind_speed: Backyard_Wind_Speed.state
     )
     Backyard_FeelsLike_Temperature.update(temp)
-    Awtrix_Clock_Outdoor_Temp_Text.ensure.command("#{temp}°F")
+    Office_Awtrix_OutdoorTemp_Text.ensure.command("#{temp}°F")
   end
 end
 

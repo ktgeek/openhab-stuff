@@ -12,7 +12,7 @@ rule "its light out, turn off the holiday decorations" do
     ensure_states do
       Porch_Decorations_Switch.off
       Front_Yard_Side_Holiday_Decorations_Switch.off
-      Office_Door_LED_Color.off
+      Office_DoorLED_Color.off
     end
   end
 
@@ -31,10 +31,10 @@ rule "decorations on at sunset at Halloween" do
     end
 
     if Zoom_Active_Switch.off?
-      Office_Door_LED_Fade.on
-      Office_Door_LED_Color.command(Color::PURPLE)
-      Office_Door_LED_Palette.command(Tasmota::Palette::PURPLE_FADE)
-      Office_Door_LED_Scheme.command(Tasmota::Scheme::CYCLE_UP)
+      Office_DoorLED_Fade.on
+      Office_DoorLED_Color.command(Color::PURPLE)
+      Office_DoorLED_Palette.command(Tasmota::Palette::PURPLE_FADE)
+      Office_DoorLED_Scheme.command(Tasmota::Scheme::CYCLE_UP)
     end
   end
 
@@ -46,8 +46,8 @@ rule "decorations on at sunset at St. Patty" do
 
   run do
     if Zoom_Active_Switch.off?
-      Office_Door_LED_Color.on
-      Office_Door_LED_Color.command(Color::GREEN)
+      Office_DoorLED_Color.on
+      Office_DoorLED_Color.command(Color::GREEN)
     end
   end
 
@@ -57,7 +57,7 @@ end
 rule "decorations off at night at St.Patty" do
   cron "0 30 22 ? * *"
 
-  run { Office_Door_LED_Color.ensure.off }
+  run { Office_DoorLED_Color.ensure.off }
 
   only_if { VisitorMode_Switch.off? && Holiday_Mode.state == Holidays::STPATRICKS }
 end
@@ -80,7 +80,7 @@ rule "decorations off at night at Halloween" do
     ensure_states do
       Porch_Decorations_Switch.off
       Front_Yard_Side_Holiday_Decorations_Switch.off
-      Office_Door_LED_Color.off
+      Office_DoorLED_Color.off
       HiddenRoom_Holiday_LED_Power.off
       DinahsRoom_Holiday_LED_Power.off
     end
@@ -109,7 +109,7 @@ rule "when we turn off VisitorMode" do
       ensure_states do
         Porch_Decorations_Switch.off
         Front_Yard_Side_Holiday_Decorations_Switch.off
-        Office_Door_LED_Color.off
+        Office_DoorLED_Color.off
         HiddenRoom_Holiday_LED_Power.off
         DinahsRoom_Holiday_LED_Power.off
       end
@@ -139,9 +139,9 @@ rule "christmas switch is turned on" do
   run do
     if Zoom_Active_Switch.off?
       ensure_states do
-        Office_Door_LED_Fade.on
-        Office_Door_LED_Palette.command(Tasmota::Palette::RED_GREEN_CROSSFADE)
-        Office_Door_LED_Scheme.command(Tasmota::Scheme::CYCLE_UP)
+        Office_DoorLED_Fade.on
+        Office_DoorLED_Palette.command(Tasmota::Palette::RED_GREEN_CROSSFADE)
+        Office_DoorLED_Scheme.command(Tasmota::Scheme::CYCLE_UP)
       end
     end
   end

@@ -64,13 +64,13 @@ sitemap default label="Garner House" {
             Switch item=Office_Lights_Switch label="Office Lights"
             // Switch item=Office_Monitor_LED label="Monitor LEDs"
             Text item=Zoom_Active_Switch label="Zoom Active [%s]"
-            Switch item=Office_Windows_Switch label="Office Window Lights"
-            Group item=Office_Door_LED icon=light {
-                Default item=Office_Door_LED_Color label="Office Door Color"
-                Switch item=Office_Door_LED_Fade label="Office Door Fade"
-                Setpoint item=Office_Door_LED_Speed label="Office Door Speed" minValue=1 maxValue=40 step=1
-                Text item=Office_Door_LED_Palette label="Office Door Palette"
-                Selection item=Office_Door_LED_Scheme label="Office Door Scheme" mappings=[0="Single Color", 1="Wakeup Sequence", 2="Cycle up", 3="Cycle down", 4="Random Cycle"]
+            Switch item=Office_WindowDecorations_Switch label="Office Window Lights"
+            Group item=Office_DoorLED icon=light {
+                Default item=Office_DoorLED_Color label="Office Door Color"
+                Switch item=Office_DoorLED_Fade label="Office Door Fade"
+                Setpoint item=Office_DoorLED_Speed label="Office Door Speed" minValue=1 maxValue=40 step=1
+                Text item=Office_DoorLED_Palette label="Office Door Palette"
+                Selection item=Office_DoorLED_Scheme label="Office Door Scheme" mappings=[0="Single Color", 1="Wakeup Sequence", 2="Cycle up", 3="Cycle down", 4="Random Cycle"]
             }
         }
 
