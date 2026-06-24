@@ -5,7 +5,7 @@ sitemap default label="Garner House" {
         Text item=House_Perimeter_Contacts label="Perimeter Contacts [%s]" icon="contact" {
             Default item=Garage_House_Door_Contact label="Garage House Door"
             Default item=Kitchen_Back_Door_Contact label="Back Door"
-            Default item=Laundry_Room_Door_Contact label="Laundry Room Door"
+            Default item=LaundryRoom_Door_Contact label="Laundry Room Door"
             Default item=Front_Door_Contact label="Front Door"
         }
 
