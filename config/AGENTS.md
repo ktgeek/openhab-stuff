@@ -28,7 +28,7 @@ This applies to every task — no matter how small. A one-line item change still
 
 | Path | Purpose |
 |------|---------|
-| `automation/ruby/` | Active automation rules (19 `.rb` files) and libraries (`lib/`, 14 files) |
+| `automation/ruby/` | Active automation rules (20 `.rb` files) and libraries (`lib/`, 13 files) |
 | `items/` | Item definitions (20 `.items` files, one per room/feature area) |
 | `things/` | DSL Thing definitions (mostly managed via UI; check here first) |
 | `rules/` | Legacy DSL rules directory — mostly empty; `automation/ruby/` is primary |
@@ -45,16 +45,17 @@ This applies to every task — no matter how small. A one-line item change still
 
 ## Item Naming Convention
 
-Pattern: `Location_Feature_Detail_Type`
+Pattern: `Floor_Room_DeviceName_Feature_Type` where Floor is optional and used only for disambiguation or to place items in a logical hierarchy. The following prefixes are used to indicate floor level:
 
 | Prefix | Meaning |
 |--------|---------|
 | `FF_` | First floor |
 | `SF_` | Second floor |
 | `C_` | Basement (cellar) |
-| _(none)_ | Whole-home or cross-zone |
 
-Examples: `FF_Kitchen_Island_Dimmer`, `SF_Thermostat`, `C_Basement_Occupancy`
+Examples: `FF_Kitchen_Island_Dimmer`, `SF_Thermostat`, `C_Basement_Occupancy`, `Basement_WallOutlet_Switch`, `ExerciseRoom_BikeTrainer_Switch`
+
+Names that are multiple words such as "Exercise Room" or "Bike Trainer" should be camel-cased without spaces as in `ExerciseRoom_BikeTrainer_Switch`.
 
 **Groups** are used extensively for scene control and logical hierarchy:
 
@@ -100,7 +101,7 @@ backyard.rb       basement.rb       basement_remote.rb  bedroom.rb
 entrance_lights.rb  evening_lights.rb  family_room.rb  front_lights.rb
 garage.rb         holiday.rb        kitchen.rb          kitchen_bathroom.rb
 laundry_room.rb   living_room.rb    lock_rules.rb       office.rb
-profiles.rb       sun.rb            thermostats.rb
+profiles.rb       scenes.rb         sun.rb              thermostats.rb
 ```
 
 **Common automation patterns:**
@@ -128,7 +129,6 @@ Check these before implementing new device logic — reuse existing abstractions
 | File | Purpose |
 |------|---------|
 | `zwave.rb` | Z-Wave constants, thermostat modes, scene trigger helpers |
-| `zwave_js.rb` | Z-Wave JS variant helpers |
 | `zigbee.rb` | Zigbee2MQTT device abstractions |
 | `tasmota.rb` | Tasmota (MQTT) device helpers |
 | `homekit.rb` | HomeKit integration helpers |
