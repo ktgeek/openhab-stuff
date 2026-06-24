@@ -35,12 +35,12 @@ Switch Office_Fan_Power "Office Fan" (Office_Fan) ["Control"] { channel="mqtt:to
 Number Office_Fan_Speed "Office Fan Speed" (Office_Fan) ["Control"] { homekit="BasicFan.RotationSpeed" [minValue=0, maxValue=4] }
 Number Office_Fan_Speed_Actual "Office Fan Speed" (Office_Fan) ["Control"] { channel="mqtt:topic:26bcbec1ee:office_fan:speed", autoupdate="false" }
 
-Group Office_Awtrix_Clock "Awtrix Clock" <screen> (FF_Office)
-Switch Office_Awtrix_Clock_Power "Awtrix Clock Display Power" (Office_Awtrix_Clock) ["Power"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:display" }
-Dimmer Office_Awtrix_Clock_Brightness "Brightness [%d %%]" (Office_Awtrix_Clock) ["Brightness"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:brightness" }
-Switch Office_Awtrix_Clock_AutoBrightness "Auto Brightness" (Office_Awtrix_Clock) ["Switch"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:auto-brightness" }
-Number Office_Awtrix_Clock_Battery "Battery Level [%d %%]" (Office_Awtrix_Clock) ["Battery"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:battery-level" }
-Switch Office_Awtrix_Clock_LowBattery "Low Battery" (Office_Awtrix_Clock) ["Alert"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:low-battery" }
+Group Office_AwtrixClock "Awtrix Clock" <screen> (FF_Office)
+Switch Office_AwtrixClock_Power "Awtrix Clock Display Power" (Office_AwtrixClock) ["Power"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:display" }
+Dimmer Office_AwtrixClock_Brightness "Brightness [%d %%]" (Office_AwtrixClock) ["Brightness"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:brightness" }
+Switch Office_AwtrixClock_AutoBrightness "Auto Brightness" (Office_AwtrixClock) ["Switch"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:auto-brightness" }
+Number Office_AwtrixClock_Battery "Battery Level [%d %%]" (Office_AwtrixClock) ["Battery"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:battery-level" }
+Switch Office_AwtrixClock_LowBattery "Low Battery" (Office_AwtrixClock) ["Alert"] { channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:low-battery" }
 
 // Washing Machine App items
 Group Office_Awtrix_OutdoorTemp_App "Awtrix Clock Outdoor Temp App"

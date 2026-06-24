@@ -27,7 +27,7 @@ updated Entrance_FrontDoor_Lock_Raw_Notification do |event|
     logger.info(message)
     Notification.send(message)
     TvNotification.notify(message:)
-    Awtrix3.new(Office_Awtrix_Clock_Power.thing).show_custom_notification(
+    Awtrix3.new(Office_AwtrixClock_Power.thing).show_custom_notification(
       message: message,
       icon: "front_door_lock"
     )
@@ -72,7 +72,7 @@ changed(House_Perimeter_Contacts, Entrance_FrontDoor_Lock_Target) do |event|
           end
   House_Perimeter_LEDs.members.ensure.command(color[:homeseer])
 
-  awtrix = Awtrix3.new(Office_Awtrix_Clock_Power.thing)
+  awtrix = Awtrix3.new(Office_AwtrixClock_Power.thing)
   awtrix.set_indicator_color(Awtrix3::INDICATORS[House_Perimeter_Contacts], color[:awtrix])
 
   print_state = case item
