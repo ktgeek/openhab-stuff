@@ -34,7 +34,7 @@ sitemap default label="Garner House" {
             Default item=C_Basement_Normal_Switch label="Basement Normal Mode"
             Default item=Basement_Wall_Outlet label="Basement Wall Outlet"
             Default item=Basement_Wall_Outlet_Switch label="Basement Wall Outlet"
-            Default item=Basement_Christmas_Tree label="Basement Christmas Tree"
+            Default item=Basement_ChristmasTree_Switch label="Basement Christmas Tree"
             Default item=C_Basement_NanomoteQuad_BatteryLevel label="Nanomote Quad Battery"
         }
 
@@ -79,7 +79,7 @@ sitemap default label="Garner House" {
             Default item=Kitchen_Table_Lights label="Kitchen Table Lights"
             Default item=Kitchen_Accent_Desk_Dimmer label="Kitchen Accent Lights (Desk)"
             Default item=Kitchen_Accent_Sink_Dimmer label="Kitchen Accent Lights (Sink)"
-            Default item=Bathroom_Penguin_Light label="Penguin Light"
+            Default item=KitchenBathroom_PenguinLight_Switch label="Penguin Light"
         }
 
 

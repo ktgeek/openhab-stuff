@@ -26,8 +26,8 @@ rule "decorations on at sunset at Halloween" do
     ensure_states do
       Porch_Decorations_Switch.on
       Front_Yard_Side_Holiday_Decorations_Switch.on
-      HiddenRoom_Holiday_LED_Power.on
-      DinahsRoom_Holiday_LED_Power.on
+      HiddenRoom_HolidayLED_Power.on
+      DinahsRoom_HolidayLED_Power.on
     end
 
     if Zoom_Active_Switch.off?
@@ -81,8 +81,8 @@ rule "decorations off at night at Halloween" do
       Porch_Decorations_Switch.off
       Front_Yard_Side_Holiday_Decorations_Switch.off
       Office_DoorLED_Color.off
-      HiddenRoom_Holiday_LED_Power.off
-      DinahsRoom_Holiday_LED_Power.off
+      HiddenRoom_HolidayLED_Power.off
+      DinahsRoom_HolidayLED_Power.off
     end
   end
 
@@ -110,8 +110,8 @@ rule "when we turn off VisitorMode" do
         Porch_Decorations_Switch.off
         Front_Yard_Side_Holiday_Decorations_Switch.off
         Office_DoorLED_Color.off
-        HiddenRoom_Holiday_LED_Power.off
-        DinahsRoom_Holiday_LED_Power.off
+        HiddenRoom_HolidayLED_Power.off
+        DinahsRoom_HolidayLED_Power.off
       end
     end
   end
