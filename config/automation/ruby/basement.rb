@@ -77,11 +77,11 @@ rule "when someone enters/leaves downstairs" do
 end
 
 rule "when someone enters/leaves the exercise room" do
-  changed Hiome_Exercise_Room_Occupancy_Count
+  changed ExerciseRoom_Hiome_Occupancy_Count
 
   run do
     ensure_states do
-      if Hiome_Exercise_Room_Occupancy_Count.state.positive?
+      if ExerciseRoom_Hiome_Occupancy_Count.state.positive?
         Exercise_Room_Light.on
         Exercise_Room_Bike_Trainer_Switch.on if Exercise_Room_Bike_Trainer_Enabled.on?
       end
@@ -107,7 +107,7 @@ rule "when someone leaves the deadend" do
 end
 
 rule "when the exercise room door is closed" do
-  changed Hiome_Exercise_Room_Door_Contact, to: CLOSED
+  changed ExerciseRoom_Hiome_Door_Contact, to: CLOSED
 
   run do
     ensure_states do
@@ -119,17 +119,17 @@ rule "when the exercise room door is closed" do
         Basement_Deadend_Occupancy_Counters.members.each { |i| timers.cancel(i) }
       end
 
-      Basement_Stairs_Switch.off if Hiome_Basement_Occupancy_Count.state < 1
+      Basement_Stairs_Switch.off if Basement_Hiome_Occupancy_Count.state < 1
     end
   end
 end
 
 rule "when the exercise room door is open" do
-  changed Hiome_Exercise_Room_Door_Contact, to: OPEN
+  changed ExerciseRoom_Hiome_Door_Contact, to: OPEN
 
   run { Basement_Stairs_Switch.ensure.on }
 
-  only_if { Hiome_Basement_Occupancy_Count.state < 1 }
+  only_if { Basement_Hiome_Occupancy_Count.state < 1 }
 end
 
 updated(Exercise_Room_Dimmer_Lights_Scene_1, to: ZWave::Paddle::TWO_CLICKS) { Basement_Stairs_Switch.ensure.on }
@@ -147,12 +147,12 @@ updated(Exercise_Room_Dimmer_Lights_Scene_2, to: ZWave::Paddle::THREE_CLICKS) do
 end
 
 rule "when someone enters the basement hallway" do
-  changed Hiome_Basement_Hallway_Occupancy_Count
+  changed Basement_Hallway_Hiome_Occupancy_Count
 
   run do |event|
     timers.cancel(event.item)
 
-    if Hiome_Basement_Hallway_Occupancy_Count.state.positive?
+    if Basement_Hallway_Hiome_Occupancy_Count.state.positive?
       Basement_Hallway_Lights_Switch.ensure.on
     else
       after(60.seconds, id: event.item) { Basement_Hallway_Lights_Switch.ensure.off }

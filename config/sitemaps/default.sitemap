@@ -8,6 +8,10 @@ sitemap default label="Garner House" {
             Default item=Laundry_Room_Door_Contact label="Laundry Room Door"
             Default item=Front_Door_Contact label="Front Door"
         }
+
+        Switch item=Christmas_Lights
+        Switch item=Christmas_Lights_All
+        Switch item=Christmas_Outside
     }
 
     Frame label="Christmas" icon="snow" {
@@ -16,12 +20,12 @@ sitemap default label="Garner House" {
 
     Frame label="Basement" icon="cellar" {
         Default item=C_Total_Basement_Occupancy label="Total Basement Occpancy [%d]"
-        Default item=Hiome_Basement_Occupancy_Count label="Basement Occupancy [%d]"
-        Default item=Hiome_Exercise_Room_Occupancy_Count label="Exercise Room Occupancy [%d]"
-        Default item=Hiome_Basement_Hallway_Occupancy_Count label="Basement Hallway Occupancy [%d]"
+        Default item=Basement_Hiome_Occupancy_Count label="Basement Occupancy [%d]"
+        Default item=ExerciseRoom_Hiome_Occupancy_Count label="Exercise Room Occupancy [%d]"
+        Default item=Basement_Hallway_Hiome_Occupancy_Count label="Basement Hallway Occupancy [%d]"
 
         Text item=C_Basement label="Basement" icon="cellar" {
-            Default item=Hiome_Basement_Occupancy_Count label="Basement Occupancy [%d]"
+            Default item=Basement_Hiome_Occupancy_Count label="Basement Occupancy [%d]"
             Default item=Basement_Stairs_Switch label="Basement Stairs Lights"
             Default item=Basement_Room_Lights_Switch label="Basement Room Lights"
             Default item=Basement_Room_Bar_Lights label="Basement Bar Lights"
@@ -40,6 +44,8 @@ sitemap default label="Garner House" {
             Default item=Exercise_Room_Bike_Trainer_Switch label="Bike Trainer"
             Default item=Exercise_Room_Bike_Trainer_Enabled label="Bike Trainer Enabled"
         }
+
+        Switch item=Basement_Hallway_Lights_Switch
     }
 
     Frame label="First Floor" icon="groundfloor" {
@@ -55,11 +61,11 @@ sitemap default label="Garner House" {
 	    Group item=FF_LivingRoom
 
         Group item=FF_Office {
-            Switch item=Office_Monitor_LED label="Monitor LEDs"
+            Switch item=Office_Lights_Switch label="Office Lights"
+            // Switch item=Office_Monitor_LED label="Monitor LEDs"
             Text item=Zoom_Active_Switch label="Zoom Active [%s]"
             Switch item=Office_Windows_Switch label="Office Window Lights"
             Group item=Office_Door_LED icon=light {
-                Switch item=Office_Door_LED_Power label="Office Door Power"
                 Default item=Office_Door_LED_Color label="Office Door Color"
                 Switch item=Office_Door_LED_Fade label="Office Door Fade"
                 Setpoint item=Office_Door_LED_Speed label="Office Door Speed" minValue=1 maxValue=40 step=1
