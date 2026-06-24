@@ -12,6 +12,6 @@ end
 
 changed(Laundry_Room_Door_Contact, to: OFF) { Side_Yard_Light_Color.ensure.off }
 
-updated(Side_Yard_Lights_Scene_1, to: ZWave::Paddle::CLICK) { Side_Yard_Light_Color.ensure.on }
+updated(SideYard_Lights_Scene_1, to: ZWave::Paddle::CLICK) { Side_Yard_Light_Color.ensure.on }
 
-updated(Side_Yard_Lights_Scene_2, to: ZWave::Paddle::CLICK) { Side_Yard_Light_Color.ensure.off }
+updated(SideYard_Lights_Scene_2, to: ZWave::Paddle::CLICK) { Side_Yard_Light_Color.ensure.off }

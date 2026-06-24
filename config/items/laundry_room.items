@@ -1,26 +1,26 @@
 Switch Laundry_Room_Door_Contact "Laundry Room Door" (FF_Laundry_Room, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="homeassistant:device:26bcbec1ee:84f3ebcbcbab:zone_4" }
 
-Group Laundry_Room_Lights_Control (FF_Laundry_Room) ["Equipment"]
-Switch Laundry_Room_Lights_Switch "Laundry Room Lights" (Laundry_Room_Lights_Control) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node29:binary-switch-value" }
-Number Laundry_Room_Lights_LED_1_Color "Laundry Room Lights Led 1 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-1-color" }
-Number Laundry_Room_Lights_LED_2_Color "Laundry Room Lights Led 2 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-2-color" }
-Number Laundry_Room_Lights_LED_3_Color "Laundry Room Lights Led 3 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-3-color" }
-Number Laundry_Room_Lights_LED_4_Color "Laundry Room Lights Led 4 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-4-color" }
-Number Laundry_Room_Lights_LED_5_Color "Laundry Room Lights Led 5 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-5-color" }
-Number Laundry_Room_Lights_LED_6_Color "Laundry Room Lights Led 6 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-6-color" }
-Number Laundry_Room_Lights_LED_7_Color "Laundry Room Lights Led 7 Color" (Laundry_Room_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-7-color" }
+Group LaundryRoom_Lights_Control (FF_Laundry_Room) ["Equipment"]
+Switch Laundry_Room_Lights_Switch "Laundry Room Lights" (LaundryRoom_Lights_Control) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node29:binary-switch-value" }
+Number LaundryRoom_Lights_LED_1_Color "Laundry Room Lights Led 1 Color" (LaundryRoom_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-1-color" }
+Number LaundryRoom_Lights_LED_2_Color "Laundry Room Lights Led 2 Color" (LaundryRoom_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-2-color" }
+Number LaundryRoom_Lights_LED_3_Color "Laundry Room Lights Led 3 Color" (LaundryRoom_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-3-color" }
+Number LaundryRoom_Lights_LED_4_Color "Laundry Room Lights Led 4 Color" (LaundryRoom_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-4-color" }
+Number LaundryRoom_Lights_LED_5_Color "Laundry Room Lights Led 5 Color" (LaundryRoom_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-5-color" }
+Number LaundryRoom_Lights_LED_6_Color "Laundry Room Lights Led 6 Color" (LaundryRoom_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-6-color" }
+Number LaundryRoom_Lights_LED_7_Color "Laundry Room Lights Led 7 Color" (LaundryRoom_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-7-color" }
 
-Group Side_Yard_Lights_Control (FF_Laundry_Room) ["Equipment"]
-Switch Side_Yard_Lights_Switch "Side Yard Lights" (Side_Yard_Lights_Control) ["Switch", "Light"] { channel="zwavejs:node:c503e1bad6:node28:binary-switch-value" }
-Number Side_Yard_Lights_LED_1_Color "Side Yard Lights Led 1 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-1-color" }
-Number Side_Yard_Lights_LED_2_Color "Side Yard Lights Led 2 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-2-color" }
-Number Side_Yard_Lights_LED_3_Color "Side Yard Lights Led 3 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-3-color" }
-Number Side_Yard_Lights_LED_4_Color "Side Yard Lights Led 4 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-4-color" }
-Number Side_Yard_Lights_LED_5_Color "Side Yard Lights Led 5 Color" (Side_Yard_Lights_Control, House_Perimeter_LEDs) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-5-color" }
-Number Side_Yard_Lights_LED_6_Color "Side Yard Lights Led 6 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-6-color" }
-Number Side_Yard_Lights_LED_7_Color "Side Yard Lights Led 7 Color" (Side_Yard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-7-color" }
-Number Side_Yard_Lights_Scene_1 "Side Yard Lights Scene 1" (Side_Yard_Lights_Control, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node28:central-scene-scene-001"}
-Number Side_Yard_Lights_Scene_2 "Side Yard Lights Scene 2" (Side_Yard_Lights_Control, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node28:central-scene-scene-002"}
+Group SideYard_Lights_Control (FF_Laundry_Room) ["Equipment"]
+Switch SideYard_Lights_Switch "Side Yard Lights" (SideYard_Lights_Control) ["Switch", "Light"] { channel="zwavejs:node:c503e1bad6:node28:binary-switch-value" }
+Number SideYard_Lights_LED_1_Color "Side Yard Lights Led 1 Color" (SideYard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-1-color" }
+Number SideYard_Lights_LED_2_Color "Side Yard Lights Led 2 Color" (SideYard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-2-color" }
+Number SideYard_Lights_LED_3_Color "Side Yard Lights Led 3 Color" (SideYard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-3-color" }
+Number SideYard_Lights_LED_4_Color "Side Yard Lights Led 4 Color" (SideYard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-4-color" }
+Number SideYard_Lights_LED_5_Color "Side Yard Lights Led 5 Color" (SideYard_Lights_Control, House_Perimeter_LEDs) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-5-color" }
+Number SideYard_Lights_LED_6_Color "Side Yard Lights Led 6 Color" (SideYard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-6-color" }
+Number SideYard_Lights_LED_7_Color "Side Yard Lights Led 7 Color" (SideYard_Lights_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node28:configuration-status-led-7-color" }
+Number SideYard_Lights_Scene_1 "Side Yard Lights Scene 1" (SideYard_Lights_Control, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node28:central-scene-scene-001"}
+Number SideYard_Lights_Scene_2 "Side Yard Lights Scene 2" (SideYard_Lights_Control, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node28:central-scene-scene-002"}
 
 Group Side_Yard_Light "Side Yard Light" (FF_Laundry_Room) ["Lightbulb"] { homekit="Lighting", alexa="Endpoint.Light" }
 Color Side_Yard_Light_Color "Side Yard Light Color" (Side_Yard_Light) ["Lightbulb"] { channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0xb0ce18140006f129:light#color", homekit="Lighting.OnState, Lighting.Brightness, Lighting.Hue, Lighting.Saturation", alexa="PowerController.powerState,BrightnessController.brightness,Endpoint.Light,ColorController.color", autoupdate="false" }
