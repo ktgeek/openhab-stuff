@@ -1,1 +1,1 @@
-Switch Evan_Bedroom_Light "Evan's Bedroom Light" (SF_EvansRoom) ["Lighting"] { autoupdate="false", channel="zwavejs:node:c503e1bad6:node69:binary-switch-value", homekit="Lighting", alexa="Lighting" }
+Switch EvansRoom_Light "Evan's Bedroom Light" (SF_EvansRoom) ["Lighting"] { autoupdate="false", channel="zwavejs:node:c503e1bad6:node69:binary-switch-value", homekit="Lighting", alexa="Lighting" }
