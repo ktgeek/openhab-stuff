@@ -4,7 +4,7 @@ Group  SF_Hallway     "Hallway"       <corridor>  (SF)  ["Corridor"]
 Group  SF_HiddenRoom  "Hidden Room"   <girl_2>    (SF)  ["Room"]
 
 Group SF_Hallway_WallOutlet "Upstairs Wall Outlet" <poweroutlet_us> (SF_Hallway) ["PowerOutlet"] { homekit="Outlet" }
-Switch Upstairs_Hallway_Wall_Outlet_Switch "Upstairs Wall Outlet" <poweroutlet_us> (SF_Hallway, All_Hall_Lights, SF_Hallway_WallOutlet, Christmas_Lights, Christmas_Lights_All) ["Switch"] { homekit="Outlet.OnState", alexa="Outlet", channel="zwavejs:node:c503e1bad6:node56:binary-switch-value" }
+Switch SF_Hallway_WallOutlet_Switch "Upstairs Wall Outlet" <poweroutlet_us> (SF_Hallway, All_Hall_Lights, SF_Hallway_WallOutlet, Christmas_Lights, Christmas_Lights_All) ["Switch"] { homekit="Outlet.OnState", alexa="Outlet", channel="zwavejs:node:c503e1bad6:node56:binary-switch-value" }
 Number:Energy SF_Hallway_WallOutlet_kWh "Upstairs Wall Outlet Power [%.1f kWh]" (SF_Hallway_WallOutlet) ["Point", "Energy"] { channel="zwavejs:node:c503e1bad6:node56:meter-value-65537" }
 Number:Power SF_Hallway_WallOutlet_Watts "Upstairs Wall Outlet Power [%.1f W]" (SF_Hallway_WallOutlet) ["Point", "Energy"] { channel="zwavejs:node:c503e1bad6:node56:meter-value-66049" }
 Switch SF_Hallway_WallOutlet_In_Use "Upstairs Hallway Wall Outlet In Use [RB(outletinuse.rb):%s]" (SF_Hallway_WallOutlet) ["Point"] { homekit="Outlet.InUseStatus", channel="zwavejs:node:c503e1bad6:node56:meter-value-66049" }
