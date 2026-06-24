@@ -12,7 +12,7 @@ require "active_support/core_ext/hash/indifferent_access"
 updated Entrance_FrontDoor_Lock_Alarm_Type, to: [Kwikset::Alarm::KEYPAD_JAMMED,
                                                  Kwikset::Alarm::REMOTE_JAMMED,
                                                  Kwikset::Alarm::AUTO_JAMMED] do
-  Front_Door_Lock_Actual_Homekit.update(Homekit::LockStatus::JAMMED)
+  Entrance_FrontDoor_Lock_CurrentState.update(Homekit::LockStatus::JAMMED)
 end
 
 updated Entrance_FrontDoor_Lock_Raw_Notification do |event|
@@ -37,11 +37,8 @@ updated Entrance_FrontDoor_Lock_Raw_Notification do |event|
 end
 
 # Front Door Lock: proxy changes to actual back to target
-changed(Front_Door_Lock_Actual) do |event|
+changed(Entrance_FrontDoor_Lock_Mode) do |event|
   item = event.item
-  basename = item.name[0..-8]
-  lock_item = items[basename]
-  lock_actual_item_homekit = items["#{basename}_Actual_Homekit"]
 
   state = item.state.to_i
   new_state = if ZWave::Lock::Mode::UNSECURED_GROUP.include?(state)
@@ -53,24 +50,22 @@ changed(Front_Door_Lock_Actual) do |event|
                 next
               end
 
-  lock_item.update(new_state[:state])
-  lock_actual_item_homekit.update(new_state[:homekit])
+  Entrance_FrontDoor_Lock_Target.update(new_state[:state])
+  Entrance_FrontDoor_Lock_CurrentState.update(new_state[:homekit])
 end
 
 # Front Door Lock: proxy lock command
-received_command(Front_Door_Lock) do |event|
-  item = event.item
-  lock_item_actual = items["#{item.name}_Actual"]
-  target_state = item.state.on? ? ZWave::Lock::Mode::SECURED : ZWave::Lock::Mode::UNSECURED
-  lock_item_actual.ensure.command(target_state)
+received_command(Entrance_FrontDoor_Lock_Target) do |event|
+  target_state = event.item.state.on? ? ZWave::Lock::Mode::SECURED : ZWave::Lock::Mode::UNSECURED
+  Entrance_FrontDoor_Lock_Mode.ensure.command(target_state)
 end
 
-changed(House_Perimeter_Contacts, Front_Door_Lock) do |event|
+changed(House_Perimeter_Contacts, Entrance_FrontDoor_Lock_Target) do |event|
   item = event.item
 
   color = if House_Perimeter_Contacts.on?
             { homeseer: Homeseer::LedColor::RED, awtrix: Awtrix3::Color::RED }
-          elsif Front_Door_Lock.off?
+          elsif Entrance_FrontDoor_Lock_Target.off?
             { homeseer: Homeseer::LedColor::YELLOW, awtrix: Awtrix3::Color::YELLOW }
           else
             { homeseer: Homeseer::LedColor::OFF, awtrix: nil }
@@ -81,7 +76,7 @@ changed(House_Perimeter_Contacts, Front_Door_Lock) do |event|
   awtrix.set_indicator_color(Awtrix3::INDICATORS[House_Perimeter_Contacts], color[:awtrix])
 
   print_state = case item
-                when Front_Door_Lock
+                when Entrance_FrontDoor_Lock_Target
                   item.off? ? "Unlocked" : "Locked"
                 when House_Perimeter_Contacts
                   item.on? ? "Open" : "Closed"
@@ -89,27 +84,27 @@ changed(House_Perimeter_Contacts, Front_Door_Lock) do |event|
 
   message = "#{item.label} is now #{print_state}"
   awtrix.show_custom_notification(message:, icon: "door", color: color[:awtrix])
-  TvNotification.notify(message:, avoid_appletv: (item == Front_Door_Lock))
+  TvNotification.notify(message:, avoid_appletv: (item == Entrance_FrontDoor_Lock_Target))
 end
 
 # updated Entrance_FrontDoor_Lock_User_ID_Status_4 do |event|
-#   Front_Door_Lock_Cleaning_Switch.ensure.update(event.state.zero? ? OFF : ON)
+#   Entrance_FrontDoor_Lock_Cleaning_Switch.ensure.update(event.state.zero? ? OFF : ON)
 # end
 
-# changed(Front_Door_Lock_Cleaning_Switch, to: ON) do
+# changed(Entrance_FrontDoor_Lock_Cleaning_Switch, to: ON) do
 #   code = transform("MAP", "lock_code.map", "cleaning")
 
 #   Entrance_FrontDoor_Lock_User_Code_4.ensure.command(code)
 # end
 
-# changed(Front_Door_Lock_Cleaning_Switch, to: OFF) do
+# changed(Entrance_FrontDoor_Lock_Cleaning_Switch, to: OFF) do
 #   Entrance_FrontDoor_Lock_User_ID_Status_4.ensure.command(0)
 # end
 
 # every :thursday, at: "8am" do
-#   Front_Door_Lock_Cleaning_Switch.ensure.on
+#   Entrance_FrontDoor_Lock_Cleaning_Switch.ensure.on
 # end
 
 # every :thursday, at: "5pm" do
-#   Front_Door_Lock_Cleaning_Switch.ensure.off
+#   Entrance_FrontDoor_Lock_Cleaning_Switch.ensure.off
 # end

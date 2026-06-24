@@ -6,7 +6,7 @@ sitemap default label="Garner House" {
             Default item=Garage_House_Door_Contact label="Garage House Door"
             Default item=Kitchen_Back_Door_Contact label="Back Door"
             Default item=LaundryRoom_Door_Contact label="Laundry Room Door"
-            Default item=Front_Door_Contact label="Front Door"
+            Default item=Entrance_FrontDoor_Contact label="Front Door"
         }
 
         Switch item=Christmas_Lights
@@ -53,9 +53,9 @@ sitemap default label="Garner House" {
 
         Text item=FF_Entrance label="Entrance" icon="corridor" {
             Switch item=All_Hall_Lights label="Hall Lights"
-            Default item=Front_Door_Lock label="Front Door Lock"
+            Default item=Entrance_FrontDoor_Lock_Target label="Front Door Lock"
             Default item=Entrance_FrontDoor_Lock_Battery_Level label="Front Door Lock Battery level"
-            Default item=Front_Door_Contact label="Front Door"
+            Default item=Entrance_FrontDoor_Contact label="Front Door"
         }
 
 	    Group item=FF_LivingRoom

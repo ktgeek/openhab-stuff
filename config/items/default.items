@@ -23,19 +23,19 @@ Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF_Entrance) ["WallSwitc
 String Sun_Status "Is the sun up or down?" <sun> (Home) ["Status"]
 
 Group Entrance_FrontDoor_Lock "Front Door Lock" (FF_Entrance) ["Equipment"] { homekit="Lock" }
-Switch Front_Door_Lock "Front Door Lock" <lock> (Entrance_FrontDoor_Lock) ["Lock"] { homekit="Lock.LockTargetState", alexa="LockController.lockState" [itemSensor="Front_Door_Lock_Actual_Homekit"] }
-Number Front_Door_Lock_Actual "Front Door Lock Actual" <lock> (Entrance_FrontDoor_Lock) { channel="zwavejs:node:c503e1bad6:node64:door-lock-mode", autoupdate="false" }
-Number Front_Door_Lock_Actual_Homekit "Front Door Actual Homekit" (Entrance_FrontDoor_Lock) { homekit="Lock.LockCurrentState" }
+Switch Entrance_FrontDoor_Lock_Target "Front Door Lock" <lock> (Entrance_FrontDoor_Lock) ["Lock"] { homekit="Lock.LockTargetState", alexa="LockController.lockState" [itemSensor="Entrance_FrontDoor_Lock_CurrentState"] }
+Number Entrance_FrontDoor_Lock_Mode "Front Door Lock Actual" <lock> (Entrance_FrontDoor_Lock) { channel="zwavejs:node:c503e1bad6:node64:door-lock-mode", autoupdate="false" }
+Number Entrance_FrontDoor_Lock_CurrentState "Front Door Actual Homekit" (Entrance_FrontDoor_Lock) { homekit="Lock.LockCurrentState" }
 Number Entrance_FrontDoor_Lock_Alarm_Type "Front Door Lock Alarm Type" (Entrance_FrontDoor_Lock) ["Point"] { channel="zwavejs:node:c503e1bad6:node64:notification-alarm-type" }
 String Entrance_FrontDoor_Lock_Raw_Notification "Raw notification" (Entrance_FrontDoor_Lock) {channel="zwavejs:node:c503e1bad6:node64:notification-virtual"}
 Number Entrance_FrontDoor_Lock_Battery_Level "Front Door Lock Battery level [%.1f %%]" <battery> (Entrance_FrontDoor_Lock) ["Measurement", "Battery"] { channel="zwavejs:node:c503e1bad6:node64:battery-level" }
 Number Entrance_FrontDoor_Lock_User_Code_4 "Front Door Lock User Code 4" (Entrance_FrontDoor_Lock) ["Point"] { channel="zwavejs:node:c503e1bad6:node64:user-code-user-code-4" }
 Number Entrance_FrontDoor_Lock_User_ID_Status_4 "Front Door Lock Code Status" (Entrance_FrontDoor_Lock) ["Point"] { channel="zwavejs:node:c503e1bad6:node64:user-code-user-id-status-4" }
-Switch Front_Door_Lock_Cleaning_Switch "Cleaning Service Entry Allowed" (FF_Entrance) ["Point"] { homekit="Switchable" }
+Switch Entrance_FrontDoor_Lock_Cleaning_Switch "Cleaning Service Entry Allowed" (FF_Entrance) ["Point"] { homekit="Switchable" }
 
 Group House_Perimeter_LEDs (Home) ["Equipment"]
 Group:Switch:OR(ON,OFF) House_Perimeter_Contacts "House Permiter Contacts" (Home) ["Eqiupment"]
-Switch Front_Door_Contact "Front Door" (FF_Entrance, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="homeassistant:device:26bcbec1ee:84f3ebcbcbab:zone_1" }
+Switch Entrance_FrontDoor_Contact "Front Door" (FF_Entrance, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="homeassistant:device:26bcbec1ee:84f3ebcbcbab:zone_1" }
 
 String Holiday_Mode "Holiday Mode" (FF_Entrance) ["Point"]
 Switch Outdoor_Biking_Season "Am I biking outside?" (FF_Garage) ["Point"]
