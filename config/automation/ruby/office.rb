@@ -40,7 +40,7 @@ rule "turn on the light if someone enters the office" do
   run do
     ensure_states do
       Office_Lights_Switch.on
-      Office_Monitor_LED.on
+      # Office_Monitor_LED.on
       Office_Windows_Switch.on if Holiday_Mode.state == Holidays::CHRISTMAS && Sun_Status.state == "UP"
     end
   end
@@ -52,7 +52,7 @@ rule "turn off the light when the office is empty" do
   run do
     ensure_states do
       Office_Lights_Switch.off
-      Office_Monitor_LED.off
+      # Office_Monitor_LED.off
       if Holiday_Mode.state == Holidays::CHRISTMAS && Sun_Status.state == "UP" && Christmas_Lights.off?
         Office_Windows_Switch.off
       end

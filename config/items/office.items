@@ -13,7 +13,7 @@ Group:Switch:OR(ON,OFF) Zoom_Active_Switch "Zoom Active" (FF_Office) ["Status"]
 Switch Office_m1_work_laptop_Zoom "m1 Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="homie:device:26bcbec1ee:m1-work-laptop:zoom_2Dactivity#status" }
 Switch Office_bugg_Zoom "bugg Zoom" (FF_Office, Zoom_Active_Switch) ["Status"] { channel="homie:device:26bcbec1ee:bugg-zoom:zoom_2Dactivity#status" }
 
-Switch Office_Monitor_LED "Monitor LEDs" (FF_Office) ["Lightbulb"] { homekit="Lighting", channel="hyperion:serverNG:3072a6de25:leddevice"}
+//Switch Office_Monitor_LED "Monitor LEDs" (FF_Office) ["Lightbulb"] { homekit="Lighting", channel="hyperion:serverNG:3072a6de25:leddevice"}
 
 Group Office_Lights_Control (FF_Office) ["Equipment"]
 Switch Office_Lights_Switch "Office Lights" (Office_Lights_Control) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node96:binary-switch-value" }
