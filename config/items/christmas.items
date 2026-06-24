@@ -9,7 +9,7 @@ Group:Switch:AND(ON,OFF)  Christmas_Lights_All  "Test Christmas Lights"  <lightb
 Group:Switch:AND(ON,OFF)  Christmas_Outside     "Christmas Outside"      <snow>       (Christmas)  ["WallSwitch"]
 
 // Second Floor - Dinah's Room
-Group         DinahsRoom_Hall_Light                                                            (SF_Hallway)                                                     ["PowerOutlet"]
+Group         DinahsRoom_Hall_Light                                                            (Upstairs)                                                       ["PowerOutlet"]
 Switch        DinahsRoom_Hall_Light_Switch  "Dinah's Room Hall Light"        <poweroutlet_us>  (Christmas_Lights, Christmas_Lights_All, DinahsRoom_Hall_Light)  ["Switch"]          {channel="mqtt:topic:26bcbec1ee:12bd68c692:power"}
 Number:Power  DinahsRoom_Hall_Light_Watts   "Dinah's Room Hall Light Power"                    (DinahsRoom_Hall_Light)                                          ["Point", "Power"]  {channel="mqtt:topic:26bcbec1ee:12bd68c692:currentPower"}
 
@@ -22,11 +22,11 @@ Group         DiningRoom_Window                                                 
 Switch        DiningRoom_Windows_Switch  "Dining Room Windows"       <poweroutlet_us>  (Christmas_Lights, Christmas_Lights_All, DiningRoom_Window)  ["Switch"]          {channel="mqtt:topic:26bcbec1ee:5b60187d69:power"}
 Number:Power  DiningRoom_Window_Watts    "Dining Room Window Power"                    (DiningRoom_Window)                                          ["Point", "Power"]  {channel="mqtt:topic:26bcbec1ee:5b60187d69:currentPower"}
 
-Group   DinahsRoom_HolidayLED        "Dinah's Room Holiday LED"        (SF_DinahsRoom)                             ["Equipment"]
+Group   DinahsRoom_HolidayLED        "Dinah's Room Holiday LED"        (DinahsRoom)                                ["Equipment"]
 Switch  DinahsRoom_HolidayLED_Power  "Dinah's Room Holiday LED Power"  (Christmas_Outside, DinahsRoom_HolidayLED)  ["Switch", "Light"]  {channel="wled:json:4cebd6d8fc9f:globalBrightness"}
 //String DinahsRoom_HolidayLED_Presets "Dinah's Room Holiday LED Presets" (DinahsRoom_HolidayLED) ["Point"] { channel="wled:json:4cebd6d8fc9f:presets" }
 
-Group   HiddenRoom_HolidayLED        "Hidden Room Holiday LED"       (SF_HiddenRoom)                             ["Equipment"]
+Group   HiddenRoom_HolidayLED        "Hidden Room Holiday LED"       (HiddenRoom)                                ["Equipment"]
 Switch  HiddenRoom_HolidayLED_Power  "HiddenRoom Holiday LED Power"  (Christmas_Outside, HiddenRoom_HolidayLED)  ["Switch", "Light"]  {channel="wled:json:9c9c1f429df9:globalBrightness"}
 //String HiddenRoom_HolidayLED_Presets "HiddenRoom Holiday LED Presets" (HiddenRoom_HolidayLED) ["Point"] { channel="wled:json:9c9c1f429df9:presets" }
 
@@ -42,6 +42,6 @@ Switch  LivingRoom_ChristmasTree_Switch  "Living Room Christmas Tree"  <powerout
 
 // Switch Front_Yard_Wolf_Decoration "Werewolf Jeff" (FF_Porch) ["Point"] { homekit="Switchable", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0xa4c1380f5a933544:switch" }
 
-Group         SF_Hallway_MiscDecoration_Outlet                                       (SF_Hallway)                        ["PowerOutlet"]
-Switch        SF_Hallway_MiscDecoration_Switch  "Misc Decoration"  <poweroutlet_us>  (SF_Hallway_MiscDecoration_Outlet)  ["Switch"]       {channel="mqtt:topic:26bcbec1ee:tasmota_misc_decoration:power", homekit="Outlet", autoupdate="false"}
-Number:Power  SF_Hallway_MiscDecoration_Watts   "Misc Decoration"                    (SF_Hallway_MiscDecoration_Outlet)  ["Power"]        {channel="mqtt:topic:26bcbec1ee:tasmota_misc_decoration:currentPower"}
+Group         Upstairs_MiscDecoration_Outlet                                             (Upstairs)                             ["PowerOutlet"]
+Switch        SF_Hallway_MiscDecoration_Switch  "Misc Decoration"  <poweroutlet_us>      (Upstairs_MiscDecoration_Outlet)       ["Switch"]       {channel="mqtt:topic:26bcbec1ee:tasmota_misc_decoration:power", homekit="Outlet", autoupdate="false"}
+Number:Power  SF_Hallway_MiscDecoration_Watts   "Misc Decoration"                        (Upstairs_MiscDecoration_Outlet)       ["Power"]        {channel="mqtt:topic:26bcbec1ee:tasmota_misc_decoration:currentPower"}
