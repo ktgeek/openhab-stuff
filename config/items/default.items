@@ -15,22 +15,22 @@ Group Clear_Scenes "Clear Scenes"
 
 // First Floor - Entrance
 Group:Switch:OR(ON,OFF) All_Hall_Lights "Hall Lights" <lightbulb> (FF_Entrance) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
-Switch Switch_Entrance_Hall_Light "Hall Table Light" <lightbulb> (All_Hall_Lights) ["Point"] { channel="zwavejs:node:c503e1bad6:node8:binary-switch-value" }
+Switch Entrance_Hall_Light_Switch "Hall Table Light" <lightbulb> (All_Hall_Lights) ["Point"] { channel="zwavejs:node:c503e1bad6:node8:binary-switch-value" }
 
 // Virtual test
 Switch VisitorMode_Switch "Visitor Mode" <parents_4_3> (FF_Entrance) ["WallSwitch"] { alexa="Switchable", homekit="Switchable" }
 
 String Sun_Status "Is the sun up or down?" <sun> (Home) ["Status"]
 
-Group gFront_Door_Lock "Front Door Lock" (FF_Entrance) ["Equipment"] { homekit="Lock" }
-Switch Front_Door_Lock "Front Door Lock" <lock> (gFront_Door_Lock) ["Lock"] { homekit="Lock.LockTargetState", alexa="LockController.lockState" [itemSensor="Front_Door_Lock_Actual_Homekit"] }
-Number Front_Door_Lock_Actual "Front Door Lock Actual" <lock> (gFront_Door_Lock) { channel="zwavejs:node:c503e1bad6:node64:door-lock-mode", autoupdate="false" }
-Number Front_Door_Lock_Actual_Homekit "Front Door Actual Homekit" (gFront_Door_Lock) { homekit="Lock.LockCurrentState" }
-Number Front_Door_Lock_Alarm_Type "Front Door Lock Alarm Type" (gFront_Door_Lock) ["Point"] { channel="zwavejs:node:c503e1bad6:node64:notification-alarm-type" }
-String Front_Door_Lock_Raw_Notification "Raw notification" (gFront_Door_Lock) {channel="zwavejs:node:c503e1bad6:node64:notification-virtual"}
-Number Front_Door_Lock_Battery_Level "Front Door Lock Battery level [%.1f %%]" <battery> (gFront_Door_Lock) ["Measurement", "Battery"] { channel="zwavejs:node:c503e1bad6:node64:battery-level" }
-Number Front_Door_Lock_User_Code_4 "Front Door Lock User Code 4" (gFront_Door_Lock) ["Point"] { channel="zwavejs:node:c503e1bad6:node64:user-code-user-code-4" }
-Number Front_Door_Lock_User_ID_Status_4 "Front Door Lock Code Status" (gFront_Door_Lock) ["Point"] { channel="zwavejs:node:c503e1bad6:node64:user-code-user-id-status-4" }
+Group Entrance_FrontDoor_Lock "Front Door Lock" (FF_Entrance) ["Equipment"] { homekit="Lock" }
+Switch Front_Door_Lock "Front Door Lock" <lock> (Entrance_FrontDoor_Lock) ["Lock"] { homekit="Lock.LockTargetState", alexa="LockController.lockState" [itemSensor="Front_Door_Lock_Actual_Homekit"] }
+Number Front_Door_Lock_Actual "Front Door Lock Actual" <lock> (Entrance_FrontDoor_Lock) { channel="zwavejs:node:c503e1bad6:node64:door-lock-mode", autoupdate="false" }
+Number Front_Door_Lock_Actual_Homekit "Front Door Actual Homekit" (Entrance_FrontDoor_Lock) { homekit="Lock.LockCurrentState" }
+Number Entrance_FrontDoor_Lock_Alarm_Type "Front Door Lock Alarm Type" (Entrance_FrontDoor_Lock) ["Point"] { channel="zwavejs:node:c503e1bad6:node64:notification-alarm-type" }
+String Entrance_FrontDoor_Lock_Raw_Notification "Raw notification" (Entrance_FrontDoor_Lock) {channel="zwavejs:node:c503e1bad6:node64:notification-virtual"}
+Number Entrance_FrontDoor_Lock_Battery_Level "Front Door Lock Battery level [%.1f %%]" <battery> (Entrance_FrontDoor_Lock) ["Measurement", "Battery"] { channel="zwavejs:node:c503e1bad6:node64:battery-level" }
+Number Entrance_FrontDoor_Lock_User_Code_4 "Front Door Lock User Code 4" (Entrance_FrontDoor_Lock) ["Point"] { channel="zwavejs:node:c503e1bad6:node64:user-code-user-code-4" }
+Number Entrance_FrontDoor_Lock_User_ID_Status_4 "Front Door Lock Code Status" (Entrance_FrontDoor_Lock) ["Point"] { channel="zwavejs:node:c503e1bad6:node64:user-code-user-id-status-4" }
 Switch Front_Door_Lock_Cleaning_Switch "Cleaning Service Entry Allowed" (FF_Entrance) ["Point"] { homekit="Switchable" }
 
 Group House_Perimeter_LEDs (Home) ["Equipment"]
@@ -45,4 +45,4 @@ Number:Temperature Entrance_Temperature "Entrance Temperature" (Entrance_Hall_Mu
 Number:Illuminance Entrance_Luminance "Entrance Luminance" (Entrance_Hall_MultiSensor) ["Measurement", "Light"] { homekit="LightSensor", channel="zwavejs:node:c503e1bad6:node84:multilevel-sensor-illuminance"}
 Switch Entrance_Alarm_Motion "Entrance Motion alarm" (Entrance_Hall_MultiSensor) {channel="zwavejs:node:c503e1bad6:node84:binary-sensor-motion"}
 Number Entrance_Hall_MultiSensor_Battery_Level "Entrance Battery level" (Entrance_Hall_MultiSensor) ["Measurement", "Battery"]  {channel="zwavejs:node:c503e1bad6:node84:battery-level"}
-Switch Ignore_Luminance "Ignore Luminance" (Entrance_Hall_MultiSensor) ["Point"]
+Switch Entrance_IgnoreLuminance_Switch "Ignore Luminance" (Entrance_Hall_MultiSensor) ["Point"]

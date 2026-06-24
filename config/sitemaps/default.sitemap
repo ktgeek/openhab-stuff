@@ -54,7 +54,7 @@ sitemap default label="Garner House" {
         Text item=FF_Entrance label="Entrance" icon="corridor" {
             Switch item=All_Hall_Lights label="Hall Lights"
             Default item=Front_Door_Lock label="Front Door Lock"
-            Default item=Front_Door_Lock_Battery_Level label="Front Door Lock Battery level"
+            Default item=Entrance_FrontDoor_Lock_Battery_Level label="Front Door Lock Battery level"
             Default item=Front_Door_Contact label="Front Door"
         }
 

@@ -8,7 +8,7 @@ rule "when its darks enough we think the sun is down" do
     All_Hall_Lights.members.ensure.on if Time.now > LocalTime.parse("9am")
   end
 
-  only_if { Ignore_Luminance.off? && Time.now.between?((Date.today.weekend? ? "9am" : "5:35am").."10:30pm") }
+  only_if { Entrance_IgnoreLuminance_Switch.off? && Time.now.between?((Date.today.weekend? ? "9am" : "5:35am").."10:30pm") }
 end
 
 rule "when its bright enough we think the sun is up" do
@@ -20,5 +20,5 @@ rule "when its bright enough we think the sun is up" do
     All_Hall_Lights.members.ensure.off
   end
 
-  only_if { Ignore_Luminance.off? && Time.now.between?((Date.today.weekend? ? "9am" : "5:35am").."10:30pm") }
+  only_if { Entrance_IgnoreLuminance_Switch.off? && Time.now.between?((Date.today.weekend? ? "9am" : "5:35am").."10:30pm") }
 end

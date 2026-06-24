@@ -9,13 +9,13 @@ require "tv_notification"
 require "awtrix3"
 require "active_support/core_ext/hash/indifferent_access"
 
-updated Front_Door_Lock_Alarm_Type, to: [Kwikset::Alarm::KEYPAD_JAMMED,
-                                         Kwikset::Alarm::REMOTE_JAMMED,
-                                         Kwikset::Alarm::AUTO_JAMMED] do
+updated Entrance_FrontDoor_Lock_Alarm_Type, to: [Kwikset::Alarm::KEYPAD_JAMMED,
+                                                 Kwikset::Alarm::REMOTE_JAMMED,
+                                                 Kwikset::Alarm::AUTO_JAMMED] do
   Front_Door_Lock_Actual_Homekit.update(Homekit::LockStatus::JAMMED)
 end
 
-updated Front_Door_Lock_Raw_Notification do |event|
+updated Entrance_FrontDoor_Lock_Raw_Notification do |event|
   data = event.state? ? JSON.parse(event.state).with_indifferent_access : {}
 
   if data[:event] == 6 && data[:type] == 6
@@ -92,18 +92,18 @@ changed(House_Perimeter_Contacts, Front_Door_Lock) do |event|
   TvNotification.notify(message:, avoid_appletv: (item == Front_Door_Lock))
 end
 
-# updated Front_Door_Lock_User_ID_Status_4 do |event|
+# updated Entrance_FrontDoor_Lock_User_ID_Status_4 do |event|
 #   Front_Door_Lock_Cleaning_Switch.ensure.update(event.state.zero? ? OFF : ON)
 # end
 
 # changed(Front_Door_Lock_Cleaning_Switch, to: ON) do
 #   code = transform("MAP", "lock_code.map", "cleaning")
 
-#   Front_Door_Lock_User_Code_4.ensure.command(code)
+#   Entrance_FrontDoor_Lock_User_Code_4.ensure.command(code)
 # end
 
 # changed(Front_Door_Lock_Cleaning_Switch, to: OFF) do
-#   Front_Door_Lock_User_ID_Status_4.ensure.command(0)
+#   Entrance_FrontDoor_Lock_User_ID_Status_4.ensure.command(0)
 # end
 
 # every :thursday, at: "8am" do
