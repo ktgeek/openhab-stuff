@@ -1,0 +1,56 @@
+// Settings from the service file
+// retentionDays=7
+// compressionAfterDays=15
+
+Items {
+  // Excluded: transitory scene triggers and one-shot command channels (no restoreOnStartup)
+  // Z-Wave central-scene buttons (Clear_Scenes group members)
+  Basement_BarLights_Scene_1, Basement_BarLights_Scene_2,
+  Basement_TheaterLights_Scene_1, Basement_TheaterLights_Scene_2,
+  Basement_NanomoteQuad_Scene_1, Basement_NanomoteQuad_Scene_2,
+  Basement_NanomoteQuad_Scene_3, Basement_NanomoteQuad_Scene_4,
+  Kitchen_Accent_Desk_Scene_1, Kitchen_Accent_Desk_Scene_2,
+  Kitchen_Accent_Sink_Scene_1, Kitchen_Accent_Sink_Scene_2,
+  Kitchen_Lights_Scene_1, Kitchen_Lights_Scene_2,
+  Kitchen_Table_Lights_Scene_1, Kitchen_Table_Lights_Scene_2,
+  Kitchen_Backyard_Lights_Scene_1, Kitchen_Backyard_Lights_Scene_2,
+  ExerciseRoom_DimmerLights_Scene_1, ExerciseRoom_DimmerLights_Scene_2,
+  LivingRoom_Scene_Switch_Scene_1, LivingRoom_Scene_Switch_Scene_2,
+  LivingRoom_Scene_Switch_Scene_3, LivingRoom_Scene_Switch_Scene_4,
+  LivingRoom_Scene_Switch_Scene_5, LivingRoom_Scene_Switch_Scene_6,
+  SideYard_Lights_Scene_1, SideYard_Lights_Scene_2,
+  Bedroom_Hallway_Light_Scene_1, Bedroom_Hallway_Light_Scene_2,
+  Bedroom_Hallway_Light_Scene_3, Bedroom_Hallway_Light_Scene_4,
+  Bedroom_Hallway_Light_Scene_5, Bedroom_Hallway_Light_Scene_6,
+  // Button action strings and one-shot command channels
+  Garage_FrontYardLights_Button_Action, Entrance_FrontYardLights_Button_Action,
+  Entrance_FrontDoor_Lock_Raw_Notification,
+  Bedroom_Echo_TTS, Basement_Echo_TTS, EvansRoom_Echo_TTS, Kitchen_Echo_TTS,
+  Basement_TV_Toast, FamilyRoom_TV_Toast,
+  Office_Awtrix_OutdoorTemp_Text, Office_Awtrix_OutdoorTemp_Icon
+      : strategy = everyChange
+
+  // Long-lived sensor and energy items: 3-year retention configured via item metadata
+  Backyard_Temperature, Backyard_FeelsLike_Temperature, Backyard_Humidity,
+  Backyard_Barometric_Pressure, Backyard_Dew_Point,
+  Backyard_Wind_Direction, Backyard_Wind_Speed, Backyard_Windgust,
+  Backyard_Rain, Backyard_UV,
+  FF_Thermostat_CurrentTemp, FF_Thermostat_Humidity,
+  SF_Thermostat_CurrentTemp, SF_Thermostat_Humidity,
+  FamilyRoom_Sensor_Temperature, FamilyRoom_Sensor_Humidity,
+  Entrance_Temperature, Entrance_Luminance,
+  Basement_FloodSensor_Temperature,
+  FamilyRoom_WallOutlet_kWh, FamilyRoom_WallOutlet_Watts,
+  LivingRoom_WallOutlet_kWh, LivingRoom_WallOutlet_Watts,
+  Upstairs_WallOutlet_kWh, Upstairs_WallOutlet_Watts,
+  Basement_WallOutlet_kWh, Basement_WallOutlet_Watts,
+  ExerciseRoom_BikeTrainer_Current, ExerciseRoom_BikeTrainer_TotalActivePower,
+  Bedroom_TableLight_Watts, Bedroom_SarahLight_Watts,
+  LivingRoom_TableLight_Watts, Office_WindowDecorations_Watts,
+  DinahsRoom_Hall_Light_Watts, DiningRoom_Table_Watts, DiningRoom_Window_Watts,
+  SF_Hallway_MiscDecoration_Watts
+      : strategy = everyChange
+
+  // All other items: everyChange + restoreOnStartup, 7-day default retention
+  * : strategy = everyChange, restoreOnStartup
+}

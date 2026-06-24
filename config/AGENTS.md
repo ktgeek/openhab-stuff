@@ -33,7 +33,7 @@ This applies to every task — no matter how small. A one-line item change still
 | `things/` | DSL Thing definitions (mostly managed via UI; check here first) |
 | `rules/` | Legacy DSL rules directory — mostly empty; `automation/ruby/` is primary |
 | `services/` | Service configuration (`.cfg` files) — **CRITICAL: see warnings below** |
-| `persistence/` | Data persistence strategies (`jdbc.persist`, `influxdb.persist.disabled`) |
+| `persistence/` | Data persistence strategies (`timescaledb.persist`) |
 | `transform/` | State transformation files (`.map` key→value maps, `.rb` Ruby transformers) |
 | `sitemaps/` | Web UI layout (`default.sitemap`) |
 | `spec/` | RSpec test suite for automation rules |
@@ -265,10 +265,13 @@ When changes to `services/*.cfg` are required: explain the specific field and va
 
 ## Persistence
 
-- **`jdbc.persist`** — Primary persistence via JDBC to a **TimescaleDB** instance (time-series database built on PostgreSQL). Strategies in use: `everyUpdate`, `everyChange`, `restoreOnStartup`.
+- **`timescaledb.persist`** — Primary persistence via the native **TimescaleDB** addon (time-series database built on PostgreSQL), connecting to `192.168.23.50:5432/tsopenhab`. Strategies in use: `everyChange`, `restoreOnStartup`.
 - **`influxdb.persist.disabled`** — Disabled alternative; rename to `.persist` to enable.
+- **`jdbc.persist.disabled`** / **`services/jdbc.cfg.disabled`** — Former JDBC-based persistence config, kept for reference.
 
-Items that must survive reboots (e.g., thermostat modes, occupancy state) must be listed in `jdbc.persist` with the `restoreOnStartup` strategy.
+Retention policy: 7-day global default (`services/timescaledb.cfg`), with `retentionDays=1095` (3 years) set via `timescaledb` item metadata on long-lived sensor and energy items. Compression activates after 15 days. Items not listed explicitly in `timescaledb.persist` get `everyChange + restoreOnStartup` automatically via the catch-all `*` rule.
+
+Items that must survive reboots (e.g., thermostat modes, switch states, LED indicator colors) are covered by the catch-all `restoreOnStartup` strategy — no explicit listing required unless the item needs extended retention.
 
 ---
 

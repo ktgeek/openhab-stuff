@@ -4,17 +4,10 @@ require "color"
 require "tasmota"
 require "holidays"
 
-stored_led_states = nil
-
 rule "when a zoom meeting is on" do
   changed Zoom_Active_Switch, to: ON
 
   run do
-    if Office_DoorLED_Color.on?
-      stored_led_states = store_states Office_DoorLED_Palette, Office_DoorLED_Fade, Office_DoorLED_Scheme,
-                                       Office_DoorLED_Speed
-    end
-
     Office_DoorLED_Fade.off
     Office_DoorLED_Scheme.command(Tasmota::Scheme::SINGLE_COLOR)
     Office_DoorLED_Color.command(Color::RED)
@@ -25,12 +18,16 @@ rule "when a zoom meeting is over" do
   changed Zoom_Active_Switch, to: OFF
 
   run do
-    if stored_led_states
-      stored_led_states&.restore_changes
+    prior_color = Office_DoorLED_Color.previous_state
+    if prior_color&.state&.on?
+      Office_DoorLED_Color.command(prior_color.state)
+      Office_DoorLED_Scheme.command(Office_DoorLED_Scheme.previous_state.state)
+      Office_DoorLED_Fade.command(Office_DoorLED_Fade.previous_state.state)
+      Office_DoorLED_Palette.command(Office_DoorLED_Palette.previous_state.state)
+      Office_DoorLED_Speed.command(Office_DoorLED_Speed.previous_state.state)
     else
       Office_DoorLED_Color.ensure.off
     end
-    stored_led_states = nil
   end
 end
 

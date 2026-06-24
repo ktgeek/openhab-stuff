@@ -8,11 +8,11 @@ Dimmer  Bedroom_CeilingFan_Light       "Bedroom Ceiling Fan Light"              
 
 Group         Bedroom_TableLight                                                        (Bedroom)             ["PowerOutlet"]
 Switch        Bedroom_TableLight_Switch  "Bedroom Table Light"        <poweroutlet_us>  (Bedroom_TableLight)  ["Switch"]       {channel="mqtt:topic:26bcbec1ee:6d6b292248:power", homekit="Lighting", alexa="Lighting"}
-Number:Power  Bedroom_TableLight_Watts   "Bedroom Table Light Power"                    (Bedroom_TableLight)  ["Power"]        {channel="mqtt:topic:26bcbec1ee:6d6b292248:currentPower"}
+Number:Power  Bedroom_TableLight_Watts   "Bedroom Table Light Power"                    (Bedroom_TableLight)  ["Power"]        {channel="mqtt:topic:26bcbec1ee:6d6b292248:currentPower", timescaledb=" " [retentionDays="1095"]}
 
 Group         Bedroom_SarahLight                                                        (Bedroom)             ["PowerOutlet"]
 Switch        Bedroom_SarahLight_Switch  "Bedroom Sarah Light"        <poweroutlet_us>  (Bedroom_SarahLight)  ["Switch"]       {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebd85f:switch", homekit="Lighting", alexa="Lighting"}
-Number:Power  Bedroom_SarahLight_Watts   "Bedroom Table Light Power"                    (Bedroom_SarahLight)  ["Power"]        {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebd85f:power"}
+Number:Power  Bedroom_SarahLight_Watts   "Bedroom Table Light Power"                    (Bedroom_SarahLight)  ["Power"]        {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebd85f:power", timescaledb=" " [retentionDays="1095"]}
 
 Group  Bedroom_Remotes_Action  (Bedroom)
 

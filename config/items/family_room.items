@@ -10,8 +10,8 @@ Dimmer FamilyRoom_AccentLights_Dimmer "Family Room Accents [%d]" <lightbulb> (Fa
 
 Group          FamilyRoom_WallOutlet         "Family Room Wall Outlet"                                 <poweroutlet_us>  (FamilyRoom)                                                     ["PowerOutlet"]      {homekit="Outlet"}
 Switch         FamilyRoom_WallOutlet_Switch  "Family Room Wall Outlet"                                 <poweroutlet_us>  (Christmas_Lights, Christmas_Lights_All, FamilyRoom_WallOutlet)  ["Point"]            {homekit="Outlet.OnState", alexa="Outlet", channel="zwavejs:node:c503e1bad6:node17:binary-switch-value"}
-Number:Energy  FamilyRoom_WallOutlet_kWh     "Family Room Wall Outlet Power [%.1f kWh]"                                  (FamilyRoom_WallOutlet)                                          ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node17:meter-value-65537"}
-Number:Power   FamilyRoom_WallOutlet_Watts   "Family Room Wall Outlet Power [%.1f Ws]"                                   (FamilyRoom_WallOutlet)                                          ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node17:meter-value-66049"}
+Number:Energy  FamilyRoom_WallOutlet_kWh     "Family Room Wall Outlet Power [%.1f kWh]"                                  (FamilyRoom_WallOutlet)                                          ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node17:meter-value-65537", timescaledb=" " [retentionDays="1095"]}
+Number:Power   FamilyRoom_WallOutlet_Watts   "Family Room Wall Outlet Power [%.1f Ws]"                                   (FamilyRoom_WallOutlet)                                          ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node17:meter-value-66049", timescaledb=" " [retentionDays="1095"]}
 Switch         FamilyRoom_WallOutlet_In_Use  "Family Room Wall Outlet In Use [RB(outletinuse.rb):%s]"                    (FamilyRoom_WallOutlet)                                          ["Point"]            {homekit="Outlet.InUseStatus", channel="zwavejs:node:c503e1bad6:node17:meter-value-66049"}
 
 Group   FamilyRoom_LED        "Family Room LEDs"       (FamilyRoom)      ["Lightbulb"]  {homekit="Lighting", alexa="Endpoint.Light"}
@@ -25,8 +25,8 @@ Switch  FamilyRoom_CeilingFan_Power        "Family Room Ceiling Fan"            
 Switch  FamilyRoom_CeilingFan_Light_Power  "Family Room Ceiling Fan Light"       (FamilyRoom_CeilingFan_With_Light)  {homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:light#power"}
 
 Group                 FamilyRoom_Sensor                "Family Room Sensor"                   (FamilyRoom)         ["Equpiment"]
-Number:Temperature    FamilyRoom_Sensor_Temperature    "Family Room Temperature"              (FamilyRoom_Sensor)  ["Measurement", "Temperature"]  {unit="°C", homekit="TemperatureSensor.CurrentTemperature", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:temperature"}
-Number:Dimensionless  FamilyRoom_Sensor_Humidity       "Family Room Humidity"                 (FamilyRoom_Sensor)  ["Measurement", "Humidity"]     {unit="%", homekit="HumiditySensor.CurrentRelativeHumidity", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:humidity"}
+Number:Temperature    FamilyRoom_Sensor_Temperature    "Family Room Temperature"              (FamilyRoom_Sensor)  ["Measurement", "Temperature"]  {unit="°C", homekit="TemperatureSensor.CurrentTemperature", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:temperature", timescaledb=" " [retentionDays="1095"]}
+Number:Dimensionless  FamilyRoom_Sensor_Humidity       "Family Room Humidity"                 (FamilyRoom_Sensor)  ["Measurement", "Humidity"]     {unit="%", homekit="HumiditySensor.CurrentRelativeHumidity", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:humidity", timescaledb=" " [retentionDays="1095"]}
 Number:Dimensionless  FamilyRoom_Sensor_Battery_Level  "Basement Flood Sensor Battery Level"  (FamilyRoom_Sensor)  ["Measurement", "Battery"]      {unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:battery"}
 
 Group   FamilyRoom_Fan_Button          "Family Room Fan Button"          (FamilyRoom)             ["RemoteControl"]

@@ -2,8 +2,8 @@ Group  LivingRoom  "Living Room"  <sofa>  (FF)  ["LivingRoom"]
 
 Group          LivingRoom_WallOutlet         "Living Room Wall Outlet"                                 <poweroutlet_us>  (LivingRoom)                                                     ["PowerOutlet"]      {homekit="Outlet"}
 Switch         LivingRoom_WallOutlet_Switch  "Living Room Wall Outlet"                                 <poweroutlet_us>  (Christmas_Lights, Christmas_Lights_All, LivingRoom_WallOutlet)  ["Point"]            {homekit="Outlet.OnState", alexa="Outlet", channel="zwavejs:node:c503e1bad6:node7:binary-switch-value"}
-Number:Energy  LivingRoom_WallOutlet_kWh     "Living Room Wall Outlet Power [%.1f kWh]"                                  (LivingRoom_WallOutlet)                                          ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node7:meter-value-65537"}
-Number:Power   LivingRoom_WallOutlet_Watts   "Living Room Wall Outlet Power [%.1f W]"                                    (LivingRoom_WallOutlet)                                          ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node7:meter-value-66049"}
+Number:Energy  LivingRoom_WallOutlet_kWh     "Living Room Wall Outlet Power [%.1f kWh]"                                  (LivingRoom_WallOutlet)                                          ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node7:meter-value-65537", timescaledb=" " [retentionDays="1095"]}
+Number:Power   LivingRoom_WallOutlet_Watts   "Living Room Wall Outlet Power [%.1f W]"                                    (LivingRoom_WallOutlet)                                          ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node7:meter-value-66049", timescaledb=" " [retentionDays="1095"]}
 Switch         LivingRoom_WallOutlet_In_Use  "Living Room Wall Outlet In Use [RB(outletinuse.rb):%s]"                    (LivingRoom_WallOutlet)                                          ["Point"]            {homekit="Outlet.InUseStatus", channel="zwavejs:node:c503e1bad6:node7:meter-value-66049"}
 
 Color  LivingRoom_Light_1_Color  "Living Room Light 1"  (LivingRoom, Christmas_Lights, Christmas_Lights_All)  ["Point"]  {matter="ColorLight" [label="Living Room Light 1", fixedLabels="room=Living Room"], channel="mqtt:topic:26bcbec1ee:4a7ee3e8b3:color"}
@@ -20,4 +20,4 @@ Number  LivingRoom_Scene_Switch_Scene_6  "Living Room Scene Switch Scene 6"     
 
 Group         LivingRoom_TableLight                                                            (LivingRoom)             ["PowerOutlet"]
 Switch        LivingRoom_TableLight_Switch  "Living Room Table Light"        <poweroutlet_us>  (LivingRoom_TableLight)  ["Switch"]       {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffed992e:switch", homekit="Lighting", alexa="Lighting"}
-Number:Power  LivingRoom_TableLight_Watts   "Living Room Table Light Power"                    (LivingRoom_TableLight)  ["Power"]        {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffed992e:power"}
+Number:Power  LivingRoom_TableLight_Watts   "Living Room Table Light Power"                    (LivingRoom_TableLight)  ["Power"]        {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffed992e:power", timescaledb=" " [retentionDays="1095"]}

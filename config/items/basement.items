@@ -71,8 +71,8 @@ Number                Basement_NanomoteQuad_Scene_4       "Nanomote Quad Scene 4
 
 Group          Basement_WallOutlet         "Basement Wall Outlet"                                 <poweroutlet_us>  (Basement)                                             ["PowerOutlet"]      {homekit="Outlet"}
 Switch         Basement_WallOutlet_Switch  "Basement Wall Outlet"                                 <poweroutlet_us>  (Basement, Basement_WallOutlet, Christmas_Lights_All)  ["Point"]            {homekit="Outlet.OnState", alexa="Outlet.OnState", channel="zwavejs:node:c503e1bad6:node60:binary-switch-value"}
-Number:Energy  Basement_WallOutlet_kWh     "Baesment Wall Outlet Power [%.1f kWh]"                                  (Basement_WallOutlet)                                  ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node60:meter-value-65537"}
-Number:Power   Basement_WallOutlet_Watts   "Basement Wall Outlet Power [%.1f Ws]"                                   (Basement_WallOutlet)                                  ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node60:meter-value-66049"}
+Number:Energy  Basement_WallOutlet_kWh     "Baesment Wall Outlet Power [%.1f kWh]"                                  (Basement_WallOutlet)                                  ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node60:meter-value-65537", timescaledb=" " [retentionDays="1095"]}
+Number:Power   Basement_WallOutlet_Watts   "Basement Wall Outlet Power [%.1f Ws]"                                   (Basement_WallOutlet)                                  ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node60:meter-value-66049", timescaledb=" " [retentionDays="1095"]}
 Switch         Basement_WallOutlet_In_Use  "Basement Wall Outlet In Use [RB(outletinuse.rb):%s]"                    (Basement_WallOutlet)                                  ["Point"]            {homekit="Outlet.InUseStatus", channel="zwavejs:node:c503e1bad6:node60:meter-value-66049"}
 
 Group   Basement_TV        "Family Room TV"        (Basement)     ["Television"]
@@ -103,8 +103,8 @@ Number  ExerciseRoom_DimmerLights_Scene_2      "Exercise Room Dimmer Scene 2"   
 
 Group                   ExerciseRoom_BikeTrainer                   "Exercise Room Bike Trainer"                                     (ExerciseRoom)                            ["PowerOutlet"]      {homekit="Outlet"}
 Switch                  ExerciseRoom_BikeTrainer_Switch            "Exercise Room Bike Trainer"                           <switch>  (ExerciseRoom, ExerciseRoom_BikeTrainer)                       {homekit="Outlet.OnState", alexa="Outlet", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:switch"}
-Number:ElectricCurrent  ExerciseRoom_BikeTrainer_Current           "Exercise Room Current [%.1f %unit%]"                            (ExerciseRoom_BikeTrainer)                ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:current"}
-Number:Power            ExerciseRoom_BikeTrainer_TotalActivePower  "Exercise Room Total Active Power [%.1f %unit%]"                 (ExerciseRoom_BikeTrainer)                ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:power"}
+Number:ElectricCurrent  ExerciseRoom_BikeTrainer_Current           "Exercise Room Current [%.1f %unit%]"                            (ExerciseRoom_BikeTrainer)                ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:current", timescaledb=" " [retentionDays="1095"]}
+Number:Power            ExerciseRoom_BikeTrainer_TotalActivePower  "Exercise Room Total Active Power [%.1f %unit%]"                 (ExerciseRoom_BikeTrainer)                ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:power", timescaledb=" " [retentionDays="1095"]}
 Switch                  ExerciseRoom_BikeTrainer_In_Use            "Exercise Room Outlet In Use [RB(outletinuse.rb):%s]"            (ExerciseRoom_BikeTrainer)                ["Point"]            {homekit="Outlet.InUseStatus", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:power"}
 
 Switch  ExerciseRoom_BikeTrainer_Enabled  (ExerciseRoom)  ["Switch"]
