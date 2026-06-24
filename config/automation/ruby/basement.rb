@@ -9,8 +9,8 @@ require "tv_notification"
 received_command C_Basement_Movie_Switch, command: ON do
   Basement_Stairs_Switch.ensure.off
   Basement_Room_Lights_Switch.ensure.off
-  Basement_Room_Theater_Lights.ensure.command(9)
-  Basement_Room_Bar_Lights.ensure.command(2)
+  Basement_TheaterLights.ensure.command(9)
+  Basement_BarLights.ensure.command(2)
 
   after(10.seconds) { C_Basement_Movie_Switch.update(OFF) }
 end
@@ -18,8 +18,8 @@ end
 # when normal mode is turned on
 received_command C_Basement_Normal_Switch, command: ON do
   Basement_Stairs_Switch.ensure.on
-  Basement_Room_Theater_Lights.ensure.command(100)
-  Basement_Room_Bar_Lights.ensure.command(100)
+  Basement_TheaterLights.ensure.command(100)
+  Basement_BarLights.ensure.command(100)
 
   after(10.seconds) { C_Basement_Normal_Switch.update(OFF) }
 end

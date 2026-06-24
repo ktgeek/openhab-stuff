@@ -12,12 +12,12 @@ end
 
 updated C_Basement_NanomoteQuad_Scene_3, to: ZWave::Paddle::CLICK do
   ensure_states do
-    if Basement_Room_Theater_Lights.state < 100 || Basement_Room_Bar_Lights.state < 100
-      Basement_Room_Theater_Lights.command(100)
-      Basement_Room_Bar_Lights.command(100)
+    if Basement_TheaterLights.state < 100 || Basement_BarLights.state < 100
+      Basement_TheaterLights.command(100)
+      Basement_BarLights.command(100)
     else
-      Basement_Room_Theater_Lights.off
-      Basement_Room_Bar_Lights.off
+      Basement_TheaterLights.off
+      Basement_BarLights.off
     end
   end
 end
