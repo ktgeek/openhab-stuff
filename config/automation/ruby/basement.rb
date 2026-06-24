@@ -6,29 +6,29 @@ require "tv_notification"
 
 # OCCUPANCY_COUNT_LED_GROUPS = Array.new(7) { |i| items["Basement_Occupancy_Count_#{i.succ}"] }.freeze
 
-received_command C_Basement_Movie_Switch, command: ON do
+received_command Basement_Movie_Switch, command: ON do
   Basement_Stairs_Switch.ensure.off
   Basement_Room_Lights_Switch.ensure.off
   Basement_TheaterLights.ensure.command(9)
   Basement_BarLights.ensure.command(2)
 
-  after(10.seconds) { C_Basement_Movie_Switch.update(OFF) }
+  after(10.seconds) { Basement_Movie_Switch.update(OFF) }
 end
 
 # when normal mode is turned on
-received_command C_Basement_Normal_Switch, command: ON do
+received_command Basement_Normal_Switch, command: ON do
   Basement_Stairs_Switch.ensure.on
   Basement_TheaterLights.ensure.command(100)
   Basement_BarLights.ensure.command(100)
 
-  after(10.seconds) { C_Basement_Normal_Switch.update(OFF) }
+  after(10.seconds) { Basement_Normal_Switch.update(OFF) }
 end
 
 rule "When the count of the occupancy sensor changes" do
   updated Basement_Occupancy_Counters.members
 
   run do |event|
-    after(25.milliseconds) { C_Total_Basement_Occupancy.update(Basement_Occupancy_Counters.members.sum(&:state)) }
+    after(25.milliseconds) { Basement_Total_Occupancy.update(Basement_Occupancy_Counters.members.sum(&:state)) }
 
     sensor = items["#{event.item.name.partition('_').first}_Occupancy_Sensor"]
     sensor.update(event.state.positive? ? ON : OFF)
@@ -38,18 +38,18 @@ end
 # When the count of the occupancy sensor changes
 updated Basement_Deadend_Occupancy_Counters.members do
   after(25.milliseconds) do
-    C_Basement_Deadend_Occupancy.update(Basement_Deadend_Occupancy_Counters.members.sum(&:state))
+    Basement_Deadend_Occupancy.update(Basement_Deadend_Occupancy_Counters.members.sum(&:state))
   end
 end
 
 rule "when someone enters/leaves downstairs" do
-  changed C_Total_Basement_Occupancy
+  changed Basement_Total_Occupancy
 
   run do |event|
     timers.cancel(event.item)
 
-    if C_Total_Basement_Occupancy.state.positive?
-      if C_Total_Basement_Occupancy.previous_state(skip_equal: true) < C_Total_Basement_Occupancy.state
+    if Basement_Total_Occupancy.state.positive?
+      if Basement_Total_Occupancy.previous_state(skip_equal: true) < Basement_Total_Occupancy.state
         Basement_Stairs_Switch.ensure.on
         TvNotification.notify(
           message: "Someone has entered the basement",
@@ -58,18 +58,18 @@ rule "when someone enters/leaves downstairs" do
         )
       end
     else
-      after(120.seconds, id: event.item) { C_All_Lights.members.ensure.off }
+      after(120.seconds, id: event.item) { Basement_All_Lights.members.ensure.off }
     end
 
     ensure_states do
-      C_Occupancy_LEDs.members.command([C_Total_Basement_Occupancy.state, Homeseer::LedColor::WHITE].min)
+      Basement_Occupancy_LEDs.members.command([Basement_Total_Occupancy.state, Homeseer::LedColor::WHITE].min)
 
       # Turn on and off LEDs to do a "meter" of how many people are in the basement
       # commenting out for now. It was fun to figure out but not super useful and just causes a zwave event storm.
-      # OCCUPANCY_COUNT_LED_GROUPS[0, C_Total_Basement_Occupancy.state].each do |led_group|
+      # OCCUPANCY_COUNT_LED_GROUPS[0, Basement_Total_Occupancy.state].each do |led_group|
       #   led_group.members.command(Homeseer::LedColor::BLUE)
       # end
-      # OCCUPANCY_COUNT_LED_GROUPS[C_Total_Basement_Occupancy.state..]&.each do |led_group|
+      # OCCUPANCY_COUNT_LED_GROUPS[Basement_Total_Occupancy.state..]&.each do |led_group|
       #   led_group.members.command(Homeseer::LedColor::OFF)
       # end
     end
@@ -90,12 +90,12 @@ rule "when someone enters/leaves the exercise room" do
 end
 
 rule "when someone leaves the deadend" do
-  changed C_Basement_Deadend_Occupancy
+  changed Basement_Deadend_Occupancy
 
   run do |event|
     timers.cancel(event.item)
 
-    if C_Basement_Deadend_Occupancy.state < 1
+    if Basement_Deadend_Occupancy.state < 1
       after(90.seconds, id: event.item) do
         ensure_states do
           ExerciseRoom_Light.off
@@ -111,7 +111,7 @@ rule "when the exercise room door is closed" do
 
   run do
     ensure_states do
-      if C_Basement_Deadend_Occupancy.state < 1
+      if Basement_Deadend_Occupancy.state < 1
         Basement_Hallway_Lights_Switch.off
         ExerciseRoom_Light.off
         ExerciseRoom_BikeTrainer_Switch.off

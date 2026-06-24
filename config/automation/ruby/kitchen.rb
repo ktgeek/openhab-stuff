@@ -3,7 +3,7 @@
 require "zwave"
 
 def reset_basement
-  return unless C_Total_Basement_Occupancy.positive?
+  return unless Basement_Total_Occupancy.positive?
 
   basement_hiome_room_ids = %w[1577046124 1557680825 room_1636817791].freeze
 
@@ -14,7 +14,7 @@ def reset_basement
       %({"occupancy_count": 0})
     )
   end
-  C_All_Lights.members.ensure.off
+  Basement_All_Lights.members.ensure.off
 end
 
 updated(FF_Kitchen_Accents_Scenes_2.members, to: ZWave::Paddle::TWO_CLICKS) { reset_basement }

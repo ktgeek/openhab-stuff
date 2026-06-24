@@ -19,26 +19,26 @@ sitemap default label="Garner House" {
     }
 
     Frame label="Basement" icon="cellar" {
-        Default item=C_Total_Basement_Occupancy label="Total Basement Occpancy [%d]"
+        Default item=Basement_Total_Occupancy label="Total Basement Occpancy [%d]"
         Default item=Basement_Hiome_Occupancy_Count label="Basement Occupancy [%d]"
         Default item=ExerciseRoom_Hiome_Occupancy_Count label="Exercise Room Occupancy [%d]"
         Default item=Basement_Hallway_Hiome_Occupancy_Count label="Basement Hallway Occupancy [%d]"
 
-        Text item=C_Basement label="Basement" icon="cellar" {
+        Text item=Basement label="Basement" icon="cellar" {
             Default item=Basement_Hiome_Occupancy_Count label="Basement Occupancy [%d]"
             Default item=Basement_Stairs_Switch label="Basement Stairs Lights"
             Default item=Basement_Room_Lights_Switch label="Basement Room Lights"
             Default item=Basement_BarLights label="Basement Bar Lights"
             Default item=Basement_TheaterLights label="Basement Theater Lights"
-            Default item=C_Basement_Movie_Switch label="Basement Movie Mode"
-            Default item=C_Basement_Normal_Switch label="Basement Normal Mode"
+            Default item=Basement_Movie_Switch label="Basement Movie Mode"
+            Default item=Basement_Normal_Switch label="Basement Normal Mode"
             Default item=Basement_WallOutlet label="Basement Wall Outlet"
             Default item=Basement_WallOutlet_Switch label="Basement Wall Outlet"
             Default item=Basement_ChristmasTree_Switch label="Basement Christmas Tree"
-            Default item=C_Basement_NanomoteQuad_BatteryLevel label="Nanomote Quad Battery"
+            Default item=Basement_NanomoteQuad_BatteryLevel label="Nanomote Quad Battery"
         }
 
-        Text item=C_ExerciseRoom label="Exercise Room" icon="cellar" {
+        Text item=ExerciseRoom label="Exercise Room" icon="cellar" {
             Default item=ExerciseRoom_Light label="Exercise Room Light"
             Default item=ExerciseRoom_Dimmer label="Exercise Room Dimmer"
             Default item=ExerciseRoom_BikeTrainer_Switch label="Bike Trainer"

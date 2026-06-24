@@ -14,7 +14,7 @@ Number Kitchen_Backyard_Lights_Scene_2 "Backyard Lights Scene 2" (Kitchen_Backya
 
 Group Kitchen_Accent_Desk_Control (FF_Kitchen) ["Equipment"]
 Dimmer Kitchen_Accent_Desk_Dimmer "Kitchen Accent Lights (Desk) [%d]" <lightbulb> (Kitchen_Accent_Desk_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node41:multilevel-switch-value" }
-Number Kitchen_Accent_Desk_LED_1_Color "Kitchen Accent Desk Led 1 Color" (Kitchen_Accent_Desk_Control, C_Occupancy_LEDs) ["Point"] { channel="zwavejs:node:c503e1bad6:node41:configuration-status-led-1-color" }
+Number Kitchen_Accent_Desk_LED_1_Color "Kitchen Accent Desk Led 1 Color" (Kitchen_Accent_Desk_Control, Basement_Occupancy_LEDs) ["Point"] { channel="zwavejs:node:c503e1bad6:node41:configuration-status-led-1-color" }
 Number Kitchen_Accent_Desk_LED_2_Color "Kitchen Accent Desk Led 2 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node41:configuration-status-led-2-color" }
 Number Kitchen_Accent_Desk_LED_3_Color "Kitchen Accent Desk Led 3 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node41:configuration-status-led-3-color" }
 Number Kitchen_Accent_Desk_LED_4_Color "Kitchen Accent Desk Led 4 Color" (Kitchen_Accent_Desk_Control) ["Point"] { channel="zwavejs:node:c503e1bad6:node41:configuration-status-led-4-color" }
@@ -28,7 +28,7 @@ Number Kitchen_Accent_Desk_Scene_2 "Kitchen Accent Sink Scene 2" (Kitchen_Accent
 
 Group Kitchen_Accent_Sink_Control (FF_Kitchen) ["Equipment"]
 Dimmer Kitchen_Accent_Sink_Dimmer "Kitchen Accent Lights (Sink) [%d]" <lightbulb> (Kitchen_Accent_Sink_Control, FF_Kitchen_Accents, All_Kitchen_Lights) ["Switch"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node40:multilevel-switch-value" }
-Number Kitchen_Accent_Sink_LED_1_Color "Kitchen Accent Sink Led 1 Color" (Kitchen_Accent_Sink_Control, C_Occupancy_LEDs) ["Point"] {channel="zwavejs:node:c503e1bad6:node40:configuration-status-led-1-color"}
+Number Kitchen_Accent_Sink_LED_1_Color "Kitchen Accent Sink Led 1 Color" (Kitchen_Accent_Sink_Control, Basement_Occupancy_LEDs) ["Point"] {channel="zwavejs:node:c503e1bad6:node40:configuration-status-led-1-color"}
 Number Kitchen_Accent_Sink_LED_2_Color "Kitchen Accent Sink Led 2 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwavejs:node:c503e1bad6:node40:configuration-status-led-2-color"}
 Number Kitchen_Accent_Sink_LED_3_Color "Kitchen Accent Sink Led 3 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwavejs:node:c503e1bad6:node40:configuration-status-led-3-color"}
 Number Kitchen_Accent_Sink_LED_4_Color "Kitchen Accent Sink Led 4 Color" (Kitchen_Accent_Sink_Control) ["Point"] {channel="zwavejs:node:c503e1bad6:node40:configuration-status-led-4-color"}
@@ -42,7 +42,7 @@ Number Kitchen_Accent_Sink_Scene_2 "Kitchen Accent Sink Scene 2" (Kitchen_Accent
 
 Group Kitchen_Lights_Control (FF_Kitchen) ["WallSwitch"]
 Switch Kitchen_Lights "Kitchen Lights" <lightbulb> (Kitchen_Lights_Control, Normal_Kitchen_Lights, All_Kitchen_Lights) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node97:binary-switch-value" }
-Number Kitchen_Lights_LED_1_Color "Kitchen Lights Led 1 Color" (Kitchen_Lights_Control, C_Occupancy_LEDs) ["Point"] {channel="zwavejs:node:c503e1bad6:node97:configuration-status-led-1-color"}
+Number Kitchen_Lights_LED_1_Color "Kitchen Lights Led 1 Color" (Kitchen_Lights_Control, Basement_Occupancy_LEDs) ["Point"] {channel="zwavejs:node:c503e1bad6:node97:configuration-status-led-1-color"}
 Number Kitchen_Lights_LED_2_Color "Kitchen Lights Led 2 Color" (Kitchen_Lights_Control) ["Point"] {channel="zwavejs:node:c503e1bad6:node97:configuration-status-led-2-color"}
 Number Kitchen_Lights_LED_3_Color "Kitchen Lights Led 3 Color" (Kitchen_Lights_Control) ["Point"] {channel="zwavejs:node:c503e1bad6:node97:configuration-status-led-3-color"}
 Number Kitchen_Lights_LED_4_Color "Kitchen Lights Led 4 Color" (Kitchen_Lights_Control) ["Point"] {channel="zwavejs:node:c503e1bad6:node97:configuration-status-led-4-color"}

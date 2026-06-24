@@ -2,15 +2,15 @@
 
 require "zwave"
 
-updated C_Basement_NanomoteQuad_Scene_1, to: ZWave::Paddle::CLICK do
-  C_Basement_Normal_Switch.on
+updated Basement_NanomoteQuad_Scene_1, to: ZWave::Paddle::CLICK do
+  Basement_Normal_Switch.on
 end
 
-updated C_Basement_NanomoteQuad_Scene_2, to: ZWave::Paddle::CLICK do
+updated Basement_NanomoteQuad_Scene_2, to: ZWave::Paddle::CLICK do
   Basement_Stairs_Switch.toggle
 end
 
-updated C_Basement_NanomoteQuad_Scene_3, to: ZWave::Paddle::CLICK do
+updated Basement_NanomoteQuad_Scene_3, to: ZWave::Paddle::CLICK do
   ensure_states do
     if Basement_TheaterLights.state < 100 || Basement_BarLights.state < 100
       Basement_TheaterLights.command(100)
@@ -22,9 +22,9 @@ updated C_Basement_NanomoteQuad_Scene_3, to: ZWave::Paddle::CLICK do
   end
 end
 
-updated C_Basement_NanomoteQuad_Scene_4, to: ZWave::Paddle::CLICK do
-  C_Basement_Movie_Switch.on
+updated Basement_NanomoteQuad_Scene_4, to: ZWave::Paddle::CLICK do
+  Basement_Movie_Switch.on
 end
 
-updated(C_Basement_Scenes_1.members, to: ZWave::Paddle::TWO_CLICKS) { C_Basement_Normal_Switch.on }
-updated(C_Basement_Scenes_2.members, to: ZWave::Paddle::TWO_CLICKS) { C_Basement_Movie_Switch.on }
+updated(Basement_Scenes_1.members, to: ZWave::Paddle::TWO_CLICKS) { Basement_Normal_Switch.on }
+updated(Basement_Scenes_2.members, to: ZWave::Paddle::TWO_CLICKS) { Basement_Movie_Switch.on }

@@ -1,54 +1,54 @@
-Group  C_Basement                           "Basement"                 <cellar>  (C)           ["Basement"]
-Group  C_ExerciseRoom                       "Exercise Room"            <cellar>  (C)           ["Basement"]
-Group  C_Basement_Hallway                   "Basement Hallway"         <cellar>  (C)           ["Basement"]
-Group  C_All_Lights                         "All basement lights"      <cellar>  (C)           ["Basement"]
-Group  C_Basement_Scenes_1                  "Basement 1 Scenes"        <cellar>  (C)           ["Basement"]
-Group  C_Basement_Scenes_2                  "Basement 2 Scenes"        <cellar>  (C)           ["Basement"]
+Group  Basement                             "Basement"                 <cellar>  (C)           ["Basement"]
+Group  ExerciseRoom                         "Exercise Room"            <cellar>  (C)           ["Basement"]
+Group  BasementHallway                      "Basement Hallway"         <cellar>  (C)           ["Basement"]
+Group  Basement_All_Lights                  "All basement lights"      <cellar>  (C)           ["Basement"]
+Group  Basement_Scenes_1                    "Basement 1 Scenes"        <cellar>  (C)           ["Basement"]
+Group  Basement_Scenes_2                    "Basement 2 Scenes"        <cellar>  (C)           ["Basement"]
 
-Group  C_Occupancy_LEDs                     "Basement Occupancy LEDs"            (C_Basement)
-Group  Basement_Occupancy_Count_1                                                (C_Basement)
-Group  Basement_Occupancy_Count_2                                                (C_Basement)
-Group  Basement_Occupancy_Count_3                                                (C_Basement)
-Group  Basement_Occupancy_Count_4                                                (C_Basement)
-Group  Basement_Occupancy_Count_5                                                (C_Basement)
-Group  Basement_Occupancy_Count_6                                                (C_Basement)
-Group  Basement_Occupancy_Count_7                                                (C_Basement)
+Group  Basement_Occupancy_LEDs              "Basement Occupancy LEDs"            (Basement)
+Group  Basement_Occupancy_Count_1                                                (Basement)
+Group  Basement_Occupancy_Count_2                                                (Basement)
+Group  Basement_Occupancy_Count_3                                                (Basement)
+Group  Basement_Occupancy_Count_4                                                (Basement)
+Group  Basement_Occupancy_Count_5                                                (Basement)
+Group  Basement_Occupancy_Count_6                                                (Basement)
+Group  Basement_Occupancy_Count_7                                                (Basement)
 
-Group  Basement_Occupancy_Counters                                               (C_Basement)
-Group  Basement_Deadend_Occupancy_Counters                                       (C_Basement)
+Group  Basement_Occupancy_Counters                                               (Basement)
+Group  Basement_Deadend_Occupancy_Counters                                       (Basement)
 
-Number  Basement_Hiome_Occupancy_Count  "Basement Occupancy [%d]"  <parents_1_1>  (C_Basement, Basement_Occupancy_Counters)  ["Point"]  {channel="mqtt:topic:c0853ba2:1"}
-Switch  Basement_Occupancy_Sensor       "Basement Occupancy"                      (C_Basement)                               ["Point"]  {homekit="OccupancySensor"}
+Number  Basement_Hiome_Occupancy_Count  "Basement Occupancy [%d]"  <parents_1_1>  (Basement, Basement_Occupancy_Counters)  ["Point"]  {channel="mqtt:topic:c0853ba2:1"}
+Switch  Basement_Occupancy_Sensor       "Basement Occupancy"                      (Basement)                               ["Point"]  {homekit="OccupancySensor"}
 
-Group    ExerciseRoom_Hiome                   "Exercise Room Hiome"           <motion>       (C_ExerciseRoom)                                                                        ["Equipment"]
+Group    ExerciseRoom_Hiome                   "Exercise Room Hiome"           <motion>       (ExerciseRoom)                                                                          ["Equipment"]
 Number   ExerciseRoom_Hiome_Occupancy_Count  "Exercise Room Occupancy [%d]"  <parents_1_1>  (ExerciseRoom_Hiome, Basement_Occupancy_Counters, Basement_Deadend_Occupancy_Counters)  ["Point"]      {channel="mqtt:topic:c0853ba2:2"}
 Contact  ExerciseRoom_Hiome_Door_Contact     "Exercise Room Door Contact"                   (ExerciseRoom_Hiome)                                                                    ["Point"]      {channel="mqtt:topic:c0853ba2:3"}
 Switch   ExerciseRoom_Occupancy_Sensor       "Exercise Room Occupancy"                      (ExerciseRoom_Hiome)                                                                    ["Point"]      {homekit="OccupancySensor"}
 
-Number  BasementHallway_Hiome_Occupancy_Count  "Basement Hallway Occupancy [%d]"  <parents_1_1>  (C_Basement_Hallway, Basement_Occupancy_Counters, Basement_Deadend_Occupancy_Counters)  ["Point"]  {channel="mqtt:topic:c0853ba2:4"}
-Switch  BasementHallway_Occupancy_Sensor       "Basement Hallway Occupancy"                      (C_Basement_Hallway)                                                                    ["Point"]  {homekit="OccupancySensor"}
+Number  BasementHallway_Hiome_Occupancy_Count  "Basement Hallway Occupancy [%d]"  <parents_1_1>  (BasementHallway, Basement_Occupancy_Counters, Basement_Deadend_Occupancy_Counters)  ["Point"]  {channel="mqtt:topic:c0853ba2:4"}
+Switch  BasementHallway_Occupancy_Sensor       "Basement Hallway Occupancy"                      (BasementHallway)                                                                    ["Point"]  {homekit="OccupancySensor"}
 
-Number  C_Total_Basement_Occupancy    "Total Basement Occupancy"    <parents_1_1>  (C)  ["Point"]
-Number  C_Basement_Deadend_Occupancy  "Basement Deadend Occupancy"  <parents_1_1>  (C)  ["Point"]
+Number  Basement_Total_Occupancy      "Total Basement Occupancy"    <parents_1_1>  (C)  ["Point"]
+Number  Basement_Deadend_Occupancy    "Basement Deadend Occupancy"  <parents_1_1>  (C)  ["Point"]
 
-Switch  Basement_Stairs_Switch  "Basement Stairs Lights"  <lightbulb>  (C_Basement, C_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node47:binary-switch-value"}
+Switch  Basement_Stairs_Switch  "Basement Stairs Lights"  <lightbulb>  (Basement, Basement_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node47:binary-switch-value"}
 
-Switch  Basement_Room_Lights_Switch  "Basement Room Lights"  <lightbulb>  (C_Basement, C_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node61:binary-switch-value"}
+Switch  Basement_Room_Lights_Switch  "Basement Room Lights"  <lightbulb>  (Basement, Basement_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node61:binary-switch-value"}
 
-Group   Basement_BarLights_Control                                                   (C_Basement)                                                           ["Equipment"]
-Dimmer  Basement_BarLights              "Basement Bar Lights [%d %%]"      <lightbulb>  (Basement_BarLights_Control, C_Basement, C_All_Lights)           ["Lightbulb"]  {unit="%", homekit="Lighting, Lighting.Brightness, Lighting.OnState", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node57:multilevel-switch-value"}
-Number  Basement_BarLights_LED_1_Color  "Basement Bar Lights Led 1 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_1)         ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-1-color"}
-Number  Basement_BarLights_LED_2_Color  "Basement Bar Lights Led 2 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_2)         ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-2-color"}
-Number  Basement_BarLights_LED_3_Color  "Basement Bar Lights Led 3 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_3)         ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-3-color"}
-Number  Basement_BarLights_LED_4_Color  "Basement Bar Lights Led 4 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_4)         ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-4-color"}
-Number  Basement_BarLights_LED_5_Color  "Basement Bar Lights Led 5 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_5)         ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-5-color"}
-Number  Basement_BarLights_LED_6_Color  "Basement Bar Lights Led 6 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_6)         ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-6-color"}
-Number  Basement_BarLights_LED_7_Color  "Basement Bar Lights Led 7 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_7)         ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-7-color"}
-Number  Basement_BarLights_Scene_1      "Basement Bar Lights Scene 1"                   (Basement_BarLights_Control, C_Basement_Scenes_1, Clear_Scenes)                 {channel="zwavejs:node:c503e1bad6:node57:central-scene-scene-001"}
-Number  Basement_BarLights_Scene_2      "Basement Bar Lights Scene 2"                   (Basement_BarLights_Control, C_Basement_Scenes_2, Clear_Scenes)                 {channel="zwavejs:node:c503e1bad6:node57:central-scene-scene-002"}
+Group   Basement_BarLights_Control                                                   (Basement)                                                                  ["Equipment"]
+Dimmer  Basement_BarLights              "Basement Bar Lights [%d %%]"      <lightbulb>  (Basement_BarLights_Control, Basement, Basement_All_Lights)              ["Lightbulb"]  {unit="%", homekit="Lighting, Lighting.Brightness, Lighting.OnState", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node57:multilevel-switch-value"}
+Number  Basement_BarLights_LED_1_Color  "Basement Bar Lights Led 1 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_1)              ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-1-color"}
+Number  Basement_BarLights_LED_2_Color  "Basement Bar Lights Led 2 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_2)              ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-2-color"}
+Number  Basement_BarLights_LED_3_Color  "Basement Bar Lights Led 3 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_3)              ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-3-color"}
+Number  Basement_BarLights_LED_4_Color  "Basement Bar Lights Led 4 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_4)              ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-4-color"}
+Number  Basement_BarLights_LED_5_Color  "Basement Bar Lights Led 5 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_5)              ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-5-color"}
+Number  Basement_BarLights_LED_6_Color  "Basement Bar Lights Led 6 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_6)              ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-6-color"}
+Number  Basement_BarLights_LED_7_Color  "Basement Bar Lights Led 7 Color"               (Basement_BarLights_Control, Basement_Occupancy_Count_7)              ["Point"]      {channel="zwavejs:node:c503e1bad6:node57:configuration-status-led-7-color"}
+Number  Basement_BarLights_Scene_1      "Basement Bar Lights Scene 1"                   (Basement_BarLights_Control, Basement_Scenes_1, Clear_Scenes)                          {channel="zwavejs:node:c503e1bad6:node57:central-scene-scene-001"}
+Number  Basement_BarLights_Scene_2      "Basement Bar Lights Scene 2"                   (Basement_BarLights_Control, Basement_Scenes_2, Clear_Scenes)                          {channel="zwavejs:node:c503e1bad6:node57:central-scene-scene-002"}
 
-Group   Basement_TheaterLights_Control                                                          (C_Basement)                                                               ["Equipment"]
-Dimmer  Basement_TheaterLights              "Basement Theater Lights [%d %%]"      <lightbulb>  (Basement_TheaterLights_Control, C_Basement, C_All_Lights)           ["Lightbulb"]  {unit="%", homekit="Lighting, Lighting.Brightness, Lighting.OnState", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node58:multilevel-switch-value"}
+Group   Basement_TheaterLights_Control                                                          (Basement)                                                               ["Equipment"]
+Dimmer  Basement_TheaterLights              "Basement Theater Lights [%d %%]"      <lightbulb>  (Basement_TheaterLights_Control, Basement, Basement_All_Lights)           ["Lightbulb"]  {unit="%", homekit="Lighting, Lighting.Brightness, Lighting.OnState", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node58:multilevel-switch-value"}
 Number  Basement_TheaterLights_LED_1_Color  "Basement Theater Lights Led 1 Color"               (Basement_TheaterLights_Control, Basement_Occupancy_Count_1)         ["Point"]      {channel="zwavejs:node:c503e1bad6:node58:configuration-status-led-1-color"}
 Number  Basement_TheaterLights_LED_2_Color  "Basement Theater Lights Led 2 Color"               (Basement_TheaterLights_Control, Basement_Occupancy_Count_2)         ["Point"]      {channel="zwavejs:node:c503e1bad6:node58:configuration-status-led-2-color"}
 Number  Basement_TheaterLights_LED_3_Color  "Basement Theater Lights Led 3 Color"               (Basement_TheaterLights_Control, Basement_Occupancy_Count_3)         ["Point"]      {channel="zwavejs:node:c503e1bad6:node58:configuration-status-led-3-color"}
@@ -56,40 +56,40 @@ Number  Basement_TheaterLights_LED_4_Color  "Basement Theater Lights Led 4 Color
 Number  Basement_TheaterLights_LED_5_Color  "Basement Theater Lights Led 5 Color"               (Basement_TheaterLights_Control, Basement_Occupancy_Count_5)         ["Point"]      {channel="zwavejs:node:c503e1bad6:node58:configuration-status-led-5-color"}
 Number  Basement_TheaterLights_LED_6_Color  "Basement Theater Lights Led 6 Color"               (Basement_TheaterLights_Control, Basement_Occupancy_Count_6)         ["Point"]      {channel="zwavejs:node:c503e1bad6:node58:configuration-status-led-6-color"}
 Number  Basement_TheaterLights_LED_7_Color  "Basement Theater Lights Led 7 Color"               (Basement_TheaterLights_Control, Basement_Occupancy_Count_7)         ["Point"]      {channel="zwavejs:node:c503e1bad6:node58:configuration-status-led-7-color"}
-Number  Basement_TheaterLights_Scene_1      "Basement Theater Lights Scene 1"                   (Basement_TheaterLights_Control, C_Basement_Scenes_1, Clear_Scenes)                 {channel="zwavejs:node:c503e1bad6:node58:central-scene-scene-001"}
-Number  Basement_TheaterLights_Scene_2      "Basement Theater Lights Scene 2"                   (Basement_TheaterLights_Control, C_Basement_Scenes_2, Clear_Scenes)                 {channel="zwavejs:node:c503e1bad6:node58:central-scene-scene-002"}
+Number  Basement_TheaterLights_Scene_1      "Basement Theater Lights Scene 1"                   (Basement_TheaterLights_Control, Basement_Scenes_1, Clear_Scenes)                 {channel="zwavejs:node:c503e1bad6:node58:central-scene-scene-001"}
+Number  Basement_TheaterLights_Scene_2      "Basement Theater Lights Scene 2"                   (Basement_TheaterLights_Control, Basement_Scenes_2, Clear_Scenes)                 {channel="zwavejs:node:c503e1bad6:node58:central-scene-scene-002"}
 
-Switch  C_Basement_Movie_Switch   "Basement Movie"   <cinema>  (C_Basement)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable"}
-Switch  C_Basement_Normal_Switch  "Basement Normal"  <smiley>  (C_Basement)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable"}
+Switch  Basement_Movie_Switch   "Basement Movie"   <cinema>  (Basement)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable"}
+Switch  Basement_Normal_Switch  "Basement Normal"  <smiley>  (Basement)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable"}
 
-Group                 C_Basement_NanomoteQuad               "Nanomote Quad"                    (C_Basement)               ["Equipment"]
-Number:Dimensionless  C_Basement_NanomoteQuad_BatteryLevel  "Nanomote Quad Battery [%.1f %%]"  (C_Basement_NanomoteQuad)  ["Point"]      {unit="%", channel="zwavejs:node:c503e1bad6:node53:battery-level"}
-Number                C_Basement_NanomoteQuad_Scene_1       "Nanomote Quad Scene 1"            (C_Basement_NanomoteQuad, Clear_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-001"}
-Number                C_Basement_NanomoteQuad_Scene_2       "Nanomote Quad Scene 2"            (C_Basement_NanomoteQuad, Clear_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-002"}
-Number                C_Basement_NanomoteQuad_Scene_3       "Nanomote Quad Scene 3"            (C_Basement_NanomoteQuad, Clear_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-003"}
-Number                C_Basement_NanomoteQuad_Scene_4       "Nanomote Quad Scene 4"            (C_Basement_NanomoteQuad, Clear_Scenes)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-004"}
+Group                 Basement_NanomoteQuad               "Nanomote Quad"                    (Basement)                ["Equipment"]
+Number:Dimensionless  Basement_NanomoteQuad_BatteryLevel  "Nanomote Quad Battery [%.1f %%]"  (Basement_NanomoteQuad)  ["Point"]  {unit="%", channel="zwavejs:node:c503e1bad6:node53:battery-level"}
+Number                Basement_NanomoteQuad_Scene_1       "Nanomote Quad Scene 1"            (Basement_NanomoteQuad, Clear_Scenes)  ["Point"]  {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-001"}
+Number                Basement_NanomoteQuad_Scene_2       "Nanomote Quad Scene 2"            (Basement_NanomoteQuad, Clear_Scenes)  ["Point"]  {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-002"}
+Number                Basement_NanomoteQuad_Scene_3       "Nanomote Quad Scene 3"            (Basement_NanomoteQuad, Clear_Scenes)  ["Point"]  {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-003"}
+Number                Basement_NanomoteQuad_Scene_4       "Nanomote Quad Scene 4"            (Basement_NanomoteQuad, Clear_Scenes)  ["Point"]  {channel="zwavejs:node:c503e1bad6:node53:central-scene-scene-004"}
 
-Group          Basement_WallOutlet         "Basement Wall Outlet"                                 <poweroutlet_us>  (C_Basement)                                            ["PowerOutlet"]      {homekit="Outlet"}
-Switch         Basement_WallOutlet_Switch  "Basement Wall Outlet"                                 <poweroutlet_us>  (C_Basement, Basement_WallOutlet, Christmas_Lights_All)  ["Point"]            {homekit="Outlet.OnState", alexa="Outlet.OnState", channel="zwavejs:node:c503e1bad6:node60:binary-switch-value"}
-Number:Energy  Basement_WallOutlet_kWh     "Baesment Wall Outlet Power [%.1f kWh]"                                  (Basement_WallOutlet)                                    ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node60:meter-value-65537"}
-Number:Power   Basement_WallOutlet_Watts   "Basement Wall Outlet Power [%.1f Ws]"                                   (Basement_WallOutlet)                                    ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node60:meter-value-66049"}
-Switch         Basement_WallOutlet_In_Use  "Basement Wall Outlet In Use [RB(outletinuse.rb):%s]"                    (Basement_WallOutlet)                                    ["Point"]            {homekit="Outlet.InUseStatus", channel="zwavejs:node:c503e1bad6:node60:meter-value-66049"}
+Group          Basement_WallOutlet         "Basement Wall Outlet"                                 <poweroutlet_us>  (Basement)                                            ["PowerOutlet"]      {homekit="Outlet"}
+Switch         Basement_WallOutlet_Switch  "Basement Wall Outlet"                                 <poweroutlet_us>  (Basement, Basement_WallOutlet, Christmas_Lights_All)  ["Point"]            {homekit="Outlet.OnState", alexa="Outlet.OnState", channel="zwavejs:node:c503e1bad6:node60:binary-switch-value"}
+Number:Energy  Basement_WallOutlet_kWh     "Baesment Wall Outlet Power [%.1f kWh]"                                  (Basement_WallOutlet)                                 ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node60:meter-value-65537"}
+Number:Power   Basement_WallOutlet_Watts   "Basement Wall Outlet Power [%.1f Ws]"                                   (Basement_WallOutlet)                                 ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node60:meter-value-66049"}
+Switch         Basement_WallOutlet_In_Use  "Basement Wall Outlet In Use [RB(outletinuse.rb):%s]"                    (Basement_WallOutlet)                                 ["Point"]            {homekit="Outlet.InUseStatus", channel="zwavejs:node:c503e1bad6:node60:meter-value-66049"}
 
-Group   Basement_TV        "Family Room TV"        (C_Basement)   ["Television"]
-Switch  Basement_TV_Power  "Power"                 (Basement_TV)                  {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:power"}
-String  Basement_TV_Toast  "Family Room TV Toast"  (Basement_TV)  ["SetPoint"]    {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:toast"}
-String  Basement_TV_App    "Application"           (Basement_TV)  ["Status"]      {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:appLauncher"}
+Group   Basement_TV        "Family Room TV"        (Basement)   ["Television"]
+Switch  Basement_TV_Power  "Power"                 (Basement_TV)                {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:power"}
+String  Basement_TV_Toast  "Family Room TV Toast"  (Basement_TV)  ["SetPoint"]  {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:toast"}
+String  Basement_TV_App    "Application"           (Basement_TV)  ["Status"]    {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:appLauncher"}
 
-Group   Basement_Receiver               "Basement Receiver"                    (C_Basement)
+Group   Basement_Receiver               "Basement Receiver"                    (Basement)
 Switch  Basement_Receiver_Power         "Basement Receiver Power"              (Basement_Receiver)  {channel="onkyo:onkyoAVR:3dcaa2f926:zone1#power"}
 Number  Basement_Receiver_Input_Source  "Basement Receiver Input Source [%d]"  (Basement_Receiver)  {channel="onkyo:onkyoAVR:3dcaa2f926:zone1#input"}
 
 // -- Exercise Room --
 
-Switch  ExerciseRoom_Light  "Exercise Room Light"  <lightbulb>  (C_ExerciseRoom, C_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node10:binary-switch-value"}
+Switch  ExerciseRoom_Light  "Exercise Room Light"  <lightbulb>  (ExerciseRoom, Basement_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node10:binary-switch-value"}
 
 Group   ExerciseRoom_DimmerLights_Scenes                                                       (ExerciseRoom_DimmerLights_Control)                                ["Point"]
-Dimmer  ExerciseRoom_Dimmer                     "Exercise Room Dimmer [%d %%]"      <lightbulb>  (ExerciseRoom_DimmerLights_Control, C_ExerciseRoom, C_All_Lights)  ["SetPoint", "Light"]  {unit="%", homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node11:multilevel-switch-value"}
+Dimmer  ExerciseRoom_Dimmer                     "Exercise Room Dimmer [%d %%]"      <lightbulb>  (ExerciseRoom_DimmerLights_Control, ExerciseRoom, Basement_All_Lights)  ["SetPoint", "Light"]  {unit="%", homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node11:multilevel-switch-value"}
 Number  ExerciseRoom_DimmerLights_LED_1_Color  "Exercise Room Dimmer Led 1 Color"               (ExerciseRoom_DimmerLights_Control, Basement_Occupancy_Count_1)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-1-color"}
 Number  ExerciseRoom_DimmerLights_LED_2_Color  "Exercise Room Dimmer Led 2 Color"               (ExerciseRoom_DimmerLights_Control, Basement_Occupancy_Count_2)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-2-color"}
 Number  ExerciseRoom_DimmerLights_LED_3_Color  "Exercise Room Dimmer Led 3 Color"               (ExerciseRoom_DimmerLights_Control, Basement_Occupancy_Count_3)    ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-3-color"}
@@ -101,22 +101,22 @@ Number  ExerciseRoom_DimmerLights_Scene_1      "Exercise Room Dimmer Scene 1"   
 Number  ExerciseRoom_DimmerLights_Scene_2      "Exercise Room Dimmer Scene 2"                   (ExerciseRoom_DimmerLights_Control, Clear_Scenes)                                         {channel="zwavejs:node:c503e1bad6:node11:central-scene-scene-002"}
 
 
-Group                   ExerciseRoom_BikeTrainer                   "Exercise Room Bike Trainer"                                     (C_ExerciseRoom)                           ["PowerOutlet"]      {homekit="Outlet"}
-Switch                  ExerciseRoom_BikeTrainer_Switch            "Exercise Room Bike Trainer"                           <switch>  (C_ExerciseRoom, ExerciseRoom_BikeTrainer)                       {homekit="Outlet.OnState", alexa="Outlet", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:switch"}
+Group                   ExerciseRoom_BikeTrainer                   "Exercise Room Bike Trainer"                                     (ExerciseRoom)                             ["PowerOutlet"]      {homekit="Outlet"}
+Switch                  ExerciseRoom_BikeTrainer_Switch            "Exercise Room Bike Trainer"                           <switch>  (ExerciseRoom, ExerciseRoom_BikeTrainer)                         {homekit="Outlet.OnState", alexa="Outlet", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:switch"}
 Number:ElectricCurrent  ExerciseRoom_BikeTrainer_Current           "Exercise Room Current [%.1f %unit%]"                            (ExerciseRoom_BikeTrainer)                  ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:current"}
 Number:Power            ExerciseRoom_BikeTrainer_TotalActivePower  "Exercise Room Total Active Power [%.1f %unit%]"                 (ExerciseRoom_BikeTrainer)                  ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:power"}
 Switch                  ExerciseRoom_BikeTrainer_In_Use            "Exercise Room Outlet In Use [RB(outletinuse.rb):%s]"            (ExerciseRoom_BikeTrainer)                  ["Point"]            {homekit="Outlet.InUseStatus", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffede3ea:power"}
 
-Switch  ExerciseRoom_BikeTrainer_Enabled  (C_ExerciseRoom)  ["Switch"]
+Switch  ExerciseRoom_BikeTrainer_Enabled  (ExerciseRoom)  ["Switch"]
 
-Group   Basement_Hallway_Lights_Control                                             (C_Basement_Hallway)                                                  ["Equipment"]
-Switch  Basement_Hallway_Lights_Switch       "Basement Hallway Lights"              (Basement_Hallway_Lights_Control, C_Basement_Hallway, C_All_Lights)   ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node13:binary-switch-value"}
-Number  Basement_Hallway_Lights_LED_1_Color  "Basement Hallway Lights Led 1 Color"  (Basement_Hallway_Lights_Control)                                     ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-1-color"}
-Number  Basement_Hallway_Lights_LED_2_Color  "Basement Hallway Lights Led 2 Color"  (Basement_Hallway_Lights_Control)                                     ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-2-color"}
-Number  Basement_Hallway_Lights_LED_3_Color  "Basement Hallway Lights Led 3 Color"  (Basement_Hallway_Lights_Control)                                     ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-3-color"}
-Number  Basement_Hallway_Lights_LED_4_Color  "Basement Hallway Lights Led 4 Color"  (Basement_Hallway_Lights_Control)                                     ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-4-color"}
-Number  Basement_Hallway_Lights_LED_5_Color  "Basement Hallway Lights Led 5 Color"  (Basement_Hallway_Lights_Control, House_Perimeter_LEDs)               ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-5-color"}
-Number  Basement_Hallway_Lights_LED_6_Color  "Basement Hallway Lights Led 6 Color"  (Basement_Hallway_Lights_Control, Small_Garage_Door_Open_LEDs)        ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-6-color"}
-Switch  Basement_Hallway_Lights_LED_6_Blink  "Basement Hallway Lights Led 6 Blink"  (Basement_Hallway_Lights_Control, Small_Garage_Door_Open_LEDs_Blink)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-led-6-blink-status-32" [profile="ruby:number_channel_switch"]}
-Number  Basement_Hallway_Lights_LED_7_Color  "Basement Hallway Lights Led 7 Color"  (Basement_Hallway_Lights_Control, Large_Garage_Door_Open_LEDs)        ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-7-color"}
-Switch  Basement_Hallway_Lights_LED_7_Blink  "Basement Hallway Lights LED 7 Blink"  (Basement_Hallway_Lights_Control, Large_Garage_Door_Open_LEDs_Blink)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-led-7-blink-status-64" [profile="ruby:number_channel_switch"]}
+Group   Basement_Hallway_Lights_Control                                             (BasementHallway)                                                               ["Equipment"]
+Switch  Basement_Hallway_Lights_Switch       "Basement Hallway Lights"              (Basement_Hallway_Lights_Control, BasementHallway, Basement_All_Lights)          ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node13:binary-switch-value"}
+Number  Basement_Hallway_Lights_LED_1_Color  "Basement Hallway Lights Led 1 Color"  (Basement_Hallway_Lights_Control)                                                ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-1-color"}
+Number  Basement_Hallway_Lights_LED_2_Color  "Basement Hallway Lights Led 2 Color"  (Basement_Hallway_Lights_Control)                                                ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-2-color"}
+Number  Basement_Hallway_Lights_LED_3_Color  "Basement Hallway Lights Led 3 Color"  (Basement_Hallway_Lights_Control)                                                ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-3-color"}
+Number  Basement_Hallway_Lights_LED_4_Color  "Basement Hallway Lights Led 4 Color"  (Basement_Hallway_Lights_Control)                                                ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-4-color"}
+Number  Basement_Hallway_Lights_LED_5_Color  "Basement Hallway Lights Led 5 Color"  (Basement_Hallway_Lights_Control, House_Perimeter_LEDs)                          ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-5-color"}
+Number  Basement_Hallway_Lights_LED_6_Color  "Basement Hallway Lights Led 6 Color"  (Basement_Hallway_Lights_Control, Small_Garage_Door_Open_LEDs)                   ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-6-color"}
+Switch  Basement_Hallway_Lights_LED_6_Blink  "Basement Hallway Lights Led 6 Blink"  (Basement_Hallway_Lights_Control, Small_Garage_Door_Open_LEDs_Blink)             ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-led-6-blink-status-32" [profile="ruby:number_channel_switch"]}
+Number  Basement_Hallway_Lights_LED_7_Color  "Basement Hallway Lights Led 7 Color"  (Basement_Hallway_Lights_Control, Large_Garage_Door_Open_LEDs)                   ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-7-color"}
+Switch  Basement_Hallway_Lights_LED_7_Blink  "Basement Hallway Lights LED 7 Blink"  (Basement_Hallway_Lights_Control, Large_Garage_Door_Open_LEDs_Blink)             ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-led-7-blink-status-64" [profile="ruby:number_channel_switch"]}
