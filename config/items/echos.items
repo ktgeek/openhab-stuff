@@ -4,4 +4,4 @@ String Basement_Echo_TTS "Basement Echo Text to Speech" (Basement) ["Point"] { c
 
 String EvansRoom_Echo_TTS "Evan's Bedroom Echo Text to Speech" (SF_EvansRoom) ["Point"] { channel="amazonechocontrol:echo:41d92e02:G090L909702605D0:textToSpeech" }
 
-String Kitchen_Echo_TTS "Kitchen Echo Show Text To Speech" (FF_Kitchen) ["Point"] { channel="amazonechocontrol:echoshow:41d92e02:14b8af0958:textToSpeech" }
+String Kitchen_Echo_TTS "Kitchen Echo Show Text To Speech" (Kitchen) ["Point"] { channel="amazonechocontrol:echoshow:41d92e02:14b8af0958:textToSpeech" }

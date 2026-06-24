@@ -74,7 +74,7 @@ sitemap default label="Garner House" {
             }
         }
 
-        Text item=FF_Kitchen label="Kitchen" icon="kitchen" {
+        Text item=Kitchen label="Kitchen" icon="kitchen" {
             Default item=Kitchen_Lights label="Kitchen Lights"
             Default item=Kitchen_Table_Lights label="Kitchen Table Lights"
             Default item=Kitchen_Accent_Desk_Dimmer label="Kitchen Accent Lights (Desk)"
