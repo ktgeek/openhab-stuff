@@ -6,7 +6,7 @@ rule "Groups Lights follow ON/OFF" do
   run { |event| event.group.members.ensure.command(event.state) }
 end
 
-updated Garage_OutdoorLights_Button_Action, FrontDoor_Lights_Button_Action, to: "SINGLE" do
+updated Garage_FrontYardLights_Button_Action, Entrance_FrontYardLights_Button_Action, to: "SINGLE" do
   Front_Yard_Lights.toggle
 end
 

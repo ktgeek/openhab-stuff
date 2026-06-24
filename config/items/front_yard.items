@@ -3,7 +3,7 @@ Group FF_Porch     "Porch"          <frontdoor>    (Home)  ["Porch"]
 //Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Porch) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
 Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (FF_Porch, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
 
-String FrontDoor_Lights_Button_Action "Front Door Lights Button Action" (FF_Porch) ["Point"] { channel="mqtt:topic:26bcbec1ee:916c8e28e1:button_action" }
+String Entrance_FrontYardLights_Button_Action "Front Door Lights Button Action" (FF_Porch) ["Point"] { channel="mqtt:topic:26bcbec1ee:916c8e28e1:button_action" }
 
 Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard, Front_Yard_Lights) ["Lightbulb"] { alexa="Lighting", channel="zwavejs:node:c503e1bad6:node261:binary-switch-value-1" }
 //Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard) ["Lightbulb"] { alexa="Lighting", channel="zwavejs:node:c503e1bad6:node261:binary-switch-value-1" }
