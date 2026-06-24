@@ -92,6 +92,36 @@ Gems used in rules are declared in the `:rules` group in `Gemfile` (currently `a
 
 ---
 
+## Rooms
+
+The rooms (or distinct areas) defined in the house are:
+
+| Room | Floor, Outside, or Meta |
+|------|-------------------------|
+| Front Yard | Outside |
+| Backyard | Outside |
+| Garage | First Floor |
+| Entrance | First Floor |
+| Dining Room | First Floor |
+| Upstairs aka Upstairs Hallway | Second Floor |
+| Basement | Cellar |
+| Family Room | First Floor |
+| Exercise Room | Cellar |
+| Kitchen | First Floor |
+| Office | First Floor |
+| Laundry Room | First Floor |
+| Basement Hallway | Cellar |
+| Bedroom | Second Floor |
+| Hidden Room | Second Floor |
+| Living Room | First Floor |
+| Christmas | Meta |
+| Dinah's Room | Second Floor |
+| Evan's Room | Second Floor |
+| Kitchen Bathroom | First Floor |
+| Side Yard | Outside |
+
+---
+
 ## Automation Rules Architecture
 
 All active rules live in `automation/ruby/*.rb`. Rule files are named by room or feature:
