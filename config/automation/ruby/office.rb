@@ -18,13 +18,13 @@ rule "when a zoom meeting is over" do
   changed Zoom_Active_Switch, to: OFF
 
   run do
-    prior_color = Office_DoorLED_Color.previous_state
-    if prior_color&.state&.on?
-      Office_DoorLED_Color.command(prior_color.state)
-      Office_DoorLED_Scheme.command(Office_DoorLED_Scheme.previous_state.state)
-      Office_DoorLED_Fade.command(Office_DoorLED_Fade.previous_state.state)
-      Office_DoorLED_Palette.command(Office_DoorLED_Palette.previous_state.state)
-      Office_DoorLED_Speed.command(Office_DoorLED_Speed.previous_state.state)
+    prior_color = Office_DoorLED_Color.last_state
+    if prior_color&.on?
+      Office_DoorLED_Color.command(prior_color)
+      Office_DoorLED_Scheme.ensure.command(Office_DoorLED_Scheme.last_state) if Office_DoorLED_Scheme.last_state
+      Office_DoorLED_Fade.ensure.command(Office_DoorLED_Fade.last_state) if Office_DoorLED_Fade.last_state
+      Office_DoorLED_Palette.ensure.command(Office_DoorLED_Palette.last_state) if Office_DoorLED_Palette.last_state
+      Office_DoorLED_Speed.ensure.command(Office_DoorLED_Speed.last_state) if Office_DoorLED_Speed.last_state
     else
       Office_DoorLED_Color.ensure.off
     end
