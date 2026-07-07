@@ -30,10 +30,10 @@ Switch  Office_Lights_LED_7_Blink  "Office Lights Led 7 Blink"  (Office_Lights_C
 Group   Office_Presence                             (Office)           ["Equipment"]
 Switch  Office_Presence_Sensor  "Office Occupancy"  (Office_Presence)  ["Point"]      {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x54ef441000589a03:presence", homekit="OccupancySensor"}
 
-Group   Office_Fan               "Office Fan"        (Office)      ["CeilingFan"]  {homekit="BasicFan"}
-Switch  Office_Fan_Power         "Office Fan"        (Office_Fan)  ["Control"]     {channel="mqtt:topic:26bcbec1ee:office_fan:power", autoupdate="false",  homekit="BasicFan.OnState"}
-Number  Office_Fan_Speed         "Office Fan Speed"  (Office_Fan)  ["Control"]     {homekit="BasicFan.RotationSpeed" [minValue=0, maxValue=4]}
-Number  Office_Fan_Speed_Actual  "Office Fan Speed"  (Office_Fan)  ["Control"]     {channel="mqtt:topic:26bcbec1ee:office_fan:speed", autoupdate="false"}
+Group                 Office_Fan               "Office Fan"        (Office)      ["CeilingFan"]  {homekit="BasicFan"}
+Switch                Office_Fan_Power         "Office Fan"        (Office_Fan)  ["Control"]     {channel="mqtt:topic:26bcbec1ee:office_fan:power", autoupdate="false",  homekit="BasicFan.OnState"}
+Number:Dimensionless  Office_Fan_Speed         "Office Fan Speed"  (Office_Fan)  ["Control"]     {homekit="BasicFan.RotationSpeed", unit="%" [step=1]}
+Number                Office_Fan_Speed_Actual  "Office Fan Speed"  (Office_Fan)  ["Control"]     {channel="mqtt:topic:26bcbec1ee:office_fan:speed", autoupdate="false"}
 
 Group   Office_AwtrixClock                 "Awtrix Clock"                <screen>  (Office)
 Switch  Office_AwtrixClock_Power           "Awtrix Clock Display Power"            (Office_AwtrixClock)  ["Power"]       {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:display"}

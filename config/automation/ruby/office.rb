@@ -57,12 +57,16 @@ rule "turn off the light when the office is empty" do
   end
 end
 
-# Fan does 0-3, where 0 is a speed that is not off, but the slider does 0-4, so we need to add 1 to the value.
-changed Office_Fan_Speed_Actual do |event|
-  Office_Fan_Speed.ensure.update(event.state.to_i.succ)
+def fan_speed_to_percentage(speed)
+  (speed.to_i * 25) + 25
 end
 
+# Fan does 0-3, where 0 is a speed that is not off, but 25%
+changed(Office_Fan_Speed_Actual) { |event| Office_Fan_Speed.ensure.update(fan_speed_to_percentage(event.item.state)) }
+
 received_command Office_Fan_Speed do |event|
-  speed = [event.item.state.to_i - 1, 0].max
+  speed = [((event.item.state.to_f / 25) - 1).ceil.to_i, 0].max
   Office_Fan_Speed_Actual.ensure.command(speed)
+  # Ensure we bounce the UI to the highest 25% increment, so that the slider is always at a valid value.
+  Office_Fan_Speed.ensure.update(fan_speed_to_percentage(speed))
 end
