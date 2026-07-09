@@ -1,9 +1,9 @@
 Group  Basement             "Basement"             <cellar>  (C)  ["Basement"]
 Group  ExerciseRoom         "Exercise Room"        <cellar>  (C)  ["Basement"]
 Group  BasementHallway      "Basement Hallway"     <cellar>  (C)  ["Basement"]
-Group  Basement_All_Lights  "All basement lights"  <cellar>  (C)  ["Basement"]
-Group  Basement_Scenes_1    "Basement 1 Scenes"    <cellar>  (C)  ["Basement"]
-Group  Basement_Scenes_2    "Basement 2 Scenes"    <cellar>  (C)  ["Basement"]
+Group  Basement_All_Lights  "All basement lights"  <cellar>  (C)
+Group  Basement_Scenes_1    "Basement 1 Scenes"    <cellar>  (C)
+Group  Basement_Scenes_2    "Basement 2 Scenes"    <cellar>  (C)
 
 Group  Basement_Occupancy_LEDs     "Basement Occupancy LEDs"  (Basement)
 Group  Basement_Occupancy_Count_1                             (Basement)
@@ -77,7 +77,7 @@ Switch         Basement_WallOutlet_In_Use  "Basement Wall Outlet In Use [RB(outl
 
 Group   Basement_TV        "Family Room TV"        (Basement)     ["Television"]
 Switch  Basement_TV_Power  "Power"                 (Basement_TV)                  {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:power"}
-String  Basement_TV_Toast  "Family Room TV Toast"  (Basement_TV)  ["SetPoint"]    {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:toast"}
+String  Basement_TV_Toast  "Family Room TV Toast"  (Basement_TV)  ["Setpoint"]    {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:toast"}
 String  Basement_TV_App    "Application"           (Basement_TV)  ["Status"]      {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:appLauncher"}
 
 Group   Basement_Receiver               "Basement Receiver"                    (Basement)
@@ -89,7 +89,7 @@ Number  Basement_Receiver_Input_Source  "Basement Receiver Input Source [%d]"  (
 Switch  ExerciseRoom_Light  "Exercise Room Light"  <lightbulb>  (ExerciseRoom, Basement_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node10:binary-switch-value"}
 
 Group   ExerciseRoom_DimmerLights_Scenes                                                        (ExerciseRoom_DimmerLights_Control)                                     ["Point"]
-Dimmer  ExerciseRoom_Dimmer                    "Exercise Room Dimmer [%d %%]"      <lightbulb>  (ExerciseRoom_DimmerLights_Control, ExerciseRoom, Basement_All_Lights)  ["SetPoint", "Light"]  {unit="%", homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node11:multilevel-switch-value"}
+Dimmer  ExerciseRoom_Dimmer                    "Exercise Room Dimmer [%d %%]"      <lightbulb>  (ExerciseRoom_DimmerLights_Control, ExerciseRoom, Basement_All_Lights)  ["Setpoint", "Light"]  {unit="%", homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node11:multilevel-switch-value"}
 Number  ExerciseRoom_DimmerLights_LED_1_Color  "Exercise Room Dimmer Led 1 Color"               (ExerciseRoom_DimmerLights_Control, Basement_Occupancy_Count_1)         ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-1-color"}
 Number  ExerciseRoom_DimmerLights_LED_2_Color  "Exercise Room Dimmer Led 2 Color"               (ExerciseRoom_DimmerLights_Control, Basement_Occupancy_Count_2)         ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-2-color"}
 Number  ExerciseRoom_DimmerLights_LED_3_Color  "Exercise Room Dimmer Led 3 Color"               (ExerciseRoom_DimmerLights_Control, Basement_Occupancy_Count_3)         ["Point"]              {channel="zwavejs:node:c503e1bad6:node11:configuration-status-led-3-color"}

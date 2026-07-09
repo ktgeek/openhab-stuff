@@ -1,6 +1,6 @@
 Group  FamilyRoom  "Family Room"  <sofa>  (FF)  ["FamilyRoom"]
 
-Group:Switch:AND(ON,OFF) FamilyRoom_All_Lights "All Family Room Lights" <lightbulb> (FamilyRoom) ["Lightbulb"] { alexa="Lighting" }
+Group:Switch:AND(ON,OFF) FamilyRoom_All_Lights "All Family Room Lights" <lightbulb> (FamilyRoom) { alexa="Lighting" }
 
 Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FamilyRoom_All_Lights, FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node76:binary-switch-value" }
 
@@ -24,17 +24,17 @@ Group   FamilyRoom_CeilingFan_With_Light   "Family Room Ceiling Fan With Light" 
 Switch  FamilyRoom_CeilingFan_Power        "Family Room Ceiling Fan"             (FamilyRoom_CeilingFan_With_Light)  {homekit="BasicFan.OnState", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:common#power"}
 Switch  FamilyRoom_CeilingFan_Light_Power  "Family Room Ceiling Fan Light"       (FamilyRoom_CeilingFan_With_Light)  {homekit="Lighting.OnState", channel="bondhome:bondFan:ZZFG29355:aab5e8c9d7678a38:light#power"}
 
-Group                 FamilyRoom_Sensor                "Family Room Sensor"                   (FamilyRoom)         ["Equpiment"]
+Group                 FamilyRoom_Sensor                "Family Room Sensor"                   (FamilyRoom)         ["Equipment"]
 Number:Temperature    FamilyRoom_Sensor_Temperature    "Family Room Temperature"              (FamilyRoom_Sensor)  ["Measurement", "Temperature"]  {unit="°C", homekit="TemperatureSensor.CurrentTemperature", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:temperature", timescaledb=" " [retentionDays="1095"]}
 Number:Dimensionless  FamilyRoom_Sensor_Humidity       "Family Room Humidity"                 (FamilyRoom_Sensor)  ["Measurement", "Humidity"]     {unit="%", homekit="HumiditySensor.RelativeHumidity", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:humidity", timescaledb=" " [retentionDays="1095"]}
-Number:Dimensionless  FamilyRoom_Sensor_Battery_Level  "Family Room Sensor Battery Level"  (FamilyRoom_Sensor)  ["Measurement", "Battery"]      {unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:battery"}
+Number:Dimensionless  FamilyRoom_Sensor_Battery_Level  "Family Room Sensor Battery Level"  (FamilyRoom_Sensor)  ["Measurement"]      {unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe3a893:battery"}
 
 Group   FamilyRoom_Fan_Button          "Family Room Fan Button"          (FamilyRoom)             ["RemoteControl"]
-Number  FamilyRoom_Fan_Button_Battery  "Family Room Fan Button Battery"  (FamilyRoom_Fan_Button)  ["Measurement", "Battery"]  {unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffee019e:battery"}
+Number  FamilyRoom_Fan_Button_Battery  "Family Room Fan Button Battery"  (FamilyRoom_Fan_Button)  ["Measurement"]  {unit="%", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffee019e:battery"}
 
 Group   FamilyRoom_TV        "Family Room TV"        (FamilyRoom)     ["Television"]
 Switch  FamilyRoom_TV_Power  "Power"                 (FamilyRoom_TV)                  {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:power"}
-String  FamilyRoom_TV_Toast  "Family Room TV Toast"  (FamilyRoom_TV)  ["SetPoint"]    {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:toast"}
+String  FamilyRoom_TV_Toast  "Family Room TV Toast"  (FamilyRoom_TV)  ["Setpoint"]    {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:toast"}
 String  FamilyRoom_TV_App    "Application"           (FamilyRoom_TV)  ["Status"]      {channel="lgwebos:WebOSTV:036e643b-e1a9-8df7-793c-9c2db938248c:appLauncher"}
 
 Switch  FamilyRoom_Receiver_Power         "Power"         {channel="onkyo:onkyoUnsupported:b0ef2e6f-006f-2eBB-b000-0009b0ef2e6f:zone1#power"}

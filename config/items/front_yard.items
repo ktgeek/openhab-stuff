@@ -1,7 +1,7 @@
 Group  Porch  "Porch"  <frontdoor>  (Home)  ["Porch"]
 
 //Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (Porch) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
-Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (Porch, Christmas_Outside) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
+Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (Porch, Christmas_Outside) { homekit="Lighting", alexa="Lighting" }
 
 String  Entrance_FrontYardLights_Button_Action  "Front Door Lights Button Action"  (Porch)  ["Point"]  {channel="mqtt:topic:26bcbec1ee:916c8e28e1:button_action"}
 

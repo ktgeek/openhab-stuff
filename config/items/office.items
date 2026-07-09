@@ -6,7 +6,7 @@ Group   Office_DoorLED          "Office Door"          (Office)                 
 Color   Office_DoorLED_Color    "Office Door Color"    (Christmas_Lights, Christmas_Lights_All, Office_DoorLED)  ["Color"]      {matter="ColorLight" [label="Office Door LED", fixedLabels="room=Office"], channel="mqtt:topic:26bcbec1ee:fc6154bf8b:Color"}
 Switch  Office_DoorLED_Fade     "Office Door Fade"     (Office_DoorLED)                                          ["Switch"]     {channel="mqtt:topic:26bcbec1ee:fc6154bf8b:fade"}
 String  Office_DoorLED_Palette  "Office Door Palette"  (Office_DoorLED)                                          ["Point"]      {channel="mqtt:topic:26bcbec1ee:fc6154bf8b:palette"}
-Number  Office_DoorLED_Speed    "Office Door Speed"    (Office_DoorLED)                                          ["SetPoint"]   {channel="mqtt:topic:26bcbec1ee:fc6154bf8b:speed", stateDescription=""[min="0", max="40", step="1"]}
+Number  Office_DoorLED_Speed    "Office Door Speed"    (Office_DoorLED)                                          ["Setpoint"]   {channel="mqtt:topic:26bcbec1ee:fc6154bf8b:speed", stateDescription=""[min="0", max="40", step="1"]}
 Number  Office_DoorLED_Scheme   "Office Door Scheme"   (Office_DoorLED)                                          ["Point"]      {channel="mqtt:topic:26bcbec1ee:fc6154bf8b:scheme"}
 
 Group:Switch:OR(ON,OFF)  Zoom_Active_Switch    "Zoom Active"  (Office)                      ["Status"]
@@ -40,7 +40,7 @@ Switch  Office_AwtrixClock_Power           "Awtrix Clock Display Power"         
 Dimmer  Office_AwtrixClock_Brightness      "Brightness [%d %%]"                    (Office_AwtrixClock)  ["Brightness"]  {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:brightness"}
 Switch  Office_AwtrixClock_AutoBrightness  "Auto Brightness"                       (Office_AwtrixClock)  ["Switch"]      {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:auto-brightness"}
 Number  Office_AwtrixClock_Battery         "Battery Level [%d %%]"                 (Office_AwtrixClock)  ["Battery"]     {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:battery-level"}
-Switch  Office_AwtrixClock_LowBattery      "Low Battery"                           (Office_AwtrixClock)  ["Alert"]       {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:low-battery"}
+Switch  Office_AwtrixClock_LowBattery      "Low Battery"                           (Office_AwtrixClock)  ["LowBattery"]       {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:low-battery"}
 
 Group   Office_Awtrix_OutdoorTemp_App     "Awtrix Clock Outdoor Temp App"
 Switch  Office_Awtrix_OutdoorTemp_Active  "Outdoor Temp Active"            (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:active"}

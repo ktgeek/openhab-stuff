@@ -4,7 +4,7 @@ Switch  Bedroom_WallOutlet  "Bedroom Outlet"  <poweroutlet_us>  (Bedroom, Christ
 
 Group   Bedroom_CeilingFan_With_Light  "Bedroom Ceiling Fan"                       (Bedroom)                        ["CeilingFan"]  {homekit="Fan,Lighting"}
 Dimmer  Bedroom_CeilingFan_Speed       "Bedroom Ceiling Fan Speed"  <fan_ceiling>  (Bedroom_CeilingFan_With_Light)  ["Control"]     {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x881a14fffe41c829:fan#speed", autoupdate="false", homekit="Fan.ActiveStatus, Fan.RotationSpeed"}
-Dimmer  Bedroom_CeilingFan_Light       "Bedroom Ceiling Fan Light"                 (Bedroom_CeilingFan_With_Light)  ["Dimmer"]      {alexa="Lighting" [name="Bedroom Lights"], homekit="Lighting.OnState, Lighting.Brightness", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x881a14fffe41c829:light", autoupdate="false"}
+Dimmer  Bedroom_CeilingFan_Light       "Bedroom Ceiling Fan Light"                 (Bedroom_CeilingFan_With_Light)  ["Control", "Light"]      {alexa="Lighting" [name="Bedroom Lights"], homekit="Lighting.OnState, Lighting.Brightness", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x881a14fffe41c829:light", autoupdate="false"}
 
 Group         Bedroom_TableLight                                                        (Bedroom)             ["PowerOutlet"]
 Switch        Bedroom_TableLight_Switch  "Bedroom Table Light"        <poweroutlet_us>  (Bedroom_TableLight)  ["Switch"]       {channel="mqtt:topic:26bcbec1ee:6d6b292248:power", homekit="Lighting", alexa="Lighting"}
@@ -17,10 +17,10 @@ Number:Power  Bedroom_SarahLight_Watts   "Bedroom Table Light Power"            
 Group  Bedroom_Remotes_Action  (Bedroom)
 
 Group                 Bedroom_Sarah_Remote                                                  (Bedroom)               ["RemoteControl"]
-Number:Dimensionless  Bedroom_Sarah_Remote_Battery  "Bedroom Sarah Remote Battery [%d %%]"  (Bedroom_Sarah_Remote)  ["Measurement", "Battery"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x70ac08fffe5d0c17:battery"}
+Number:Dimensionless  Bedroom_Sarah_Remote_Battery  "Bedroom Sarah Remote Battery [%d %%]"  (Bedroom_Sarah_Remote)  ["Measurement"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x70ac08fffe5d0c17:battery"}
 
 Group                 Bedroom_Table_Remote                                                  (Bedroom)               ["RemoteControl"]
-Number:Dimensionless  Bedroom_Table_Remote_Battery  "Bedroom Table Remote Battery [%d %%]"  (Bedroom_Table_Remote)  ["Measurement", "Battery"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x70ac08fffe659186:battery"}
+Number:Dimensionless  Bedroom_Table_Remote_Battery  "Bedroom Table Remote Battery [%d %%]"  (Bedroom_Table_Remote)  ["Measurement"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x70ac08fffe659186:battery"}
 
 Group   Bedroom_KeithsCloset_ContactSensor_Group       "Keith's Closet Contact Sensor"          (Bedroom)                                   ["Door"]        {homekit="ContactSensor"}
 Switch  Bedroom_KeithsCloset_ContactSensor             "Keith's Closet Contact Sensor"          (Bedroom_KeithsCloset_ContactSensor_Group)  ["OpenState"]   {homekit="ContactSensor.ContactSensorState", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e2e9:contact"}

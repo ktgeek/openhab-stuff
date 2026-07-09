@@ -1,12 +1,12 @@
-Group Christmas "Christmas" <snow> (Home) ["Holiday Stuff"]
+Group Christmas "Christmas" <snow> (Home)
 
 // Virtual switches
 // Switch Christmas_Lights_HK "Christmas Lights" <lightbulb> (Christmas) ["WallSwitch"] { homekit="Switchable", alexa="Switchable" }
 // Switch Christmas_Lights_All_HK "Christmas Lights All" <lightbulb> (Christmas) ["WallSwitch"] { homekit="Switchable", alexa="Switchable" }
 // Switch Christmas_Outside_HK "Christmas Outside" <snow> (Christmas) ["WallSwitch"] { homekit="Switchable", alexa="Switchable" }
-Group:Switch:AND(ON,OFF)  Christmas_Lights      "Christmas Lights"       <lightbulb>  (Christmas)  ["WallSwitch"]
-Group:Switch:AND(ON,OFF)  Christmas_Lights_All  "Test Christmas Lights"  <lightbulb>  (Christmas)  ["WallSwitch"]
-Group:Switch:AND(ON,OFF)  Christmas_Outside     "Christmas Outside"      <snow>       (Christmas)  ["WallSwitch"]
+Group:Switch:AND(ON,OFF)  Christmas_Lights      "Christmas Lights"       <lightbulb>  (Christmas)
+Group:Switch:AND(ON,OFF)  Christmas_Lights_All  "Test Christmas Lights"  <lightbulb>  (Christmas)
+Group:Switch:AND(ON,OFF)  Christmas_Outside     "Christmas Outside"      <snow>       (Christmas)
 
 // Second Floor - Dinah's Room
 Group         DinahsRoom_Hall_Light                                                            (Upstairs)                                                       ["PowerOutlet"]

@@ -1,9 +1,9 @@
 Group  Garage                            "Garage"  <garage>  (FF)      ["Garage"]
 
-Group  Garage_LargeDoor_Open_LEDs                            (Garage)  ["Equipment"]
-Group  Garage_LargeDoor_Open_LEDs_Blink                      (Garage)  ["Equipment"]
-Group  Garage_SmallDoor_Open_LEDs                            (Garage)  ["Equipment"]
-Group  Garage_SmallDoor_Open_LEDs_Blink                      (Garage)  ["Equipment"]
+Group  Garage_LargeDoor_Open_LEDs                            (Garage)
+Group  Garage_LargeDoor_Open_LEDs_Blink                      (Garage)
+Group  Garage_SmallDoor_Open_LEDs                            (Garage)
+Group  Garage_SmallDoor_Open_LEDs_Blink                      (Garage)
 
 String  Garage_FrontYardLights_Button_Action  "Outdoor Garage Lights Button Action"  (Porch)  ["Point"]  {channel="mqtt:topic:26bcbec1ee:1e9a931646:button_action"}
 
