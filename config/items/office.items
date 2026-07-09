@@ -47,6 +47,12 @@ Switch  Office_Awtrix_OutdoorTemp_Active  "Outdoor Temp Active"            (Offi
 String  Office_Awtrix_OutdoorTemp_Text    "Outdoor Temp Text"              (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:text"}
 Color   Office_Awtrix_OutdoorTemp_Color   "Outdoor Temp Color"             (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:color"}
 String  Office_Awtrix_OutdoorTemp_Icon    "Outdoor Temp Icon"              (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:icon"}
+
+Group                   Office_DiskArrayPlug                   "Office Disk Array Plug"                                             (Office)                ["PowerOutlet"]
+Switch                  Office_DiskArrayPlug_Switch            "Office Disk Array Plug"                                   <switch>  (Office_DiskArrayPlug)                       {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebdcc2:switch"}
+Number:ElectricCurrent  Office_DiskArrayPlug_Current           "Office Disk Array Plug Current [%.1f %unit%]"                       (Office_DiskArrayPlug)  ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebdcc2:current", timescaledb=" " [retentionDays="1095"]}
+Number:Power            Office_DiskArrayPlug_TotalActivePower  "Office Disk Array Plug Total Active Power [%.1f %unit%]"            (Office_DiskArrayPlug)  ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebdcc2:power", timescaledb=" " [retentionDays="1095"]}
+
 Group                 Office_UPS                "Office UPS"                        (Office)
 Number:Dimensionless  Office_UPS_BatteryCharge  "Office UPS Battery charge [%d%%]"  (Office_UPS)  {channel="networkupstools:ups:ups1:batteryCharge", unit="%"}
 String                Office_UPS_Status         "Office UPS status"                 (Office_UPS)  {channel="networkupstools:ups:ups1:upsStatus"}
