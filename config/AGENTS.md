@@ -29,7 +29,7 @@ This applies to every task — no matter how small. A one-line item change still
 | Path | Purpose |
 |------|---------|
 | `automation/ruby/` | Active automation rules (20 `.rb` files) and libraries (`lib/`, 13 files) |
-| `items/` | Item definitions (20 `.items` files, one per room/feature area) |
+| `items/` | Item definitions (22 `.items` files, one per room/feature area) |
 | `things/` | DSL Thing definitions (mostly managed via UI; check here first) |
 | `rules/` | Legacy DSL rules directory — mostly empty; `automation/ruby/` is primary |
 | `services/` | Service configuration (`.cfg` files) — **CRITICAL: see warnings below** |
@@ -191,6 +191,15 @@ Check these before implementing new device logic — reuse existing abstractions
 | Onkyo / Pioneer AVR | Dedicated bindings | Audio receiver control |
 | Awtrix3 | MQTT | Matrix notification display |
 | OpenHAB Cloud | Cloud service | Remote access |
+
+**Reference documentation** — check these for the authoritative list of supported accessory
+types, characteristics, and configuration parameters before adding or editing metadata:
+
+- OpenHAB core docs: <https://www.openhab.org/docs/>
+- Add-ons index: <https://www.openhab.org/addons/>
+- HomeKit: <https://www.openhab.org/addons/integrations/homekit/>
+- Matter: <https://www.openhab.org/addons/bindings/matter/>
+- Alexa: <https://www.openhab.org/docs/ecosystem/alexa/>
 
 ---
 
