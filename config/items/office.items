@@ -47,3 +47,7 @@ Switch  Office_Awtrix_OutdoorTemp_Active  "Outdoor Temp Active"            (Offi
 String  Office_Awtrix_OutdoorTemp_Text    "Outdoor Temp Text"              (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:text"}
 Color   Office_Awtrix_OutdoorTemp_Color   "Outdoor Temp Color"             (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:color"}
 String  Office_Awtrix_OutdoorTemp_Icon    "Outdoor Temp Icon"              (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:icon"}
+Group                 Office_UPS                "Office UPS"                        (Office)
+Number:Dimensionless  Office_UPS_BatteryCharge  "Office UPS Battery charge [%d%%]"  (Office_UPS)  {channel="networkupstools:ups:ups1:batteryCharge", unit="%"}
+String                Office_UPS_Status         "Office UPS status"                 (Office_UPS)  {channel="networkupstools:ups:ups1:upsStatus"}
+Number:Dimensionless  Office_UPS_Load           "Office UPS load [%d%%]"            (Office_UPS)  {channel="networkupstools:ups:ups1:upsLoad", unit="%"}
