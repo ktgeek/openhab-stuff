@@ -1,2 +1,2 @@
 Group   DinahsRoom_Dimmer  "Dinah's Room Dimmer"                    (DinahsRoom)         ["Equipment"]
-Dimmer  DinahsRoom_Lights  "Dinah's Room Lights [%d]"  <lightbulb>  (DinahsRoom_Dimmer)  ["Lightbulb"]  {homekit="Lighting, Lighting.Brightness, Lighting.OnState" [minValue=0, maxValue=99], channel="zwavejs:node:c503e1bad6:node86:multilevel-switch-value"}
+Dimmer  DinahsRoom_Lights  "Dinah's Room Lights [%d]"  <lightbulb>  (DinahsRoom_Dimmer)  ["Lightbulb"]  {homekit="Lighting, Lighting.Brightness, Lighting.OnState", channel="zwavejs:node:c503e1bad6:node86:multilevel-switch-value"}
