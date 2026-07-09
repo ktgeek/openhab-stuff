@@ -1,1 +1,7 @@
 Switch EvansRoom_Light "Evan's Bedroom Light" (EvansRoom) ["Lighting"] { autoupdate="false", channel="zwavejs:node:c503e1bad6:node69:binary-switch-value", homekit="Lighting", alexa="Lighting" }
+
+Group   EvansRoom_LED        "Evan's Bedroom LEDs"       (EvansRoom)      ["Lightbulb"]  {homekit="Lighting", alexa="Endpoint.Light"}
+Switch  EvansRoom_LED_Power  "Evan's Bedroom LED Power"   (EvansRoom_LED)  ["Switch"]     {homekit="Lighting.OnState", alexa="PowerController.powerState", channel="mqtt:topic:26bcbec1ee:483a0e5b6a:power"}
+Color   EvansRoom_LED_Color  "Evan's Bedroom LED Color"  (EvansRoom_LED)  ["Point"]      {homekit="Lighting.Hue, Lighting.Brightness, Lighting.Saturation", alexa="BrightnessController.brightness,ColorController.color", channel="mqtt:topic:26bcbec1ee:483a0e5b6a:Color"}
+Switch  EvansRoom_LED_Fade   "Evan's Bedroom LED Fade"   (EvansRoom_LED)  ["Point"]      {channel="mqtt:topic:26bcbec1ee:483a0e5b6a:fade"}
+Number  EvansRoom_LED_Speed  "Evan's Bedroom LED Speed"  (EvansRoom_LED)  ["Point"]      {channel="mqtt:topic:26bcbec1ee:483a0e5b6a:speed", stateDescription=""[min="0", max="40"]}
