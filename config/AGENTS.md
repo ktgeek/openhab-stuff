@@ -278,3 +278,12 @@ Items that must survive reboots (e.g., thermostat modes, switch states, LED indi
 ## Keeping This File Up to Date
 
 When executing any task that adds new devices, bindings, libraries, or changes structural conventions, **update this file** as part of the same task. `AGENTS.md` should always accurately reflect the current state of the repository.
+
+---
+
+## Model Context Protocol (MCP) Servers
+
+### Openhab MCP Server
+
+When working with these files information on things, items, and more can be retrieved from the OpenHAB MCP server. The
+server is running on the same host as OpenHAB and is configured as an MCP server with the name `openhab`
