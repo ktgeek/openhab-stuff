@@ -1,6 +1,18 @@
 # frozen_string_literal: true
 
-# on_start is trigger for startup times
-# TODO: add rule to set Sun_Status at start up
+require "sun_status"
 
-updated(Entrance_Luminance) { |event| Sun_Status.ensure.command(event.state.to_i < 170 ? "DOWN" : "UP") }
+# Below this luminance (lux) at the entrance window, we consider the sun down.
+SUN_LUMINANCE_THRESHOLD = 170
+
+rule "set Sun_Status from the entrance luminance" do
+  updated Entrance_Luminance
+  on_load
+
+  run do
+    state = Entrance_Luminance.state
+    next if state.nil?
+
+    Sun_Status.ensure.command(state.to_i < SUN_LUMINANCE_THRESHOLD ? SunStatus::DOWN : SunStatus::UP)
+  end
+end

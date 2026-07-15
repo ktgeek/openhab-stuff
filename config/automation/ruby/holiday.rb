@@ -4,9 +4,11 @@ require "color"
 require "tasmota"
 require "zigbee"
 require "holidays"
+require "sun_status"
+require "night_off"
 
 rule "its light out, turn off the holiday decorations" do
-  changed Sun_Status, to: "UP"
+  changed Sun_Status, to: SunStatus::UP
 
   run do
     ensure_states do
@@ -20,7 +22,7 @@ rule "its light out, turn off the holiday decorations" do
 end
 
 rule "decorations on at sunset at Halloween" do
-  changed Sun_Status, to: "DOWN"
+  changed Sun_Status, to: SunStatus::DOWN
 
   run do
     ensure_states do
@@ -42,7 +44,7 @@ rule "decorations on at sunset at Halloween" do
 end
 
 rule "decorations on at sunset at St. Patty" do
-  changed Sun_Status, to: "DOWN"
+  changed Sun_Status, to: SunStatus::DOWN
 
   run do
     if Zoom_Active_Switch.off?
@@ -63,7 +65,7 @@ rule "decorations off at night at St.Patty" do
 end
 
 rule "decorations on at sunset at Christmas" do
-  changed Sun_Status, to: "DOWN"
+  changed Sun_Status, to: SunStatus::DOWN
 
   run do
     Christmas_Outside.members.ensure.on

@@ -4,6 +4,8 @@ require "color"
 require "tasmota"
 require "holidays"
 require "nut_ups"
+require "sun_status"
+
 # The server starts its own shutdown once the UPS battery drops to this percentage; after that, give it this much
 # time (way more than enough) to finish before we turn off the disk array.
 UPS_SHUTDOWN_BATTERY_THRESHOLD = 90
@@ -43,7 +45,9 @@ rule "turn on the light if someone enters the office" do
     ensure_states do
       Office_Lights_Switch.on
       # Office_Monitor_LED.on
-      Office_WindowDecorations_Switch.on if Holiday_Mode.state == Holidays::CHRISTMAS && Sun_Status.state == "UP"
+      if Holiday_Mode.state == Holidays::CHRISTMAS && Sun_Status.state == SunStatus::UP
+        Office_WindowDecorations_Switch.on
+      end
     end
   end
 end
@@ -55,7 +59,7 @@ rule "turn off the light when the office is empty" do
     ensure_states do
       Office_Lights_Switch.off
       # Office_Monitor_LED.off
-      if Holiday_Mode.state == Holidays::CHRISTMAS && Sun_Status.state == "UP" && Christmas_Lights.off?
+      if Holiday_Mode.state == Holidays::CHRISTMAS && Sun_Status.state == SunStatus::UP && Christmas_Lights.off?
         Office_WindowDecorations_Switch.off
       end
     end

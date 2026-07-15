@@ -1,7 +1,9 @@
 # frozen_string_literal: true
+require "sun_status"
+
 
 rule "when its darks enough we think the sun is down" do
-  changed Sun_Status, to: "DOWN"
+  changed Sun_Status, to: SunStatus::DOWN
 
   run do
     Front_Yard_Lights.members.ensure.on
@@ -12,7 +14,7 @@ rule "when its darks enough we think the sun is down" do
 end
 
 rule "when its bright enough we think the sun is up" do
-  changed Sun_Status, to: "UP"
+  changed Sun_Status, to: SunStatus::UP
 
   run do
     Front_Yard_Lights.members.ensure.off

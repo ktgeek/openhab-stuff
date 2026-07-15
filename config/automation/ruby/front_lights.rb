@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "sun_status"
+
 rule "Groups Lights follow ON/OFF" do
   changed All_Hall_Lights.members
 
@@ -19,7 +21,7 @@ rule "Morning Lights On For Rides", id: "morning_lights_on_for_rides" do
     Front_Yard_Outdoor_Decorations_Switch.ensure.on unless Holiday_Mode.state.blank?
   end
 
-  only_if { Outdoor_Biking_Season.on? && Sun_Status.state == "DOWN" }
+  only_if { Outdoor_Biking_Season.on? && Sun_Status.state == SunStatus::DOWN }
 end
 
 rule "Morning lights on", id: "morning_lights_on" do
@@ -30,5 +32,5 @@ rule "Morning lights on", id: "morning_lights_on" do
     Front_Yard_Outdoor_Decorations_Switch.ensure.on unless Holiday_Mode.state.blank?
   end
 
-  only_if { Sun_Status.state == "DOWN" }
+  only_if { Sun_Status.state == SunStatus::DOWN }
 end

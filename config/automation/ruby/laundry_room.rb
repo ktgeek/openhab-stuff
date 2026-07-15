@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "sun_status"
 require "zwave"
 
 rule "when the laundry room door opens" do
@@ -7,7 +8,7 @@ rule "when the laundry room door opens" do
 
   run { SideYard_Light_Color.ensure.on }
 
-  only_if { Sun_Status.state == "DOWN" }
+  only_if { Sun_Status.state == SunStatus::DOWN }
 end
 
 changed(LaundryRoom_Door_Contact, to: OFF) { SideYard_Light_Color.ensure.off }
