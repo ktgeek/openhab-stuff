@@ -1,5 +1,6 @@
 /services/*
 !/services/jruby.cfg
+!/services/org.openhab.autoupdate.cfg
 /.bundle
 /.karaf
 /.vscode
@@ -11,7 +12,7 @@
 /transform/weather_secrets.map
 readme.txt
 /persistence/*
-!/persistence/jdbc.persist
+!/persistence/timescaledb.persist
 /automation/ruby/.gem
 /html
 /spec/examples.txt
