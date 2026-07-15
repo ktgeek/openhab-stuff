@@ -1,5 +1,7 @@
 require:
   - rubocop-openhab
+
+plugins:
   - rubocop-performance
   - rubocop-rspec
 
