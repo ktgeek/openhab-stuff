@@ -55,4 +55,3 @@ Number:Power            Office_DiskArrayPlug_TotalActivePower  "Office Disk Arra
 Group                 Office_UPS                "Office UPS"                        (Office)
 Number:Dimensionless  Office_UPS_BatteryCharge  "Office UPS Battery charge [%d%%]"  (Office_UPS)  {channel="networkupstools:ups:ups1:batteryCharge", unit="%"}
 String                Office_UPS_Status         "Office UPS status"                 (Office_UPS)  {channel="networkupstools:ups:ups1:upsStatus"}
-Number:Dimensionless  Office_UPS_Load           "Office UPS load [%d%%]"            (Office_UPS)  {channel="networkupstools:ups:ups1:upsLoad", unit="%"}
