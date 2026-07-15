@@ -25,6 +25,10 @@ class Awtrix3
     thing.actions("mqtt.awtrixlight")
   end
 
+  def self.office_clock
+    @office_clock ||= new(Office_AwtrixClock_Power.thing)
+  end
+
   def initialize(thing)
     @actions = Awtrix3.actions(thing)
   end

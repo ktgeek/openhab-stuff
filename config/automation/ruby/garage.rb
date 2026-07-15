@@ -16,7 +16,7 @@ GARAGE_STATE_INFO = {
 }.freeze
 
 def awtrix_notifications(message:, info:, item:)
-  awtrix = Awtrix3.new(Office_AwtrixClock_Power.thing)
+  awtrix = Awtrix3.office_clock
 
   awtrix.set_indicator_color(Awtrix3::INDICATORS[item], info[:awtrix_color], blink: info[:blink_state] == ON)
 
