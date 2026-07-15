@@ -278,7 +278,7 @@ When changes to `services/*.cfg` are required: explain the specific field and va
 - **`influxdb.persist.disabled`** — Disabled alternative; rename to `.persist` to enable.
 - **`jdbc.persist.disabled`** / **`services/jdbc.cfg.disabled`** — Former JDBC-based persistence config, kept for reference.
 
-Retention policy: 7-day global default (`services/timescaledb.cfg`), with `retentionDays=1095` (3 years) set via `timescaledb` item metadata on long-lived sensor and energy items. Compression activates after 15 days. Items not listed explicitly in `timescaledb.persist` get `everyChange + restoreOnStartup` automatically via the catch-all `*` rule.
+Retention policy: 30-day global default (`services/timescaledb.cfg`), with `retentionDays=1095` (3 years) set via `timescaledb` item metadata on long-lived sensor and energy items. Compression activates after 45 days. Items not listed explicitly in `timescaledb.persist` get `everyChange + restoreOnStartup` automatically via the catch-all `*` rule.
 
 Items that must survive reboots (e.g., thermostat modes, switch states, LED indicator colors) are covered by the catch-all `restoreOnStartup` strategy — no explicit listing required unless the item needs extended retention.
 

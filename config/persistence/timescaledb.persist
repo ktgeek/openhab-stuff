@@ -1,6 +1,6 @@
 // Settings from the service file
-// retentionDays=7
-// compressionAfterDays=15
+// retentionDays=30
+// compressionAfterDays=45
 
 Items {
   // Excluded: transitory scene triggers and one-shot command channels (no restoreOnStartup)
@@ -51,6 +51,6 @@ Items {
   SF_Hallway_MiscDecoration_Watts
       : strategy = everyChange
 
-  // All other items: everyChange + restoreOnStartup, 7-day default retention
+  // All other items: everyChange + restoreOnStartup, 30-day default retention
   * : strategy = everyChange, restoreOnStartup
 }
