@@ -88,7 +88,7 @@ require "zwave"        # loads automation/ruby/lib/zwave.rb
 require "time_helpers" # loads automation/ruby/lib/time_helpers.rb
 ```
 
-Gems used in rules are declared in the `:rules` group in `Gemfile` (currently `activesupport ~> 8.1`). Do not add gems without understanding the impact on the JRuby runtime.
+Gems used in rules are declared in the `:rules` group in `Gemfile` (currently `activesupport ~> 8.1` and `minitest ~> 5`). Do not add gems without understanding the impact on the JRuby runtime.
 
 ---
 
@@ -208,10 +208,10 @@ types, characteristics, and configuration parameters before adding or editing me
 Follow this checklist when onboarding a new device:
 
 1. **Thing** — Define in the UI, or check `things/` for existing DSL patterns; follow established Thing conventions for the binding in use.
-2. **Item** — Add to the appropriate room `.items` file in `items/`; follow the `Location_Feature_Detail_Type` naming convention; add semantic tags for HomeKit/Alexa compatibility.
+2. **Item** — Add to the appropriate room `.items` file in `items/`; follow the `Floor_Room_DeviceName_Feature_Type` naming convention; add semantic tags for HomeKit/Alexa compatibility.
 3. **Rule** — If automation is needed, add to the relevant `automation/ruby/*.rb` file (or create a new one); check `lib/` for reusable device abstractions first.
 4. **Library** — If a new device type needs reusable logic, add a helper module to `automation/ruby/lib/`.
-5. **Persistence** — Add the item to `persistence/jdbc.persist` if state must be persisted or restored on startup.
+5. **Persistence** — Add the item to `persistence/timescaledb.persist` (or `timescaledb` item metadata for extended retention) if state must be persisted or restored on startup beyond the catch-all default.
 6. **Transform** — Add a `.map` file to `transform/` if state mapping is needed (e.g., numeric codes → human-readable strings).
 
 ---
@@ -258,7 +258,7 @@ Run rubocop before submitting any rule changes.
 | `services/openhabcloud.cfg` | OpenHAB Cloud UUID and secret |
 | Any `.cfg` file containing `password`, `secret`, `token`, or `key` fields | Credentials |
 | `services/*.cfg` (all) | System-critical; incorrect edits can prevent OpenHAB from starting |
-| `persistence/jdbc.persist` | Modifying persistence strategies can cause data loss or startup failures |
+| `persistence/timescaledb.persist` | Modifying persistence strategies can cause data loss or startup failures |
 
 When changes to `services/*.cfg` are required: explain the specific field and value to change rather than rewriting the entire file.
 
@@ -268,15 +268,13 @@ When changes to `services/*.cfg` are required: explain the specific field and va
 
 - **`.map` files** — Simple key→value state mappings loaded by the Map transformation service.
   Example — `lock_user.map`: `1=Keith`, `2=Sarah`, `3=kids`
-- **`.rb` files** — Ruby-based transformers (e.g., `zigbee2mqtt_colorxy_in.rb` / `zigbee2mqtt_colorxy_out.rb` for XY↔RGB color conversion)
+- **`.rb` files** — Ruby-based transformers (e.g., `outletinuse.rb` for outlet in-use state formatting)
 
 ---
 
 ## Persistence
 
-- **`timescaledb.persist`** — Primary persistence via the native **TimescaleDB** addon (time-series database built on PostgreSQL), connecting to `192.168.23.50:5432/tsopenhab`. Strategies in use: `everyChange`, `restoreOnStartup`.
-- **`influxdb.persist.disabled`** — Disabled alternative; rename to `.persist` to enable.
-- **`jdbc.persist.disabled`** / **`services/jdbc.cfg.disabled`** — Former JDBC-based persistence config, kept for reference.
+- **`timescaledb.persist`** — Primary (and only) persistence strategy, via the native **TimescaleDB** addon (time-series database built on PostgreSQL), connecting to `192.168.23.50:5432/tsopenhab`. Strategies in use: `everyChange`, `restoreOnStartup`.
 
 Retention policy: 30-day global default (`services/timescaledb.cfg`), with `retentionDays=1095` (3 years) set via `timescaledb` item metadata on long-lived sensor and energy items. Compression activates after 45 days. Items not listed explicitly in `timescaledb.persist` get `everyChange + restoreOnStartup` automatically via the catch-all `*` rule.
 
