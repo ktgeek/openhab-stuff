@@ -4,8 +4,8 @@ Group   KitchenBathroom_ContactSensor_Group       "Kitchen Bathroom Contact Sens
 Switch  KitchenBathroom_ContactSensor             "Kitchen Bathroom Contact Sensor"          (KitchenBathroom_ContactSensor_Group)  ["OpenState"]   {homekit="ContactSensor.ContactSensorState", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e2de:contact"}
 Switch  KitchenBathroom_ContactSensor_BatteryLow  "Kitchen Bathroom Contact Sensor Battery"  (KitchenBathroom_ContactSensor_Group)  ["LowBattery"]  {homekit="ContactSensor.BatteryLowStatus", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffe8e2de:battery_low"}
 
-Group   KitchenBathroom_Light_Group   "Kitchen Bathroom Light Group"  (KitchenBathroom)              ["Lighting"]
-Switch  KitchenBathroom_Light_Switch  "Kitchen Bathroom Light "       (KitchenBathroom_Light_Group)  ["Lighting"]  {homekit="Lighting", channel="zwavejs:node:c503e1bad6:node66:binary-switch-value"}
+Group   KitchenBathroom_Light_Group   "Kitchen Bathroom Light Group"  (KitchenBathroom)              ["Lightbulb"]
+Switch  KitchenBathroom_Light_Switch  "Kitchen Bathroom Light "       (KitchenBathroom_Light_Group)  ["Switch", "Light"]  {homekit="Lighting", channel="zwavejs:node:c503e1bad6:node66:binary-switch-value"}
 
 Group   KitchenBathroom_Fan_Group   "Kitchen Bathroom Fan Group"  (KitchenBathroom)            ["Fan"]
 Switch  KitchenBathroom_Fan_Switch  "Kitchen Bathroom Fan"        (KitchenBathroom_Fan_Group)  ["Fan"]  {homekit="Fan", channel="zwavejs:node:c503e1bad6:node85:binary-switch-value"}

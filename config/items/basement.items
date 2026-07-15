@@ -71,13 +71,13 @@ Number                Basement_NanomoteQuad_Scene_4       "Nanomote Quad Scene 4
 
 Group          Basement_WallOutlet         "Basement Wall Outlet"                                 <poweroutlet_us>  (Basement)                                             ["PowerOutlet"]      {homekit="Outlet"}
 Switch         Basement_WallOutlet_Switch  "Basement Wall Outlet"                                 <poweroutlet_us>  (Basement, Basement_WallOutlet, Christmas_Lights_All)  ["Point"]            {homekit="Outlet.OnState", alexa="Outlet.OnState", channel="zwavejs:node:c503e1bad6:node60:binary-switch-value"}
-Number:Energy  Basement_WallOutlet_kWh     "Baesment Wall Outlet Power [%.1f kWh]"                                  (Basement_WallOutlet)                                  ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node60:meter-value-65537", timescaledb=" " [retentionDays="1095"]}
+Number:Energy  Basement_WallOutlet_kWh     "Basement Wall Outlet Power [%.1f kWh]"                                  (Basement_WallOutlet)                                  ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node60:meter-value-65537", timescaledb=" " [retentionDays="1095"]}
 Number:Power   Basement_WallOutlet_Watts   "Basement Wall Outlet Power [%.1f Ws]"                                   (Basement_WallOutlet)                                  ["Point", "Energy"]  {channel="zwavejs:node:c503e1bad6:node60:meter-value-66049", timescaledb=" " [retentionDays="1095"]}
 Switch         Basement_WallOutlet_In_Use  "Basement Wall Outlet In Use [RB(outletinuse.rb):%s]"                    (Basement_WallOutlet)                                  ["Point"]            {homekit="Outlet.InUseStatus", channel="zwavejs:node:c503e1bad6:node60:meter-value-66049"}
 
-Group   Basement_TV        "Family Room TV"        (Basement)     ["Television"]
+Group   Basement_TV        "Basement TV"        (Basement)     ["Television"]
 Switch  Basement_TV_Power  "Power"                 (Basement_TV)                  {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:power"}
-String  Basement_TV_Toast  "Family Room TV Toast"  (Basement_TV)  ["Setpoint"]    {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:toast"}
+String  Basement_TV_Toast  "Basement TV Toast"  (Basement_TV)  ["Setpoint"]    {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:toast"}
 String  Basement_TV_App    "Application"           (Basement_TV)  ["Status"]      {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:appLauncher"}
 
 Group   Basement_Receiver               "Basement Receiver"                    (Basement)

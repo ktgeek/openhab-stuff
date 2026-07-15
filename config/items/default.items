@@ -34,7 +34,7 @@ Number  Entrance_FrontDoor_Lock_User_ID_Status_4  "Front Door Lock Code Status" 
 Switch  Entrance_FrontDoor_Lock_Cleaning_Switch   "Cleaning Service Entry Allowed"                      (Entrance)                 ["Point"]                   {homekit="Switchable"}
 
 Group                    House_Perimeter_LEDs                                   (Home)
-Group:Switch:OR(ON,OFF)  House_Perimeter_Contacts    "House Permiter Contacts"  (Home)
+Group:Switch:OR(ON,OFF)  House_Perimeter_Contacts    "House Perimeter Contacts"  (Home)
 Switch                   Entrance_FrontDoor_Contact  "Front Door"               (Entrance, House_Perimeter_Contacts)  ["OpenState"]  {homekit="ContactSensor", channel="homeassistant:device:26bcbec1ee:84f3ebcbcbab:zone_1"}
 
 String  Holiday_Mode           "Holiday Mode"          (Entrance)  ["Point"]

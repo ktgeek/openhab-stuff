@@ -1,4 +1,4 @@
-Switch EvansRoom_Light "Evan's Bedroom Light" (EvansRoom) ["Lighting"] { autoupdate="false", channel="zwavejs:node:c503e1bad6:node69:binary-switch-value", homekit="Lighting", alexa="Lighting" }
+Switch EvansRoom_Light "Evan's Bedroom Light" (EvansRoom) ["Switch", "Light"] { autoupdate="false", channel="zwavejs:node:c503e1bad6:node69:binary-switch-value", homekit="Lighting", alexa="Lighting" }
 
 Group   EvansRoom_LED        "Evan's Bedroom LEDs"       (EvansRoom)      ["Lightbulb"]  {homekit="Lighting", alexa="Endpoint.Light"}
 Switch  EvansRoom_LED_Power  "Evan's Bedroom LED Power"   (EvansRoom_LED)  ["Switch"]     {homekit="Lighting.OnState", alexa="PowerController.powerState", channel="mqtt:topic:26bcbec1ee:483a0e5b6a:power"}
