@@ -3,7 +3,7 @@ Switch        Office_WindowDecorations_Switch  "Office Window Lights"           
 Number:Power  Office_WindowDecorations_Watts   "Office Window Decorations Power"                    (Office_WindowDecorations)                                          ["Power"]        {channel="mqtt:topic:26bcbec1ee:c0750d0653:currentPower", timescaledb=" " [retentionDays="1095"]}
 
 Group   Office_DoorLED          "Office Door"          (Office)                                                  ["Lightbulb"]
-Color   Office_DoorLED_Color    "Office Door Color"    (Christmas_Lights, Christmas_Lights_All, Office_DoorLED)  ["Color"]      {matter="ColorLight" [label="Office Door LED", fixedLabels="room=Office"], channel="mqtt:topic:26bcbec1ee:fc6154bf8b:Color"}
+Color   Office_DoorLED_Color    "Office Door Color"    (Christmas_Lights, Christmas_Lights_All, Office_DoorLED)  ["Point"]      {matter="ColorLight" [label="Office Door LED", fixedLabels="room=Office"], channel="mqtt:topic:26bcbec1ee:fc6154bf8b:Color"}
 Switch  Office_DoorLED_Fade     "Office Door Fade"     (Office_DoorLED)                                          ["Switch"]     {channel="mqtt:topic:26bcbec1ee:fc6154bf8b:fade"}
 String  Office_DoorLED_Palette  "Office Door Palette"  (Office_DoorLED)                                          ["Point"]      {channel="mqtt:topic:26bcbec1ee:fc6154bf8b:palette"}
 Number  Office_DoorLED_Speed    "Office Door Speed"    (Office_DoorLED)                                          ["Setpoint"]   {channel="mqtt:topic:26bcbec1ee:fc6154bf8b:speed", stateDescription=""[min="0", max="40", step="1"]}
