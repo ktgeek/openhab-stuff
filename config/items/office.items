@@ -10,7 +10,6 @@ Number  Office_DoorLED_Speed    "Office Door Speed"    (Office_DoorLED)         
 Number  Office_DoorLED_Scheme   "Office Door Scheme"   (Office_DoorLED)                                          ["Point"]      {channel="mqtt:topic:26bcbec1ee:fc6154bf8b:scheme"}
 
 Group:Switch:OR(ON,OFF)  Zoom_Active_Switch    "Zoom Active"  (Office)                      ["Status"]
-Switch                   Office_M1Laptop_Zoom  "m1 Zoom"      (Office, Zoom_Active_Switch)  ["Status"]  {channel="homie:device:26bcbec1ee:m1-work-laptop:zoom_2Dactivity#status"}
 Switch                   Office_Bugg_Zoom      "bugg Zoom"    (Office, Zoom_Active_Switch)  ["Status"]  {channel="homie:device:26bcbec1ee:bugg-zoom:zoom_2Dactivity#status"}
 
 //Switch Office_Monitor_LED "Monitor LEDs" (Office) ["Lightbulb"] { homekit="Lighting", channel="hyperion:serverNG:3072a6de25:leddevice"}
