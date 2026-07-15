@@ -59,7 +59,7 @@ RSpec.describe "basement_remote.rb" do
     it "turns on the Basement Movie Mode Switch when button 4 is pressed" do
       NanomoteQuad_Scene.update(4.0)
 
-      expect(C_Basement_Movie_Switch).to be_on
+      expect(Basement_Movie_Switch).to be_on
     end
   end
 
@@ -67,13 +67,13 @@ RSpec.describe "basement_remote.rb" do
     it "turn on Basement Normal Mode if a basement scene member gets a two click paddle up" do
       C_Basement_Scene.members.first.update(Homeseer::PADDLE_UP_TWO_CLICKS)
 
-      expect(C_Basement_Normal_Switch).to be_on
+      expect(Basement_Normal_Switch).to be_on
     end
 
     it "turn on Basement Movie Mode if a basement scene member gets a two click paddle down" do
       C_Basement_Scene.members.first.update(Homeseer::PADDLE_DOWN_TWO_CLICKS)
 
-      expect(C_Basement_Movie_Switch).to be_on
+      expect(Basement_Movie_Switch).to be_on
     end
   end
 end
