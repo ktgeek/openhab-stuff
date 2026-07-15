@@ -34,6 +34,9 @@ end
 every 1.minute do
   last_update = Backyard_Last_Updated.state
 
+  # NULL/UNDEF until the weather station reports after a fresh start
+  next if last_update.nil?
+
   if last_update < 2.hours.ago && !no_update_notification_sent
     logger.info("Backyard weather not updated in hours, last update: #{last_update}")
     Notification.send("Backyard weather not updated in hours, last update: #{last_update}")
@@ -43,6 +46,9 @@ every 1.minute do
   next if last_update < 1.minute.ago
 
   no_update_notification_sent = false
+
+  next unless [Backyard_Temperature, Backyard_Humidity, Backyard_Barometric_Pressure, Backyard_Wind_Direction,
+               Backyard_Wind_Speed, Backyard_Dew_Point, Backyard_UV].all?(&:state?)
 
   params = {
     dateutc: Time.now.utc.strftime("%Y-%m-%d %H:%M:%S"),

@@ -4,6 +4,10 @@ require "color"
 require "tasmota"
 require "holidays"
 require "nut_ups"
+# The server starts its own shutdown once the UPS battery drops to this percentage; after that, give it this much
+# time (way more than enough) to finish before we turn off the disk array.
+UPS_SHUTDOWN_BATTERY_THRESHOLD = 90
+UPS_SHUTDOWN_GRACE_PERIOD = 5.minutes
 
 rule "when a zoom meeting is on" do
   changed Zoom_Active_Switch, to: ON
@@ -72,19 +76,17 @@ received_command Office_Fan_Speed do |event|
   Office_Fan_Speed.ensure.update(fan_speed_to_percentage(speed))
 end
 
-# This is a little brittle, but it is ok for now. We know the server shutsdown happens when the battery is at 90% or
-# less, given that, we'll use that as a trigger to give the server 5 minutes to shutdown (way more than enough) before
-# we turn off the disk array.
 updated(Office_UPS_BatteryCharge) do |event|
-  on_battery = Office_UPS_Status.state.split.include?(NutUps::Status::ON_BATTERY)
+  # Office_UPS_Status is NULL after a restart until NUT reports
+  on_battery = Office_UPS_Status.state&.split&.include?(NutUps::Status::ON_BATTERY)
 
-  if on_battery && Office_DiskArrayPlug_Switch.on? && event.item.state.to_i <= 90
-    after(5.minutes, id: Office_UPS) { Office_DiskArrayPlug_Switch.ensure.off }
+  if on_battery && Office_DiskArrayPlug_Switch.on? && event.item.state.to_i <= UPS_SHUTDOWN_BATTERY_THRESHOLD
+    after(UPS_SHUTDOWN_GRACE_PERIOD, id: Office_UPS) { Office_DiskArrayPlug_Switch.ensure.off }
   end
 end
 
 updated(Office_UPS_Status) do |event|
-  on_line = event.item.state.split.include?(NutUps::Status::ON_LINE)
+  on_line = event.item.state&.split&.include?(NutUps::Status::ON_LINE)
 
   timers.cancel(Office_UPS) if on_line && timers.include?(Office_UPS)
 end

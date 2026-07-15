@@ -113,8 +113,14 @@ module Weather
       uri = URI(url)
       uri.query = URI.encode_www_form(params)
 
-      response = Net::HTTP.get_response(uri)
+      options = { use_ssl: uri.scheme == "https", open_timeout: 5, read_timeout: 5 }
+      response = Net::HTTP.start(uri.host, uri.port, options) do |http|
+        http.request(Net::HTTP::Get.new(uri))
+      end
       response.body
+    rescue StandardError => e
+      logger.warn("Failed to post weather to #{uri.host}: #{e.class}: #{e.message}")
+      nil
     end
   end
 end

@@ -2,17 +2,22 @@
 
 require "zwave"
 
+HIOME_ROOMS_URL = "http://hiome.kgarner.com/api/1/rooms"
+BASEMENT_HIOME_ROOM_IDS = %w[1577046124 1557680825 room_1636817791].freeze
+HIOME_TIMEOUT_MS = 5000
+
 def reset_basement
   return unless Basement_Total_Occupancy.positive?
 
-  basement_hiome_room_ids = %w[1577046124 1557680825 room_1636817791].freeze
-
-  basement_hiome_room_ids.each do |i|
+  BASEMENT_HIOME_ROOM_IDS.each do |i|
     OpenHAB::Core::Actions::HTTP.sendHttpPutRequest(
-      "http://hiome.kgarner.com/api/1/rooms/#{i}",
+      "#{HIOME_ROOMS_URL}/#{i}",
       "application/json",
-      %({"occupancy_count": 0})
+      %({"occupancy_count": 0}),
+      HIOME_TIMEOUT_MS
     )
+  rescue StandardError => e
+    logger.warn("Failed to reset Hiome occupancy for room #{i}: #{e.class}: #{e.message}")
   end
   Basement_All_Lights.members.ensure.off
 end
