@@ -19,7 +19,7 @@ sitemap default label="Garner House" {
     }
 
     Frame label="Basement" icon="cellar" {
-        Default item=Basement_Total_Occupancy label="Total Basement Occpancy [%d]"
+        Default item=Basement_Total_Occupancy label="Total Basement Occupancy [%d]"
         Default item=Basement_Hiome_Occupancy_Count label="Basement Occupancy [%d]"
         Default item=ExerciseRoom_Hiome_Occupancy_Count label="Exercise Room Occupancy [%d]"
         Default item=Basement_Hallway_Hiome_Occupancy_Count label="Basement Hallway Occupancy [%d]"
