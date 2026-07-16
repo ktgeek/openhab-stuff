@@ -49,3 +49,11 @@ profile(:is_low_state) do |event, callback:, state:, configuration:|
 
   false
 end
+
+profile(:round_to_int) do |event, callback:, state:|
+  next true unless event == :state_from_handler
+
+  callback.send_update(state.to_i)
+
+  false
+end
