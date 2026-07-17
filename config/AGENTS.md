@@ -45,7 +45,8 @@ This applies to every task — no matter how small. A one-line item change still
 
 ## Item Naming Convention
 
-Pattern: `Floor_Room_DeviceName_Feature_Type` where Floor is optional and used only for disambiguation or to place items in a logical hierarchy. The following prefixes are used to indicate floor level:
+Pattern: `Floor_Room_DeviceName_Feature_Type` where Floor is optional and used only for disambiguation or to place items
+in a logical hierarchy. The following prefixes are used to indicate floor level:
 
 | Prefix | Meaning |
 |--------|---------|
@@ -53,9 +54,11 @@ Pattern: `Floor_Room_DeviceName_Feature_Type` where Floor is optional and used o
 | `SF_` | Second floor |
 | `C_` | Basement (cellar) |
 
-Examples: `FF_Kitchen_Island_Dimmer`, `SF_Thermostat`, `C_Basement_Occupancy`, `Basement_WallOutlet_Switch`, `ExerciseRoom_BikeTrainer_Switch`
+Examples: `FF_Kitchen_Island_Dimmer`, `SF_Thermostat`, `C_Basement_Occupancy`, `Basement_WallOutlet_Switch`,
+`ExerciseRoom_BikeTrainer_Switch`
 
-Names that are multiple words such as "Exercise Room" or "Bike Trainer" should be camel-cased without spaces as in `ExerciseRoom_BikeTrainer_Switch`.
+Names that are multiple words such as "Exercise Room" or "Bike Trainer" should be camel-cased without spaces as in
+`ExerciseRoom_BikeTrainer_Switch`.
 
 **Groups** are used extensively for scene control and logical hierarchy:
 
@@ -75,7 +78,8 @@ Always check existing `.items` files for naming patterns before adding new items
 
 ## JRuby Scripting Environment
 
-Configured in `services/jruby.cfg`. The following are **auto-required on startup** — do not explicitly require them in rule files:
+Configured in `services/jruby.cfg`. The following are **auto-required on startup** — do not explicitly require them in
+rule files:
 
 - `openhab/dsl` — core OpenHAB DSL (items, rules, triggers, timers, etc.)
 - `active_support/core_ext/object/blank` — `.blank?` / `.present?`
@@ -88,7 +92,8 @@ require "zwave"        # loads automation/ruby/lib/zwave.rb
 require "time_helpers" # loads automation/ruby/lib/time_helpers.rb
 ```
 
-Gems used in rules are declared in the `:rules` group in `Gemfile` (currently `activesupport ~> 8.1` and `minitest ~> 5`). Do not add gems without understanding the impact on the JRuby runtime.
+Gems used in rules are declared in the `:rules` group in `Gemfile` (currently `activesupport ~> 8.1` and `minitest ~>
+5`). Do not add gems without understanding the impact on the JRuby runtime.
 
 ---
 
@@ -207,12 +212,17 @@ types, characteristics, and configuration parameters before adding or editing me
 
 Follow this checklist when onboarding a new device:
 
-1. **Thing** — Define in the UI, or check `things/` for existing DSL patterns; follow established Thing conventions for the binding in use.
-2. **Item** — Add to the appropriate room `.items` file in `items/`; follow the `Floor_Room_DeviceName_Feature_Type` naming convention; add semantic tags for HomeKit/Alexa compatibility.
-3. **Rule** — If automation is needed, add to the relevant `automation/ruby/*.rb` file (or create a new one); check `lib/` for reusable device abstractions first.
+1. **Thing** — Define in the UI, or check `things/` for existing DSL patterns; follow established Thing conventions for
+   the binding in use.
+2. **Item** — Add to the appropriate room `.items` file in `items/`; follow the `Floor_Room_DeviceName_Feature_Type`
+   naming convention; add semantic tags for HomeKit/Alexa compatibility.
+3. **Rule** — If automation is needed, add to the relevant `automation/ruby/*.rb` file (or create a new one); check
+   `lib/` for reusable device abstractions first.
 4. **Library** — If a new device type needs reusable logic, add a helper module to `automation/ruby/lib/`.
-5. **Persistence** — Add the item to `persistence/timescaledb.persist` (or `timescaledb` item metadata for extended retention) if state must be persisted or restored on startup beyond the catch-all default.
-6. **Transform** — Add a `.map` file to `transform/` if state mapping is needed (e.g., numeric codes → human-readable strings).
+5. **Persistence** — Add the item to `persistence/timescaledb.persist` (or `timescaledb` item metadata for extended
+   retention) if state must be persisted or restored on startup beyond the catch-all default.
+6. **Transform** — Add a `.map` file to `transform/` if state mapping is needed (e.g., numeric codes → human-readable
+   strings).
 
 ---
 
@@ -225,7 +235,9 @@ bundle exec rspec                               # run all specs
 bundle exec rspec spec/kitchen_spec.rb          # run a single spec file
 ```
 
-Tests use `openhab/rspec` (from `openhab-scripting`) which provides a mocked OpenHAB runtime. `timecop` is available for testing time-dependent rules. Each spec file corresponds to a rule file: `spec/kitchen_spec.rb` tests `automation/ruby/kitchen.rb`.
+Tests use `openhab/rspec` (from `openhab-scripting`) which provides a mocked OpenHAB runtime. `timecop` is available for
+testing time-dependent rules. Each spec file corresponds to a rule file: `spec/kitchen_spec.rb` tests
+`automation/ruby/kitchen.rb`.
 
 Use `spec/spec_helper.rb` as a template when creating new spec files.
 
@@ -283,7 +295,8 @@ they're terse config, not prose, and wrapping a device/item definition line does
 | `services/*.cfg` (all) | System-critical; incorrect edits can prevent OpenHAB from starting |
 | `persistence/timescaledb.persist` | Modifying persistence strategies can cause data loss or startup failures |
 
-When changes to `services/*.cfg` are required: explain the specific field and value to change rather than rewriting the entire file.
+When changes to `services/*.cfg` are required: explain the specific field and value to change rather than rewriting the
+entire file.
 
 ---
 
@@ -297,17 +310,23 @@ When changes to `services/*.cfg` are required: explain the specific field and va
 
 ## Persistence
 
-- **`timescaledb.persist`** — Primary (and only) persistence strategy, via the native **TimescaleDB** addon (time-series database built on PostgreSQL), connecting to `192.168.23.50:5432/tsopenhab`. Strategies in use: `everyChange`, `restoreOnStartup`.
+- **`timescaledb.persist`** — Primary (and only) persistence strategy, via the native **TimescaleDB** addon (time-series
+  database built on PostgreSQL), connecting to `192.168.23.50:5432/tsopenhab`. Strategies in use: `everyChange`,
+  `restoreOnStartup`.
 
-Retention policy: 30-day global default (`services/timescaledb.cfg`), with `retentionDays=1095` (3 years) set via `timescaledb` item metadata on long-lived sensor and energy items. Compression activates after 45 days. Items not listed explicitly in `timescaledb.persist` get `everyChange + restoreOnStartup` automatically via the catch-all `*` rule.
+Retention policy: 30-day global default (`services/timescaledb.cfg`), with `retentionDays=1095` (3 years) set via
+`timescaledb` item metadata on long-lived sensor and energy items. Compression activates after 45 days. Items not listed
+explicitly in `timescaledb.persist` get `everyChange + restoreOnStartup` automatically via the catch-all `*` rule.
 
-Items that must survive reboots (e.g., thermostat modes, switch states, LED indicator colors) are covered by the catch-all `restoreOnStartup` strategy — no explicit listing required unless the item needs extended retention.
+Items that must survive reboots (e.g., thermostat modes, switch states, LED indicator colors) are covered by the
+catch-all `restoreOnStartup` strategy — no explicit listing required unless the item needs extended retention.
 
 ---
 
 ## Keeping This File Up to Date
 
-When executing any task that adds new devices, bindings, libraries, or changes structural conventions, **update this file** as part of the same task. `AGENTS.md` should always accurately reflect the current state of the repository.
+When executing any task that adds new devices, bindings, libraries, or changes structural conventions, **update this
+file** as part of the same task. `AGENTS.md` should always accurately reflect the current state of the repository.
 
 ---
 
