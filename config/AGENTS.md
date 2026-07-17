@@ -246,6 +246,29 @@ Key rules enforced by `.rubocop.yml`:
 
 Run rubocop before submitting any rule changes.
 
+**rubocop only applies to `.rb` files** (`automation/ruby/`, `spec/`, and any Ruby transformers in
+`transform/` — e.g. `transform/outletinuse.rb`; note `transform/` also holds non-Ruby `.map` files,
+which are not `.rb` and are not lintable by rubocop). It is a Ruby parser/linter
+and has no knowledge of OpenHAB's other config DSLs. **Never run it against `.items`, `.sitemap`,
+`.persist`, `.map`, `.cfg`, or `.things` files** — it will fail with `Lint/Syntax` parse errors that
+look like real problems but are just rubocop trying to parse a non-Ruby file as Ruby. There is no
+linter/syntax checker for these file types in this repo; verify them by cross-checking against
+existing entries in the same file and, where possible, confirming via the OpenHAB MCP tools
+(`search_items`, `get_thing_details`, etc.) that the config was accepted at runtime.
+
+---
+
+## Style Conventions
+
+**Line length:** target 120 characters for documentation and code, matching RuboCop's default
+`Layout/LineLength` (already enforced for `.rb` files via `.rubocop.yml`). Standard exceptions apply
+(Markdown tables, bare URLs/links, fenced code blocks keeping their own idiomatic wrapping).
+
+**Project-specific exception:** the non-prose config DSL files in this repo — `.items`, `.sitemap`,
+`.persist`, `.things`, `.map`, and `.cfg` — are exempt from the 120-character guideline. These mirror
+the file types already grouped together in the Linting section above as "not lintable like Ruby";
+they're terse config, not prose, and wrapping a device/item definition line doesn't improve readability.
+
 ---
 
 ## Sensitive and Critical Files
