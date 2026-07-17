@@ -1,6 +1,6 @@
 Group  Basement             "Basement"             <cellar>  (C)  ["Basement"]
-Group  ExerciseRoom         "Exercise Room"        <cellar>  (C)  ["Basement"]
-Group  BasementHallway      "Basement Hallway"     <cellar>  (C)  ["Basement"]
+Group  ExerciseRoom         "Exercise Room"        <cellar>  (C)  ["Room"]
+Group  BasementHallway      "Basement Hallway"     <cellar>  (C)  ["Corridor"]
 Group  Basement_All_Lights  "All basement lights"  <cellar>  (C)
 Group  Basement_Scenes_1    "Basement 1 Scenes"    <cellar>  (C)
 Group  Basement_Scenes_2    "Basement 2 Scenes"    <cellar>  (C)
