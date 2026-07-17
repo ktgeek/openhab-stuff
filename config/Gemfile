@@ -3,7 +3,12 @@
 source "https://rubygems.org"
 
 group(:test) do
-  gem "openhab-scripting", "~> 5.0"
+  # openhab-scripting >= 5.45 depends on a sentinel "openhab" gem pinned to the running core
+  # version; that gem is normally injected by the live openHAB JVM and isn't resolvable from
+  # rubygems.org outside it. This local stub (matching our installed core, 5.2.0) satisfies it
+  # for `bundle install`/rspec/rubocop. Bump the stub's version if openHAB core is upgraded.
+  gem "openhab", path: "vendor/openhab-stub"
+  gem "openhab-scripting", "~> 5.48"
   gem "rspec", "~> 3.11"
   gem "rubocop"
   gem "rubocop-openhab-scripting"

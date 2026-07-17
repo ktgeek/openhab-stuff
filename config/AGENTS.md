@@ -40,6 +40,7 @@ This applies to every task — no matter how small. A one-line item change still
 | `html/`, `sounds/`, `icons/` | Static assets |
 | `Gemfile` / `Gemfile.lock` | Ruby gem dependencies |
 | `.rubocop.yml` | Linting configuration |
+| `vendor/openhab-stub/` | Local stub `openhab` gem (no code) satisfying `openhab-scripting`'s runtime version dependency for `bundle install`/rspec/rubocop outside the live openHAB JVM — see comment in `Gemfile` |
 
 ---
 
