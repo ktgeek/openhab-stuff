@@ -20,10 +20,7 @@ changed(Backyard_Temperature, Backyard_Humidity, Backyard_Wind_Speed) do
       humidity: Backyard_Humidity.state,
       wind_speed: Backyard_Wind_Speed.state
     )
-    Backyard_FeelsLike_Temperature.update(temp)
-    temp_text = temp.to_s
-    temp_text += "°F" if temp_text.length < 5
-    Office_Awtrix_OutdoorTemp_Text.ensure.command(temp_text)
+    Office_Awtrix_OutdoorTemp_Text.ensure.command("#{temp}#{'°F' if temp < 100}")
   end
 end
 
