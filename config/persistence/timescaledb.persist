@@ -1,5 +1,6 @@
 // Settings from the service file
-// retentionDays=30
+// retentionDays=1095 (3 years, as of 2026-08-01 — was 30 days; see catch-all rule below for the one
+// item explicitly special-cased back down since it dominates non-long-lived write volume)
 // compressionAfterDays=45
 
 Items {
@@ -58,6 +59,10 @@ Items {
   SF_Hallway_MiscDecoration_Watts
       : strategy = everyChange
 
-  // All other items: everyChange + restoreOnStartup, 30-day default retention
+  // All other items: everyChange + restoreOnStartup, 3-year (1095-day) default retention.
+  // Exception: Backyard_Last_Updated is a station-heartbeat timestamp that changes on nearly every MQTT
+  // weather update (~every 10s) and alone accounted for 93% of non-long-lived write volume (82,632 of
+  // 88,751 rows over a 10-day sample) — it carries its own `timescaledb=" " [retentionDays="14"]` item
+  // metadata (see items/backyard.items) to cap it at 14 days instead of inheriting the 3-year default.
   * : strategy = everyChange, restoreOnStartup
 }

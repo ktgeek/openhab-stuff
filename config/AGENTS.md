@@ -326,9 +326,25 @@ upgrade to confirm it's still a symlink.
   database built on PostgreSQL), connecting to `192.168.23.50:5432/tsopenhab`. Strategies in use: `everyChange`,
   `restoreOnStartup`.
 
-Retention policy: 30-day global default (`services/timescaledb.cfg`), with `retentionDays=1095` (3 years) set via
-`timescaledb` item metadata on long-lived sensor and energy items. Compression activates after 45 days. Items not listed
-explicitly in `timescaledb.persist` get `everyChange + restoreOnStartup` automatically via the catch-all `*` rule.
+Retention policy: 3-year (1095-day) global default (`services/timescaledb.cfg`), as of 2026-08-01 — was 30 days.
+Compression activates after 45 days. Items not listed explicitly in `timescaledb.persist` get
+`everyChange + restoreOnStartup` automatically via the catch-all `*` rule and inherit the 3-year default.
+
+39 long-lived sensor and energy items (listed in `timescaledb.persist`'s "Long-lived sensor and energy items"
+section) carry `timescaledb=" " [retentionDays="1095", aggregation="...", downsampleInterval="..."]` item metadata so
+the addon's nightly downsampling job actually aggregates them (`AVG`/`SUM`/`MAX` depending on the item — weather
+station items downsample every 5m, everything else every 1h). `Backyard_Last_Updated` is the one item explicitly
+special-cased *down* to `retentionDays="14"`, since as a near-continuous heartbeat timestamp it would otherwise
+dominate storage under the new 3-year default (93% of non-long-lived write volume in a 10-day sample).
+
+**Important structural note:** TimescaleDB's native retention/compression policies (`timescaledb_information.jobs` in
+Postgres) operate per-chunk on the whole `items` hypertable, not per-item — so the global `retentionDays` config value
+is a hard ceiling no per-item metadata can exceed, while a bare per-item `retentionDays` (with no `aggregation`) runs
+an independent per-item DELETE that *can* prune an item earlier than the global default. Also: editing
+`services/timescaledb.cfg`'s `retentionDays`/`compressionAfterDays` values alone does **not** change the live Postgres
+policy on an already-existing job — the addon logs "policy set" on every restart regardless of whether anything
+changed, but never reconciles an existing job. Live changes require a direct `alter_job()` call against Postgres (see
+`git log` for the two incidents this caused / fixed).
 
 Items that must survive reboots (e.g., thermostat modes, switch states, LED indicator colors) are covered by the
 catch-all `restoreOnStartup` strategy — no explicit listing required unless the item needs extended retention.
