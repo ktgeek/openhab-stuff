@@ -34,6 +34,7 @@ This applies to every task — no matter how small. A one-line item change still
 | `rules/` | Legacy DSL rules directory — mostly empty; `automation/ruby/` is primary |
 | `services/` | Service configuration (`.cfg` files) — **CRITICAL: see warnings below** |
 | `persistence/` | Data persistence strategies (`timescaledb.persist`) |
+| `system/` | Host-level system config tracked here for visibility/rollback, not read by OpenHAB from this path directly — see warnings below |
 | `transform/` | State transformation files (`.map` key→value maps, `.rb` Ruby transformers) |
 | `sitemaps/` | Web UI layout (`default.sitemap`) |
 | `spec/` | RSpec test suite for automation rules |
@@ -295,9 +296,19 @@ they're terse config, not prose, and wrapping a device/item definition line does
 | Any `.cfg` file containing `password`, `secret`, `token`, or `key` fields | Credentials |
 | `services/*.cfg` (all) | System-critical; incorrect edits can prevent OpenHAB from starting |
 | `persistence/timescaledb.persist` | Modifying persistence strategies can cause data loss or startup failures |
+| `system/log4j2.xml` | Live logging config, symlinked from `/var/lib/openhab/etc/log4j2.xml` (see below) — bad XML breaks logging on hot-reload |
 
 When changes to `services/*.cfg` are required: explain the specific field and value to change rather than rewriting the
 entire file.
+
+**`system/log4j2.xml`**: `/var/lib/openhab/etc/log4j2.xml` (the path OpenHAB/Karaf actually reads) is a symlink into
+this repo's `system/log4j2.xml`, so edits here take effect directly and are versioned. This file is registered as a
+dpkg conffile for the `openhab` package, and `/etc/apt/apt.conf.d/50unattended-upgrades` sets `--force-confold`, so
+package upgrades will not silently overwrite local changes — a differing default is left alongside as `.dpkg-dist`
+for manual review instead. The one residual risk: if a future openHAB package reinstall/repair ever writes straight
+to that path bypassing the conffile-modified check, it would replace the symlink with a plain file, silently
+decoupling it from git — worth a quick `ls -la /var/lib/openhab/etc/log4j2.xml` check after any major openHAB
+upgrade to confirm it's still a symlink.
 
 ---
 
