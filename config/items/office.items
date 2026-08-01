@@ -1,6 +1,6 @@
 Group         Office_WindowDecorations                                                              (Office)                                                            ["PowerOutlet"]
 Switch        Office_WindowDecorations_Switch  "Office Window Lights"             <poweroutlet_us>  (Office_WindowDecorations, Christmas_Lights, Christmas_Lights_All)  ["WallSwitch"]   {channel="mqtt:topic:26bcbec1ee:c0750d0653:power"}
-Number:Power  Office_WindowDecorations_Watts   "Office Window Decorations Power"                    (Office_WindowDecorations)                                          ["Power"]        {channel="mqtt:topic:26bcbec1ee:c0750d0653:currentPower", timescaledb=" " [retentionDays="1095"]}
+Number:Power  Office_WindowDecorations_Watts   "Office Window Decorations Power"                    (Office_WindowDecorations)                                          ["Power"]        {channel="mqtt:topic:26bcbec1ee:c0750d0653:currentPower", timescaledb=" " [retentionDays="1095", aggregation="AVG", downsampleInterval="1h"]}
 
 Group   Office_DoorLED          "Office Door"          (Office)                                                  ["Lightbulb"]
 Color   Office_DoorLED_Color    "Office Door Color"    (Christmas_Lights, Christmas_Lights_All, Office_DoorLED)  ["Point"]      {matter="ColorLight" [label="Office Door LED", fixedLabels="room=Office"], channel="mqtt:topic:26bcbec1ee:fc6154bf8b:Color"}
@@ -49,8 +49,8 @@ String  Office_Awtrix_OutdoorTemp_Icon    "Outdoor Temp Icon"              (Offi
 
 Group                   Office_DiskArrayPlug                   "Office Disk Array Plug"                                             (Office)                ["PowerOutlet"]
 Switch                  Office_DiskArrayPlug_Switch            "Office Disk Array Plug"                                   <switch>  (Office_DiskArrayPlug)                       {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebdcc2:switch"}
-Number:ElectricCurrent  Office_DiskArrayPlug_Current           "Office Disk Array Plug Current [%.1f %unit%]"                       (Office_DiskArrayPlug)  ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebdcc2:current", timescaledb=" " [retentionDays="1095"]}
-Number:Power            Office_DiskArrayPlug_TotalActivePower  "Office Disk Array Plug Total Active Power [%.1f %unit%]"            (Office_DiskArrayPlug)  ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebdcc2:power", timescaledb=" " [retentionDays="1095"]}
+Number:ElectricCurrent  Office_DiskArrayPlug_Current           "Office Disk Array Plug Current [%.1f %unit%]"                       (Office_DiskArrayPlug)  ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebdcc2:current", timescaledb=" " [retentionDays="1095", aggregation="AVG", downsampleInterval="1h"]}
+Number:Power            Office_DiskArrayPlug_TotalActivePower  "Office Disk Array Plug Total Active Power [%.1f %unit%]"            (Office_DiskArrayPlug)  ["Point", "Energy"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebdcc2:power", timescaledb=" " [retentionDays="1095", aggregation="AVG", downsampleInterval="1h"]}
 
 Group                 Office_UPS                "Office UPS"                        (Office)
 Number:Dimensionless  Office_UPS_BatteryCharge  "Office UPS Battery charge [%d%%]"  (Office_UPS)  {channel="networkupstools:ups:ups1:batteryCharge", unit="%"}
