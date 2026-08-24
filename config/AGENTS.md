@@ -188,16 +188,18 @@ Check these before implementing new device logic — reuse existing abstractions
 | MQTT | MQTT broker (UUID: `26bcbec1ee`) | Tasmota devices, Zigbee2MQTT bridge, Z-Wave JS communication |
 | Z-Wave JS | MQTT-based | Wall switches, thermostats, locks |
 | Zigbee | via zigbee2mqtt | Sensors, bulbs |
-| Matter | Matter binding | Thermostats |
+| Matter | Matter binding (bridge role) | Bidirectionally links select items — currently the thermostats — with Apple Home over Matter: commands from Siri/the Home app/HomeKit automations arrive as item commands in openHAB, and openHAB item state changes are reported back out to Apple Home. It never talks to the Z-Wave radio or any device directly — Z-Wave JS (above) is still the actual device connection; Matter only bridges to/from openHAB's item layer. |
 | Bond Home | Bond binding | Ceiling fans |
 | Hiome | REST API | Occupancy counting sensors |
 | Kwikset | Z-Wave (see `kwikset.rb`) | Smart lock keypad events |
-| HomeKit | HomeKit binding | Apple Home bridge |
+| HomeKit | HomeKit binding (bridge role) | Same bidirectional item-layer bridge as Matter above, via the legacy HomeKit Accessory Protocol — driven by item metadata rather than per-device Things. |
 | Alexa | Alexa binding | Amazon Echo devices |
 | LG WebOS | WebOS binding | TV control |
 | Onkyo / Pioneer AVR | Dedicated bindings | Audio receiver control |
 | Awtrix3 | MQTT | Matrix notification display |
 | OpenHAB Cloud | Cloud service | Remote access |
+
+> **Note:** Matter and HomeKit above bridge openHAB's item layer to Apple Home, bidirectionally — a command from Siri/the Home app becomes an openHAB item command, and item state changes are reported back out. Neither talks to underlying device hardware directly; a command arriving via Matter for a Z-Wave thermostat still gets sent to the device over Z-Wave JS, not Matter.
 
 **Reference documentation** — check these for the authoritative list of supported accessory
 types, characteristics, and configuration parameters before adding or editing metadata:
