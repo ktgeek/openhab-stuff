@@ -5,7 +5,7 @@ require "zigbee"
 rule "when family room lights turn on/off, turn on/off LEDs" do
   changed FamilyRoom_Lights_Switch
 
-  run { |event| FamilyRoom_LED_Power.ensure.command(event.state) }
+  run { |event| FamilyRoom_LED_Color.ensure.command(event.state) }
 end
 
 channel(Zigbee::SINGLE_TAP, thing: FamilyRoom_Fan_Button_Battery.thing) { FamilyRoom_Lights_Switch.toggle }
