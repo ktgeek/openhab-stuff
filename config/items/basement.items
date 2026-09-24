@@ -18,15 +18,15 @@ Group  Basement_Occupancy_Counters          (Basement)
 Group  Basement_Deadend_Occupancy_Counters  (Basement)
 
 Number  Basement_Hiome_Occupancy_Count  "Basement Occupancy [%d]"  <parents_1_1>  (Basement, Basement_Occupancy_Counters)  ["Point"]  {channel="mqtt:topic:c0853ba2:1"}
-Switch  Basement_Occupancy_Sensor       "Basement Occupancy"                      (Basement)                               ["Point"]  {homekit="OccupancySensor"}
+Switch  Basement_Occupancy_Sensor       "Basement Occupancy"                      (Basement)                               ["Point"]  {matter="OccupancySensor" [label="Basement Occupancy", fixedLabels="room=Basement"]}
 
 Group    ExerciseRoom_Hiome                  "Exercise Room Hiome"           <motion>       (ExerciseRoom)                                                                          ["Equipment"]
 Number   ExerciseRoom_Hiome_Occupancy_Count  "Exercise Room Occupancy [%d]"  <parents_1_1>  (ExerciseRoom_Hiome, Basement_Occupancy_Counters, Basement_Deadend_Occupancy_Counters)  ["Point"]      {channel="mqtt:topic:c0853ba2:2"}
 Contact  ExerciseRoom_Hiome_Door_Contact     "Exercise Room Door Contact"                   (ExerciseRoom_Hiome)                                                                    ["Point"]      {channel="mqtt:topic:c0853ba2:3"}
-Switch   ExerciseRoom_Occupancy_Sensor       "Exercise Room Occupancy"                      (ExerciseRoom_Hiome)                                                                    ["Point"]      {homekit="OccupancySensor"}
+Switch   ExerciseRoom_Occupancy_Sensor       "Exercise Room Occupancy"                      (ExerciseRoom_Hiome)                                                                    ["Point"]      {matter="OccupancySensor" [label="Exercise Room Occupancy", fixedLabels="room=Exercise Room"]}
 
 Number  BasementHallway_Hiome_Occupancy_Count  "Basement Hallway Occupancy [%d]"  <parents_1_1>  (BasementHallway, Basement_Occupancy_Counters, Basement_Deadend_Occupancy_Counters)  ["Point"]  {channel="mqtt:topic:c0853ba2:4"}
-Switch  BasementHallway_Occupancy_Sensor       "Basement Hallway Occupancy"                      (BasementHallway)                                                                    ["Point"]  {homekit="OccupancySensor"}
+Switch  BasementHallway_Occupancy_Sensor       "Basement Hallway Occupancy"                      (BasementHallway)                                                                    ["Point"]  {matter="OccupancySensor" [label="Basement Hallway Occupancy", fixedLabels="room=Basement Hallway"]}
 
 Number  Basement_Total_Occupancy    "Total Basement Occupancy"    <parents_1_1>  (C)  ["Point"]
 Number  Basement_Deadend_Occupancy  "Basement Deadend Occupancy"  <parents_1_1>  (C)  ["Point"]

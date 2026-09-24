@@ -1,4 +1,4 @@
-Switch  LaundryRoom_Door_Contact  "Laundry Room Door"  (LaundryRoom, House_Perimeter_Contacts)  ["OpenState"]  {homekit="ContactSensor", channel="homeassistant:device:26bcbec1ee:84f3ebcbcbab:zone_4"}
+Switch  LaundryRoom_Door_Contact  "Laundry Room Door"  (LaundryRoom, House_Perimeter_Contacts)  ["OpenState"]  {matter="ContactSensor" [label="Laundry Room Door", fixedLabels="room=Laundry Room"], channel="homeassistant:device:26bcbec1ee:84f3ebcbcbab:zone_4"}
 
 Group   LaundryRoom_Lights_Control                                         (LaundryRoom)                 ["Equipment"]
 Switch  LaundryRoom_Lights_Switch       "Laundry Room Lights"              (LaundryRoom_Lights_Control)  ["Switch", "Light"]  {matter="OnOffLight" [label="Laundry Room Lights", fixedLabels="room=Laundry Room"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node29:binary-switch-value"}
