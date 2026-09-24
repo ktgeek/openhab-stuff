@@ -6,7 +6,7 @@ Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FamilyRoom_All
 
 Switch FamilyRoom_Fireplace_Lights_Switch "Fireplace Lights" <lightbulb> (FamilyRoom_All_Lights, FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node77:binary-switch-value" }
 
-Dimmer FamilyRoom_AccentLights_Dimmer "Family Room Accents [%d]" <lightbulb> (FamilyRoom) ["Lightbulb"] { homekit="Lighting, Lighting.Brightness", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node78:multilevel-switch-value" }
+Dimmer FamilyRoom_AccentLights_Dimmer "Family Room Accents [%d]" <lightbulb> (FamilyRoom) ["Lightbulb"] { matter="DimmableLight" [label="Family Room Accents", fixedLabels="room=Family Room"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node78:multilevel-switch-value" }
 
 Group          FamilyRoom_WallOutlet         "Family Room Wall Outlet"                                 <poweroutlet_us>  (FamilyRoom)                                                     ["PowerOutlet"]      {homekit="Outlet"}
 Switch         FamilyRoom_WallOutlet_Switch  "Family Room Wall Outlet"                                 <poweroutlet_us>  (Christmas_Lights, Christmas_Lights_All, FamilyRoom_WallOutlet)  ["Point"]            {homekit="Outlet.OnState", alexa="Outlet", channel="zwavejs:node:c503e1bad6:node17:binary-switch-value"}
