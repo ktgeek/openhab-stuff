@@ -12,14 +12,14 @@ Switch  Front_Yard_Side_Holiday_Decorations_Switch  "Side Holiday Decorations"  
 
 Contact  Front_Yard_Decoration_Mat_Contact  "Front Yard Decoration Mat"  (Front_Yard)  ["Sensor"]  {channel="mqtt:topic:26bcbec1ee:41888ff891:mat_sensor"}
 
-Group  Porch_Lights        "Porch Lights"        (Porch)                            ["Lightbulb"]  {homekit="Lighting"}
-Color  Porch_Lights_Color  "Porch Lights Color"  (Porch_Lights, Front_Yard_Lights)  ["Lightbulb"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F1221051039810110150109113116116_5F2:light#color", homekit="Lighting.OnState, Lighting.Brightness, Lighting.Hue, Lighting.Saturation", autoupdate="false"}
+Group  Porch_Lights        "Porch Lights"        (Porch)                            ["Lightbulb"]
+Color  Porch_Lights_Color  "Porch Lights Color"  (Porch_Lights, Front_Yard_Lights)  ["Lightbulb"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F1221051039810110150109113116116_5F2:light#color", matter="ColorLight" [label="Porch Lights", fixedLabels="room=Front Yard"], alexa="Light", autoupdate="false"}
 
-Group  FrontYard_GarageLight_Left        "Garage Light (Left)"        (Porch)                                          ["Lightbulb"]  {homekit="Lighting"}
-Color  FrontYard_GarageLight_Left_Color  "Garage Light (Left) Color"  (FrontYard_GarageLight_Left, Front_Yard_Lights)  ["Lightbulb"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0xb0ce18140006471f:light#color", homekit="Lighting.OnState, Lighting.Brightness, Lighting.Hue, Lighting.Saturation", autoupdate="false"}
+Group  FrontYard_GarageLight_Left        "Garage Light (Left)"        (Porch)                                          ["Lightbulb"]
+Color  FrontYard_GarageLight_Left_Color  "Garage Light (Left) Color"  (FrontYard_GarageLight_Left, Front_Yard_Lights)  ["Lightbulb"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0xb0ce18140006471f:light#color", matter="ColorLight" [label="Garage Light (Left)", fixedLabels="room=Front Yard"], alexa="Light", autoupdate="false"}
 
-Group  FrontYard_GarageLight_Middle        "Garage Light (Middle)"        (Porch)                                            ["Lightbulb"]  {homekit="Lighting"}
-Color  FrontYard_GarageLight_Middle_Color  "Garage Light (Middle) Color"  (FrontYard_GarageLight_Middle, Front_Yard_Lights)  ["Lightbulb"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0xb0ce181400036122:light#color", homekit="Lighting.OnState, Lighting.Brightness, Lighting.Hue, Lighting.Saturation", autoupdate="false"}
+Group  FrontYard_GarageLight_Middle        "Garage Light (Middle)"        (Porch)                                            ["Lightbulb"]
+Color  FrontYard_GarageLight_Middle_Color  "Garage Light (Middle) Color"  (FrontYard_GarageLight_Middle, Front_Yard_Lights)  ["Lightbulb"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0xb0ce181400036122:light#color", matter="ColorLight" [label="Garage Light (Middle)", fixedLabels="room=Front Yard"], alexa="Light", autoupdate="false"}
 
-Group  FrontYard_GarageLight_Right        "Garage Light (Right)"        (Porch)                                           ["Lightbulb"]  {homekit="Lighting"}
-Color  FrontYard_GarageLight_Right_Color  "Garage Light (Right) Color"  (FrontYard_GarageLight_Right, Front_Yard_Lights)  ["Lightbulb"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0xb0ce18140008629a:light#color", homekit="Lighting.OnState, Lighting.Brightness, Lighting.Hue, Lighting.Saturation", autoupdate="false"}
+Group  FrontYard_GarageLight_Right        "Garage Light (Right)"        (Porch)                                           ["Lightbulb"]
+Color  FrontYard_GarageLight_Right_Color  "Garage Light (Right) Color"  (FrontYard_GarageLight_Right, Front_Yard_Lights)  ["Lightbulb"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0xb0ce18140008629a:light#color", matter="ColorLight" [label="Garage Light (Right)", fixedLabels="room=Front Yard"], alexa="Light", autoupdate="false"}

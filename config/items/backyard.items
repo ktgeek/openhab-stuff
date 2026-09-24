@@ -18,5 +18,5 @@ DateTime              Backyard_Last_Updated              "Station Last Updated" 
 Switch  Backyard_Outdoor_Decorations_Switch  "Backyard Outdoor Decorations"  <lightbulb>  (Backyard)                     ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node107:binary-switch-value"}
 Switch  Backyard_Patio_Decorations_Switch    "Backyard Patio Decorations"    <lightbulb>  (Backyard, Christmas_Outside)  ["Lightbulb"]  {channel="zwavejs:node:c503e1bad6:node16:binary-switch-value"}
 
-Group   Backyard_Lights         "Backyard Lights"         (Backyard)         ["Lightbulb"]  {homekit="Lighting", alexa="Endpoint.Light"}
-Color   Backyard_Lights_Color   "Backyard Lights Color"   (Backyard_Lights, Christmas_Outside)  ["Lightbulb"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F1221051039810110150109113116116_5F1:light#color", homekit="Lighting.OnState, Lighting.Brightness, Lighting.Hue, Lighting.Saturation", alexa="PowerController.powerState,BrightnessController.brightness,Endpoint.Light,ColorController.color", autoupdate="false"}
+Group   Backyard_Lights         "Backyard Lights"         (Backyard)         ["Lightbulb"]
+Color   Backyard_Lights_Color   "Backyard Lights Color"   (Backyard_Lights, Christmas_Outside)  ["Lightbulb"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F1221051039810110150109113116116_5F1:light#color", matter="ColorLight" [label="Backyard Lights", fixedLabels="room=Backyard"], alexa="Light", autoupdate="false"}
