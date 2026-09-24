@@ -19,5 +19,5 @@ Number  LivingRoom_Scene_Switch_Scene_5  "Living Room Scene Switch Scene 5"     
 Number  LivingRoom_Scene_Switch_Scene_6  "Living Room Scene Switch Scene 6"            (LivingRoom_Scene_Switch_Group, Clear_Scenes)             {channel="zwavejs:node:c503e1bad6:node65:central-scene-scene-006"}
 
 Group         LivingRoom_TableLight                                                            (LivingRoom)             ["PowerOutlet"]
-Switch        LivingRoom_TableLight_Switch  "Living Room Table Light"        <poweroutlet_us>  (LivingRoom_TableLight)  ["Switch"]       {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffed992e:switch", homekit="Lighting", alexa="Lighting"}
+Switch        LivingRoom_TableLight_Switch  "Living Room Table Light"        <poweroutlet_us>  (LivingRoom_TableLight)  ["Switch"]       {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffed992e:switch", matter="OnOffLight" [label="Living Room Table Light", fixedLabels="room=Living Room"], alexa="Lighting"}
 Number:Power  LivingRoom_TableLight_Watts   "Living Room Table Light Power"                    (LivingRoom_TableLight)  ["Power"]        {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffed992e:power", timescaledb=" " [retentionDays="1095", aggregation="AVG", downsampleInterval="1h"]}

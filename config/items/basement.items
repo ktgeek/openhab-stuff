@@ -31,9 +31,9 @@ Switch  BasementHallway_Occupancy_Sensor       "Basement Hallway Occupancy"     
 Number  Basement_Total_Occupancy    "Total Basement Occupancy"    <parents_1_1>  (C)  ["Point"]
 Number  Basement_Deadend_Occupancy  "Basement Deadend Occupancy"  <parents_1_1>  (C)  ["Point"]
 
-Switch  Basement_Stairs_Switch  "Basement Stairs Lights"  <lightbulb>  (Basement, Basement_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node47:binary-switch-value"}
+Switch  Basement_Stairs_Switch  "Basement Stairs Lights"  <lightbulb>  (Basement, Basement_All_Lights)  ["Lightbulb"]  {matter="OnOffLight" [label="Basement Stairs Lights", fixedLabels="room=Basement"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node47:binary-switch-value"}
 
-Switch  Basement_Room_Lights_Switch  "Basement Room Lights"  <lightbulb>  (Basement, Basement_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node61:binary-switch-value"}
+Switch  Basement_Room_Lights_Switch  "Basement Room Lights"  <lightbulb>  (Basement, Basement_All_Lights)  ["Lightbulb"]  {matter="OnOffLight" [label="Basement Room Lights", fixedLabels="room=Basement"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node61:binary-switch-value"}
 
 Group   Basement_BarLights_Control                                                      (Basement)                                                     ["Equipment"]
 Dimmer  Basement_BarLights              "Basement Bar Lights [%d %%]"      <lightbulb>  (Basement_BarLights_Control, Basement_All_Lights)              ["Lightbulb"]  {unit="%", matter="DimmableLight" [label="Basement Bar Lights", fixedLabels="room=Basement"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node57:multilevel-switch-value"}
@@ -86,7 +86,7 @@ Number  Basement_Receiver_Input_Source  "Basement Receiver Input Source [%d]"  (
 
 // -- Exercise Room --
 
-Switch  ExerciseRoom_Light  "Exercise Room Light"  <lightbulb>  (ExerciseRoom, Basement_All_Lights)  ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node10:binary-switch-value"}
+Switch  ExerciseRoom_Light  "Exercise Room Light"  <lightbulb>  (ExerciseRoom, Basement_All_Lights)  ["Lightbulb"]  {matter="OnOffLight" [label="Exercise Room Light", fixedLabels="room=Exercise Room"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node10:binary-switch-value"}
 
 Group   ExerciseRoom_DimmerLights_Scenes                                                        (ExerciseRoom_DimmerLights_Control)                                     ["Point"]
 Dimmer  ExerciseRoom_Dimmer                    "Exercise Room Dimmer [%d %%]"      <lightbulb>  (ExerciseRoom_DimmerLights_Control, ExerciseRoom, Basement_All_Lights)  ["Setpoint", "Light"]  {unit="%", matter="DimmableLight" [label="Exercise Room Dimmer", fixedLabels="room=Exercise Room"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node11:multilevel-switch-value"}
@@ -110,7 +110,7 @@ Switch                  ExerciseRoom_BikeTrainer_In_Use            "Exercise Roo
 Switch  ExerciseRoom_BikeTrainer_Enabled  (ExerciseRoom)  ["Switch"]
 
 Group   Basement_Hallway_Lights_Control                                             (BasementHallway)                                                    ["Equipment"]
-Switch  Basement_Hallway_Lights_Switch       "Basement Hallway Lights"              (Basement_Hallway_Lights_Control, Basement_All_Lights)               ["Lightbulb"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node13:binary-switch-value"}
+Switch  Basement_Hallway_Lights_Switch       "Basement Hallway Lights"              (Basement_Hallway_Lights_Control, Basement_All_Lights)               ["Lightbulb"]  {matter="OnOffLight" [label="Basement Hallway Lights", fixedLabels="room=Basement Hallway"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node13:binary-switch-value"}
 Number  Basement_Hallway_Lights_LED_1_Color  "Basement Hallway Lights Led 1 Color"  (Basement_Hallway_Lights_Control)                                    ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-1-color"}
 Number  Basement_Hallway_Lights_LED_2_Color  "Basement Hallway Lights Led 2 Color"  (Basement_Hallway_Lights_Control)                                    ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-2-color"}
 Number  Basement_Hallway_Lights_LED_3_Color  "Basement Hallway Lights Led 3 Color"  (Basement_Hallway_Lights_Control)                                    ["Point"]      {channel="zwavejs:node:c503e1bad6:node13:configuration-status-led-3-color"}

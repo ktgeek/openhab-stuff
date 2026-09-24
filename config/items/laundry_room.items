@@ -1,7 +1,7 @@
 Switch  LaundryRoom_Door_Contact  "Laundry Room Door"  (LaundryRoom, House_Perimeter_Contacts)  ["OpenState"]  {homekit="ContactSensor", channel="homeassistant:device:26bcbec1ee:84f3ebcbcbab:zone_4"}
 
 Group   LaundryRoom_Lights_Control                                         (LaundryRoom)                 ["Equipment"]
-Switch  LaundryRoom_Lights_Switch       "Laundry Room Lights"              (LaundryRoom_Lights_Control)  ["Switch", "Light"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node29:binary-switch-value"}
+Switch  LaundryRoom_Lights_Switch       "Laundry Room Lights"              (LaundryRoom_Lights_Control)  ["Switch", "Light"]  {matter="OnOffLight" [label="Laundry Room Lights", fixedLabels="room=Laundry Room"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node29:binary-switch-value"}
 Number  LaundryRoom_Lights_LED_1_Color  "Laundry Room Lights Led 1 Color"  (LaundryRoom_Lights_Control)  ["Point"]            {channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-1-color"}
 Number  LaundryRoom_Lights_LED_2_Color  "Laundry Room Lights Led 2 Color"  (LaundryRoom_Lights_Control)  ["Point"]            {channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-2-color"}
 Number  LaundryRoom_Lights_LED_3_Color  "Laundry Room Lights Led 3 Color"  (LaundryRoom_Lights_Control)  ["Point"]            {channel="zwavejs:node:c503e1bad6:node29:configuration-status-led-3-color"}

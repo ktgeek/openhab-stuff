@@ -2,9 +2,9 @@ Group  FamilyRoom  "Family Room"  <sofa>  (FF)  ["FamilyRoom"]
 
 Group:Switch:AND(ON,OFF) FamilyRoom_All_Lights "All Family Room Lights" <lightbulb> (FamilyRoom) { alexa="Lighting" }
 
-Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FamilyRoom_All_Lights, FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node76:binary-switch-value" }
+Switch FamilyRoom_Lights_Switch "Family Room Lights" <lightbulb> (FamilyRoom_All_Lights, FamilyRoom) ["Lightbulb"] { matter="OnOffLight" [label="Family Room Lights", fixedLabels="room=Family Room"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node76:binary-switch-value" }
 
-Switch FamilyRoom_Fireplace_Lights_Switch "Fireplace Lights" <lightbulb> (FamilyRoom_All_Lights, FamilyRoom) ["Lightbulb"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node77:binary-switch-value" }
+Switch FamilyRoom_Fireplace_Lights_Switch "Fireplace Lights" <lightbulb> (FamilyRoom_All_Lights, FamilyRoom) ["Lightbulb"] { matter="OnOffLight" [label="Fireplace Lights", fixedLabels="room=Family Room"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node77:binary-switch-value" }
 
 Dimmer FamilyRoom_AccentLights_Dimmer "Family Room Accents [%d]" <lightbulb> (FamilyRoom) ["Lightbulb"] { matter="DimmableLight" [label="Family Room Accents", fixedLabels="room=Family Room"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node78:multilevel-switch-value" }
 

@@ -41,7 +41,7 @@ Number Kitchen_Accent_Sink_Scene_1 "Kitchen Accent Sink Scene 1" (Kitchen_Accent
 Number Kitchen_Accent_Sink_Scene_2 "Kitchen Accent Sink Scene 2" (Kitchen_Accent_Sink_Control, Kitchen_Accents_Scenes_2, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node40:central-scene-scene-002"}
 
 Group Kitchen_Lights_Control (Kitchen) ["Equipment"]
-Switch Kitchen_Lights "Kitchen Lights" <lightbulb> (Kitchen_Lights_Control, Normal_Kitchen_Lights, All_Kitchen_Lights) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node97:binary-switch-value" }
+Switch Kitchen_Lights "Kitchen Lights" <lightbulb> (Kitchen_Lights_Control, Normal_Kitchen_Lights, All_Kitchen_Lights) ["Switch", "Light"] { matter="OnOffLight" [label="Kitchen Lights", fixedLabels="room=Kitchen"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node97:binary-switch-value" }
 Number Kitchen_Lights_LED_1_Color "Kitchen Lights Led 1 Color" (Kitchen_Lights_Control, Basement_Occupancy_LEDs) ["Point"] {channel="zwavejs:node:c503e1bad6:node97:configuration-status-led-1-color"}
 Number Kitchen_Lights_LED_2_Color "Kitchen Lights Led 2 Color" (Kitchen_Lights_Control) ["Point"] {channel="zwavejs:node:c503e1bad6:node97:configuration-status-led-2-color"}
 Number Kitchen_Lights_LED_3_Color "Kitchen Lights Led 3 Color" (Kitchen_Lights_Control) ["Point"] {channel="zwavejs:node:c503e1bad6:node97:configuration-status-led-3-color"}
@@ -53,11 +53,11 @@ Number Kitchen_Lights_Scene_1 "Kitchen Lights Scene 1" (Kitchen_Lights_Control, 
 Number Kitchen_Lights_Scene_2 "Kitchen Lights Scene 2" (Kitchen_Lights_Control, Kitchen_Lights_Scenes_2, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node97:central-scene-scene-002"}
 
 Group Kitchen_Table_Lights_Control (Kitchen) ["Equipment"]
-Switch Kitchen_Table_Lights "Kitchen Table Lights" <lightbulb> (Kitchen_Table_Lights_Control, Normal_Kitchen_Lights, All_Kitchen_Lights) ["Switch", "Light"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node110:binary-switch-value" }
+Switch Kitchen_Table_Lights "Kitchen Table Lights" <lightbulb> (Kitchen_Table_Lights_Control, Normal_Kitchen_Lights, All_Kitchen_Lights) ["Switch", "Light"] { matter="OnOffLight" [label="Kitchen Table Lights", fixedLabels="room=Kitchen"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node110:binary-switch-value" }
 Number Kitchen_Table_Lights_Scene_1 "Kitchen Table Lights Scene 1" (Kitchen_Table_Lights_Control, Kitchen_Lights_Scenes_1, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node110:central-scene-scene-001"}
 Number Kitchen_Table_Lights_Scene_2 "Kitchen Table Lights Scene 2" (Kitchen_Table_Lights_Control, Kitchen_Lights_Scenes_2, Clear_Scenes) {channel="zwavejs:node:c503e1bad6:node110:central-scene-scene-002"}
 
 Switch Kitchen_Back_Door_Contact "Back Door" (Kitchen, House_Perimeter_Contacts) ["OpenState"] { homekit="ContactSensor", channel="homeassistant:device:26bcbec1ee:84f3ebcbcbab:zone_3" }
 
 Group Kitchen_Sink_Light_Control (Kitchen) ["Equipment"]
-Switch Kitchen_Sink_Light "Kitchen Sink Light" <lightbulb> (Kitchen_Sink_Light_Control) ["Switch"] { homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node80:binary-switch-value" }
+Switch Kitchen_Sink_Light "Kitchen Sink Light" <lightbulb> (Kitchen_Sink_Light_Control) ["Switch"] { matter="OnOffLight" [label="Kitchen Sink Light", fixedLabels="room=Kitchen"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node80:binary-switch-value" }

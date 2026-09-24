@@ -16,7 +16,7 @@ Switch                   Office_Bugg_GIRobot  "GI Robot Zoom"  (Office, Zoom_Act
 //Switch Office_Monitor_LED "Monitor LEDs" (Office) ["Lightbulb"] { homekit="Lighting", channel="hyperion:serverNG:3072a6de25:leddevice"}
 
 Group   Office_Lights_Control                                   (Office)                                                   ["Equipment"]
-Switch  Office_Lights_Switch       "Office Lights"              (Office_Lights_Control)                                    ["Switch", "Light"]  {homekit="Lighting", alexa="Lighting", channel="zwavejs:node:c503e1bad6:node96:binary-switch-value"}
+Switch  Office_Lights_Switch       "Office Lights"              (Office_Lights_Control)                                    ["Switch", "Light"]  {matter="OnOffLight" [label="Office Lights", fixedLabels="room=Office"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node96:binary-switch-value"}
 Number  Office_Lights_LED_1_Color  "Office Lights Led 1 Color"  (Office_Lights_Control)                                    ["Point"]            {channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-1-color"}
 Number  Office_Lights_LED_2_Color  "Office Lights Led 2 Color"  (Office_Lights_Control)                                    ["Point"]            {channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-2-color"}
 Number  Office_Lights_LED_3_Color  "Office Lights Led 3 Color"  (Office_Lights_Control)                                    ["Point"]            {channel="zwavejs:node:c503e1bad6:node96:configuration-status-led-3-color"}
