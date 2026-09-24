@@ -24,6 +24,34 @@ This applies to every task — no matter how small. A one-line item change still
 
 ---
 
+## Git Workflow
+
+**Changes land directly on `main`.** This repository has a GitHub remote
+(`git@github.com:ktgeek/openhab-stuff.git`), but it is a single-maintainer configuration repo with no
+pull-request workflow — there is no review queue for a branch to wait in. Commit to `main`; do not create
+a feature branch or open a PR unless explicitly asked.
+
+This overrides the general "branch before committing when the repo has a forge remote" default. The
+plan-before-editing requirement above still applies in full — landing on `main` is not permission to skip
+the approved plan.
+
+**Commit messages** use `<area>: <description>`, or a bare `<description>` where no area is meaningful:
+
+    items: move dimmers from homekit to matter
+    persistence: drop the 30-day retention default
+
+Conventional Commits' `type(scope):` prefix is deliberately **not** used here — this is a configuration
+repo, and `feat`/`fix`/`chore` do not map usefully onto item, rule and service config changes. The area is
+the part of the repo touched: `items`, `rules`, `things`, `services`, `persistence`, `transform`, `agents`.
+
+Descriptions are imperative and lowercase with no trailing period. Subject aims for 50 characters, capped
+at 72; body wraps at 72 and explains *why*, not what.
+
+**Do not infer the commit convention from the existing log.** Commits predating this section are
+inconsistent and are not a guide. This written statement is the authority.
+
+---
+
 ## Directory Structure
 
 | Path | Purpose |
