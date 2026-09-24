@@ -151,7 +151,7 @@ The rooms (or distinct areas) defined in the house are:
 | Living Room | First Floor |
 | Christmas | Meta |
 | Dinah's Room | Second Floor |
-| Evan's Room | Second Floor |
+| Evan's Bedroom | Second Floor |
 | Kitchen Bathroom | First Floor |
 | Side Yard | Outside |
 
@@ -216,7 +216,7 @@ Check these before implementing new device logic — reuse existing abstractions
 | MQTT | MQTT broker (UUID: `26bcbec1ee`) | Tasmota devices, Zigbee2MQTT bridge, Z-Wave JS communication |
 | Z-Wave JS | MQTT-based | Wall switches, thermostats, locks |
 | Zigbee | via zigbee2mqtt | Sensors, bulbs |
-| Matter | Matter binding (bridge role) | Bidirectionally links select items — currently the thermostats — with Apple Home over Matter: commands from Siri/the Home app/HomeKit automations arrive as item commands in openHAB, and openHAB item state changes are reported back out to Apple Home. It never talks to the Z-Wave radio or any device directly — Z-Wave JS (above) is still the actual device connection; Matter only bridges to/from openHAB's item layer. |
+| Matter | Matter binding (bridge role) | Bidirectionally links items with Apple Home over Matter: commands from Siri/the Home app/HomeKit automations arrive as item commands in openHAB, and openHAB item state changes are reported back out to Apple Home. Covers the thermostats, on/off and dimmable lights, color LED strips, and temperature/humidity/occupancy/contact sensors — the Matter bridge has no device type for garage door openers, smoke/CO alarms, leak sensors, the front door lock, outlets, fans, or generic virtual switches, so those stay on HomeKit below. It never talks to the Z-Wave radio or any device directly — Z-Wave JS (above) is still the actual device connection; Matter only bridges to/from openHAB's item layer. |
 | Bond Home | Bond binding | Ceiling fans |
 | Hiome | REST API | Occupancy counting sensors |
 | Kwikset | Z-Wave (see `kwikset.rb`) | Smart lock keypad events |
