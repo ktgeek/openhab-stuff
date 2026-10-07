@@ -98,7 +98,7 @@ RSpec.describe "lock_rules.rb" do
 
   describe "House_Perimeter_Contacts / lock status LEDs and notifications" do
     it "lights the perimeter LEDs red when a perimeter contact opens" do
-      House_Perimeter_Contacts.update(ON)
+      House_Perimeter_Contacts.update(OPEN)
 
       expect(awtrix).to have_received(:set_indicator_color).with(
         Awtrix3::INDICATORS[House_Perimeter_Contacts], Awtrix3::Color::RED
@@ -107,7 +107,7 @@ RSpec.describe "lock_rules.rb" do
 
     it "lights the perimeter LEDs yellow when contacts are closed but the door is unlocked" do
       Entrance_FrontDoor_Lock_Target.update(OFF)
-      House_Perimeter_Contacts.update(OFF)
+      House_Perimeter_Contacts.update(CLOSED)
 
       expect(awtrix).to have_received(:set_indicator_color).with(
         Awtrix3::INDICATORS[House_Perimeter_Contacts], Awtrix3::Color::YELLOW
@@ -115,7 +115,7 @@ RSpec.describe "lock_rules.rb" do
     end
 
     it "sends a door-status notification with no LED color when the door locks with contacts already closed" do
-      House_Perimeter_Contacts.update(OFF)
+      House_Perimeter_Contacts.update(OPEN)
       Entrance_FrontDoor_Lock_Target.update(ON)
 
       expect(awtrix).to have_received(:show_custom_notification).with(

@@ -63,7 +63,7 @@ end
 changed(House_Perimeter_Contacts, Entrance_FrontDoor_Lock_Target) do |event|
   item = event.item
 
-  color = if House_Perimeter_Contacts.on?
+  color = if House_Perimeter_Contacts.open?
             { homeseer: Homeseer::LedColor::RED, awtrix: Awtrix3::Color::RED }
           elsif Entrance_FrontDoor_Lock_Target.off?
             { homeseer: Homeseer::LedColor::YELLOW, awtrix: Awtrix3::Color::YELLOW }
@@ -79,7 +79,7 @@ changed(House_Perimeter_Contacts, Entrance_FrontDoor_Lock_Target) do |event|
                 when Entrance_FrontDoor_Lock_Target
                   item.off? ? "Unlocked" : "Locked"
                 when House_Perimeter_Contacts
-                  item.on? ? "Open" : "Closed"
+                  item.open? ? "Open" : "Closed"
                 end
 
   message = "#{item.label} is now #{print_state}"
