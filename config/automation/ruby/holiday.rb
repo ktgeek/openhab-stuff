@@ -106,7 +106,7 @@ end
 
 # wolf_last_change = nil
 
-# updated(Front_Yard_Decoration_Mat_Contact, to: CLOSED) do
+# updated(Front_Yard_Decoration_Mat_Contact, to: ON) do
 #   now = Time.now
 #   logger.warn("Wolf mat triggered: #{wolf_last_change} now: #{now}")
 #   if wolf_last_change.nil? || wolf_last_change < 15.seconds.ago

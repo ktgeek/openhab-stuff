@@ -10,7 +10,7 @@ Switch  Front_Yard_Outdoor_Decorations_Switch       "Front Yard Outdoor Decorati
 Switch  Porch_Decorations_Switch                    "Porch Decorations"               <party>      (Front_Yard, Christmas_Outside)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable", channel="zwavejs:node:c503e1bad6:node14:binary-switch-value"}
 Switch  Front_Yard_Side_Holiday_Decorations_Switch  "Side Holiday Decorations"        <party>      (Front_Yard, Christmas_Outside)  ["WallSwitch"]  {channel="zwavejs:node:c503e1bad6:node261:binary-switch-value-2"}
 
-Contact  Front_Yard_Decoration_Mat_Contact  "Front Yard Decoration Mat"  (Front_Yard)  ["Sensor"]  {channel="mqtt:topic:26bcbec1ee:41888ff891:mat_sensor"}
+Switch  Front_Yard_Decoration_Mat_Contact  "Front Yard Decoration Mat"  (Front_Yard)  ["Sensor"]  {channel="esphome:device:jeff-mat:mat_sensor"}
 
 Group  Porch_Lights        "Porch Lights"        (Porch)                            ["Lightbulb"]
 Color  Porch_Lights_Color  "Porch Lights Color"  (Porch_Lights, Front_Yard_Lights)  ["Lightbulb"]  {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F1221051039810110150109113116116_5F2:light#color", matter="ColorLight" [label="Porch Lights", fixedLabels="room=Front Yard"], alexa="Light", autoupdate="false"}
