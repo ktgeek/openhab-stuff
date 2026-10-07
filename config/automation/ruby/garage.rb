@@ -23,7 +23,7 @@ def awtrix_notifications(message:, info:, item:)
   awtrix.show_custom_notification(message:, icon: info[:awtrix_icon], color: info[:awtrix_color])
 end
 
-changed(Garage_SmallDoor_Current_Operation) do |event|
+changed(Garage_SmallDoor_Current_Operation, Garage_LargeDoor_Current_Operation) do |event|
   group_name = event.item.groups.first.name
   position, dstate, dstate_binary = %w[Position State State_Binary].map { |n| items["#{group_name}_#{n}"] }
 

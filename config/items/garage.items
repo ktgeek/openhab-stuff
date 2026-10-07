@@ -19,11 +19,12 @@ Switch         Garage_SmallDoor_Obstruction        "Small Garage Door Opener Obs
 Switch         Garage_SmallDoor_Motion             "Small Garage Door Opener Motion Detected"     (Garage_SmallDoor)            {channel="esphome:device:small-garage-door:motion"}
 Switch         Garage_SmallDoor_Light              "Small Garage Door Opener Light"               (Garage_SmallDoor)            {channel="esphome:device:small-garage-door:light", homekit="Lighting"}
 
-Group          Garage_LargeDoor               "Large Garage Door"                            (Garage)            ["Door"]  {homekit="GarageDoorOpener", alexa="GarageDoor"}
-String         Garage_LargeDoor_State         "Large Garage Door State"                      (Garage_LargeDoor)            {channel="homeassistant:device:26bcbec1ee:083a8dfad8e6:door#state" [profile="ruby:upcase_state"], autoupdate="false", homekit="GarageDoorOpener.CurrentDoorState"}
-Switch         Garage_LargeDoor_State_Binary  "Large Garage Door State (binary)"             (Garage_LargeDoor)            {channel="homeassistant:device:26bcbec1ee:083a8dfad8e6:door#state" [profile="ruby:binary_open_state"], autoupdate="false", alexa="GarageDoor.CurrentOpenState"}
-Switch         Garage_LargeDoor_Target_State  "Large Garage Door Target State"               (Garage_LargeDoor)            {homekit="GarageDoorOpener.TargetDoorState", alexa="GarageDoor.TargetOpenState"}
-Rollershutter  Garage_LargeDoor_Position      "Large Garage Door Position"                   (Garage_LargeDoor)            {unit="%", channel="homeassistant:device:26bcbec1ee:083a8dfad8e6:door#cover"}
-Switch         Garage_LargeDoor_Obstruction   "Large Garage Door Opener Obstruction Status"  (Garage_LargeDoor)            {channel="homeassistant:device:26bcbec1ee:083a8dfad8e6:obstruction", homekit="GarageDoorOpener.ObstructionStatus", alexa="GarageDoor.ObstacleAlert"}
-Switch         Garage_LargeDoor_Motion        "Large Garage Door Opener Motion Detected"     (Garage_LargeDoor)            {channel="homeassistant:device:26bcbec1ee:083a8dfad8e6:motion"}
-Switch         Garage_LargeDoor_Light         "Large Garage Door Opener Light"               (Garage_LargeDoor)            {channel="homeassistant:device:26bcbec1ee:083a8dfad8e6:light", homekit="Lighting"}
+Group          Garage_LargeDoor                    "Large Garage Door"                            (Garage)            ["Door"]  {homekit="GarageDoorOpener", alexa="GarageDoor"}
+String         Garage_LargeDoor_State              "Large Garage Door State"                      (Garage_LargeDoor)            {homekit="GarageDoorOpener.CurrentDoorState"}
+Switch         Garage_LargeDoor_State_Binary       "Large Garage Door State (binary)"             (Garage_LargeDoor)            {alexa="GarageDoor.CurrentOpenState"}
+String         Garage_LargeDoor_Current_Operation  "Large Garage Door Current Operation"          (Garage_LargeDoor)            {channel="esphome:device:large-garage-door:door#current_operation"}
+Switch         Garage_LargeDoor_Target_State       "Large Garage Door Target State"               (Garage_LargeDoor)            {homekit="GarageDoorOpener.TargetDoorState", alexa="GarageDoor.TargetOpenState"}
+Rollershutter  Garage_LargeDoor_Position           "Large Garage Door Position"                   (Garage_LargeDoor)            {unit="%", channel="esphome:device:large-garage-door:door#position"}
+Switch         Garage_LargeDoor_Obstruction        "Large Garage Door Opener Obstruction Status"  (Garage_LargeDoor)            {channel="esphome:device:large-garage-door:obstruction", homekit="GarageDoorOpener.ObstructionStatus", alexa="GarageDoor.ObstacleAlert"}
+Switch         Garage_LargeDoor_Motion             "Large Garage Door Opener Motion Detected"     (Garage_LargeDoor)            {channel="esphome:device:large-garage-door:motion"}
+Switch         Garage_LargeDoor_Light              "Large Garage Door Opener Light"               (Garage_LargeDoor)            {channel="esphome:device:large-garage-door:light", homekit="Lighting"}
