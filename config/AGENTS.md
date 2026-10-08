@@ -5,7 +5,7 @@ This directory (`/etc/openhab`) is the configuration directory for an OpenHAB ho
 runtime.
 
 Primary automation language: **JRuby DSL** via the `openhab-scripting` gem.
-Key ecosystems integrated: HomeKit, Alexa, Z-Wave JS, Zigbee (via zigbee2mqtt), MQTT, Matter.
+Key ecosystems integrated: HomeKit, Alexa, Z-Wave JS, Zigbee (via zigbee2mqtt), MQTT, Matter, ESPHome.
 
 ---
 
@@ -56,8 +56,8 @@ inconsistent and are not a guide. This written statement is the authority.
 
 | Path | Purpose |
 |------|---------|
-| `automation/ruby/` | Active automation rules (20 `.rb` files) and libraries (`lib/`, 13 files) |
-| `items/` | Item definitions (22 `.items` files, one per room/feature area) |
+| `automation/ruby/` | Active automation rules (21 `.rb` files) and libraries (`lib/`, 15 files) |
+| `items/` | Item definitions (21 `.items` files, one per room/feature area) |
 | `things/` | DSL Thing definitions (mostly managed via UI; check here first) |
 | `rules/` | Legacy DSL rules directory — mostly empty; `automation/ruby/` is primary |
 | `services/` | Service configuration (`.cfg` files) — **CRITICAL: see warnings below** |
@@ -163,10 +163,11 @@ All active rules live in `automation/ruby/*.rb`. Rule files are named by room or
 
 ```
 backyard.rb       basement.rb       basement_remote.rb  bedroom.rb
-entrance_lights.rb  evening_lights.rb  family_room.rb  front_lights.rb
-garage.rb         holiday.rb        kitchen.rb          kitchen_bathroom.rb
-laundry_room.rb   living_room.rb    lock_rules.rb       office.rb
-profiles.rb       scenes.rb         sun.rb              thermostats.rb
+entrance_lights.rb  evans_bedroom.rb   evening_lights.rb   family_room.rb
+front_lights.rb   garage.rb         holiday.rb          kitchen.rb
+kitchen_bathroom.rb  laundry_room.rb  living_room.rb    lock_rules.rb
+office.rb         profiles.rb       scenes.rb           sun.rb
+thermostats.rb
 ```
 
 **Common automation patterns:**
@@ -184,6 +185,15 @@ profiles.rb       scenes.rb         sun.rb              thermostats.rb
 - `adjust_rainin_state` — Rain sensor calibration
 - `number_channel_switch` — Converts a 0/1 Number channel for a ON/OFF Switch Item
 - `is_low_state` — Converts a Number channel to a ON/OFF Switch Item given a threshold configuration
+
+**ESPHome-backed items:**
+
+- Perimeter door sensors (`House_Perimeter_Contacts` members) are `Contact` items (`OPEN`/`CLOSED`), not `Switch` — use
+  `.open?`/`.closed?` and `OPEN`/`CLOSED` in rules and specs. `Front_Yard_Decoration_Mat_Contact` is still a
+  `Switch` despite its name.
+- The garage door openers expose only `door#current_operation` and `door#position`; `garage.rb` derives
+  `Garage_{Small,Large}Door_State` and `_State_Binary` from them (`IDLE` plus position → `OPEN`/`CLOSED`, `IS_*` →
+  the transitional state), so those two items have no channel link of their own.
 
 ---
 
@@ -204,6 +214,9 @@ Check these before implementing new device logic — reuse existing abstractions
 | `tv_notification.rb` | Apple TV notification delivery |
 | `weather.rb` | Weather Underground station integration |
 | `holidays.rb` | Holiday constants used by decoration lighting rules |
+| `night_off.rb` | Shared "turn off at 10:30pm, or when VisitorMode ends overnight" rule pattern (`evening_lights.rb`, `holiday.rb`) |
+| `nut_ups.rb` | NUT (Network UPS Tools) `ups.status` flag constants |
+| `sun_status.rb` | `UP`/`DOWN` states for the `Sun_Status` item, maintained by `sun.rb` |
 | `color.rb` | RGB/XY color conversion helpers |
 | `time_helpers.rb` | Time/schedule utility methods |
 
@@ -213,15 +226,18 @@ Check these before implementing new device logic — reuse existing abstractions
 
 | Integration | Protocol/Method | Notes |
 |-------------|----------------|-------|
-| MQTT | MQTT broker (UUID: `26bcbec1ee`) | Tasmota devices, Zigbee2MQTT bridge, Z-Wave JS communication |
-| Z-Wave JS | MQTT-based | Wall switches, thermostats, locks |
+| MQTT | MQTT broker (UUID: `26bcbec1ee`) | Tasmota devices, Zigbee2MQTT bridge (surfaced as `homeassistant:device:` Things via MQTT discovery), Awtrix, Homie |
+| Z-Wave JS | `zwavejs` binding (`zwavejs:gateway`) | Wall switches, thermostats, locks, smoke/leak sensors |
 | Zigbee | via zigbee2mqtt | Sensors, bulbs |
 | Matter | Matter binding (bridge role) | Bidirectionally links items with Apple Home over Matter: commands from Siri/the Home app/HomeKit automations arrive as item commands in openHAB, and openHAB item state changes are reported back out to Apple Home. Covers the thermostats, on/off and dimmable lights, color LED strips, and temperature/humidity/occupancy/contact sensors — the Matter bridge has no device type for garage door openers, smoke/CO alarms, leak sensors, the front door lock, outlets, fans, or generic virtual switches, so those stay on HomeKit below. It never talks to the Z-Wave radio or any device directly — Z-Wave JS (above) is still the actual device connection; Matter only bridges to/from openHAB's item layer. |
+| ESPHome | ESPHome add-on (`esphome:device:`) | Native-API ESP devices: the Konnected perimeter contact zones (`konnected`), both garage door openers (`small-garage-door`, `large-garage-door`), and the front yard decoration mat (`jeff-mat`). These replaced the earlier MQTT/Home Assistant-discovery Things for the same hardware. |
 | Bond Home | Bond binding | Ceiling fans |
 | Hiome | REST API | Occupancy counting sensors |
 | Kwikset | Z-Wave (see `kwikset.rb`) | Smart lock keypad events |
 | HomeKit | HomeKit binding (bridge role) | Same bidirectional item-layer bridge as Matter above, via the legacy HomeKit Accessory Protocol — driven by item metadata rather than per-device Things. |
 | Alexa | Alexa binding | Amazon Echo devices |
+| Amazon Echo Control | `amazonechocontrol` binding | Echo / Echo Show devices |
+| Harmony Hub | `harmonyhub` binding | Family room Apple TV |
 | LG WebOS | WebOS binding | TV control |
 | Onkyo / Pioneer AVR | Dedicated bindings | Audio receiver control |
 | Awtrix3 | MQTT | Matrix notification display |
