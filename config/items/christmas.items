@@ -31,7 +31,7 @@ Switch  HiddenRoom_HolidayLED_Power  "HiddenRoom Holiday LED Power"  (Christmas_
 //String HiddenRoom_HolidayLED_Presets "HiddenRoom Holiday LED Presets" (HiddenRoom_HolidayLED) ["Point"] { channel="wled:json:9c9c1f429df9:presets" }
 
 //Group Bathroom
-Switch KitchenBathroom_PenguinLight_Switch "Penguin Light" <poweroutlet_us> (Christmas_Lights, Christmas_Lights_All, Kitchen) ["Lightbulb"] { channel="mqtt:topic:26bcbec1ee:40b393a346:power" }
+Switch KitchenBathroom_PenguinLight_Switch "Penguin Light" <poweroutlet_us> (Christmas_Lights, Christmas_Lights_All, Kitchen) ["Lightbulb"] { channel="esphome:device:kitchen-bathroom-decoration:relay" }
 
 // Switch Basement_ChristmasTree_Switch "Basement Christmas Tree" <poweroutlet_us> (Basement) ["WallSwitch"] { homekit="Lighting", alexa="ChristmasTree", channel="zwavejs:node:c503e1bad6:node60:binary-switch-value" }
 // Switch FamilyRoom_ChristmasTree_Switch "Family Room Christmas Tree" <poweroutlet_us> (FamilyRoom) ["WallSwitch"] { channel="zwavejs:node:c503e1bad6:node17:binary-switch-value", homekit="Lighting", alexa="ChristmasTree" }
