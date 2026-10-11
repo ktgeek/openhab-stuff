@@ -3,10 +3,8 @@ Group  Porch  "Porch"  <frontdoor>  (Home)  ["Porch"]
 //Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (Porch) ["Lightbulb"] { homekit="Lighting", alexa="Lighting" }
 Group:Switch:OR(ON,OFF) Front_Yard_Lights "Front Yard Lights" <lightbulb> (Porch, Christmas_Outside) { homekit="Lighting", alexa="Lighting" }
 
-String  Entrance_FrontYardLights_Button_Action  "Front Door Lights Button Action"  (Porch)  ["Point"]  {channel="mqtt:topic:26bcbec1ee:916c8e28e1:button_action"}
-
 Switch  Front_Yard_Outdoor_Decorations_Switch       "Front Yard Outdoor Decorations"  <lightbulb>  (Front_Yard, Front_Yard_Lights)  ["Lightbulb"]   {alexa="Lighting", channel="zwavejs:node:c503e1bad6:node261:binary-switch-value-1"}
-//Switch Front_Yard_Outdoor_Decorations_Switch "Front Yard Outdoor Decorations" <lightbulb> (Front_Yard) ["Lightbulb"] { alexa="Lighting", channel="zwavejs:node:c503e1bad6:node261:binary-switch-value-1" }
+//Switch  Front_Yard_Outdoor_Decorations_Switch       "Front Yard Outdoor Decorations"  <lightbulb>  (Front_Yard)                     ["Lightbulb"]   {alexa="Lighting", channel="zwavejs:node:c503e1bad6:node261:binary-switch-value-1"}
 Switch  Porch_Decorations_Switch                    "Porch Decorations"               <party>      (Front_Yard, Christmas_Outside)  ["WallSwitch"]  {homekit="Switchable", alexa="Switchable", channel="zwavejs:node:c503e1bad6:node14:binary-switch-value"}
 Switch  Front_Yard_Side_Holiday_Decorations_Switch  "Side Holiday Decorations"        <party>      (Front_Yard, Christmas_Outside)  ["WallSwitch"]  {channel="zwavejs:node:c503e1bad6:node261:binary-switch-value-2"}
 

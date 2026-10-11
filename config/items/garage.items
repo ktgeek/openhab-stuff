@@ -5,8 +5,6 @@ Group  Garage_LargeDoor_Open_LEDs_Blink                      (Garage)
 Group  Garage_SmallDoor_Open_LEDs                            (Garage)
 Group  Garage_SmallDoor_Open_LEDs_Blink                      (Garage)
 
-String  Garage_FrontYardLights_Button_Action  "Outdoor Garage Lights Button Action"  (Porch)  ["Point"]  {channel="mqtt:topic:26bcbec1ee:1e9a931646:button_action"}
-
 Contact  Garage_House_Door_Contact  "Garage House Door"  (Garage, House_Perimeter_Contacts)  ["OpenState"]  {matter="ContactSensor" [label="Garage House Door", fixedLabels="room=Garage"], channel="esphome:device:konnected:zone_2"}
 
 Group          Garage_SmallDoor                    "Small Garage Door"                            (Garage)            ["Door"]  {homekit="GarageDoorOpener", alexa="GarageDoor"}

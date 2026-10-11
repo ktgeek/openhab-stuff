@@ -8,9 +8,8 @@ rule "Groups Lights follow ON/OFF" do
   run { |event| event.group.members.ensure.command(event.state) }
 end
 
-updated Garage_FrontYardLights_Button_Action, Entrance_FrontYardLights_Button_Action, to: "SINGLE" do
-  Front_Yard_Lights.toggle
-end
+FRONT_YARD_LIGHT_SWITCHES = %w[porch-light-switch garage-outdoor-light-switch].map { |t| things["esphome:device:#{t}"] }
+channel("button", thing: FRONT_YARD_LIGHT_SWITCHES, triggered: "single") { Front_Yard_Lights.toggle }
 
 rule "Morning Lights On For Rides", id: "morning_lights_on_for_rides" do
   cron "0 0 5 ? * TUE,THU"
