@@ -15,8 +15,8 @@ Number:Power  DinahsRoom_Hall_Light_Watts   "Dinah's Room Hall Light Power"     
 
 // First Floor - Dining Room
 Group         DiningRoom_Table                                                      (DiningRoom)                                                ["PowerOutlet"]
-Switch        DiningRoom_Table_Switch  "Dining Room Globe"        <poweroutlet_us>  (Christmas_Lights, Christmas_Lights_All, DiningRoom_Table)  ["Switch"]          {channel="mqtt:topic:26bcbec1ee:bcd698f7b4:power"}
-Number:Power  DiningRoom_Table_Watts   "Dining Room Globe Power"                    (DiningRoom_Table)                                          ["Point", "Power"]  {channel="mqtt:topic:26bcbec1ee:bcd698f7b4:currentPower", timescaledb=" " [retentionDays="1095", aggregation="AVG", downsampleInterval="1h"]}
+Switch        DiningRoom_Table_Switch  "Dining Room Globe"        <poweroutlet_us>  (Christmas_Lights, Christmas_Lights_All, DiningRoom_Table)  ["Switch"]          {channel="esphome:device:dining-room-globe:relay"}
+Number:Power  DiningRoom_Table_Watts   "Dining Room Globe Power"                    (DiningRoom_Table)                                          ["Point", "Power"]  {channel="esphome:device:dining-room-globe:power", timescaledb=" " [retentionDays="1095", aggregation="AVG", downsampleInterval="1h"]}
 
 Group         DiningRoom_Window                                                        (DiningRoom)                                                 ["PowerOutlet"]
 Switch        DiningRoom_Windows_Switch  "Dining Room Windows"       <poweroutlet_us>  (Christmas_Lights, Christmas_Lights_All, DiningRoom_Window)  ["Switch"]          {channel="mqtt:topic:26bcbec1ee:5b60187d69:power"}
