@@ -2,23 +2,23 @@
 
 require "homeseer"
 require "tv_notification"
-require "awtrix3"
+require "awtrix"
 
 GARAGE_STATE_INFO = {
   "OPENING" => { target_state: ON, blink_state: ON, color: Homeseer::LedColor::RED,
-                 awtrix_color: Awtrix3::Color::RED, awtrix_icon: "garagedooropen" },
+                 awtrix_color: Awtrix::Color::RED, awtrix_icon: "garagedooropen" },
   "OPEN" => { target_state: ON, blink_state: OFF, color: Homeseer::LedColor::RED,
-              awtrix_color: Awtrix3::Color::RED, awtrix_icon: "garageopened" },
+              awtrix_color: Awtrix::Color::RED, awtrix_icon: "garageopened" },
   "CLOSING" => { target_state: OFF, blink_state: ON, color: Homeseer::LedColor::GREEN,
-                 awtrix_color: Awtrix3::Color::GREEN, awtrix_icon: "garagedoorclose" },
+                 awtrix_color: Awtrix::Color::GREEN, awtrix_icon: "garagedoorclose" },
   "CLOSED" => { target_state: OFF, blink_state: OFF, color: Homeseer::LedColor::GREEN,
                 awtrix_color: nil, awtrix_icon: "garageclosed" }
 }.freeze
 
 def awtrix_notifications(message:, info:, item:)
-  awtrix = Awtrix3.office_clock
+  awtrix = Awtrix.all_clocks
 
-  awtrix.set_indicator_color(Awtrix3::INDICATORS[item], info[:awtrix_color], blink: info[:blink_state] == ON)
+  awtrix.set_indicator_color(Awtrix::INDICATORS[item], info[:awtrix_color], blink: info[:blink_state] == ON)
 
   awtrix.show_custom_notification(message:, icon: info[:awtrix_icon], color: info[:awtrix_color])
 end

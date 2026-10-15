@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe "lock_rules.rb" do
-  let(:awtrix) { instance_double(Awtrix3, show_custom_notification: nil, set_indicator_color: nil) }
+  let(:awtrix) { instance_double(Awtrix::ClockGroup, show_custom_notification: nil, set_indicator_color: nil) }
 
-  before { allow(Awtrix3).to receive(:office_clock).and_return(awtrix) }
+  before { allow(Awtrix).to receive(:all_clocks).and_return(awtrix) }
 
   describe "Entrance_FrontDoor_Lock_Alarm_Type" do
     it "sets CurrentState to JAMMED when the keypad jams" do
@@ -101,7 +101,7 @@ RSpec.describe "lock_rules.rb" do
       House_Perimeter_Contacts.update(OPEN)
 
       expect(awtrix).to have_received(:set_indicator_color).with(
-        Awtrix3::INDICATORS[House_Perimeter_Contacts], Awtrix3::Color::RED
+        Awtrix::INDICATORS[House_Perimeter_Contacts], Awtrix::Color::RED
       )
     end
 
@@ -110,7 +110,7 @@ RSpec.describe "lock_rules.rb" do
       House_Perimeter_Contacts.update(CLOSED)
 
       expect(awtrix).to have_received(:set_indicator_color).with(
-        Awtrix3::INDICATORS[House_Perimeter_Contacts], Awtrix3::Color::YELLOW
+        Awtrix::INDICATORS[House_Perimeter_Contacts], Awtrix::Color::YELLOW
       )
     end
 

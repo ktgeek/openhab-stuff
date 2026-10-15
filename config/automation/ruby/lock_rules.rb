@@ -6,7 +6,7 @@ require "homeseer"
 require "kwikset"
 require "zwave"
 require "tv_notification"
-require "awtrix3"
+require "awtrix"
 require "active_support/core_ext/hash/indifferent_access"
 
 updated Entrance_FrontDoor_Lock_Alarm_Type, to: [Kwikset::Alarm::KEYPAD_JAMMED,
@@ -27,7 +27,7 @@ updated Entrance_FrontDoor_Lock_Raw_Notification do |event|
     logger.info(message)
     Notification.send(message)
     TvNotification.notify(message:)
-    Awtrix3.office_clock.show_custom_notification(
+    Awtrix.all_clocks.show_custom_notification(
       message: message,
       icon: "front_door_lock"
     )
@@ -64,16 +64,16 @@ changed(House_Perimeter_Contacts, Entrance_FrontDoor_Lock_Target) do |event|
   item = event.item
 
   color = if House_Perimeter_Contacts.open?
-            { homeseer: Homeseer::LedColor::RED, awtrix: Awtrix3::Color::RED }
+            { homeseer: Homeseer::LedColor::RED, awtrix: Awtrix::Color::RED }
           elsif Entrance_FrontDoor_Lock_Target.off?
-            { homeseer: Homeseer::LedColor::YELLOW, awtrix: Awtrix3::Color::YELLOW }
+            { homeseer: Homeseer::LedColor::YELLOW, awtrix: Awtrix::Color::YELLOW }
           else
             { homeseer: Homeseer::LedColor::OFF, awtrix: nil }
           end
   House_Perimeter_LEDs.members.ensure.command(color[:homeseer])
 
-  awtrix = Awtrix3.office_clock
-  awtrix.set_indicator_color(Awtrix3::INDICATORS[House_Perimeter_Contacts], color[:awtrix])
+  awtrix = Awtrix.all_clocks
+  awtrix.set_indicator_color(Awtrix::INDICATORS[House_Perimeter_Contacts], color[:awtrix])
 
   print_state = case item
                 when Entrance_FrontDoor_Lock_Target

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe "garage.rb" do
-  let(:awtrix) { instance_double(Awtrix3, show_custom_notification: nil, set_indicator_color: nil) }
+  let(:awtrix) { instance_double(Awtrix::ClockGroup, show_custom_notification: nil, set_indicator_color: nil) }
 
-  before { allow(Awtrix3).to receive(:office_clock).and_return(awtrix) }
+  before { allow(Awtrix).to receive(:all_clocks).and_return(awtrix) }
 
   describe "door state changes" do
     it "opens the target state, lights LEDs red, and notifies while the small door is opening" do
@@ -13,7 +13,7 @@ RSpec.describe "garage.rb" do
       expect(Garage_SmallDoor_Open_LEDs.members.map(&:state).uniq).to eq [Homeseer::LedColor::RED]
       expect(Garage_SmallDoor_Open_LEDs_Blink.members.all?(&:on?)).to be true
       expect(awtrix).to have_received(:show_custom_notification).with(
-        message: "Small Garage Door Opening", icon: "garagedooropen", color: Awtrix3::Color::RED
+        message: "Small Garage Door Opening", icon: "garagedooropen", color: Awtrix::Color::RED
       )
     end
 
@@ -31,7 +31,7 @@ RSpec.describe "garage.rb" do
       expect(Garage_SmallDoor_Target_State).to be_off
       expect(Garage_SmallDoor_Open_LEDs.members.map(&:state).uniq).to eq [Homeseer::LedColor::GREEN]
       expect(awtrix).to have_received(:set_indicator_color).with(
-        Awtrix3::INDICATORS[Garage_SmallDoor], nil, blink: false
+        Awtrix::INDICATORS[Garage_SmallDoor], nil, blink: false
       )
     end
 
@@ -41,7 +41,7 @@ RSpec.describe "garage.rb" do
       expect(Garage_LargeDoor_Target_State).to be_on
       expect(Garage_LargeDoor_Open_LEDs.members.map(&:state).uniq).to eq [Homeseer::LedColor::RED]
       expect(awtrix).to have_received(:show_custom_notification).with(
-        message: "Large Garage Door Opening", icon: "garagedooropen", color: Awtrix3::Color::RED
+        message: "Large Garage Door Opening", icon: "garagedooropen", color: Awtrix::Color::RED
       )
     end
 

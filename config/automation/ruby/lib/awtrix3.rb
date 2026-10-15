@@ -7,20 +7,6 @@ class Awtrix3
 
   def_delegators :@actions, :activate_indicator, :blink_indicator, :deactivate_indicator
 
-  INDICATORS = {
-    ::Garage_LargeDoor => 1,
-    ::Garage_SmallDoor => 2,
-    ::House_Perimeter_Contacts => 3
-  }.freeze
-
-  module Color
-    RED = [255, 0, 0].to_java(Java::int).freeze
-    GREEN = [0, 255, 0].to_java(Java::int).freeze
-    BLUE = [0, 0, 255].to_java(Java::int).freeze
-    YELLOW = [255, 255, 0].to_java(Java::int).freeze
-    WHITE = [255, 255, 255].to_java(Java::int).freeze
-  end
-
   def self.actions(thing)
     thing.actions("mqtt.awtrixlight")
   end
@@ -38,7 +24,7 @@ class Awtrix3
       "text" => message,
       "icon" => icon
     }
-    params["color"] = color if color
+    params["color"] = color.to_java(Java::int) if color
 
     @actions.show_custom_notification(params, false, true, true, "", "", false)
   end
@@ -46,10 +32,11 @@ class Awtrix3
   # Set the color of an indicator, or deactivate it if color is nil
   def set_indicator_color(indicator, color, blink: false)
     if color
+      java_color = color.to_java(Java::int)
       if blink
-        @actions.blink_indicator(indicator, color, 500)
+        @actions.blink_indicator(indicator, java_color, 500)
       else
-        @actions.activate_indicator(indicator, color)
+        @actions.activate_indicator(indicator, java_color)
       end
     else
       @actions.deactivate_indicator(indicator)
