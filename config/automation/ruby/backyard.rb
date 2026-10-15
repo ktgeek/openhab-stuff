@@ -21,7 +21,10 @@ changed(Backyard_Temperature, Backyard_Humidity, Backyard_Wind_Speed) do
       wind_speed: Backyard_Wind_Speed.state
     )
     Backyard_FeelsLike_Temperature.update(temp)
-    Office_Awtrix_OutdoorTemp_Text.ensure.command("#{temp}#{'°F' if temp < 100}")
+    outdoor_temp_text = "#{temp}#{'°F' if temp < 100}"
+    [Office_Awtrix_OutdoorTemp_Text, Bedroom_Awtrix_OutdoorTemp_Text].each do |item|
+      item.ensure.command(outdoor_temp_text)
+    end
   end
 end
 

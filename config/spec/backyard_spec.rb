@@ -42,10 +42,11 @@ RSpec.describe "backyard.rb" do
       expect(Backyard_FeelsLike_Temperature.state.to_f).to eq(72.5)
     end
 
-    it "commands Office_Awtrix_OutdoorTemp_Text with formatted reading" do
+    it "commands both Awtrix outdoor temp text items with formatted reading" do
       Backyard_Temperature.update(75)
       time_travel_and_execute_timers(3.seconds)
       expect(Office_Awtrix_OutdoorTemp_Text.state.to_s).to eq("72.5°F")
+      expect(Bedroom_Awtrix_OutdoorTemp_Text.state.to_s).to eq("72.5°F")
     end
 
     it "triggers when Backyard_Humidity changes" do
@@ -243,12 +244,13 @@ RSpec.describe "backyard.rb" do
     end
   end
 
-  describe "Office Awtrix outdoor temp text" do
+  describe "Awtrix outdoor temp text" do
     it "includes the °F unit when the temperature is shorter than 5 characters" do
       allow(Weather).to receive(:feels_like).and_return(72.5)
       Backyard_Temperature.update(75)
       time_travel_and_execute_timers(3.seconds)
       expect(Office_Awtrix_OutdoorTemp_Text.state.to_s).to eq("72.5°F")
+      expect(Bedroom_Awtrix_OutdoorTemp_Text.state.to_s).to eq("72.5°F")
     end
 
     it "omits the °F unit when the temperature is 5 characters long" do
@@ -256,6 +258,7 @@ RSpec.describe "backyard.rb" do
       Backyard_Temperature.update(101)
       time_travel_and_execute_timers(3.seconds)
       expect(Office_Awtrix_OutdoorTemp_Text.state.to_s).to eq("100.4")
+      expect(Bedroom_Awtrix_OutdoorTemp_Text.state.to_s).to eq("100.4")
     end
   end
 end
