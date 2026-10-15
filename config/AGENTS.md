@@ -214,7 +214,7 @@ Check these before implementing new device logic — reuse existing abstractions
 | `awtrix3.rb` | Awtrix 3 clock (Office) via the `mqtt.awtrixlight` actions; converts shared colors to Java `int[]` |
 | `awtrix_ng.rb` | AWTRIX NG clock (Bedroom) via the `awtrixng` actions; converts shared colors to `#RRGGBB` and builds the single notification params map |
 | `tv_notification.rb` | Apple TV notification delivery |
-| `weather.rb` | Weather Underground station integration |
+| `weather.rb` | Weather Underground / PWSWeather station uploads, plus Xweather present-weather lookup (`current_conditions`) and its mapping to AWTRIX NG overlays (`overlay_for`) |
 | `holidays.rb` | Holiday constants used by decoration lighting rules |
 | `night_off.rb` | Shared "turn off at 10:30pm, or when VisitorMode ends overnight" rule pattern (`evening_lights.rb`, `holiday.rb`) |
 | `nut_ups.rb` | NUT (Network UPS Tools) `ups.status` flag constants |
@@ -242,6 +242,7 @@ Check these before implementing new device logic — reuse existing abstractions
 | Harmony Hub | `harmonyhub` binding | Family room Apple TV |
 | LG WebOS | WebOS binding | TV control |
 | Onkyo / Pioneer AVR | Dedicated bindings | Audio receiver control |
+| Xweather | REST API (`weather.rb`) | Present-weather codes polled every 10 minutes by `backyard.rb` into `Backyard_Weather_Condition`, then mapped to the Bedroom AWTRIX NG weather overlay (`Bedroom_AwtrixClock_Overlay`, cleared with an empty string). Conditions come only from Xweather; a failed lookup clears the overlay. Frost is the one exception and uses `Backyard_Temperature`. |
 | Awtrix3 | MQTT | Matrix notification display (Office clock) |
 | AWTRIX NG | MQTT, `awtrixng:clock` / `awtrixng:app` Things (custom `awtrix-ng` add-on build) | Matrix notification display (Bedroom clock); app names allow only letters, digits, `-` and `_` |
 | OpenHAB Cloud | Cloud service | Remote access |
@@ -340,7 +341,7 @@ they're terse config, not prose, and wrapping a device/item definition line does
 
 | File / Pattern | Risk |
 |----------------|------|
-| `transform/weather_secrets.map` | Weather Underground API credentials |
+| `transform/weather_secrets.map` | Weather Underground / PWSWeather credentials and Xweather keys (`xweather_id`, `xweather_secret`, `weather_location`) |
 | `services/openhabcloud.cfg` | OpenHAB Cloud UUID and secret |
 | Any `.cfg` file containing `password`, `secret`, `token`, or `key` fields | Credentials |
 | `services/*.cfg` (all) | System-critical; incorrect edits can prevent OpenHAB from starting |
