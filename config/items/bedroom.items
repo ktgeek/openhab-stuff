@@ -49,6 +49,7 @@ Number:Dimensionless  Bedroom_AwtrixClock_Brightness      "Brightness [%d %%]"  
 Switch                Bedroom_AwtrixClock_AutoBrightness  "Auto Brightness"                          (Bedroom_AwtrixClock)  ["Switch"]      {channel="awtrixng:clock:26bcbec1ee:50fb9019a9:auto-brightness"}
 Number                Bedroom_AwtrixClock_Battery         "Battery Level [%d %%]"                    (Bedroom_AwtrixClock)  ["Battery"]     {channel="awtrixng:clock:26bcbec1ee:50fb9019a9:battery-level"}
 Switch                Bedroom_AwtrixClock_LowBattery      "Low Battery"                              (Bedroom_AwtrixClock)  ["LowBattery"]  {channel="awtrixng:clock:26bcbec1ee:50fb9019a9:low-battery"}
+String                Bedroom_AwtrixClock_Overlay         "Weather Overlay"                          (Bedroom_AwtrixClock)                {channel="awtrixng:clock:26bcbec1ee:50fb9019a9:overlay"}
 
 Group   Bedroom_Awtrix_OutdoorTemp_App      "Awtrix NG Clock Outdoor Temp App"
 Switch  Bedroom_Awtrix_OutdoorTemp_Enabled  "Outdoor Temp Enabled"  (Bedroom_Awtrix_OutdoorTemp_App)  {channel="awtrixng:app:50fb9019a9:outdoor_temp:enabled"}

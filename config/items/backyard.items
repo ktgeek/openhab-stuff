@@ -14,6 +14,7 @@ Number:Speed          Backyard_Windgust                   "Windgust [%d %unit%]"
 Number:Dimensionless  Backyard_UV                         "UV index [%d]"                                 <sun>          (Backyard_Weather_Station)  ["Measurement"]                 {channel="mqtt:topic:26bcbec1ee:24803daf2c:uv", timescaledb=" " [retentionDays="1095", aggregation="AVG", downsampleInterval="5m"]}
 
 DateTime              Backyard_Last_Updated              "Station Last Updated" <time>        (Backyard_Weather_Station)  ["Measurement"]                 {channel="mqtt:topic:26bcbec1ee:24803daf2c:time", timescaledb=" " [retentionDays="14"]}
+String                Backyard_Weather_Condition         "Xweather Condition [%s]"  <sun>         (Backyard_Weather_Station)
 
 Switch  Backyard_Outdoor_Decorations_Switch  "Backyard Outdoor Decorations"  <lightbulb>  (Backyard)                     ["Lightbulb"]  {matter="OnOffLight" [label="Backyard Outdoor Decorations", fixedLabels="room=Backyard"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node107:binary-switch-value"}
 Switch  Backyard_Patio_Decorations_Switch    "Backyard Patio Decorations"    <lightbulb>  (Backyard, Christmas_Outside)  ["Lightbulb"]  {channel="zwavejs:node:c503e1bad6:node16:binary-switch-value"}
