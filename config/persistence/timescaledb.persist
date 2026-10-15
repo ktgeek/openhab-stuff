@@ -28,7 +28,8 @@ Items {
   Entrance_FrontDoor_Lock_Raw_Notification,
   Bedroom_Echo_TTS, Basement_Echo_TTS, EvansRoom_Echo_TTS, Kitchen_Echo_TTS,
   Basement_TV_Toast, FamilyRoom_TV_Toast,
-  Office_Awtrix_OutdoorTemp_Text, Office_Awtrix_OutdoorTemp_Icon
+  Office_Awtrix_OutdoorTemp_Text, Office_Awtrix_OutdoorTemp_Icon,
+  Bedroom_Awtrix_OutdoorTemp_Text, Bedroom_Awtrix_OutdoorTemp_Icon
       : strategy = everyChange
 
   // Long-lived sensor and energy items (39): retentionDays=1095 (3-year) configured via item metadata.

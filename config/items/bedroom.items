@@ -42,3 +42,16 @@ Number  Bedroom_Hallway_Light_Scene_3  "Bedroom Hallway Light Scene 3"          
 Number  Bedroom_Hallway_Light_Scene_4  "Bedroom Hallway Light Scene 4"            (Bedroom_Scene_Switch_Group, Clear_Scenes)             {channel="zwavejs:node:c503e1bad6:node88:central-scene-scene-004"}
 Number  Bedroom_Hallway_Light_Scene_5  "Bedroom Hallway Light Scene 5"            (Bedroom_Scene_Switch_Group, Clear_Scenes)             {channel="zwavejs:node:c503e1bad6:node88:central-scene-scene-005"}
 Number  Bedroom_Hallway_Light_Scene_6  "Bedroom Hallway Light Scene 6"            (Bedroom_Scene_Switch_Group, Clear_Scenes)             {channel="zwavejs:node:c503e1bad6:node88:central-scene-scene-006"}
+
+Group                 Bedroom_AwtrixClock                 "Awtrix NG Clock"                <screen>  (Bedroom)
+Switch                Bedroom_AwtrixClock_Power           "Awtrix NG Clock Display Power"            (Bedroom_AwtrixClock)  ["Power"]       {channel="mqtt:awtrixng-clock:26bcbec1ee:521a343b55:display"}
+Number:Dimensionless  Bedroom_AwtrixClock_Brightness      "Brightness [%d %%]"                       (Bedroom_AwtrixClock)  ["Brightness"]  {channel="mqtt:awtrixng-clock:26bcbec1ee:521a343b55:brightness"}
+Switch                Bedroom_AwtrixClock_AutoBrightness  "Auto Brightness"                          (Bedroom_AwtrixClock)  ["Switch"]      {channel="mqtt:awtrixng-clock:26bcbec1ee:521a343b55:auto-brightness"}
+Number                Bedroom_AwtrixClock_Battery         "Battery Level [%d %%]"                    (Bedroom_AwtrixClock)  ["Battery"]     {channel="mqtt:awtrixng-clock:26bcbec1ee:521a343b55:battery-level"}
+Switch                Bedroom_AwtrixClock_LowBattery      "Low Battery"                              (Bedroom_AwtrixClock)  ["LowBattery"]  {channel="mqtt:awtrixng-clock:26bcbec1ee:521a343b55:low-battery"}
+
+Group   Bedroom_Awtrix_OutdoorTemp_App      "Awtrix NG Clock Outdoor Temp App"
+Switch  Bedroom_Awtrix_OutdoorTemp_Enabled  "Outdoor Temp Enabled"  (Bedroom_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrixng-app:521a343b55:outdoor_temp:enabled"}
+String  Bedroom_Awtrix_OutdoorTemp_Text     "Outdoor Temp Text"     (Bedroom_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrixng-app:521a343b55:outdoor_temp:text"}
+Color   Bedroom_Awtrix_OutdoorTemp_Color    "Outdoor Temp Color"    (Bedroom_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrixng-app:521a343b55:outdoor_temp:text-color"}
+String  Bedroom_Awtrix_OutdoorTemp_Icon     "Outdoor Temp Icon"     (Bedroom_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrixng-app:521a343b55:outdoor_temp:icon"}
