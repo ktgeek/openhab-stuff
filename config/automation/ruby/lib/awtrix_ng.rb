@@ -4,7 +4,7 @@
 # "#RRGGBB" strings and a single params map for notifications.
 class AwtrixNg
   def self.actions(thing)
-    thing.actions("mqtt.awtrixng")
+    thing.actions("awtrixng")
   end
 
   def self.bedroom_clock
@@ -39,6 +39,6 @@ class AwtrixNg
   private
 
   def hex(color)
-    format("#%02X%02X%02X", *color)
+    format("#%02X%02X%02X", *color) # rubocop:disable Style/FormatStringToken
   end
 end

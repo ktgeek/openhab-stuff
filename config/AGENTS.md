@@ -212,7 +212,7 @@ Check these before implementing new device logic — reuse existing abstractions
 | `aqara_cube.rb` | Aqara Cube multi-action wireless controller |
 | `awtrix.rb` | Clock-neutral Awtrix pieces (`Color` as `[r, g, b]`, `INDICATORS`) and `Awtrix.all_clocks`, a `ClockGroup` that fans a notification or indicator out to every clock — rules call this, not a clock library directly |
 | `awtrix3.rb` | Awtrix 3 clock (Office) via the `mqtt.awtrixlight` actions; converts shared colors to Java `int[]` |
-| `awtrix_ng.rb` | AWTRIX NG clock (Bedroom) via the `mqtt.awtrixng` actions; converts shared colors to `#RRGGBB` and builds the single notification params map |
+| `awtrix_ng.rb` | AWTRIX NG clock (Bedroom) via the `awtrixng` actions; converts shared colors to `#RRGGBB` and builds the single notification params map |
 | `tv_notification.rb` | Apple TV notification delivery |
 | `weather.rb` | Weather Underground station integration |
 | `holidays.rb` | Holiday constants used by decoration lighting rules |
@@ -243,7 +243,7 @@ Check these before implementing new device logic — reuse existing abstractions
 | LG WebOS | WebOS binding | TV control |
 | Onkyo / Pioneer AVR | Dedicated bindings | Audio receiver control |
 | Awtrix3 | MQTT | Matrix notification display (Office clock) |
-| AWTRIX NG | MQTT, `mqtt:awtrixng-clock` / `awtrixng-app` Things (custom `awtrix-ng` add-on build) | Matrix notification display (Bedroom clock); app names allow only letters, digits, `-` and `_` |
+| AWTRIX NG | MQTT, `awtrixng:clock` / `awtrixng:app` Things (custom `awtrix-ng` add-on build) | Matrix notification display (Bedroom clock); app names allow only letters, digits, `-` and `_` |
 | OpenHAB Cloud | Cloud service | Remote access |
 
 > **Note:** Matter and HomeKit above bridge openHAB's item layer to Apple Home, bidirectionally — a command from Siri/the Home app becomes an openHAB item command, and item state changes are reported back out. Neither talks to underlying device hardware directly; a command arriving via Matter for a Z-Wave thermostat still gets sent to the device over Z-Wave JS, not Matter.
