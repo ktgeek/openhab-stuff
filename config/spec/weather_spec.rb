@@ -36,6 +36,10 @@ RSpec.describe Weather do
       expect(described_class.overlay_for(coded: "", temp_f: 33)).to be_nil
     end
 
+    it "shows nothing when the temperature is unknown" do
+      expect(described_class.overlay_for(coded: "", temp_f: nil)).to be_nil
+    end
+
     it "prefers precipitation over frost" do
       expect(described_class.overlay_for(coded: "::S", temp_f: 20)).to eq("snow")
     end

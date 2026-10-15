@@ -71,7 +71,7 @@ module Weather
 
     # Maps an Xweather present-weather code to an AWTRIX NG weather overlay.
     # @param coded [String, nil] result of {current_conditions}; nil means the lookup failed
-    # @param temp_f [Float] outdoor temperature in Fahrenheit, used for frost
+    # @param temp_f [Float, nil] outdoor temperature in Fahrenheit, used for frost; nil disables frost
     # @return [String, nil] overlay name, or nil when no overlay should be shown
     def overlay_for(coded:, temp_f:)
       return if coded.nil?
@@ -104,7 +104,7 @@ module Weather
     end
 
     def frost_overlay(temp_f)
-      "frost" if temp_f.to_f <= FROST_THRESHOLD_F
+      "frost" if temp_f && temp_f <= FROST_THRESHOLD_F
     end
 
     def precipitation_overlay(weather, intensity)

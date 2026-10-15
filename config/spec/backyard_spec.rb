@@ -261,4 +261,63 @@ RSpec.describe "backyard.rb" do
       expect(Bedroom_Awtrix_OutdoorTemp_Text.state.to_s).to eq("100.4")
     end
   end
+
+  describe "bedroom weather overlay" do
+    let(:overlay_rule) { rules["backyard_weather_overlay"] }
+
+    before do
+      Backyard_Temperature.update(50)
+      Bedroom_AwtrixClock_Overlay.update("snow")
+    end
+
+    it "sets the overlay for the reported conditions" do
+      allow(Weather).to receive(:current_conditions).and_return(":L:R")
+
+      overlay_rule.trigger
+
+      expect(Bedroom_AwtrixClock_Overlay.state.to_s).to eq("drizzle")
+    end
+
+    it "stores the reported code" do
+      allow(Weather).to receive(:current_conditions).and_return(":L:R")
+
+      overlay_rule.trigger
+
+      expect(Backyard_Weather_Condition.state.to_s).to eq(":L:R")
+    end
+
+    it "shows frost when the sky is clear and it is freezing" do
+      Backyard_Temperature.update(30)
+      allow(Weather).to receive(:current_conditions).and_return("")
+
+      overlay_rule.trigger
+
+      expect(Bedroom_AwtrixClock_Overlay.state.to_s).to eq("frost")
+    end
+
+    it "clears the overlay when the sky is clear and it is warm" do
+      allow(Weather).to receive(:current_conditions).and_return("")
+
+      overlay_rule.trigger
+
+      expect(Bedroom_AwtrixClock_Overlay.state.to_s).to eq("")
+    end
+
+    context "when the lookup fails while freezing" do
+      before do
+        Backyard_Temperature.update(20)
+        Backyard_Weather_Condition.update(":L:R")
+        allow(Weather).to receive(:current_conditions).and_return(nil)
+        overlay_rule.trigger
+      end
+
+      it "clears the overlay" do
+        expect(Bedroom_AwtrixClock_Overlay.state.to_s).to eq("")
+      end
+
+      it "clears the condition" do
+        expect(Backyard_Weather_Condition).to be_null
+      end
+    end
+  end
 end

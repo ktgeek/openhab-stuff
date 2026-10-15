@@ -69,3 +69,21 @@ every 1.minute do
   }
   Weather.post_to_weather_services(params)
 end
+
+# The AWTRIX NG overlay channel is cleared with an empty string
+NO_OVERLAY = ""
+
+# Weather conditions come only from Xweather. When the lookup fails the condition item is cleared and so is the overlay,
+# rather than leaving a stale one on the clock.
+rule "Update bedroom weather overlay", id: "backyard_weather_overlay" do
+  every 10.minutes
+  on_start
+  run do
+    coded = Weather.current_conditions
+    Backyard_Weather_Condition.update(coded || NULL)
+
+    temp_f = Backyard_Temperature.state.to_f if Backyard_Temperature.state?
+    overlay = Weather.overlay_for(coded:, temp_f:)
+    Bedroom_AwtrixClock_Overlay.ensure.command(overlay || NO_OVERLAY)
+  end
+end
