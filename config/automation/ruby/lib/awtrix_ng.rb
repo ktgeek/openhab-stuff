@@ -15,9 +15,10 @@ class AwtrixNg
     @actions = AwtrixNg.actions(thing)
   end
 
-  def show_custom_notification(message:, icon:, color: nil)
+  def show_custom_notification(message:, icon:, color: nil, case_sensitive: true)
     # The binding rejects the whole notification if it contains a key it doesn't know
     params = { "text" => message, "icon" => icon, "wakeup" => true, "stack" => true }
+    params["textCase"] = "asTyped" if case_sensitive
     params["textColor"] = hex(color) if color
 
     @actions.show_custom_notification(params)
