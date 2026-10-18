@@ -44,7 +44,7 @@ Switch  Office_AwtrixClock_LowBattery      "Low Battery"                        
 
 Group   Office_Awtrix_OutdoorTemp_App     "Awtrix Clock Outdoor Temp App"
 Switch  Office_Awtrix_OutdoorTemp_Active  "Outdoor Temp Active"            (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:active"}
-String  Office_Awtrix_OutdoorTemp_Text    "Outdoor Temp Text"              (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:text"}
+String  Office_Awtrix_OutdoorTemp_Text    "Outdoor Temp Text"              (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:text", autoupdate="true"}
 Color   Office_Awtrix_OutdoorTemp_Color   "Outdoor Temp Color"             (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:color"}
 String  Office_Awtrix_OutdoorTemp_Icon    "Outdoor Temp Icon"              (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:icon"}
 
