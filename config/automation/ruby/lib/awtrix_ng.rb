@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
+require "forwardable"
+
 # Actions for an AWTRIX NG clock (the `mqtt.awtrixng` binding). Same public interface as Awtrix3, but the binding takes
 # "#RRGGBB" strings and a single params map for notifications.
 class AwtrixNg
+  extend Forwardable
+
+  def_delegators :@actions, :activate_indicator, :blink_indicator, :deactivate_indicator, :dismiss_named_notifications
+
   def self.actions(thing)
     thing.actions("awtrixng")
   end
@@ -15,11 +21,12 @@ class AwtrixNg
     @actions = AwtrixNg.actions(thing)
   end
 
-  def show_custom_notification(message:, icon:, color: nil, case_sensitive: true)
+  def show_custom_notification(message:, icon:, case_insensitive: false, color: nil, name: nil)
     # The binding rejects the whole notification if it contains a key it doesn't know
-    params = { "text" => message, "icon" => icon, "wakeup" => true, "stack" => true }
-    params["textCase"] = "asTyped" if case_sensitive
+    params = { "text" => message, "icon" => icon, "wakeup" => true, "stack" => true, "textCase" => "asTyped" }
+    params.delete("textCase") if case_insensitive
     params["textColor"] = hex(color) if color
+    params["name"] = name if name
 
     @actions.show_custom_notification(params)
   end
@@ -28,12 +35,12 @@ class AwtrixNg
   def set_indicator_color(indicator, color, blink: false)
     if color
       if blink
-        @actions.blink_indicator(indicator, hex(color), 500)
+        blink_indicator(indicator, hex(color), 500)
       else
-        @actions.activate_indicator(indicator, hex(color))
+        activate_indicator(indicator, hex(color))
       end
     else
-      @actions.deactivate_indicator(indicator)
+      deactivate_indicator(indicator)
     end
   end
 
