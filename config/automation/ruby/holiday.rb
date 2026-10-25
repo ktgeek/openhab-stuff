@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "color"
-require "tasmota"
+require "esphome/lc5050c"
 require "zigbee"
 require "holidays"
 require "sun_status"
@@ -35,8 +35,7 @@ rule "decorations on at sunset at Halloween" do
     if Zoom_Active_Switch.off?
       Office_DoorLED_Fade.on
       Office_DoorLED_Color.command(Color::PURPLE)
-      Office_DoorLED_Palette.command(Tasmota::Palette::PURPLE_FADE)
-      Office_DoorLED_Scheme.command(Tasmota::Scheme::CYCLE_UP)
+      Office_DoorLED_LightEffects.command(Esphome::LC5050C::Effects::PURPLE_FADE)
     end
   end
 
@@ -95,8 +94,7 @@ rule "christmas switch is turned on" do
     if Zoom_Active_Switch.off?
       ensure_states do
         Office_DoorLED_Fade.on
-        Office_DoorLED_Palette.command(Tasmota::Palette::RED_GREEN_CROSSFADE)
-        Office_DoorLED_Scheme.command(Tasmota::Scheme::CYCLE_UP)
+        Office_DoorLED_LightEffects.command(Esphome::LC5050C::Effects::RED_GREEN_CROSSFADE)
       end
     end
   end

@@ -2,12 +2,12 @@ Group         Office_WindowDecorations                                          
 Switch        Office_WindowDecorations_Switch  "Office Window Lights"             <poweroutlet_us>  (Office_WindowDecorations, Christmas_Lights, Christmas_Lights_All)  ["WallSwitch"]   {channel="mqtt:topic:26bcbec1ee:c0750d0653:power"}
 Number:Power  Office_WindowDecorations_Watts   "Office Window Decorations Power"                    (Office_WindowDecorations)                                          ["Power"]        {channel="mqtt:topic:26bcbec1ee:c0750d0653:currentPower", timescaledb=" " [retentionDays="1095", aggregation="AVG", downsampleInterval="1h"]}
 
-Group   Office_DoorLED          "Office Door"          (Office)                                                  ["Lightbulb"]
-Color   Office_DoorLED_Color    "Office Door Color"    (Christmas_Lights, Christmas_Lights_All, Office_DoorLED)  ["Point"]      {matter="ColorLight" [label="Office Door LED", fixedLabels="room=Office"], channel="esphome:device:office-door-leds:light"}
-Switch  Office_DoorLED_Fade     "Office Door Fade"     (Office_DoorLED)                                          ["Switch"]     {channel="esphome:device:office-door-leds:fade"}
-String  Office_DoorLED_Palette  "Office Door Palette"  (Office_DoorLED)                                          ["Point"]      {channel="esphome:device:office-door-leds:palette"}
-Number  Office_DoorLED_Speed    "Office Door Speed"    (Office_DoorLED)                                          ["Setpoint"]   {channel="esphome:device:office-door-leds:speed", stateDescription=""[min="0", max="40", step="1"]}
-Number  Office_DoorLED_Scheme   "Office Door Scheme"   (Office_DoorLED)                                          ["Point"]      {channel="esphome:device:office-door-leds:light-effects"}
+Group   Office_DoorLED               "Office Door"          (Office)                                                  ["Lightbulb"]
+Color   Office_DoorLED_Color         "Office Door Color"    (Christmas_Lights, Christmas_Lights_All, Office_DoorLED)  ["Point"]      {matter="ColorLight" [label="Office Door LED", fixedLabels="room=Office"], channel="esphome:device:office-door-leds:light"}
+Switch  Office_DoorLED_Fade          "Office Door Fade"     (Office_DoorLED)                                          ["Switch"]     {channel="esphome:device:office-door-leds:fade"}
+String  Office_DoorLED_Palette       "Office Door Palette"  (Office_DoorLED)                                          ["Point"]      {channel="esphome:device:office-door-leds:palette"}
+Number  Office_DoorLED_Speed         "Office Door Speed"    (Office_DoorLED)                                          ["Setpoint"]   {channel="esphome:device:office-door-leds:speed", stateDescription=""[min="0", max="40", step="1"]}
+String  Office_DoorLED_LightEffects  "Office Door Scheme"   (Office_DoorLED)                                          ["Point"]      {channel="esphome:device:office-door-leds:light-effects"}
 
 Group:Switch:OR(ON,OFF)  Zoom_Active_Switch   "Zoom Active"    (Office)                      ["Status"]
 Switch                   Office_Bugg_Zoom     "bugg Zoom"      (Office, Zoom_Active_Switch)  ["Status"]  {channel="homie:device:26bcbec1ee:bugg-zoom:zoom_2Dactivity#status"}
