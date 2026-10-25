@@ -94,3 +94,9 @@ updated(Office_UPS_Status) do |event|
 
   timers.cancel(Office_UPS) if on_line && timers.include?(Office_UPS)
 end
+
+rule "set icon to outdoor-temp on load" do
+  on_load
+
+  run { Office_Awtrix_OutdoorTemp_Icon.ensure.command("thermometer-outside") }
+end

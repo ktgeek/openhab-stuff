@@ -17,6 +17,10 @@ class AwtrixNg
     @bedroom_clock ||= new(Bedroom_AwtrixClock_Power.thing)
   end
 
+  def self.office_clock
+    @office_clock ||= new(Office_AwtrixClock_Power.thing)
+  end
+
   def initialize(thing)
     @actions = AwtrixNg.actions(thing)
   end

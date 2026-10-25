@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "awtrix3"
 require "awtrix_ng"
 
 # Clock-neutral pieces shared by the Awtrix 3 and AWTRIX NG libraries, so rules describe a notification or an
@@ -37,6 +36,6 @@ module Awtrix
   end
 
   def self.all_clocks
-    @all_clocks ||= ClockGroup.new([Awtrix3.office_clock, AwtrixNg.bedroom_clock])
+    @all_clocks ||= ClockGroup.new([AwtrixNg.office_clock, AwtrixNg.bedroom_clock])
   end
 end

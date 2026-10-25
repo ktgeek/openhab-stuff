@@ -35,18 +35,19 @@ Switch                Office_Fan_Power         "Office Fan"        (Office_Fan) 
 Number:Dimensionless  Office_Fan_Speed         "Office Fan Speed"  (Office_Fan)  ["Control"]     {homekit="BasicFan.RotationSpeed", unit="%" [step=1]}
 Number                Office_Fan_Speed_Actual  "Office Fan Speed"  (Office_Fan)  ["Control"]     {channel="esphome:device:office-fan:speed", autoupdate="false"}
 
-Group   Office_AwtrixClock                 "Awtrix Clock"                <screen>  (Office)
-Switch  Office_AwtrixClock_Power           "Awtrix Clock Display Power"            (Office_AwtrixClock)  ["Power"]       {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:display"}
-Dimmer  Office_AwtrixClock_Brightness      "Brightness [%d %%]"                    (Office_AwtrixClock)  ["Brightness"]  {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:brightness"}
-Switch  Office_AwtrixClock_AutoBrightness  "Auto Brightness"                       (Office_AwtrixClock)  ["Switch"]      {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:auto-brightness"}
-Number  Office_AwtrixClock_Battery         "Battery Level [%d %%]"                 (Office_AwtrixClock)  ["Battery"]     {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:battery-level"}
-Switch  Office_AwtrixClock_LowBattery      "Low Battery"                           (Office_AwtrixClock)  ["LowBattery"]       {channel="mqtt:awtrix-clock:26bcbec1ee:awtrix_bbdbc4:low-battery"}
+Group                 Office_AwtrixClock                 "Awtrix Clock"                   <screen>  (Office)
+Switch                Office_AwtrixClock_Power           "Awtrix Clock Display Power"               (Office_AwtrixClock)  ["Power"]       {channel="awtrixng:clock:26bcbec1ee:841fe8bbdbc4:display"}
+Number:Dimensionless  Office_AwtrixClock_Brightness      "Brightness [%d %%]"                       (Office_AwtrixClock)  ["Brightness"]  {channel="awtrixng:clock:26bcbec1ee:841fe8bbdbc4:brightness"}
+Switch                Office_AwtrixClock_AutoBrightness  "Auto Brightness"                          (Office_AwtrixClock)  ["Switch"]      {channel="awtrixng:clock:26bcbec1ee:841fe8bbdbc4:auto-brightness"}
+Number:Dimensionless  Office_AwtrixClock_Battery         "Battery Level [%d %%]"                    (Office_AwtrixClock)  ["Battery"]     {channel="awtrixng:clock:26bcbec1ee:841fe8bbdbc4:battery-level", unit="%"}
+Switch                Office_AwtrixClock_LowBattery      "Low Battery"                              (Office_AwtrixClock)  ["LowBattery"]  {channel="awtrixng:clock:26bcbec1ee:841fe8bbdbc4:low-battery"}
+String                Office_AwtrixClock_Overlay         "Weather Overlay"                          (Office_AwtrixClock)                  {channel="awtrixng:clock:26bcbec1ee:841fe8bbdbc4:low-battery", autoupdate="true"}
 
-Group   Office_Awtrix_OutdoorTemp_App     "Awtrix Clock Outdoor Temp App"
-Switch  Office_Awtrix_OutdoorTemp_Active  "Outdoor Temp Active"            (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:active"}
-String  Office_Awtrix_OutdoorTemp_Text    "Outdoor Temp Text"              (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:text", autoupdate="true"}
-Color   Office_Awtrix_OutdoorTemp_Color   "Outdoor Temp Color"             (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:color"}
-String  Office_Awtrix_OutdoorTemp_Icon    "Outdoor Temp Icon"              (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-app:awtrix_bbdbc4:34001767f3:icon"}
+Group   Office_Awtrix_OutdoorTemp_App      "Awtrix Clock Outdoor Temp App"
+Switch  Office_Awtrix_OutdoorTemp_Enabled  "Outdoor Temp Enabled"           (Office_Awtrix_OutdoorTemp_App)  {channel="awtrixng:app:841fe8bbdbc4:57ce2ca267:enabled"}
+String  Office_Awtrix_OutdoorTemp_Text     "Outdoor Temp Text"              (Office_Awtrix_OutdoorTemp_App)  {channel="awtrixng:app:841fe8bbdbc4:57ce2ca267:text", autoupdate="true"}
+Color   Office_Awtrix_OutdoorTemp_Color    "Outdoor Temp Color"             (Office_Awtrix_OutdoorTemp_App)  {channel="awtrixng:app:841fe8bbdbc4:57ce2ca267:text-color"}
+String  Office_Awtrix_OutdoorTemp_Icon     "Outdoor Temp Icon"              (Office_Awtrix_OutdoorTemp_App)  {channel="awtrixng:app:841fe8bbdbc4:57ce2ca267:icon"}
 
 Group                   Office_DiskArrayPlug                   "Office Disk Array Plug"                                             (Office)                ["PowerOutlet"]
 Switch                  Office_DiskArrayPlug_Switch            "Office Disk Array Plug"                                   <switch>  (Office_DiskArrayPlug)                       {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x282c02bfffebdcc2:switch"}
