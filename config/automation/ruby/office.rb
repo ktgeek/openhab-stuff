@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "color"
+require "esphome/lc5050c"
 require "tasmota"
 require "holidays"
 require "nut_ups"
@@ -16,7 +17,7 @@ rule "when a zoom meeting is on" do
 
   run do
     Office_DoorLED_Fade.off
-    Office_DoorLED_Scheme.command(Esphome::LC5050C::Effects::SINGLE_COLOR)
+    Office_DoorLED_LightEffects.command(Esphome::LC5050C::Effects::SINGLE_COLOR)
     Office_DoorLED_Color.command(Color::RED)
   end
 end
@@ -28,7 +29,9 @@ rule "when a zoom meeting is over" do
     prior_color = Office_DoorLED_Color.last_state
     if prior_color&.on?
       Office_DoorLED_Color.command(prior_color)
-      Office_DoorLED_LightEffects.ensure.command(Office_DoorLED_Scheme.last_state) if Office_DoorLED_Scheme.last_state
+      if Office_DoorLED_LightEffects.last_state
+        Office_DoorLED_LightEffects.ensure.command(Office_DoorLED_LightEffects.last_state)
+      end
       Office_DoorLED_Fade.ensure.command(Office_DoorLED_Fade.last_state) if Office_DoorLED_Fade.last_state
       Office_DoorLED_Palette.ensure.command(Office_DoorLED_Palette.last_state) if Office_DoorLED_Palette.last_state
       Office_DoorLED_Speed.ensure.command(Office_DoorLED_Speed.last_state) if Office_DoorLED_Speed.last_state
