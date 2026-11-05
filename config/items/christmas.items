@@ -40,7 +40,7 @@ Switch  Basement_ChristmasTree_Switch    "Basement Christmas Tree"     <powerout
 Switch  FamilyRoom_ChristmasTree_Switch  "Family Room Christmas Tree"  <poweroutlet_us>  (FamilyRoom)  ["WallSwitch"]  {channel="zwavejs:node:c503e1bad6:node17:binary-switch-value"}
 Switch  LivingRoom_ChristmasTree_Switch  "Living Room Christmas Tree"  <poweroutlet_us>  (LivingRoom)  ["WallSwitch"]  {channel="zwavejs:node:c503e1bad6:node7:binary-switch-value"}
 
-// Switch Front_Yard_Wolf_Decoration "Werewolf Jeff" (FF_Porch) ["Point"] { homekit="Switchable", channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0xa4c1380f5a933544:switch" }
+// Switch Front_Yard_Wolf_Decoration "Werewolf Jeff" (FF_Porch) ["Point"] { matter="OnOffPlugInUnit" [label="Werewolf Jeff", fixedLabels="room=Front Yard"], channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0xa4c1380f5a933544:switch" }
 
 Group         Upstairs_MiscDecoration_Outlet                                             (Upstairs)                             ["PowerOutlet"]
 Switch        SF_Hallway_MiscDecoration_Switch  "Misc Decoration"  <poweroutlet_us>      (Upstairs_MiscDecoration_Outlet)       ["Switch"]       {channel="mqtt:topic:26bcbec1ee:tasmota_misc_decoration:power", homekit="Outlet", autoupdate="false"}
