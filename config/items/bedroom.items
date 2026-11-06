@@ -50,6 +50,7 @@ Switch                Bedroom_AwtrixClock_AutoBrightness  "Auto Brightness"     
 Number                Bedroom_AwtrixClock_Battery         "Battery Level [%d %%]"                    (Bedroom_AwtrixClock)  ["Battery"]     {channel="mqtt:awtrix-ng-clock:26bcbec1ee:3076f56c75dc:battery-level"}
 Switch                Bedroom_AwtrixClock_LowBattery      "Low Battery"                              (Bedroom_AwtrixClock)  ["LowBattery"]  {channel="mqtt:awtrix-ng-clock:26bcbec1ee:3076f56c75dc:low-battery"}
 String                Bedroom_AwtrixClock_Overlay         "Weather Overlay"                          (Bedroom_AwtrixClock)                  {channel="mqtt:awtrix-ng-clock:26bcbec1ee:3076f56c75dc:overlay", autoupdate="true"}
+Color                 Bedroom_AwtrixClock_TextColor       "Text Color"                               (Bedroom_AwtrixClock)                  {channel="mqtt:awtrix-ng-clock:26bcbec1ee:3076f56c75dc:text-color"}
 
 Group   Bedroom_Awtrix_OutdoorTemp_App      "Awtrix NG Clock Outdoor Temp App"
 Switch  Bedroom_Awtrix_OutdoorTemp_Enabled  "Outdoor Temp Enabled"              (Bedroom_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-ng-app:26bcbec1ee:3076f56c75dc:Outdoor_Temp:enabled"}

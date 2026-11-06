@@ -122,7 +122,7 @@ RSpec.describe "backyard.rb" do
   end
 
   describe "every 1.minute weather monitor" do
-    let(:every_minute_rule) { rules["backyard:33"] }
+    let(:every_minute_rule) { rules["backyard_weather_monitor"] }
 
     before do
       allow(Weather).to receive(:post_to_weather_services)
@@ -270,6 +270,8 @@ RSpec.describe "backyard.rb" do
       Office_Awtrix_OutdoorTemp_Color.state
     end
 
+    after { Timecop.return }
+
     it "is deep blue at -10 and below" do
       expect(office_color_for(-25).hue.to_f).to eq(240)
     end
@@ -287,9 +289,68 @@ RSpec.describe "backyard.rb" do
       expect([color.saturation.to_f, color.brightness.to_f]).to eq([100, 100])
     end
 
-    it "does not touch the Bedroom color" do
-      office_color_for(55)
+    it "is not changed by sleeping hours" do
+      Timecop.freeze(Time.local(2023, 7, 10, 23, 0, 0))
+      expect(office_color_for(-25).hue.to_f).to eq(240)
+    end
+  end
+
+  describe "Bedroom Awtrix outdoor temp color" do
+    let(:sleep_rule) { rules["backyard_outdoor_temp_color_sleep"] }
+    let(:clock_default) { OpenHAB::Core::Types::HSBType.new(9, 100, 71) }
+
+    def bedroom_color_for(feels_like)
+      allow(Weather).to receive(:feels_like).and_return(feels_like)
+      Backyard_Temperature.update(75)
+      time_travel_and_execute_timers(3.seconds)
+      Bedroom_Awtrix_OutdoorTemp_Color.state
+    end
+
+    before { Bedroom_AwtrixClock_TextColor.update(clock_default) }
+
+    after { Timecop.return }
+
+    { "7:00" => [7, 0], "12:00" => [12, 0], "21:29" => [21, 29] }.each do |label, (hour, minute)|
+      it "follows the temperature at #{label}" do
+        Timecop.freeze(Time.local(2023, 7, 10, hour, minute, 0))
+        expect(bedroom_color_for(-25).hue.to_f).to eq(240)
+      end
+    end
+
+    { "21:30" => [21, 30], "23:59" => [23, 59], "0:00" => [0, 0], "6:59" => [6, 59] }.each do |label, (hour, minute)|
+      it "uses the clock's default text color at #{label}" do
+        Timecop.freeze(Time.local(2023, 7, 10, hour, minute, 0))
+        expect(bedroom_color_for(-25)).to eq(clock_default)
+      end
+    end
+
+    it "is left alone overnight when the clock's default text color is unknown" do
+      Timecop.freeze(Time.local(2023, 7, 10, 23, 0, 0))
+      Bedroom_AwtrixClock_TextColor.update(NULL)
+      bedroom_color_for(-25)
       expect(Bedroom_Awtrix_OutdoorTemp_Color.state?).to be false
+    end
+
+    context "with the 9:30pm and 7am schedule" do
+      before { Backyard_FeelsLike_Temperature.update(-25) }
+
+      it "switches to the clock's default text color without a weather change" do
+        Timecop.freeze(Time.local(2023, 7, 10, 21, 30, 0))
+        sleep_rule.trigger
+        expect(Bedroom_Awtrix_OutdoorTemp_Color.state).to eq(clock_default)
+      end
+
+      it "switches back to the temperature color without a weather change" do
+        Timecop.freeze(Time.local(2023, 7, 11, 7, 0, 0))
+        sleep_rule.trigger
+        expect(Bedroom_Awtrix_OutdoorTemp_Color.state.hue.to_f).to eq(240)
+      end
+
+      it "does nothing before a feels-like temperature is known" do
+        Backyard_FeelsLike_Temperature.update(NULL)
+        sleep_rule.trigger
+        expect(Bedroom_Awtrix_OutdoorTemp_Color.state?).to be false
+      end
     end
   end
 

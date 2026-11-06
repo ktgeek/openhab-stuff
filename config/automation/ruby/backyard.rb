@@ -6,6 +6,22 @@ require "weather"
 
 no_update_notification_sent = false
 
+# The end is exclusive so sleeping hours run from 9:30pm up to, but not including, 7am. `between` can't express the
+# overnight span directly since its ranges don't wrap past midnight.
+awake_hours = "07:00"..."21:30"
+
+# The bedroom shows the clock's own text color overnight, because the app's color channel can't be cleared and a
+# bright temperature color is too much in a dark bedroom.
+update_outdoor_temp_colors = lambda do |temp|
+  Office_Awtrix_OutdoorTemp_Color.ensure.command(Color.for_temperature(temp))
+
+  if Time.now.between?(awake_hours)
+    Bedroom_Awtrix_OutdoorTemp_Color.ensure.command(Color.for_temperature(temp))
+  elsif Bedroom_AwtrixClock_TextColor.state?
+    Bedroom_Awtrix_OutdoorTemp_Color.ensure.command(Bedroom_AwtrixClock_TextColor.state)
+  end
+end
+
 updated Kitchen_Backyard_Lights_Scene_1, to: ZWave::Paddle::CLICK do
   Backyard_Lights_Color.ensure.on
 end
@@ -26,7 +42,19 @@ changed(Backyard_Temperature, Backyard_Humidity, Backyard_Wind_Speed) do
     [Office_Awtrix_OutdoorTemp_Text, Bedroom_Awtrix_OutdoorTemp_Text].each do |item|
       item.ensure.command(outdoor_temp_text)
     end
-    Office_Awtrix_OutdoorTemp_Color.ensure.command(Color.for_temperature(temp))
+    update_outdoor_temp_colors.call(temp)
+  end
+end
+
+# The weather rarely changes exactly at these times, so the bedroom color is switched here rather than waiting for it.
+rule "Switch bedroom outdoor temp color for sleeping hours", id: "backyard_outdoor_temp_color_sleep" do
+  every :day, at: "21:30"
+  every :day, at: "07:00"
+
+  run do
+    next unless Backyard_FeelsLike_Temperature.state?
+
+    update_outdoor_temp_colors.call(Backyard_FeelsLike_Temperature.state.to_f)
   end
 end
 
@@ -36,7 +64,7 @@ changed(Backyard_Temperature, Backyard_Humidity) do
   end
 end
 
-every 1.minute do
+every 1.minute, id: "backyard_weather_monitor" do
   last_update = Backyard_Last_Updated.state
 
   # NULL/UNDEF until the weather station reports after a fresh start
