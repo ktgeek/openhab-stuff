@@ -262,6 +262,37 @@ RSpec.describe "backyard.rb" do
     end
   end
 
+  describe "Awtrix outdoor temp color" do
+    def office_color_for(feels_like)
+      allow(Weather).to receive(:feels_like).and_return(feels_like)
+      Backyard_Temperature.update(75)
+      time_travel_and_execute_timers(3.seconds)
+      Office_Awtrix_OutdoorTemp_Color.state
+    end
+
+    it "is deep blue at -10 and below" do
+      expect(office_color_for(-25).hue.to_f).to eq(240)
+    end
+
+    it "is red at 90 and above" do
+      expect(office_color_for(105).hue.to_f).to eq(0)
+    end
+
+    it "is green at 30, the midpoint of the scale" do
+      expect(office_color_for(30).hue.to_f).to eq(120)
+    end
+
+    it "is fully saturated and bright" do
+      color = office_color_for(55)
+      expect([color.saturation.to_f, color.brightness.to_f]).to eq([100, 100])
+    end
+
+    it "does not touch the Bedroom color" do
+      office_color_for(55)
+      expect(Bedroom_Awtrix_OutdoorTemp_Color.state?).to be false
+    end
+  end
+
   describe "bedroom weather overlay" do
     let(:overlay_rule) { rules["backyard_weather_overlay"] }
 

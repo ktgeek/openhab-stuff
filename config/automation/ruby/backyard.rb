@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "color"
 require "zwave"
 require "weather"
 
@@ -25,6 +26,7 @@ changed(Backyard_Temperature, Backyard_Humidity, Backyard_Wind_Speed) do
     [Office_Awtrix_OutdoorTemp_Text, Bedroom_Awtrix_OutdoorTemp_Text].each do |item|
       item.ensure.command(outdoor_temp_text)
     end
+    Office_Awtrix_OutdoorTemp_Color.ensure.command(Color.for_temperature(temp))
   end
 end
 
