@@ -396,6 +396,12 @@ policy on an already-existing job — the addon logs "policy set" on every resta
 changed, but never reconciles an existing job. Live changes require a direct `alter_job()` call against Postgres (see
 `git log` for the two incidents this caused / fixed).
 
+The nightly downsampling job deletes raw rows older than the raw window, including rows in chunks already
+compressed (after 45 days). Postgres caps decompression per DML transaction at 100000 tuples by default, which made
+the high-volume items fail with "tuple decompression limit exceeded" from 2026-10-26. The `openhab` role therefore
+has `timescaledb.max_tuples_decompressed_per_dml_transaction = 0` (set 2026-11-06 via `ALTER ROLE`). It lives in
+Postgres, not in this repo, so re-apply it if the database is rebuilt.
+
 Items that must survive reboots (e.g., thermostat modes, switch states, LED indicator colors) are covered by the
 catch-all `restoreOnStartup` strategy — no explicit listing required unless the item needs extended retention.
 

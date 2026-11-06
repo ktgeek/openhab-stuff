@@ -35,10 +35,10 @@ Items {
   // Long-lived sensor and energy items (39): retentionDays=1095 (3-year) configured via item metadata.
   // As of 2026-08-01 these also carry aggregation/downsampleInterval item metadata so the addon's nightly
   // TimescaleDBDownsampleJob actually runs for them (previously a silent no-op for all 39 — neither key
-  // was set). NOTE: downsampled rows are still written back into this same hypertable/chunk, so they
-  // remain subject to the current 30-day chunk-level retention policy (timescaledb_information.jobs job
-  // 1001) regardless of the downsampled flag or the retentionDays=1095 metadata above — true long-term
-  // survival past 30 days is a separate, not-yet-implemented follow-up.
+  // was set). NOTE: downsampled rows are written back into this same hypertable, so they are subject to
+  // the chunk-level retention policy (timescaledb_information.jobs job 1001, currently 1095 days). The
+  // job's raw-row DELETEs also reach compressed chunks, which requires the openhab Postgres role to have
+  // timescaledb.max_tuples_decompressed_per_dml_transaction raised (set to 0; see AGENTS.md).
   Backyard_Temperature, Backyard_FeelsLike_Temperature, Backyard_Humidity,
   Backyard_Barometric_Pressure, Backyard_Dew_Point,
   Backyard_Wind_Direction, Backyard_Wind_Speed, Backyard_Windgust,
