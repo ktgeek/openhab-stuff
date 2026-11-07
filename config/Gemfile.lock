@@ -38,6 +38,10 @@ GEM
     marcel (1.2.1)
     method_source (1.1.0)
     minitest (5.27.0)
+    nokogiri (1.19.7-java)
+      racc (~> 1.4)
+    nokogiri (1.19.7-x86_64-linux-gnu)
+      racc (~> 1.4)
     openhab-scripting (5.52.0)
       bigdecimal (~> 4.0)
       bundler (>= 2.2, < 5.0)
@@ -110,6 +114,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (~> 8.1)
   minitest (~> 5)
+  nokogiri
   openhab!
   openhab-scripting (~> 5.52)
   rspec (~> 3.11)

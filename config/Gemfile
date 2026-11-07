@@ -9,6 +9,8 @@ group(:test) do
   # for `bundle install`/rspec/rubocop. Bump the stub's version if openHAB core is upgraded.
   gem "openhab", path: "vendor/openhab-stub"
   gem "openhab-scripting", "~> 5.52"
+  # openhab-scripting's rspec harness requires nokogiri (openhab/osgi.rb) without declaring it
+  gem "nokogiri"
   gem "rspec", "~> 3.11"
   gem "rubocop"
   gem "rubocop-openhab-scripting"
