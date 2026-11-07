@@ -272,16 +272,24 @@ RSpec.describe "backyard.rb" do
 
     after { Timecop.return }
 
-    it "is deep blue at -10 and below" do
-      expect(office_color_for(-25).hue.to_f).to eq(240)
+    it "is deep blue (245) at -10 and below" do
+      expect(office_color_for(-25).hue.to_f).to eq(245)
     end
 
-    it "is red at 90 and above" do
-      expect(office_color_for(105).hue.to_f).to eq(0)
+    it "is red at 100 and above" do
+      expect(office_color_for(115).hue.to_f).to eq(0)
     end
 
-    it "is green at 30, the midpoint of the scale" do
-      expect(office_color_for(30).hue.to_f).to eq(120)
+    it "is cyan-blue (185) at freezing" do
+      expect(office_color_for(32).hue.to_f).to eq(185)
+    end
+
+    it "is halfway between blue and cyan-blue below freezing" do
+      expect(office_color_for(11).hue.to_f).to be_within(0.01).of(215)
+    end
+
+    it "is halfway between cyan-blue and red above freezing" do
+      expect(office_color_for(66).hue.to_f).to be_within(0.01).of(92.5)
     end
 
     it "is fully saturated and bright" do
@@ -291,7 +299,7 @@ RSpec.describe "backyard.rb" do
 
     it "is not changed by sleeping hours" do
       Timecop.freeze(Time.local(2023, 7, 10, 23, 0, 0))
-      expect(office_color_for(-25).hue.to_f).to eq(240)
+      expect(office_color_for(-25).hue.to_f).to eq(245)
     end
   end
 
@@ -313,7 +321,7 @@ RSpec.describe "backyard.rb" do
     { "7:00" => [7, 0], "12:00" => [12, 0], "21:29" => [21, 29] }.each do |label, (hour, minute)|
       it "follows the temperature at #{label}" do
         Timecop.freeze(Time.local(2023, 7, 10, hour, minute, 0))
-        expect(bedroom_color_for(-25).hue.to_f).to eq(240)
+        expect(bedroom_color_for(-25).hue.to_f).to eq(245)
       end
     end
 
@@ -343,7 +351,7 @@ RSpec.describe "backyard.rb" do
       it "switches back to the temperature color without a weather change" do
         Timecop.freeze(Time.local(2023, 7, 11, 7, 0, 0))
         sleep_rule.trigger
-        expect(Bedroom_Awtrix_OutdoorTemp_Color.state.hue.to_f).to eq(240)
+        expect(Bedroom_Awtrix_OutdoorTemp_Color.state.hue.to_f).to eq(245)
       end
 
       it "does nothing before a feels-like temperature is known" do
