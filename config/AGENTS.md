@@ -293,6 +293,16 @@ testing time-dependent rules. Each spec file corresponds to a rule file: `spec/k
 
 Use `spec/spec_helper.rb` as a template when creating new spec files.
 
+Run specs under JRuby 10.1.1.0 (`chruby jruby-10.1.1.0`), ignoring `.ruby-version`. `.rspec` puts
+`automation/ruby/lib` on the load path so a spec can `require` a library at file level; the harness only adds it
+later, in `before(:suite)`.
+
+The first run clones the live instance (`/var/lib/openhab`) into the gitignored `.karaf/`, which takes about a
+minute; later runs reuse it. The clone fails with an NPE or `Permission denied` if the user running rspec can't read
+something in `/var/lib/openhab` (the GraalVM caches under `cache/` and `.cache/`, `tmp/org.graalvm.python.vfsx*`,
+`openhab-start-level`). Make those group-readable, delete `.karaf/`, and rerun. `nokogiri` is in the `Gemfile` because
+`openhab-scripting`'s rspec harness requires it without declaring it.
+
 ### Linting
 
 ```bash
