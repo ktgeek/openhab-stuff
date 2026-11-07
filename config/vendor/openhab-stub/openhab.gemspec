@@ -4,7 +4,7 @@
 # comment). Never required; carries no code.
 Gem::Specification.new do |spec|
   spec.name    = "openhab"
-  spec.version = "5.2.0"
+  spec.version = "5.3.0"
   spec.summary = "Stub gem satisfying openhab-scripting's runtime dependency for local tooling"
   spec.authors = ["N/A"]
   spec.files   = []
