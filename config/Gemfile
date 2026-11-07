@@ -2,6 +2,9 @@
 
 source "https://rubygems.org"
 
+# JRuby 10.1 implements Ruby 4.0
+ruby "~> 4.0"
+
 group(:test) do
   # openhab-scripting >= 5.45 depends on a sentinel "openhab" gem pinned to the running core
   # version; that gem is normally injected by the live openHAB JVM and isn't resolvable from

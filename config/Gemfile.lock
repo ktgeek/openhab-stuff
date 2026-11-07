@@ -124,5 +124,8 @@ DEPENDENCIES
   rubocop-rspec
   timecop (~> 0.9)
 
+RUBY VERSION
+  ruby 4.0.0 (jruby 10.1.1.0)
+
 BUNDLED WITH
-   2.7.2
+  4.0.24

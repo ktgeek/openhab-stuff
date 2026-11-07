@@ -313,7 +313,7 @@ bundle exec rubocop --autocorrect     # auto-fix safe violations
 Key rules enforced by `.rubocop.yml`:
 
 - Double-quoted strings required
-- Target Ruby version: 3.4
+- Target Ruby version: 4.0 (JRuby 10.1 implements Ruby 4.0)
 - Plugins: `rubocop-openhab-scripting`, `rubocop-performance`, `rubocop-rspec`
 - Metrics cops: disabled
 - `scripts/` directory: excluded from linting
