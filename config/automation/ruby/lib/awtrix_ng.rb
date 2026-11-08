@@ -10,7 +10,7 @@ class AwtrixNg
   def_delegators :@actions, :activate_indicator, :blink_indicator, :deactivate_indicator, :dismiss_named_notifications
 
   def self.actions(thing)
-    thing.actions("awtrixng")
+    thing.actions("mqtt.awtrixlight")
   end
 
   def self.bedroom_clock
@@ -29,7 +29,7 @@ class AwtrixNg
     # The binding rejects the whole notification if it contains a key it doesn't know
     params = { "text" => message, "icon" => icon, "wakeup" => true, "stack" => true, "textCase" => "asTyped" }
     params.delete("textCase") if case_insensitive
-    params["textColor"] = hex(color) if color
+    params["textColor"] = java_color(color) if color
     params["name"] = name if name
 
     @actions.show_custom_notification(params)
@@ -39,9 +39,9 @@ class AwtrixNg
   def set_indicator_color(indicator, color, blink: false)
     if color
       if blink
-        blink_indicator(indicator, hex(color), 500)
+        blink_indicator(indicator, java_color(color), 500)
       else
-        activate_indicator(indicator, hex(color))
+        activate_indicator(indicator, java_color(color))
       end
     else
       deactivate_indicator(indicator)
@@ -50,7 +50,7 @@ class AwtrixNg
 
   private
 
-  def hex(color)
-    format("#%02X%02X%02X", *color) # rubocop:disable Style/FormatStringToken
+  def java_color(color)
+    color.to_java(Java::int)
   end
 end
