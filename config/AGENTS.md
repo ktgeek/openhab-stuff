@@ -331,6 +331,23 @@ The Awtrix clocks' actions (`mqtt.awtrixlight`) come from a real thing handler, 
 none, so `spec/support/awtrix_clocks.rb` gives every example a stand-in `Awtrix.all_clocks`. A spec that asserts on the
 clocks stubs `Awtrix.all_clocks` itself, which takes precedence.
 
+Two add-ons production runs are never loaded by the harness, so their Things have no thing type and the specs that
+touch them fail: the hand-installed AWTRIX NG build of the Awtrix3 add-on (a jar in `/usr/share/openhab/addons`, until
+its PR merges), which the harness's fileinstall filter (`openhab-addons-*.kar`) doesn't match, and the esphome
+community add-on (a `marketplace/` bundle), which the harness deletes on every launch.
+
+**Expected log noise.** A full run still writes these to the instance's `openhab.log`; none is a spec problem:
+
+- 6 `ZipException` ERRORs on `geronimo-osgi-locator.jar`: the distro's own `org.apache.aries.javax.jax.rs-api` bundle
+  embeds a jar with a malformed zip extra field that JDK 21 rejects when Karaf reads bundle headers. Production hits
+  it only at first install; the harness re-provisions on every launch.
+- 25 WARNs, `no ProfileFactory for basic-profiles:state-filter`: the harness blocks the `org.openhab.transform` bundle
+  tree from starting, so profiles from `basicprofiles` don't exist.
+- Xweather "no observation" / "bad gateway" WARNs: the weather specs exercise the failure paths on purpose.
+- `Loading script …/lib/*.rb`, `Dependency listener not found` and `CurrencyService … removed` WARNs: harness and
+  jrubyscripting internals.
+- `Unknown lock state 254` WARN: a rule logging while a spec drives the lock.
+
 ### Linting
 
 ```bash
