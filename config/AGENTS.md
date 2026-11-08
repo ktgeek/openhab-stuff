@@ -303,6 +303,10 @@ something in `/var/lib/openhab` (the GraalVM caches under `cache/` and `.cache/`
 `openhab-start-level`). Make those group-readable, delete `.karaf/`, and rerun. `nokogiri` is in the `Gemfile` because
 `openhab-scripting`'s rspec harness requires it without declaring it.
 
+A timer block that raises would otherwise hang the whole run: the harness never unregisters the timer and then loops
+on it forever while cleaning up. `spec/spec_helper.rb` drops such timers first, so the error shows up as a normal
+example failure.
+
 ### Linting
 
 ```bash
