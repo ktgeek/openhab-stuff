@@ -9,7 +9,7 @@ require "openhab/rspec/karaf"
 # production's on every launch, so editing ALLOWED always takes effect.
 module KarafAddons
   # Addon category => the entries to keep. Every other entry, and every category not listed, is dropped.
-  ALLOWED = { "binding" => %w[homeassistant mqtt zwavejs] }.freeze
+  ALLOWED = { "binding" => %w[bluetooth homeassistant mqtt zwavejs] }.freeze
 
   CATEGORIES = %w[package binding ui persistence action transformation voice misc automation
                   core-config-discovery-addon].freeze
@@ -45,6 +45,22 @@ module KarafAddons
   # only succeeds on a retry once core has installed its discovery addons.
   BASE_FEATURES = %w[openhab-core-io-transport-mdns].freeze
 
+  # Add-ons production runs from jars rather than the addons kar: the AWTRIX NG build of the Awtrix3 add-on (hand
+  # installed until its PR merges) and the esphome marketplace add-on. The harness only deploys openhab-addons-*.kar
+  # from the addons directory and deletes the clone's marketplace/, so neither would load. Their thing types are what
+  # the specs need. The jars are copied into a private directory that the clone's fileinstall watches instead.
+  EXTRA_JARS = [
+    "/usr/share/openhab/addons/org.openhab.binding.mqtt.awtrixlight-*.jar",
+    "#{ENV.fetch('OPENHAB_USERDATA', nil)}/marketplace/bundles/*/no.seime.openhab.binding.esphome-*.jar",
+    # esphome imports javax.validation.constraints, which production gets from the REST API's swagger feature, one of
+    # the things the harness's trimmed runtime base drops
+    "/usr/share/openhab/runtime/system/jakarta/validation/jakarta.validation-api/2.0.2/jakarta.validation-api-2.0.2.jar"
+  ].freeze
+
+  # esphome isn't under any tree the harness blocks, so without this its real handler factory and mDNS discovery
+  # would start and talk to the devices. The other jars are in org.openhab.binding, which is already blocked.
+  BLOCKED_BUNDLES = %w[no.seime.openhab.binding.esphome].freeze
+
   # Runs on every launch, after the clone exists and before Karaf starts, so a fresh .karaf/ is covered too.
   module CleanupInstance
     # Production's file and the clone's, relative to each instance's userdata directory
@@ -57,6 +73,11 @@ module KarafAddons
 
       rewrite_addon_settings
       add_base_features
+      deploy_extra_jars
+    end
+
+    def blocked_bundle?(bundle)
+      super || BLOCKED_BUNDLES.include?(bundle.symbolic_name)
     end
 
     def rewrite_addon_settings
@@ -85,6 +106,30 @@ module KarafAddons
       raise "no openhab-core-base feature to anchor #{missing.join(', ')} in #{file}" if with_features == xml
 
       File.write(file, with_features)
+    end
+
+    def deploy_extra_jars
+      deploy_dir = File.join(path, "spec-addons")
+      FileUtils.rm_rf(deploy_dir)
+      FileUtils.mkdir_p(deploy_dir)
+      EXTRA_JARS.each do |pattern|
+        jars = Dir.glob(pattern)
+        warn "No jar matches #{pattern}; its things won't have a thing type in the specs" if jars.empty?
+        FileUtils.cp(jars, deploy_dir)
+      end
+
+      point_fileinstall_at(deploy_dir)
+    end
+
+    # The harness limits the filter to openhab-addons-*.kar on every launch, so this has to run after it
+    def point_fileinstall_at(deploy_dir)
+      file = File.join(path, "etc/org.apache.felix.fileinstall-deploy.cfg")
+      config = File.read(file)
+      updated = config.sub(/^(felix\.fileinstall\.dir\s+=)[^\n]+$/) { "#{Regexp.last_match(1)} #{deploy_dir}" }
+                      .sub(/^(felix\.fileinstall\.filter\s+=)[^\n]+$/) { "#{Regexp.last_match(1)} .*\\.jar" }
+      raise "no fileinstall dir or filter to rewrite in #{file}" if updated == config
+
+      File.write(file, updated)
     end
   end
 end

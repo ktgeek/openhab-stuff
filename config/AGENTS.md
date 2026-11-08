@@ -331,14 +331,18 @@ The Awtrix clocks' actions (`mqtt.awtrixlight`) come from a real thing handler, 
 none, so `spec/support/awtrix_clocks.rb` gives every example a stand-in `Awtrix.all_clocks`. A spec that asserts on the
 clocks stubs `Awtrix.all_clocks` itself, which takes precedence.
 
-Two add-ons production runs are never loaded by the harness, so their Things have no thing type and the specs that
-touch them fail: the hand-installed AWTRIX NG build of the Awtrix3 add-on (a jar in `/usr/share/openhab/addons`, until
-its PR merges), which the harness's fileinstall filter (`openhab-addons-*.kar`) doesn't match, and the esphome
-community add-on (a `marketplace/` bundle), which the harness deletes on every launch.
+Two add-ons production runs from jars rather than the addons kar would never load in the harness: the hand-installed
+AWTRIX NG build of the Awtrix3 add-on (a jar in `/usr/share/openhab/addons`, until its PR merges) and the esphome
+community add-on (a `marketplace/` bundle). The harness only deploys `openhab-addons-*.kar` and deletes the clone's
+`marketplace/`, so `karaf_addons.rb` copies the jars listed in `EXTRA_JARS` into `.karaf/spec-addons/` and points the
+clone's fileinstall at that directory. They are there for their thing types; neither provides actions to the mock
+handlers. esphome sits outside every bundle tree the harness blocks, so `karaf_addons.rb` blocks it by name, and it
+needs the `bluetooth` binding and `jakarta.validation-api` (also in `EXTRA_JARS`) to resolve. If a jar isn't found the
+run prints a warning and the specs that need its Things fail.
 
 **Expected log noise.** A full run still writes these to the instance's `openhab.log`; none is a spec problem:
 
-- 6 `ZipException` ERRORs on `geronimo-osgi-locator.jar`: the distro's own `org.apache.aries.javax.jax.rs-api` bundle
+- Up to 6 `ZipException` ERRORs on `geronimo-osgi-locator.jar`: the distro's own `org.apache.aries.javax.jax.rs-api` bundle
   embeds a jar with a malformed zip extra field that JDK 21 rejects when Karaf reads bundle headers. Production hits
   it only at first install; the harness re-provisions on every launch.
 - 25 WARNs, `no ProfileFactory for basic-profiles:state-filter`: the harness blocks the `org.openhab.transform` bundle
