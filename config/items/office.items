@@ -1,6 +1,6 @@
 Group         Office_WindowDecorations                                                              (Office)                                                            ["PowerOutlet"]
-Switch        Office_WindowDecorations_Switch  "Office Window Lights"             <poweroutlet_us>  (Office_WindowDecorations, Christmas_Lights, Christmas_Lights_All)  ["WallSwitch"]   {channel="mqtt:topic:26bcbec1ee:c0750d0653:power"}
-Number:Power  Office_WindowDecorations_Watts   "Office Window Decorations Power"                    (Office_WindowDecorations)                                          ["Power"]        {channel="mqtt:topic:26bcbec1ee:c0750d0653:currentPower", timescaledb=" " [retentionDays="1095", aggregation="AVG", downsampleInterval="1h"]}
+Switch        Office_WindowDecorations_Switch  "Office Window Lights"             <poweroutlet_us>  (Office_WindowDecorations, Christmas_Lights, Christmas_Lights_All)  ["WallSwitch"]   {channel="esphome:device:office-window-decorations:relay"}
+Number:Power  Office_WindowDecorations_Watts   "Office Window Decorations Power"                    (Office_WindowDecorations)                                          ["Power"]        {channel="esphome:device:office-window-decorations:power", timescaledb=" " [retentionDays="1095", aggregation="AVG", downsampleInterval="1h"]}
 
 Group   Office_DoorLED               "Office Door"          (Office)                                                  ["Lightbulb"]
 Color   Office_DoorLED_Color         "Office Door Color"    (Christmas_Lights, Christmas_Lights_All, Office_DoorLED)  ["Point"]      {matter="ColorLight" [label="Office Door LED", fixedLabels="room=Office"], channel="esphome:device:office-door-leds:light"}
