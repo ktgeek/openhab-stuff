@@ -60,6 +60,10 @@ end
 
 changed(Backyard_Temperature, Backyard_Humidity) do
   after(3.seconds, id: "update_dew_point", reschedule: false) do
+    # NULL/UNDEF until the weather station reports after a fresh start; an unknown humidity would read as 0 and log(0)
+    # makes the dew point NaN, which the item rejects
+    next unless [Backyard_Temperature, Backyard_Humidity].all?(&:state?)
+
     Backyard_Dew_Point.update(Weather.dew_point(temp: Backyard_Temperature.state, humidity: Backyard_Humidity.state))
   end
 end

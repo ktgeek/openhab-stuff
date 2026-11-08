@@ -90,15 +90,23 @@ RSpec.describe "backyard.rb" do
     before { allow(Weather).to receive(:dew_point).and_return(55.0) }
 
     it "updates Backyard_Dew_Point 3 seconds after temperature changes" do
+      suspend_rules { Backyard_Humidity.update(70) }
       Backyard_Temperature.update(75)
       time_travel_and_execute_timers(3.seconds)
       expect(Backyard_Dew_Point.state.to_f).to eq(55.0)
     end
 
     it "updates Backyard_Dew_Point 3 seconds after humidity changes" do
+      suspend_rules { Backyard_Temperature.update(75) }
       Backyard_Humidity.update(70)
       time_travel_and_execute_timers(3.seconds)
       expect(Backyard_Dew_Point.state.to_f).to eq(55.0)
+    end
+
+    it "does not update until both temperature and humidity are known" do
+      Backyard_Temperature.update(75)
+      time_travel_and_execute_timers(3.seconds)
+      expect(Weather).not_to have_received(:dew_point)
     end
 
     it "does NOT update when only wind speed changes" do
