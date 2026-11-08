@@ -307,6 +307,12 @@ A timer block that raises would otherwise hang the whole run: the harness never 
 on it forever while cleaning up. `spec/spec_helper.rb` drops such timers first, so the error shows up as a normal
 example failure.
 
+The harness clones production's addon settings into `.karaf/`, and at startup Karaf is asked to install them all in one
+request. That request fails as a whole (the jinja transformation can't resolve `javassist` in the harness's trimmed
+runtime), so no addon was ever installed and every run logged resolver errors. `spec/support/karaf_addons.rb` hooks
+the harness's `cleanup_instance` and keeps only the addons listed in its `ALLOWED` map. Delete `.karaf/` to re-clone if
+the clone is ever in doubt.
+
 ### Linting
 
 ```bash
