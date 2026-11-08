@@ -310,8 +310,9 @@ example failure.
 The harness clones production's addon settings into `.karaf/`, and at startup Karaf is asked to install them all in one
 request. That request fails as a whole (the jinja transformation can't resolve `javassist` in the harness's trimmed
 runtime), so no addon was ever installed and every run logged resolver errors. `spec/support/karaf_addons.rb` hooks
-the harness's `cleanup_instance` and keeps only the addons listed in its `ALLOWED` map. Delete `.karaf/` to re-clone if
-the clone is ever in doubt.
+the harness's `cleanup_instance` and, on every launch, rebuilds the clone's addon settings from production's with only
+the addons listed in its `ALLOWED` map. Edit that map to install an addon the specs need (its bundle is installed but
+not started, so there is no device traffic).
 
 ### Linting
 
