@@ -327,6 +327,10 @@ persistence service (`timescaledb`) after the harness has made its mock service 
 `spec/support/mock_persistence.rb` sets the default again in `before(:suite)`; otherwise every `average_since`-style
 lookup in a rule logs a warning and finds nothing.
 
+The Awtrix clocks' actions (`mqtt.awtrixlight`) come from a real thing handler, and the harness's mock handlers provide
+none, so `spec/support/awtrix_clocks.rb` gives every example a stand-in `Awtrix.all_clocks`. A spec that asserts on the
+clocks stubs `Awtrix.all_clocks` itself, which takes precedence.
+
 ### Linting
 
 ```bash
