@@ -312,7 +312,11 @@ request. That request fails as a whole (the jinja transformation can't resolve `
 runtime), so no addon was ever installed and every run logged resolver errors. `spec/support/karaf_addons.rb` hooks
 the harness's `cleanup_instance` and, on every launch, rebuilds the clone's addon settings from production's with only
 the addons listed in its `ALLOWED` map. Edit that map to install an addon the specs need (its bundle is installed but
-not started, so there is no device traffic).
+not started, so there is no device traffic). zwavejs needs `spec/support/storage_type_providers.rb` as well: the
+harness registers a generated provider under every interface the binding declares, including zwavejs's own, which the
+generated class can't implement, so that file registers only the interfaces it does. zwavejs also imports a package
+from the mDNS transport, which the harness's trimmed runtime base leaves out, so `karaf_addons.rb` adds
+`openhab-core-io-transport-mdns` back to it.
 
 ### Linting
 

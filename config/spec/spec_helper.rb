@@ -6,6 +6,7 @@ require "bundler"
 Bundler.require(:default, :test)
 
 require_relative "support/karaf_addons"
+require_relative "support/storage_type_providers"
 require "openhab/rspec"
 
 RSpec.configure do |config|

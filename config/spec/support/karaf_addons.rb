@@ -9,7 +9,7 @@ require "openhab/rspec/karaf"
 # production's on every launch, so editing ALLOWED always takes effect.
 module KarafAddons
   # Addon category => the entries to keep. Every other entry, and every category not listed, is dropped.
-  ALLOWED = { "binding" => %w[homeassistant mqtt] }.freeze
+  ALLOWED = { "binding" => %w[homeassistant mqtt zwavejs] }.freeze
 
   CATEGORIES = %w[package binding ui persistence action transformation voice misc automation
                   core-config-discovery-addon].freeze
@@ -40,6 +40,11 @@ module KarafAddons
   end
   private_class_method :allowed_setting
 
+  # Features the harness's trimmed-down openhab-runtime-base leaves out but the allowed addons import packages from:
+  # zwavejs needs org.openhab.core.config.discovery.mdns. Without it the first install request fails to resolve, and
+  # only succeeds on a retry once core has installed its discovery addons.
+  BASE_FEATURES = %w[openhab-core-io-transport-mdns].freeze
+
   # Runs on every launch, after the clone exists and before Karaf starts, so a fresh .karaf/ is covered too.
   module CleanupInstance
     # Production's file and the clone's, relative to each instance's userdata directory
@@ -50,6 +55,11 @@ module KarafAddons
     def cleanup_instance
       super
 
+      rewrite_addon_settings
+      add_base_features
+    end
+
+    def rewrite_addon_settings
       SETTINGS_FILES.each do |file|
         clone = File.join(path, file)
         next unless File.exist?(clone)
@@ -59,6 +69,22 @@ module KarafAddons
         rewritten = KarafAddons.rewrite(File.read(clone), source)
         File.write(clone, rewritten) unless rewritten == File.read(clone)
       end
+    end
+
+    # The harness regenerates this file on every launch with its replacement for openhab-runtime-base
+    def add_base_features
+      file = File.join(path, "etc/org.apache.karaf.features.xml")
+      xml = File.read(file)
+      missing = BASE_FEATURES.reject { |name| xml.include?("<f:feature>#{name}</f:feature>") }
+      return if missing.empty?
+
+      with_features = xml.sub(%r{^(?<indent> *)<f:feature>openhab-core-base</f:feature>\n}) do |line|
+        indent = Regexp.last_match[:indent]
+        line + missing.map { |name| "#{indent}<f:feature>#{name}</f:feature>\n" }.join
+      end
+      raise "no openhab-core-base feature to anchor #{missing.join(', ')} in #{file}" if with_features == xml
+
+      File.write(file, with_features)
     end
   end
 end
