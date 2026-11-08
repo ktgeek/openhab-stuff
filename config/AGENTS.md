@@ -318,6 +318,10 @@ generated class can't implement, so that file registers only the interfaces it d
 from the mDNS transport, which the harness's trimmed runtime base leaves out, so `karaf_addons.rb` adds
 `openhab-core-io-transport-mdns` back to it.
 
+Things only get their mock handlers a few seconds after startup, so `spec/support/thing_initialization.rb` waits in
+`before(:suite)` until the number of things with a handler has stopped changing (about 6s). Without it, examples that
+happen to run first see things with no handler.
+
 ### Linting
 
 ```bash
