@@ -322,6 +322,11 @@ Things only get their mock handlers a few seconds after startup, so `spec/suppor
 `before(:suite)` until the number of things with a handler has stopped changing (about 6s). Without it, examples that
 happen to run first see things with no handler.
 
+The harness runs against the live conf directory, and `services/runtime.cfg` re-applies production's default
+persistence service (`timescaledb`) after the harness has made its mock service the default. So
+`spec/support/mock_persistence.rb` sets the default again in `before(:suite)`; otherwise every `average_since`-style
+lookup in a rule logs a warning and finds nothing.
+
 ### Linting
 
 ```bash
