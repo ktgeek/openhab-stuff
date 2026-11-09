@@ -25,6 +25,9 @@ module ThingInitialization
       end
     end
 
+    # Without any handler every example would fail for the wrong reason, so stop instead of reporting that as results
+    raise "openHAB started but no thing got a handler after #{TIMEOUT}s; the launch is bad, rerun" if count.zero?
+
     warn "Things were still initializing after #{TIMEOUT}s (#{count} with a handler); running the specs anyway"
   end
 

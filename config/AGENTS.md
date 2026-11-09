@@ -326,7 +326,8 @@ real one replaces later; it has to load before `openhab/rspec` because the launc
 
 Things only get their mock handlers a few seconds after startup, so `spec/support/thing_initialization.rb` waits in
 `before(:suite)` until the number of things with a handler has stopped changing (about 6s). Without it, examples that
-happen to run first see things with no handler.
+happen to run first see things with no handler. If no thing has a handler after 30s the launch is bad and it raises,
+so a flaky startup is one error instead of dozens of failures.
 
 The harness runs against the live conf directory, and `services/runtime.cfg` re-applies production's default
 persistence service (`timescaledb`) after the harness has made its mock service the default. So
