@@ -27,7 +27,7 @@ rule "when a zoom meeting is over" do
 
   run do
     prior_color = Office_DoorLED_Color.last_state
-    if prior_color&.on?
+    if prior_color.respond_to?(:on?) && prior_color.on?
       Office_DoorLED_Color.command(prior_color)
       if Office_DoorLED_LightEffects.last_state
         Office_DoorLED_LightEffects.ensure.command(Office_DoorLED_LightEffects.last_state)
