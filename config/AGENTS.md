@@ -359,6 +359,14 @@ run prints a warning and the specs that need its Things fail.
   jrubyscripting internals.
 - `Unknown lock state 254` WARN: a rule logging while a spec drives the lock.
 
+**Flaky launches.** The suite is expected to be green (seeds 17902 and 40648 both pass), but roughly one launch in eight
+or ten still hits a race in the harness's startup that can't be fixed from this repo, so rerun before chasing a
+failure. The signs are an error outside the examples (`NoMethodError`/`NameError` while loading `openhab/rspec` or
+`openhab/dsl`, "Bundle has been uninstalled"), the "no thing got a handler" error from `thing_initialization.rb`, a
+launch that never finishes (run it under `timeout`), or a handful of failures in specs that use zwave/zigbee/esphome
+things alongside `A thing with UID ... is already tracked by ThingManager` ERRORs in `.karaf/logs/openhab.log`. That
+log accumulates across launches, so compare against its size before the run.
+
 ### Linting
 
 ```bash
