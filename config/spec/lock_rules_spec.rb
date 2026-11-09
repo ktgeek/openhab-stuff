@@ -30,6 +30,9 @@ RSpec.describe "lock_rules.rb" do
 
   describe "Entrance_FrontDoor_Lock_Raw_Notification" do
     it "notifies with the mapped user's name on a keypad unlock event and resets the item" do
+      # the harness doesn't start the transformation services, so the MAP lookup has to be faked
+      allow(OpenHAB::Core::Actions::Transformation).to receive(:transform)
+        .with("MAP", "lock_user.map", 1).and_return("Keith")
       Entrance_FrontDoor_Lock_Raw_Notification.update(%({"event":6,"type":6,"parameters":{"userId":1}}))
 
       expect(awtrix).to have_received(:show_custom_notification).with(
@@ -98,7 +101,7 @@ RSpec.describe "lock_rules.rb" do
 
   describe "House_Perimeter_Contacts / lock status LEDs and notifications" do
     it "lights the perimeter LEDs red when a perimeter contact opens" do
-      House_Perimeter_Contacts.update(OPEN)
+      Entrance_FrontDoor_Contact.update(OPEN)
 
       expect(awtrix).to have_received(:set_indicator_color).with(
         Awtrix::INDICATORS[House_Perimeter_Contacts], Awtrix::Color::RED
@@ -107,15 +110,16 @@ RSpec.describe "lock_rules.rb" do
 
     it "lights the perimeter LEDs yellow when contacts are closed but the door is unlocked" do
       Entrance_FrontDoor_Lock_Target.update(OFF)
-      House_Perimeter_Contacts.update(CLOSED)
+      Entrance_FrontDoor_Contact.update(CLOSED)
 
+      # the rule runs for the lock change and again for the contact change, so more than one call is fine
       expect(awtrix).to have_received(:set_indicator_color).with(
         Awtrix::INDICATORS[House_Perimeter_Contacts], Awtrix::Color::YELLOW
-      )
+      ).at_least(:once)
     end
 
     it "sends a door-status notification with no LED color when the door locks with contacts already closed" do
-      House_Perimeter_Contacts.update(OPEN)
+      Entrance_FrontDoor_Contact.update(CLOSED)
       Entrance_FrontDoor_Lock_Target.update(ON)
 
       expect(awtrix).to have_received(:show_custom_notification).with(
