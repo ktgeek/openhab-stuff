@@ -318,6 +318,14 @@ generated class can't implement, so that file registers only the interfaces it d
 from the mDNS transport, which the harness's trimmed runtime base leaves out, so `karaf_addons.rb` adds
 `openhab-core-io-transport-mdns` back to it.
 
+The clone also inherits production's ConfigAdmin store, where every config still names the production file it was
+loaded from (`felix.fileinstall.filename=file:/var/lib/openhab/etc/….cfg`). The harness updates a few configs on
+startup, and the clone's fileinstall saves each update to the file named, so a run could rewrite production's
+`org.openhab.addons.cfg` and make openHAB uninstall add-ons. `spec/support/production_isolation.rb` rewrites those
+paths to the clone's own, turns off fileinstall's config saving in the clone, and raises before Karaf starts if
+anything in the clone's `config/` or `etc/` still mentions `/var/lib/openhab`. If it raises, something new is
+leaking production paths: fix that rather than loosening the check.
+
 The harness's executor mock (the thread pool for every openHAB component) refers to `OpenHAB::Core.version`, but
 `OpenHAB::Core` doesn't exist until the harness requires `openhab/dsl` after startup. When a component such as
 `XmlThingTypeProvider` submitted work first, it failed with a `NameError`, no thing got a handler, and roughly one
