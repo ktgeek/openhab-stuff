@@ -7,6 +7,7 @@ Bundler.require(:default, :test)
 
 require_relative "support/karaf_addons"
 require_relative "support/production_isolation"
+require_relative "support/readable_clone"
 require_relative "support/core_version"
 require_relative "support/storage_type_providers"
 require "openhab/rspec"

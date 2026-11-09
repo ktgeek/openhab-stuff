@@ -298,10 +298,14 @@ Run specs under JRuby 10.1.1.0 (`chruby jruby-10.1.1.0`), ignoring `.ruby-versio
 later, in `before(:suite)`.
 
 The first run clones the live instance (`/var/lib/openhab`) into the gitignored `.karaf/`, which takes about a
-minute; later runs reuse it. The clone fails with an NPE or `Permission denied` if the user running rspec can't read
-something in `/var/lib/openhab` (the GraalVM caches under `cache/` and `.cache/`, `tmp/org.graalvm.python.vfsx*`,
-`openhab-start-level`). Make those group-readable, delete `.karaf/`, and rerun. `nokogiri` is in the `Gemfile` because
-`openhab-scripting`'s rspec harness requires it without declaring it.
+minute; later runs reuse it. Karaf's clone fails with an NPE or `Permission denied` on the first thing the user running
+rspec can't read in `/var/lib/openhab`, and openHAB creates such entries itself with explicit modes
+(`tmp/org.graalvm.python.vfsx*` is `0700`, `openhab-start-level` is `0600`), so a umask can't help. For the first
+clone `spec/support/readable_clone.rb` gives Karaf a temporary stand-in for the userdata directory instead: symlinks
+to every readable file, without `cache/`, the contents of `tmp/` and `openhab-start-level` (the harness deletes the
+first two before it starts the clone). Anything else it can't read is skipped with a warning on stderr, so check
+that warning if a spec needs a file from there. `nokogiri` is in the `Gemfile` because `openhab-scripting`'s rspec
+harness requires it without declaring it.
 
 A timer block that raises would otherwise hang the whole run: the harness never unregisters the timer and then loops
 on it forever while cleaning up. `spec/spec_helper.rb` drops such timers first, so the error shows up as a normal
