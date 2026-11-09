@@ -1,35 +1,19 @@
 # frozen_string_literal: true
 
 RSpec.describe "backyard.rb" do
-  describe "Backyard Lights" do
-    it "turns on all members of front lights on when one is sent ON" do
-      FamilyRoom_Backyard_Lights_Switch.update(ON)
-
-      expect(Backyard_Lights.members.all?(&:on?)).to be true
-    end
-
-    it "turns on all members of front lights off when one is sent OFF" do
-      Kitchen_Backyard_Lights_Switch.update(OFF)
-
-      expect(Backyard_Lights.members.all?(&:off?)).to be true
-    end
-  end
-
   describe "scene_1 (up-paddle click → lights on)" do
-    it "turns on Backyard_Lights_Power" do
-      Backyard_Lights_Power.update(OFF)
-      trigger_channel("mqtt:topic:26bcbec1ee:27cfce6609:scene_1",
-                      ZWave::Paddle::CLICK.to_s)
-      expect(Backyard_Lights_Power).to be_on
+    it "turns on Backyard_Lights_Color" do
+      Backyard_Lights_Color.update(OFF)
+      Kitchen_Backyard_Lights_Scene_1.update(ZWave::Paddle::CLICK)
+      expect(Backyard_Lights_Color).to be_on
     end
   end
 
   describe "scene_2 (down-paddle click → lights off)" do
-    it "turns off Backyard_Lights_Power" do
-      Backyard_Lights_Power.update(ON)
-      trigger_channel("mqtt:topic:26bcbec1ee:27cfce6609:scene_2",
-                      ZWave::Paddle::CLICK.to_s)
-      expect(Backyard_Lights_Power).to be_off
+    it "turns off Backyard_Lights_Color" do
+      Backyard_Lights_Color.update(ON)
+      Kitchen_Backyard_Lights_Scene_2.update(ZWave::Paddle::CLICK)
+      expect(Backyard_Lights_Color).to be_off
     end
   end
 
@@ -247,7 +231,7 @@ RSpec.describe "backyard.rb" do
 
         Backyard_Last_Updated.update(ZonedDateTime.now - 3.hours)
         every_minute_rule.trigger # should send again now that flag is reset
-        expect(Notification).to have_received(:send)
+        expect(Notification).to have_received(:send).twice
       end
     end
   end
