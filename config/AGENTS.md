@@ -313,14 +313,12 @@ example failure.
 
 The harness clones production's addon settings into `.karaf/`, and at startup Karaf is asked to install them all in one
 request. That request fails as a whole (the jinja transformation can't resolve `javassist` in the harness's trimmed
-runtime), so no addon was ever installed and every run logged resolver errors. `spec/support/karaf_addons.rb` hooks
-the harness's `cleanup_instance` and, on every launch, rebuilds the clone's addon settings from production's with only
-the addons listed in its `ALLOWED` map. Edit that map to install an addon the specs need (its bundle is installed but
-not started, so there is no device traffic). zwavejs needs `spec/support/storage_type_providers.rb` as well: the
-harness registers a generated provider under every interface the binding declares, including zwavejs's own, which the
-generated class can't implement, so that file registers only the interfaces it does. zwavejs also imports a package
-from the mDNS transport, which the harness's trimmed runtime base leaves out, so `karaf_addons.rb` adds
-`openhab-core-io-transport-mdns` back to it.
+runtime), so no addon was ever installed and every run logged resolver errors. Installing production's bindings is
+also what the harness's maintainers advise against: they would be bundles in the runtime that must never start, and
+no spec needs one. `spec/support/karaf_addons.rb` hooks the harness's `cleanup_instance` and, on every launch, drops
+every addon setting from the clone. No binding is installed, so no thing has its thing type; the harness's mock
+handler factory accepts any thing type, and `spec/support/thing_initialization.rb` (below) makes things initialize
+without waiting for one. A spec that needs an addon's thing types can call `install_addon "binding-x"`.
 
 The clone also inherits production's ConfigAdmin store, where every config still names the production file it was
 loaded from (`felix.fileinstall.filename=file:/var/lib/openhab/etc/….cfg`). The harness updates a few configs on
@@ -336,10 +334,12 @@ The harness's executor mock (the thread pool for every openHAB component) refers
 launch in five ran its specs against bare things. `spec/support/core_version.rb` defines a stand-in `version` that the
 real one replaces later; it has to load before `openhab/rspec` because the launch happens during that require.
 
-Things only get their mock handlers a few seconds after startup, so `spec/support/thing_initialization.rb` waits in
-`before(:suite)` until the number of things with a handler has stopped changing (about 6s). Without it, examples that
-happen to run first see things with no handler. If no thing has a handler after 30s the launch is bad and it raises,
-so a flaky startup is one error instead of dozens of failures.
+openHAB holds back a thing whose thing type isn't installed for about a minute, and no thing type is installed here.
+So `spec/support/thing_initialization.rb` first waits in `before(:suite)` until the number of registered things stops
+changing, then calls the harness's `initialize_missing_thing_types` to initialize them now. Things only get their mock
+handlers a few seconds after that, so it then waits until the number of things with a handler has stopped changing
+(about 6s); without that, examples that happen to run first see things with no handler. If no thing has a handler
+after 30s the launch is bad and it raises, so a flaky startup is one error instead of dozens of failures.
 
 The harness runs against the live conf directory, and `services/runtime.cfg` re-applies production's default
 persistence service (`timescaledb`) after the harness has made its mock service the default. So
@@ -350,15 +350,6 @@ The Awtrix clocks' actions (`mqtt.awtrixlight`) come from a real thing handler, 
 none, so `spec/support/awtrix_clocks.rb` gives every example a stand-in `Awtrix.all_clocks`. A spec that asserts on the
 clocks stubs `Awtrix.all_clocks` itself, which takes precedence.
 
-Two add-ons production runs from jars rather than the addons kar would never load in the harness: the hand-installed
-AWTRIX NG build of the Awtrix3 add-on (a jar in `/usr/share/openhab/addons`, until its PR merges) and the esphome
-community add-on (a `marketplace/` bundle). The harness only deploys `openhab-addons-*.kar` and deletes the clone's
-`marketplace/`, so `karaf_addons.rb` copies the jars listed in `EXTRA_JARS` into `.karaf/spec-addons/` and points the
-clone's fileinstall at that directory. They are there for their thing types; neither provides actions to the mock
-handlers. esphome sits outside every bundle tree the harness blocks, so `karaf_addons.rb` blocks it by name, and it
-needs the `bluetooth` binding and `jakarta.validation-api` (also in `EXTRA_JARS`) to resolve. If a jar isn't found the
-run prints a warning and the specs that need its Things fail.
-
 **Expected log noise.** A full run still writes these to the instance's `openhab.log`; none is a spec problem:
 
 - Up to 6 `ZipException` ERRORs on `geronimo-osgi-locator.jar`: the distro's own `org.apache.aries.javax.jax.rs-api` bundle
@@ -366,9 +357,17 @@ run prints a warning and the specs that need its Things fail.
   it only at first install; the harness re-provisions on every launch.
 - 25 WARNs, `no ProfileFactory for basic-profiles:state-filter`: the harness blocks the `org.openhab.transform` bundle
   tree from starting, so profiles from `basicprofiles` don't exist.
+- About 420 `ThingManagerImpl` WARNs ("A thing handler factory claims to support … for more than 120s, but the thing
+  type can't be found in the registry", "Channel types or config descriptions for thing … are missing … for more than
+  120s", "Could not normalize configuration for … because the thing type was not found in registry"). No binding is
+  installed on purpose, so no thing has its thing type, and forcing the things to initialize makes openHAB say so
+  (the "120s" is the forced wait, not real time).
 - Xweather "no observation" / "bad gateway" WARNs: the weather specs exercise the failure paths on purpose.
-- `Loading script …/lib/*.rb`, `Dependency listener not found` and `CurrencyService … removed` WARNs: harness and
-  jrubyscripting internals.
+- `Loading script …/lib/*.rb` and `CurrencyService … removed` WARNs: harness and jrubyscripting internals.
+- `Dependency listener not found` WARN: dependency tracking is broken under JRuby 10 upstream
+  (openhab/openhab-jruby#571, fix in #575).
+- On 5.3.0.M4 the console shows an `ExceptionInInitializerError` from the `upnp-main` thread (Jetty) on every launch,
+  and a few `NoClassDefFoundError` WARNs from the same Jetty; the specs don't use either.
 - `Unknown lock state 254` WARN: a rule logging while a spec drives the lock.
 
 **Flaky launches.** The suite is expected to be green (seeds 17902 and 40648 both pass), but roughly one launch in eight

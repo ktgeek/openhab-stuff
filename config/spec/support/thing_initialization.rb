@@ -1,15 +1,35 @@
 # frozen_string_literal: true
 
-# Things only get their (mock) handlers a few seconds after Karaf reports started, and the harness doesn't wait, so the
-# examples that happen to run first would see things with no handler. Wait until the number of things with a handler is
-# above zero and has stopped changing. Things whose binding can't be installed never get one, so waiting for every
-# thing to initialize would never end.
+# No binding is installed in the harness, so no thing has its thing type, and openHAB holds such things back for a
+# minute or so before it initializes them. Force them to initialize once they're all registered. They get their (mock)
+# handlers a few seconds after that, and the harness doesn't wait, so the examples that happen to run first would see
+# things with no handler. Wait until the number of things with a handler is above zero and has stopped changing.
 module ThingInitialization
   POLL_INTERVAL = 0.5
   STABLE_FOR = 3
   TIMEOUT = 30
 
+  def self.force_missing_thing_types
+    started = now
+    count = OpenHAB::DSL.things.count
+    stable_since = started
+
+    while now - started < TIMEOUT
+      sleep POLL_INTERVAL
+      current = OpenHAB::DSL.things.count
+      if current != count
+        count = current
+        stable_since = now
+      elsif count.positive? && now - stable_since >= STABLE_FOR
+        break
+      end
+    end
+
+    OpenHAB::RSpec::Helpers.initialize_missing_thing_types
+  end
+
   def self.wait
+    force_missing_thing_types
     started = now
     count = handled_things
     stable_since = started
