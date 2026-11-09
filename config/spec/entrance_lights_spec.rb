@@ -16,7 +16,7 @@ RSpec.describe "entrance_lights.rb" do
   end
 
   describe "luminance based rules" do
-
+    before { Entrance_IgnoreLuminance_Switch.update(OFF) }
 
     context "during a weekday" do
       context "between 9am and 10:30pm" do
