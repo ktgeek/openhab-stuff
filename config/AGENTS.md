@@ -318,6 +318,12 @@ generated class can't implement, so that file registers only the interfaces it d
 from the mDNS transport, which the harness's trimmed runtime base leaves out, so `karaf_addons.rb` adds
 `openhab-core-io-transport-mdns` back to it.
 
+The harness's executor mock (the thread pool for every openHAB component) refers to `OpenHAB::Core.version`, but
+`OpenHAB::Core` doesn't exist until the harness requires `openhab/dsl` after startup. When a component such as
+`XmlThingTypeProvider` submitted work first, it failed with a `NameError`, no thing got a handler, and roughly one
+launch in five ran its specs against bare things. `spec/support/core_version.rb` defines a stand-in `version` that the
+real one replaces later; it has to load before `openhab/rspec` because the launch happens during that require.
+
 Things only get their mock handlers a few seconds after startup, so `spec/support/thing_initialization.rb` waits in
 `before(:suite)` until the number of things with a handler has stopped changing (about 6s). Without it, examples that
 happen to run first see things with no handler.
