@@ -56,7 +56,7 @@ end
 
 # Front Door Lock: proxy lock command
 received_command(Entrance_FrontDoor_Lock_Target) do |event|
-  target_state = event.item.state.on? ? ZWave::Lock::Mode::SECURED : ZWave::Lock::Mode::UNSECURED
+  target_state = event.command.on? ? ZWave::Lock::Mode::SECURED : ZWave::Lock::Mode::UNSECURED
   Entrance_FrontDoor_Lock_Mode.ensure.command(target_state)
 end
 
