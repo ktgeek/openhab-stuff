@@ -4,24 +4,24 @@ RSpec.describe "office.rb" do
   describe "Zoom LED" do
     it "sets the door LED to solid red when a Zoom meeting starts" do
       Office_DoorLED_Fade.update(ON)
-      Zoom_Active_Switch.update(ON)
+      Office_Bugg_Zoom.update(ON)
 
       expect(Office_DoorLED_Fade).to be_off
-      expect(Office_DoorLED_Scheme.state).to eq Tasmota::Scheme::SINGLE_COLOR
+      expect(Office_DoorLED_LightEffects.state).to eq Esphome::LC5050C::Effects::SINGLE_COLOR
       expect(Office_DoorLED_Color.state).to eq Color::RED
     end
 
     it "restores the prior color when the meeting ends if one was set" do
       Office_DoorLED_Color.update(Color::WARM_WHITE)
-      Zoom_Active_Switch.update(ON)
-      Zoom_Active_Switch.update(OFF)
+      Office_Bugg_Zoom.update(ON)
+      Office_Bugg_Zoom.update(OFF)
 
       expect(Office_DoorLED_Color.state).to eq Color::WARM_WHITE
     end
 
     it "turns the door LED off when the meeting ends and there was no prior color" do
-      Zoom_Active_Switch.update(ON)
-      Zoom_Active_Switch.update(OFF)
+      Office_Bugg_Zoom.update(ON)
+      Office_Bugg_Zoom.update(OFF)
 
       expect(Office_DoorLED_Color).to be_off
     end
