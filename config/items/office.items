@@ -13,7 +13,7 @@ Group:Switch:OR(ON,OFF)  Zoom_Active_Switch   "Zoom Active"    (Office)         
 Switch                   Office_Bugg_Zoom     "bugg Zoom"      (Office, Zoom_Active_Switch)  ["Status"]  {channel="homie:device:26bcbec1ee:bugg-zoom:zoom_2Dactivity#status"}
 Switch                   Office_Bugg_GIRobot  "GI Robot Zoom"  (Office, Zoom_Active_Switch)  ["Status"]  {channel="homie:device:26bcbec1ee:gi-robot-zoom:zoom_2Dactivity#status"}
 
-//Switch Office_Monitor_LED "Monitor LEDs" (Office) ["Lightbulb"] { homekit="Lighting", channel="hyperion:serverNG:3072a6de25:leddevice"}
+Switch Office_Monitor_LED "Monitor LEDs" (Office) ["Lightbulb"] { matter="OnOffLight" [label="Monitor LEDs", fixedLabels="room=Office"], channel="hyperion:serverNG:3072a6de25:leddevice"}
 
 Group   Office_Lights_Control                                   (Office)                                                   ["Equipment"]
 Switch  Office_Lights_Switch       "Office Lights"              (Office_Lights_Control)                                    ["Switch", "Light"]  {matter="OnOffLight" [label="Office Lights", fixedLabels="room=Office"], alexa="Lighting", channel="zwavejs:node:c503e1bad6:node96:binary-switch-value"}
