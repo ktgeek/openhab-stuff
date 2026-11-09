@@ -41,7 +41,7 @@ Number:Dimensionless  Office_AwtrixClock_Brightness      "Brightness [%d %%]"   
 Switch                Office_AwtrixClock_AutoBrightness  "Auto Brightness"                          (Office_AwtrixClock)  ["Switch"]      {channel="mqtt:awtrix-ng-clock:26bcbec1ee:841fe8bbdbc4:auto-brightness"}
 Number:Dimensionless  Office_AwtrixClock_Battery         "Battery Level [%d %%]"                    (Office_AwtrixClock)  ["Battery"]     {channel="mqtt:awtrix-ng-clock:26bcbec1ee:841fe8bbdbc4:battery-level", unit="%"}
 Switch                Office_AwtrixClock_LowBattery      "Low Battery"                              (Office_AwtrixClock)  ["LowBattery"]  {channel="mqtt:awtrix-ng-clock:26bcbec1ee:841fe8bbdbc4:low-battery"}
-String                Office_AwtrixClock_Overlay         "Weather Overlay"                          (Office_AwtrixClock)                  {channel="mqtt:awtrix-ng-clock:26bcbec1ee:841fe8bbdbc4:low-battery", autoupdate="true"}
+String                Office_AwtrixClock_Overlay         "Weather Overlay"                          (Office_AwtrixClock)                  {channel="mqtt:awtrix-ng-clock:26bcbec1ee:841fe8bbdbc4:overlay", autoupdate="true"}
 
 Group   Office_Awtrix_OutdoorTemp_App      "Awtrix Clock Outdoor Temp App"
 Switch  Office_Awtrix_OutdoorTemp_Enabled  "Outdoor Temp Enabled"           (Office_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-ng-app:26bcbec1ee:841fe8bbdbc4:Outdoor_Temp:enabled"}
