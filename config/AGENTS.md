@@ -366,6 +366,10 @@ clocks stubs `Awtrix.all_clocks` itself, which takes precedence.
   120s", "Could not normalize configuration for … because the thing type was not found in registry"). No binding is
   installed on purpose, so no thing has its thing type, and forcing the things to initialize makes openHAB say so
   (the "120s" is the forced wait, not real time).
+- `A thing with UID ... is already tracked by ThingManager` ERRORs, in about 1 launch in 6 on 5.3.0.M4 (5 to 100 of the
+  things): a race in openHAB core, where `ThingRegistryImpl` announces a thing twice while the `ThingManager` is
+  registering as a tracker. Every thing still got its handler in the launches checked, so it isn't a sign of a bad
+  launch.
 - Xweather "no observation" / "bad gateway" WARNs: the weather specs exercise the failure paths on purpose.
 - `Loading script …/lib/*.rb` and `CurrencyService … removed` WARNs: harness and jrubyscripting internals.
 - `Dependency listener not found` WARN: dependency tracking is broken under JRuby 10 upstream
@@ -379,10 +383,8 @@ race in the harness's startup that can't be fixed from this repo, so rerun befor
 25 launches of `spec/laundry_room_spec.rb` with no bindings installed had none of the signs below; with the bindings
 installed, 3 of 25 did (two hangs and one with failures). The signs are an error outside the examples
 (`NoMethodError`/`NameError` while loading `openhab/rspec` or `openhab/dsl`, "Bundle has been uninstalled"), the "no
-thing got a handler" error from `thing_initialization.rb`, a launch that never finishes (run it under `timeout`; a
-healthy one takes about 90s), or a handful of failures in specs that use things alongside `A thing with UID ... is
-already tracked by ThingManager` ERRORs in `.karaf/logs/openhab.log`. Those ERRORs still appear in about one launch in
-eight, and the launches sampled passed anyway. That log accumulates across launches, so compare against its size
+thing got a handler" error from `thing_initialization.rb`, or a launch that never finishes (run it under `timeout`; a
+healthy one takes about 90s). `.karaf/logs/openhab.log` accumulates across launches, so compare against its size
 before the run.
 
 ### Linting
