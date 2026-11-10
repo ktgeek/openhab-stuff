@@ -38,6 +38,7 @@ RSpec.configure do |config|
   # openhab-scripting's harness only drops a timer from the TimerManager once its block returns. A timer whose block
   # raised stays registered, and the harness's own after hook (TimerManager#cancel_all) then loops on it forever.
   # Dropping those first lets the error surface as an ordinary example failure instead of a hung suite.
+  # Reported as openhab/openhab-jruby#583; remove this hook once a fix ships.
   config.after do
     timers = OpenHAB::DSL::TimerManager.instance.instance_variable_get(:@timers)
     timers.keys.to_a.select(&:terminated?).each { |timer| OpenHAB::DSL.timers.delete(timer) }

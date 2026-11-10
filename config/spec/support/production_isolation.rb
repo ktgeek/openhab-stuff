@@ -8,6 +8,9 @@ require "openhab/rspec/karaf"
 # file the config names: production's. When the user running the specs can write those files, production's add-on list
 # gets replaced by the specs' trimmed one and production uninstalls the rest. So make the clone refer only to itself,
 # stop its fileinstall saving configs at all, and refuse to start if anything still points at production.
+#
+# Reported as openhab/openhab-jruby#580. Once a fix ships, keep this until a launch has been checked against hashes of
+# production's files, since a regression here costs data, not a failing spec.
 module ProductionIsolation
   # Written as `felix.fileinstall.enableConfigSave = true` in the clone's etc/config.properties
   CONFIG_SAVE = /^(?<key>felix\.fileinstall\.enableConfigSave\s*=\s*)(?:true|false)$/

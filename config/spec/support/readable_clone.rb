@@ -10,6 +10,8 @@ require "openhab/rspec/karaf"
 # can't help: the GraalPy runtime's `tmp/org.graalvm.python.vfsx*` (0700, renamed on every start) and
 # `openhab-start-level` (0600). So hand Karaf a stand-in for production's userdata for the first clone: real
 # directories holding symlinks to the readable files, which Karaf copies as ordinary files.
+#
+# Reported as openhab/openhab-jruby#581; remove this once a fix ships.
 module ReadableClone
   # Left out of the stand-in altogether. The harness deletes the cache before it starts the clone.
   EXCLUDED = %w[cache openhab-start-level].freeze

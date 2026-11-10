@@ -8,6 +8,8 @@
 # that guard (we run 5.3); `openhab/core.rb` replaces it with the real one when it loads.
 #
 # Replacing the executor's submit and execute instead leaves rules running on a pool thread rather than synchronously.
+#
+# Reported as openhab/openhab-jruby#584; remove this once a fix ships.
 module OpenHAB
   module Core
     def self.version
