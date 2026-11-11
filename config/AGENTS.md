@@ -301,12 +301,15 @@ The first run clones the live instance (`/var/lib/openhab`) into the gitignored 
 minute; later runs reuse it. Karaf's clone fails with an NPE or `Permission denied` on the first thing the user running
 rspec can't read in `/var/lib/openhab`, and openHAB creates such entries itself with explicit modes
 (`tmp/org.graalvm.python.vfsx*` is `0700`, `openhab-start-level` is `0600`), so a umask can't help. For the first
-clone `spec/support/readable_clone.rb` gives Karaf a temporary stand-in for the userdata directory instead: symlinks
-to every readable file, without `cache/`, the contents of `tmp/` and `openhab-start-level` (the harness deletes the
-first two before it starts the clone). Anything else it can't read is skipped with a warning on stderr, so check
-that warning if a spec needs a file from there. Reported upstream as openhab/openhab-jruby#581; drop
-`readable_clone.rb` once a fix ships. `nokogiri` is in the `Gemfile` because `openhab-scripting`'s rspec
-harness requires it without declaring it.
+clone `spec/support/readable_clone.rb` replaces Karaf's copy with a Ruby one that mirrors it, openhab-jruby#588's
+`InstanceService` copied as it is. It skips anything the user running rspec can't read, anything that is neither a file
+nor a directory, and anything that disappears while it is copied, each with a warning on stderr, so check that warning
+if a spec needs a file from there. It also leaves out the top-level `cache/`, `openhab-start-level`, hidden entries (the
+`openhab` user's home clutter, 2 GB of the old 2.6 GB clone) and any `*.bak` file, and makes `tmp/` empty. The harness
+deletes only `cache`, `jsondb/backup` and `marketplace` from the clone: its `rm_rf` of `tmp/*` and `logs/*` doesn't
+expand the globs. A clone is about 0.6 GB. Reported upstream as openhab/openhab-jruby#581; drop `readable_clone.rb`
+once a release with #588 ships, and copy the class over again if the PR changes before then. `nokogiri` is in the
+`Gemfile` because `openhab-scripting`'s rspec harness requires it without declaring it.
 
 A timer block that raises would otherwise hang the whole run: the harness never unregisters the timer and then loops
 on it forever while cleaning up. `spec/spec_helper.rb` drops such timers first, so the error shows up as a normal
