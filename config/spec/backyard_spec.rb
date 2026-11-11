@@ -26,11 +26,10 @@ RSpec.describe "backyard.rb" do
       expect(Backyard_FeelsLike_Temperature.state.to_f).to eq(72.5)
     end
 
-    it "commands both Awtrix outdoor temp text items with formatted reading" do
+    it "waits for the 3 seconds before updating Backyard_FeelsLike_Temperature" do
       Backyard_Temperature.update(75)
-      time_travel_and_execute_timers(3.seconds)
-      expect(Office_Awtrix_OutdoorTemp_Text.state.to_s).to eq("72.5°F")
-      expect(Bedroom_Awtrix_OutdoorTemp_Text.state.to_s).to eq("72.5°F")
+      time_travel_and_execute_timers(2.seconds)
+      expect(Backyard_FeelsLike_Temperature).to be_null
     end
 
     it "triggers when Backyard_Humidity changes" do
@@ -45,21 +44,6 @@ RSpec.describe "backyard.rb" do
       expect(Backyard_FeelsLike_Temperature.state.to_f).to eq(72.5)
     end
 
-    it "passes current item states to Weather.feels_like" do
-      suspend_rules do
-        Backyard_Temperature.update(80)
-        Backyard_Humidity.update(65)
-        Backyard_Wind_Speed.update(10)
-      end
-      Backyard_Temperature.update(81)
-      time_travel_and_execute_timers(3.seconds)
-      expect(Weather).to have_received(:feels_like).with(
-        temp: Backyard_Temperature.state,
-        humidity: Backyard_Humidity.state,
-        wind_speed: Backyard_Wind_Speed.state
-      )
-    end
-
     it "does not reschedule timer on a second change (reschedule: false)" do
       allow(Weather).to receive(:feels_like).and_return(72.5, 99.0)
       Backyard_Temperature.update(75)           # starts timer
@@ -67,6 +51,26 @@ RSpec.describe "backyard.rb" do
       Backyard_Wind_Speed.update(10)            # would reschedule without reschedule: false
       time_travel_and_execute_timers(2.seconds) # original timer fires
       expect(Weather).to have_received(:feels_like).once
+    end
+
+    context "with all three readings known" do
+      before do
+        suspend_rules do
+          Backyard_Temperature.update(80)
+          Backyard_Humidity.update(65)
+          Backyard_Wind_Speed.update(10)
+        end
+        Backyard_Temperature.update(81)
+        time_travel_and_execute_timers(3.seconds)
+      end
+
+      it "passes the current item states to Weather.feels_like" do
+        expect(Weather).to have_received(:feels_like).with(
+          temp: Backyard_Temperature.state,
+          humidity: Backyard_Humidity.state,
+          wind_speed: Backyard_Wind_Speed.state
+        )
+      end
     end
   end
 
@@ -89,12 +93,6 @@ RSpec.describe "backyard.rb" do
 
     it "does not update until both temperature and humidity are known" do
       Backyard_Temperature.update(75)
-      time_travel_and_execute_timers(3.seconds)
-      expect(Weather).not_to have_received(:dew_point)
-    end
-
-    it "does NOT update when only wind speed changes" do
-      Backyard_Wind_Speed.update(10)
       time_travel_and_execute_timers(3.seconds)
       expect(Weather).not_to have_received(:dew_point)
     end
@@ -160,7 +158,25 @@ RSpec.describe "backyard.rb" do
       end
     end
 
+    context "when the last update is unknown" do
+      before { Backyard_Last_Updated.update(NULL) }
+
+      it "does not send a notification" do
+        every_minute_rule.trigger
+        expect(Notification).not_to have_received(:send)
+      end
+
+      it "does not post weather data" do
+        every_minute_rule.trigger
+        expect(Weather).not_to have_received(:post_to_weather_services)
+      end
+    end
+
     context "when last update is within the last minute" do
+      let(:readings) do
+        { tempf: 78.4, humidity: 62, baromin: 29.92, winddir: 180, windspeedmph: 8.0, dewptf: 63.1, UV: 3 }
+      end
+
       before do
         Backyard_Last_Updated.update(ZonedDateTime.now - 30.seconds)
         suspend_rules do
@@ -185,20 +201,9 @@ RSpec.describe "backyard.rb" do
         expect(Notification).not_to have_received(:send)
       end
 
-      it "includes all required params in the weather post" do
+      it "includes the current readings in the weather post" do
         every_minute_rule.trigger
-        expect(Weather).to have_received(:post_to_weather_services).with(
-          hash_including(
-            :dateutc,
-            tempf: 78.4,
-            humidity: 62,
-            baromin: 29.92,
-            winddir: 180,
-            windspeedmph: 8.0,
-            dewptf: 63.1,
-            UV: 3
-          )
-        )
+        expect(Weather).to have_received(:post_to_weather_services).with(hash_including(readings))
       end
 
       it "formats dateutc as a UTC timestamp string" do
@@ -222,6 +227,12 @@ RSpec.describe "backyard.rb" do
         )
       end
 
+      it "does not post when a reading is unknown" do
+        Backyard_UV.update(NULL)
+        every_minute_rule.trigger
+        expect(Weather).not_to have_received(:post_to_weather_services)
+      end
+
       it "resets no_update_notification_sent so a future stale tick sends a new notification" do
         Backyard_Last_Updated.update(ZonedDateTime.now - 3.hours)
         every_minute_rule.trigger # sets flag = true
@@ -237,66 +248,56 @@ RSpec.describe "backyard.rb" do
   end
 
   describe "Awtrix outdoor temp text" do
-    it "includes the °F unit when the temperature is shorter than 5 characters" do
-      allow(Weather).to receive(:feels_like).and_return(72.5)
-      Backyard_Temperature.update(75)
-      time_travel_and_execute_timers(3.seconds)
-      expect(Office_Awtrix_OutdoorTemp_Text.state.to_s).to eq("72.5°F")
-      expect(Bedroom_Awtrix_OutdoorTemp_Text.state.to_s).to eq("72.5°F")
-    end
-
-    it "omits the °F unit when the temperature is 5 characters long" do
-      allow(Weather).to receive(:feels_like).and_return(100.4)
-      Backyard_Temperature.update(101)
-      time_travel_and_execute_timers(3.seconds)
-      expect(Office_Awtrix_OutdoorTemp_Text.state.to_s).to eq("100.4")
-      expect(Bedroom_Awtrix_OutdoorTemp_Text.state.to_s).to eq("100.4")
-    end
-  end
-
-  describe "Awtrix outdoor temp color" do
-    def office_color_for(feels_like)
+    before do
       allow(Weather).to receive(:feels_like).and_return(feels_like)
       Backyard_Temperature.update(75)
       time_travel_and_execute_timers(3.seconds)
-      Office_Awtrix_OutdoorTemp_Color.state
     end
 
-    after { Timecop.return }
+    context "when the temperature is shorter than 5 characters" do
+      let(:feels_like) { 72.5 }
 
-    it "is deep blue (245) at -10 and below" do
-      expect(office_color_for(-25).hue.to_f).to be_within(0.12).of(245)
+      it "includes the °F unit on the office clock" do
+        expect(Office_Awtrix_OutdoorTemp_Text.state.to_s).to eq("72.5°F")
+      end
+
+      it "includes the °F unit on the bedroom clock" do
+        expect(Bedroom_Awtrix_OutdoorTemp_Text.state.to_s).to eq("72.5°F")
+      end
     end
 
-    it "is red at 100 and above" do
-      expect(office_color_for(115).hue.to_f).to eq(0)
+    context "when the temperature is 5 characters long" do
+      let(:feels_like) { 100.4 }
+
+      it "omits the °F unit on the office clock" do
+        expect(Office_Awtrix_OutdoorTemp_Text.state.to_s).to eq("100.4")
+      end
+
+      it "omits the °F unit on the bedroom clock" do
+        expect(Bedroom_Awtrix_OutdoorTemp_Text.state.to_s).to eq("100.4")
+      end
+    end
+  end
+
+  # The color scale itself is covered by spec/lib/color_spec.rb
+  describe "Office Awtrix outdoor temp color" do
+    # Any freezing of the clock has to come first, or the timer would be due in the real present
+    def update_feels_like
+      Backyard_Temperature.update(75)
+      time_travel_and_execute_timers(3.seconds)
     end
 
-    it "is cyan-blue (185) at freezing" do
-      expect(office_color_for(32).hue.to_f).to be_within(0.12).of(185)
-    end
+    before { allow(Weather).to receive(:feels_like).and_return(55) }
 
-    it "is halfway between blue and cyan-blue below freezing" do
-      expect(office_color_for(11).hue.to_f).to be_within(0.12).of(215)
-    end
-
-    it "is halfway between cyan-blue and red above freezing" do
-      expect(office_color_for(66).hue.to_f).to be_within(0.12).of(92.5)
-    end
-
-    it "survives the clocks' hex round trip unchanged" do
-      color = office_color_for(55)
-      expect(OpenHAB::Core::Types::HSBType.new(color.to_hex)).to eq(color)
-    end
-
-    it "is fully saturated and bright" do
-      color = office_color_for(55)
-      expect([color.saturation.to_f, color.brightness.to_f]).to eq([100, 100])
+    it "is the color for the feels-like temperature" do
+      update_feels_like
+      expect(Office_Awtrix_OutdoorTemp_Color.state).to eq(Color.for_temperature(55))
     end
 
     it "is not changed by sleeping hours" do
       Timecop.freeze(Time.local(2023, 7, 10, 23, 0, 0))
-      expect(office_color_for(-25).hue.to_f).to be_within(0.12).of(245)
+      update_feels_like
+      expect(Office_Awtrix_OutdoorTemp_Color.state).to eq(Color.for_temperature(55))
     end
   end
 
@@ -313,12 +314,10 @@ RSpec.describe "backyard.rb" do
 
     before { Bedroom_AwtrixClock_TextColor.update(clock_default) }
 
-    after { Timecop.return }
-
     { "7:00" => [7, 0], "12:00" => [12, 0], "21:29" => [21, 29] }.each do |label, (hour, minute)|
       it "follows the temperature at #{label}" do
         Timecop.freeze(Time.local(2023, 7, 10, hour, minute, 0))
-        expect(bedroom_color_for(-25).hue.to_f).to be_within(0.12).of(245)
+        expect(bedroom_color_for(-25)).to eq(Color.for_temperature(-25))
       end
     end
 
@@ -348,7 +347,7 @@ RSpec.describe "backyard.rb" do
       it "switches back to the temperature color without a weather change" do
         Timecop.freeze(Time.local(2023, 7, 11, 7, 0, 0))
         sleep_rule.trigger
-        expect(Bedroom_Awtrix_OutdoorTemp_Color.state.hue.to_f).to be_within(0.12).of(245)
+        expect(Bedroom_Awtrix_OutdoorTemp_Color.state).to eq(Color.for_temperature(-25))
       end
 
       it "does nothing before a feels-like temperature is known" do
@@ -359,20 +358,29 @@ RSpec.describe "backyard.rb" do
     end
   end
 
-  describe "bedroom weather overlay" do
+  describe "weather overlay" do
     let(:overlay_rule) { rules["backyard_weather_overlay"] }
 
     before do
       Backyard_Temperature.update(50)
       Bedroom_AwtrixClock_Overlay.update("snow")
+      Office_AwtrixClock_Overlay.update("snow")
     end
 
-    it "sets the overlay for the reported conditions" do
+    it "sets the bedroom overlay for the reported conditions" do
       allow(Weather).to receive(:current_conditions).and_return(":L:R")
 
       overlay_rule.trigger
 
       expect(Bedroom_AwtrixClock_Overlay.state.to_s).to eq("drizzle")
+    end
+
+    it "sets the office overlay for the reported conditions" do
+      allow(Weather).to receive(:current_conditions).and_return(":L:R")
+
+      overlay_rule.trigger
+
+      expect(Office_AwtrixClock_Overlay.state.to_s).to eq("drizzle")
     end
 
     it "stores the reported code" do
@@ -400,6 +408,15 @@ RSpec.describe "backyard.rb" do
       expect(Bedroom_AwtrixClock_Overlay.state.to_s).to eq("")
     end
 
+    it "clears the overlay when the sky is clear and the temperature is unknown" do
+      Backyard_Temperature.update(NULL)
+      allow(Weather).to receive(:current_conditions).and_return("")
+
+      overlay_rule.trigger
+
+      expect(Bedroom_AwtrixClock_Overlay.state.to_s).to eq("")
+    end
+
     context "when the lookup fails while freezing" do
       before do
         Backyard_Temperature.update(20)
@@ -408,8 +425,12 @@ RSpec.describe "backyard.rb" do
         overlay_rule.trigger
       end
 
-      it "clears the overlay" do
+      it "clears the bedroom overlay" do
         expect(Bedroom_AwtrixClock_Overlay.state.to_s).to eq("")
+      end
+
+      it "clears the office overlay" do
+        expect(Office_AwtrixClock_Overlay.state.to_s).to eq("")
       end
 
       it "clears the condition" do
