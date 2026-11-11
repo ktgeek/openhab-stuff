@@ -300,7 +300,8 @@ A rule spec says how the rule responds to whatever triggered it: one example per
 rule (an `only_if`, an unknown state, a time window). It never asserts that the rule ignores something it has no trigger
 for, such as a click type it doesn't handle, because that only restates the trigger list.
 
-Run specs under JRuby 10.1.1.0 (`chruby jruby-10.1.1.0`), ignoring `.ruby-version`. `.rspec` puts
+Run specs under JRuby 10.1.1.0 (`chruby jruby-10.1.1.0`), ignoring `.ruby-version`; rspec is the only thing here that
+needs JRuby (rubocop runs under MRI, see Linting). `.rspec` puts
 `automation/ruby/lib` on the load path so a spec can `require` a library at file level; the harness only adds it
 later, in `before(:suite)`.
 
@@ -411,6 +412,10 @@ before the run.
 bundle exec rubocop                   # check all files
 bundle exec rubocop --autocorrect     # auto-fix safe violations
 ```
+
+Run rubocop under MRI (`chruby ruby-4.0.9`), not JRuby: it only parses Ruby, needs nothing from the openHAB runtime,
+and starts much faster (about a second for a spec file). rspec is the one that needs JRuby (`chruby jruby-10.1.1.0`,
+see Running Tests).
 
 Key rules enforced by `.rubocop.yml`:
 
