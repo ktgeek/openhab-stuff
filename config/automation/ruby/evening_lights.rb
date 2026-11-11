@@ -2,7 +2,7 @@
 
 require "night_off"
 
-night_off_rule("Nights off at end of day") do
+NightOff.rule("Nights off at end of day") do
   Front_Yard_Lights.members.ensure.off
   All_Hall_Lights.members.ensure.off
 end

@@ -55,7 +55,7 @@ rule "decorations on at sunset at St. Patty" do
   only_if { Holiday_Mode.state == Holidays::STPATRICKS }
 end
 
-night_off_rule(
+NightOff.rule(
   "decorations at St.Patty",
   condition: -> { Holiday_Mode.state == Holidays::STPATRICKS },
   reactivate: false
@@ -72,7 +72,7 @@ rule "decorations on at sunset at Christmas" do
   only_if { Holiday_Mode.state == Holidays::CHRISTMAS }
 end
 
-night_off_rule("decorations at Halloween", condition: -> { Holiday_Mode.state == Holidays::HALLOWEEN }) do
+NightOff.rule("decorations at Halloween", condition: -> { Holiday_Mode.state == Holidays::HALLOWEEN }) do
   ensure_states do
     Porch_Decorations_Switch.off
     Front_Yard_Side_Holiday_Decorations_Switch.off
@@ -82,7 +82,7 @@ night_off_rule("decorations at Halloween", condition: -> { Holiday_Mode.state ==
   end
 end
 
-night_off_rule("decorations at Christmas", condition: -> { Holiday_Mode.state == Holidays::CHRISTMAS }) do
+NightOff.rule("decorations at Christmas", condition: -> { Holiday_Mode.state == Holidays::CHRISTMAS }) do
   Christmas_Outside.members.ensure.off
   Christmas_Lights_All.members.ensure.off
 end
