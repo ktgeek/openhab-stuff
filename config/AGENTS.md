@@ -410,6 +410,8 @@ Key rules enforced by `.rubocop.yml`:
 - Plugins: `rubocop-openhab-scripting`, `rubocop-performance`, `rubocop-rspec`
 - Metrics cops: disabled
 - `scripts/` directory: excluded from linting
+- `RSpec/DescribeClass` skips the rule specs (`spec/*_spec.rb`) but applies to `spec/lib/`; `RSpec/ExampleLength` allows
+  10 lines
 
 Run rubocop before submitting any rule changes.
 
