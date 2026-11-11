@@ -294,7 +294,9 @@ library: `spec/lib/weather_spec.rb` tests `automation/ruby/lib/weather.rb`. A ru
 `RSpec.describe "kitchen.rb"` (rule files define no class); a lib spec describes its module, which
 `RSpec/DescribeClass` enforces for `spec/lib/`.
 
-Use an existing spec, such as `spec/garage_spec.rb`, as a template when creating new spec files.
+Use an existing spec, such as `spec/garage_spec.rb`, as a template when creating new spec files. A rule with an `id:`
+is found with `rules["id"]`; for one without, `rule_named("rule name")` (`spec/support/rule_helpers.rb`) finds it by
+name, so don't add an id to a rule only for a spec.
 
 A rule spec says how the rule responds to whatever triggered it: one example per trigger, plus the branches inside the
 rule (an `only_if`, an unknown state, a time window). It never asserts that the rule ignores something it has no trigger

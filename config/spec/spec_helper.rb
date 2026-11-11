@@ -13,6 +13,7 @@ require "openhab/rspec"
 require_relative "support/thing_initialization"
 require_relative "support/mock_persistence"
 require_relative "support/awtrix_clocks"
+require_relative "support/rule_helpers"
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
