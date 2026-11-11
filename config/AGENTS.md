@@ -318,6 +318,11 @@ A timer block that raises would otherwise hang the whole run: the harness never 
 on it forever while cleaning up. `spec/spec_helper.rb` drops such timers first, so the error shows up as a normal
 example failure. Reported as openhab/openhab-jruby#583; remove that hook once a fix ships.
 
+The harness loads every rule file on the rspec thread, so `thermostats.rb`'s top-level `ensure_states!` would stay on
+for every example: a spec's `update` to the state an item already has is dropped, and an `updated` rule never fires.
+`spec/spec_helper.rb` turns it off before each example. Rules keep the setting they were created with, so they still
+behave as in production. Reported as openhab/openhab-jruby#593; remove that hook once a fix ships.
+
 The harness clones production's addon settings into `.karaf/`, and at startup Karaf is asked to install them all in one
 request. That request fails as a whole (the jinja transformation can't resolve `javassist` in the harness's trimmed
 runtime), so no addon was ever installed and every run logged resolver errors. Installing production's bindings is

@@ -39,6 +39,12 @@ RSpec.configure do |config|
   # raised stays registered, and the harness's own after hook (TimerManager#cancel_all) then loops on it forever.
   # Dropping those first lets the error surface as an ordinary example failure instead of a hung suite.
   # Reported as openhab/openhab-jruby#583; remove this hook once a fix ships.
+  # openhab-scripting's harness loads every rule file on this thread, so the top-level `ensure_states!` in
+  # thermostats.rb stays on for every example, and a spec's update to the state an item already has is silently dropped.
+  # Rules keep the setting they were created with, so turning it off here only affects the spec's own calls.
+  # Reported as openhab/openhab-jruby#593; remove this hook once a fix ships.
+  config.before { ensure_states!(active: false) }
+
   config.after do
     timers = OpenHAB::DSL::TimerManager.instance.instance_variable_get(:@timers)
     timers.keys.to_a.select(&:terminated?).each { |timer| OpenHAB::DSL.timers.delete(timer) }
