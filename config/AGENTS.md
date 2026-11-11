@@ -327,12 +327,15 @@ without waiting for one. A spec that needs an addon's thing types can call `inst
 The clone also inherits production's ConfigAdmin store, where every config still names the production file it was
 loaded from (`felix.fileinstall.filename=file:/var/lib/openhab/etc/….cfg`). The harness updates a few configs on
 startup, and the clone's fileinstall saves each update to the file named, so a run could rewrite production's
-`org.openhab.addons.cfg` and make openHAB uninstall add-ons. `spec/support/production_isolation.rb` rewrites those
-paths to the clone's own, turns off fileinstall's config saving in the clone, and raises before Karaf starts if
-anything in the clone's `config/` or `etc/` still mentions `/var/lib/openhab`. If it raises, something new is
-leaking production paths: fix that rather than loosening the check. Reported as openhab/openhab-jruby#580. Even once a
-fix ships, keep `production_isolation.rb` until a launch has been checked against hashes of production's files, since a
-regression here costs data, not a failing spec.
+`org.openhab.addons.cfg` and make openHAB uninstall add-ons. `spec/support/production_isolation.rb`, openhab-jruby#587's
+methods copied as they are, deletes the clone's `*.config.bak` copies (ConfigAdmin falls back to them, and they name
+production too), rewrites the production paths in the rest to the clone's own, turns off fileinstall's config saving in
+the clone, and raises before Karaf starts if anything in the clone's `config/` or `etc/` still mentions
+`/var/lib/openhab/`. It also refuses to change a file that leads outside the clone through a symlink, and a clone that
+is production's userdata or inside it. If it raises, something new is leaking production paths: fix that rather than
+loosening the check. Reported as openhab/openhab-jruby#580. Copy the methods over again if the PR changes before it
+ships, and even once a release has it, keep `production_isolation.rb` until a launch has been checked against hashes of
+production's files, since a regression here costs data, not a failing spec.
 
 The harness's executor mock (the thread pool for every openHAB component) refers to `OpenHAB::Core.version`, but
 `OpenHAB::Core` doesn't exist until the harness requires `openhab/dsl` after startup. When a component such as
