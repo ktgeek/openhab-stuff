@@ -4,6 +4,10 @@ RSpec.describe "bedroom.rb" do
   let(:table_remote) { "homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x70ac08fffe659186" }
   let(:sarah_remote) { "homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x70ac08fffe5d0c17" }
 
+  def press(remote, event)
+    trigger_channel("#{remote}:#{event}", event)
+  end
+
   describe "closet contact sensors" do
     it "turns Keith's closet light on when the contact opens" do
       Bedroom_KeithsCloset_ContactSensor.update(ON)
@@ -24,22 +28,30 @@ RSpec.describe "bedroom.rb" do
       expect(Bedroom_SarahsCloset_Light).to be_on
     end
 
-    it "turns Sarah's closet light off 30 seconds after the contact closes" do
-      Bedroom_SarahsCloset_Light.update(ON)
-      Bedroom_SarahsCloset_ContactSensor.update(OFF)
+    context "when Sarah's closet contact closes" do
+      before do
+        Bedroom_SarahsCloset_Light.update(ON)
+        Bedroom_SarahsCloset_ContactSensor.update(OFF)
+      end
 
-      expect(Bedroom_SarahsCloset_Light).to be_on
-      time_travel_and_execute_timers(30.seconds)
-      expect(Bedroom_SarahsCloset_Light).to be_off
-    end
+      it "leaves her closet light on for the first 29 seconds" do
+        time_travel_and_execute_timers(29.seconds)
 
-    it "cancels the pending off timer if the contact reopens within 30 seconds" do
-      Bedroom_SarahsCloset_Light.update(ON)
-      Bedroom_SarahsCloset_ContactSensor.update(OFF)
-      Bedroom_SarahsCloset_ContactSensor.update(ON)
+        expect(Bedroom_SarahsCloset_Light).to be_on
+      end
 
-      time_travel_and_execute_timers(30.seconds)
-      expect(Bedroom_SarahsCloset_Light).to be_on
+      it "turns her closet light off after 30 seconds" do
+        time_travel_and_execute_timers(30.seconds)
+
+        expect(Bedroom_SarahsCloset_Light).to be_off
+      end
+
+      it "keeps her closet light on if the contact reopens within 30 seconds" do
+        Bedroom_SarahsCloset_ContactSensor.update(ON)
+        time_travel_and_execute_timers(30.seconds)
+
+        expect(Bedroom_SarahsCloset_Light).to be_on
+      end
     end
   end
 
@@ -87,50 +99,65 @@ RSpec.describe "bedroom.rb" do
     end
   end
 
-  describe "remote channel triggers" do
-    it "sets fan speed to 1/3 on a single click of button 1" do
-      trigger_channel("#{table_remote}:1_single", "1_single")
+  describe "remote fan buttons" do
+    remotes = %i[table_remote sarah_remote]
 
-      expect(Bedroom_CeilingFan_Speed.state.to_f).to be_within(0.1).of(100.0 / 3)
+    { "1_single" => 100.0 / 3, "2_single" => 200.0 / 3, "3_single" => 100.0 }.each do |event, speed|
+      remotes.each do |remote|
+        it "sets fan speed for #{event} from the #{remote.to_s.tr('_', ' ')}" do
+          press(send(remote), event)
+
+          expect(Bedroom_CeilingFan_Speed.state.to_f).to be_within(0.1).of(speed)
+        end
+      end
     end
 
-    it "sets fan speed to full on a single click of button 3" do
-      trigger_channel("#{table_remote}:3_single", "3_single")
+    %w[1_double 2_double 3_double].each do |event|
+      remotes.each do |remote|
+        it "turns the fan off for #{event} from the #{remote.to_s.tr('_', ' ')}" do
+          Bedroom_CeilingFan_Speed.update(50)
+          press(send(remote), event)
 
-      expect(Bedroom_CeilingFan_Speed.state.to_f).to eq 100
+          expect(Bedroom_CeilingFan_Speed.state.to_f).to eq 0
+        end
+      end
     end
+  end
 
-    it "turns the fan off on a double click of button 2" do
-      Bedroom_CeilingFan_Speed.update(50)
-      trigger_channel("#{table_remote}:2_double", "2_double")
-
-      expect(Bedroom_CeilingFan_Speed.state.to_f).to eq 0
-    end
-
-    it "toggles the table light on a single click of button 4 from the table remote" do
+  describe "remote button 4" do
+    it "toggles the table light on a single click from the table remote" do
       Bedroom_TableLight_Switch.update(OFF)
-      trigger_channel("#{table_remote}:4_single", "4_single")
+      press(table_remote, "4_single")
 
       expect(Bedroom_TableLight_Switch).to be_on
     end
 
-    it "toggles Sarah's light on a single click of button 4 from Sarah's remote" do
+    it "toggles Sarah's light on a single click from Sarah's remote" do
       Bedroom_SarahLight_Switch.update(OFF)
-      trigger_channel("#{sarah_remote}:4_single", "4_single")
+      press(sarah_remote, "4_single")
 
       expect(Bedroom_SarahLight_Switch).to be_on
     end
 
-    it "toggles the ceiling fan light on a double click of button 4" do
-      Bedroom_CeilingFan_Light.update(OFF)
-      trigger_channel("#{table_remote}:4_double", "4_double")
+    it "leaves Sarah's light alone on a single click from the table remote" do
+      Bedroom_SarahLight_Switch.update(OFF)
+      press(table_remote, "4_single")
 
-      expect(Bedroom_CeilingFan_Light).to be_on
+      expect(Bedroom_SarahLight_Switch).to be_off
     end
 
-    it "toggles Sarah's light on a hold of button 4 from the table remote" do
+    %i[table_remote sarah_remote].each do |remote|
+      it "toggles the ceiling fan light on a double click from the #{remote.to_s.tr('_', ' ')}" do
+        Bedroom_CeilingFan_Light.update(OFF)
+        press(send(remote), "4_double")
+
+        expect(Bedroom_CeilingFan_Light).to be_on
+      end
+    end
+
+    it "toggles Sarah's light on a hold from the table remote" do
       Bedroom_SarahLight_Switch.update(OFF)
-      trigger_channel("#{table_remote}:4_hold", "4_hold")
+      press(table_remote, "4_hold")
 
       expect(Bedroom_SarahLight_Switch).to be_on
     end
