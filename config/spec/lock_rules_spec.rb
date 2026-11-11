@@ -3,79 +3,116 @@
 RSpec.describe "lock_rules.rb" do
   let(:awtrix) { instance_double(Awtrix::ClockGroup, show_custom_notification: nil, set_indicator_color: nil) }
 
-  before { allow(Awtrix).to receive(:all_clocks).and_return(awtrix) }
+  before do
+    allow(Awtrix).to receive(:all_clocks).and_return(awtrix)
+    allow(Notification).to receive(:send)
+    allow(TvNotification).to receive(:notify)
+  end
 
   describe "Entrance_FrontDoor_Lock_Alarm_Type" do
-    it "sets CurrentState to JAMMED when the keypad jams" do
-      Entrance_FrontDoor_Lock_Alarm_Type.update(Kwikset::Alarm::KEYPAD_JAMMED)
+    %w[KEYPAD_JAMMED REMOTE_JAMMED AUTO_JAMMED].each do |alarm|
+      it "sets CurrentState to JAMMED on #{alarm}" do
+        Entrance_FrontDoor_Lock_Alarm_Type.update(Kwikset::Alarm.const_get(alarm))
 
-      expect(Entrance_FrontDoor_Lock_CurrentState.state).to eq Homekit::LockStatus::JAMMED
-    end
-
-    it "sets CurrentState to JAMMED when the remote or auto-lock jams" do
-      Entrance_FrontDoor_Lock_Alarm_Type.update(Kwikset::Alarm::REMOTE_JAMMED)
-      expect(Entrance_FrontDoor_Lock_CurrentState.state).to eq Homekit::LockStatus::JAMMED
-
-      Entrance_FrontDoor_Lock_Alarm_Type.update(Kwikset::Alarm::AUTO_JAMMED)
-      expect(Entrance_FrontDoor_Lock_CurrentState.state).to eq Homekit::LockStatus::JAMMED
-    end
-
-    it "does not update CurrentState for a non-jam alarm type" do
-      Entrance_FrontDoor_Lock_CurrentState.update(Homekit::LockStatus::SECURED)
-      Entrance_FrontDoor_Lock_Alarm_Type.update(Kwikset::Alarm::KEYPAD_LOCK)
-
-      expect(Entrance_FrontDoor_Lock_CurrentState.state).to eq Homekit::LockStatus::SECURED
+        expect(Entrance_FrontDoor_Lock_CurrentState.state).to eq Homekit::LockStatus::JAMMED
+      end
     end
   end
 
   describe "Entrance_FrontDoor_Lock_Raw_Notification" do
-    it "notifies with the mapped user's name on a keypad unlock event and resets the item" do
-      # the harness doesn't start the transformation services, so the MAP lookup has to be faked
-      allow(OpenHAB::Core::Actions::Transformation).to receive(:transform)
-        .with("MAP", "lock_user.map", 1).and_return("Keith")
-      Entrance_FrontDoor_Lock_Raw_Notification.update(%({"event":6,"type":6,"parameters":{"userId":1}}))
+    context "with a keypad unlock event" do
+      let(:message) { "Front Door keypad unlocked by Keith" }
 
-      expect(awtrix).to have_received(:show_custom_notification).with(
-        message: "Front Door keypad unlocked by Keith", icon: "front_door_lock"
-      )
-      expect(Entrance_FrontDoor_Lock_Raw_Notification.state).to be_nil
+      before do
+        # the harness doesn't start the transformation services, so the MAP lookup has to be faked
+        allow(OpenHAB::Core::Actions::Transformation).to receive(:transform)
+          .with("MAP", "lock_user.map", 1).and_return("Keith")
+        Entrance_FrontDoor_Lock_Raw_Notification.update(%({"event":6,"type":6,"parameters":{"userId":1}}))
+      end
+
+      it "sends a notification with the mapped user's name" do
+        expect(Notification).to have_received(:send).with(message)
+      end
+
+      it "notifies the TVs" do
+        expect(TvNotification).to have_received(:notify).with(message:)
+      end
+
+      it "notifies the clocks" do
+        expect(awtrix).to have_received(:show_custom_notification).with(message:, icon: "front_door_lock")
+      end
+
+      it "resets the item" do
+        expect(Entrance_FrontDoor_Lock_Raw_Notification.state).to be_nil
+      end
     end
 
-    it "does not notify for an unrelated event/type combination, but still resets the item" do
-      Entrance_FrontDoor_Lock_Raw_Notification.update(%({"event":1,"type":1}))
+    context "with any other event and type" do
+      before { Entrance_FrontDoor_Lock_Raw_Notification.update(%({"event":1,"type":1})) }
 
-      expect(awtrix).not_to have_received(:show_custom_notification)
-      expect(Entrance_FrontDoor_Lock_Raw_Notification.state).to be_nil
+      it "doesn't send a notification" do
+        expect(Notification).not_to have_received(:send)
+      end
+
+      it "resets the item" do
+        expect(Entrance_FrontDoor_Lock_Raw_Notification.state).to be_nil
+      end
     end
 
-    it "resets the item without raising when the notification is blank" do
-      expect { Entrance_FrontDoor_Lock_Raw_Notification.update(NULL) }.not_to raise_error
+    context "when the notification is blank" do
+      before { Entrance_FrontDoor_Lock_Raw_Notification.update(NULL) }
+
+      it "doesn't send a notification" do
+        expect(Notification).not_to have_received(:send)
+      end
     end
   end
 
   describe "Entrance_FrontDoor_Lock_Mode proxy" do
-    it "secures the target and homekit state when the mode is Secured" do
-      Entrance_FrontDoor_Lock_Mode.update(ZWave::Lock::Mode::SECURED)
+    context "when the mode is Secured" do
+      before { Entrance_FrontDoor_Lock_Mode.update(ZWave::Lock::Mode::SECURED) }
 
-      expect(Entrance_FrontDoor_Lock_Target).to be_on
-      expect(Entrance_FrontDoor_Lock_CurrentState.state).to eq Homekit::LockStatus::SECURED
+      it "secures the target" do
+        expect(Entrance_FrontDoor_Lock_Target).to be_on
+      end
+
+      it "sets the homekit state to secured" do
+        expect(Entrance_FrontDoor_Lock_CurrentState.state).to eq Homekit::LockStatus::SECURED
+      end
     end
 
-    it "unsecures the target and homekit state for any mode in the unsecured group" do
-      Entrance_FrontDoor_Lock_Mode.update(ZWave::Lock::Mode::OUTSIDE_UNSECURED)
+    %w[UNSECURED UNSECURED_WITH_TIMEOUT INSIDE_UNSECURED INSIDE_UNSECURED_WITH_TIMEOUT OUTSIDE_UNSECURED
+       OUTSIDE_UNSECURED_WITH_TIMEOUT].each do |mode|
+      context "when the mode is #{mode}" do
+        before do
+          Entrance_FrontDoor_Lock_Target.update(ON)
+          Entrance_FrontDoor_Lock_Mode.update(ZWave::Lock::Mode.const_get(mode))
+        end
 
-      expect(Entrance_FrontDoor_Lock_Target).to be_off
-      expect(Entrance_FrontDoor_Lock_CurrentState.state).to eq Homekit::LockStatus::UNSECURED
+        it "unsecures the target" do
+          expect(Entrance_FrontDoor_Lock_Target).to be_off
+        end
+
+        it "sets the homekit state to unsecured" do
+          expect(Entrance_FrontDoor_Lock_CurrentState.state).to eq Homekit::LockStatus::UNSECURED
+        end
+      end
     end
 
-    it "leaves the target and homekit state alone for an unrecognized mode value" do
-      Entrance_FrontDoor_Lock_Target.update(ON)
-      Entrance_FrontDoor_Lock_CurrentState.update(Homekit::LockStatus::SECURED)
+    context "when the mode is unrecognized" do
+      before do
+        Entrance_FrontDoor_Lock_Target.update(ON)
+        Entrance_FrontDoor_Lock_CurrentState.update(Homekit::LockStatus::SECURED)
+        Entrance_FrontDoor_Lock_Mode.update(ZWave::Lock::Mode::UNKNOWN)
+      end
 
-      Entrance_FrontDoor_Lock_Mode.update(ZWave::Lock::Mode::UNKNOWN)
+      it "leaves the target alone" do
+        expect(Entrance_FrontDoor_Lock_Target).to be_on
+      end
 
-      expect(Entrance_FrontDoor_Lock_Target).to be_on
-      expect(Entrance_FrontDoor_Lock_CurrentState.state).to eq Homekit::LockStatus::SECURED
+      it "leaves the homekit state alone" do
+        expect(Entrance_FrontDoor_Lock_CurrentState.state).to eq Homekit::LockStatus::SECURED
+      end
     end
   end
 
@@ -99,32 +136,121 @@ RSpec.describe "lock_rules.rb" do
     end
   end
 
-  describe "House_Perimeter_Contacts / lock status LEDs and notifications" do
-    it "lights the perimeter LEDs red when a perimeter contact opens" do
-      Entrance_FrontDoor_Contact.update(OPEN)
-
-      expect(awtrix).to have_received(:set_indicator_color).with(
-        Awtrix::INDICATORS[House_Perimeter_Contacts], Awtrix::Color::RED
-      )
+  describe "House_Perimeter_Contacts and lock status" do
+    def perimeter_led_states
+      House_Perimeter_LEDs.members.map(&:state).uniq
     end
 
-    it "lights the perimeter LEDs yellow when contacts are closed but the door is unlocked" do
-      Entrance_FrontDoor_Lock_Target.update(OFF)
-      Entrance_FrontDoor_Contact.update(CLOSED)
+    context "when a perimeter contact opens" do
+      let(:message) { "House Perimeter Contacts is now Open" }
 
-      # the rule runs for the lock change and again for the contact change, so more than one call is fine
-      expect(awtrix).to have_received(:set_indicator_color).with(
-        Awtrix::INDICATORS[House_Perimeter_Contacts], Awtrix::Color::YELLOW
-      ).at_least(:once)
+      before { Entrance_FrontDoor_Contact.update(OPEN) }
+
+      it "lights the perimeter LEDs red" do
+        expect(perimeter_led_states).to eq [Homeseer::LedColor::RED]
+      end
+
+      it "sets the clocks' indicator red" do
+        expect(awtrix).to have_received(:set_indicator_color).with(
+          Awtrix::INDICATORS[House_Perimeter_Contacts], Awtrix::Color::RED
+        )
+      end
+
+      it "shows the notification on the clocks" do
+        expect(awtrix).to have_received(:show_custom_notification).with(
+          message:, icon: "door", color: Awtrix::Color::RED
+        )
+      end
+
+      it "notifies the TVs, including one showing the Apple TV" do
+        expect(TvNotification).to have_received(:notify).with(message:, avoid_appletv: false)
+      end
     end
 
-    it "sends a door-status notification with no LED color when the door locks with contacts already closed" do
-      Entrance_FrontDoor_Contact.update(CLOSED)
-      Entrance_FrontDoor_Lock_Target.update(ON)
+    context "when the perimeter contacts close while the front door is unlocked" do
+      let(:message) { "House Perimeter Contacts is now Closed" }
 
-      expect(awtrix).to have_received(:show_custom_notification).with(
-        message: "Front Door Lock is now Locked", icon: "door", color: nil
-      )
+      before do
+        suspend_rules do
+          Entrance_FrontDoor_Lock_Target.update(OFF)
+          Entrance_FrontDoor_Contact.update(OPEN)
+        end
+        Entrance_FrontDoor_Contact.update(CLOSED)
+      end
+
+      it "lights the perimeter LEDs yellow" do
+        expect(perimeter_led_states).to eq [Homeseer::LedColor::YELLOW]
+      end
+
+      it "sets the clocks' indicator yellow" do
+        expect(awtrix).to have_received(:set_indicator_color).with(
+          Awtrix::INDICATORS[House_Perimeter_Contacts], Awtrix::Color::YELLOW
+        )
+      end
+
+      it "shows the notification on the clocks" do
+        expect(awtrix).to have_received(:show_custom_notification).with(
+          message:, icon: "door", color: Awtrix::Color::YELLOW
+        )
+      end
+
+      it "notifies the TVs, including one showing the Apple TV" do
+        expect(TvNotification).to have_received(:notify).with(message:, avoid_appletv: false)
+      end
+    end
+
+    context "when the front door locks with the perimeter contacts closed" do
+      let(:message) { "Front Door Lock is now Locked" }
+
+      before do
+        suspend_rules do
+          Entrance_FrontDoor_Contact.update(CLOSED)
+          Entrance_FrontDoor_Lock_Target.update(OFF)
+        end
+        Entrance_FrontDoor_Lock_Target.update(ON)
+      end
+
+      it "turns the perimeter LEDs off" do
+        expect(perimeter_led_states).to eq [Homeseer::LedColor::OFF]
+      end
+
+      it "clears the clocks' indicator" do
+        expect(awtrix).to have_received(:set_indicator_color).with(Awtrix::INDICATORS[House_Perimeter_Contacts], nil)
+      end
+
+      it "shows the notification on the clocks without a color" do
+        expect(awtrix).to have_received(:show_custom_notification).with(message:, icon: "door", color: nil)
+      end
+
+      it "notifies the TVs, except one showing the Apple TV" do
+        expect(TvNotification).to have_received(:notify).with(message:, avoid_appletv: true)
+      end
+    end
+
+    context "when the front door unlocks with the perimeter contacts closed" do
+      let(:message) { "Front Door Lock is now Unlocked" }
+
+      before do
+        suspend_rules do
+          Entrance_FrontDoor_Contact.update(CLOSED)
+          Entrance_FrontDoor_Lock_Target.update(ON)
+        end
+        Entrance_FrontDoor_Lock_Target.update(OFF)
+      end
+
+      it "lights the perimeter LEDs yellow" do
+        expect(perimeter_led_states).to eq [Homeseer::LedColor::YELLOW]
+      end
+
+      it "shows the notification on the clocks in yellow" do
+        expect(awtrix).to have_received(:show_custom_notification).with(
+          message:, icon: "door", color: Awtrix::Color::YELLOW
+        )
+      end
+
+      it "notifies the TVs, except one showing the Apple TV" do
+        expect(TvNotification).to have_received(:notify).with(message:, avoid_appletv: true)
+      end
     end
   end
 end
