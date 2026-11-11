@@ -296,6 +296,10 @@ library: `spec/lib/weather_spec.rb` tests `automation/ruby/lib/weather.rb`. A ru
 
 Use an existing spec, such as `spec/garage_spec.rb`, as a template when creating new spec files.
 
+A rule spec says how the rule responds to whatever triggered it: one example per trigger, plus the branches inside the
+rule (an `only_if`, an unknown state, a time window). It never asserts that the rule ignores something it has no trigger
+for, such as a click type it doesn't handle, because that only restates the trigger list.
+
 Run specs under JRuby 10.1.1.0 (`chruby jruby-10.1.1.0`), ignoring `.ruby-version`. `.rspec` puts
 `automation/ruby/lib` on the load path so a spec can `require` a library at file level; the harness only adds it
 later, in `before(:suite)`.
