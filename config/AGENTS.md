@@ -42,7 +42,7 @@ the approved plan.
 
 Conventional Commits' `type(scope):` prefix is deliberately **not** used here — this is a configuration
 repo, and `feat`/`fix`/`chore` do not map usefully onto item, rule and service config changes. The area is
-the part of the repo touched: `items`, `rules`, `things`, `services`, `persistence`, `transform`, `agents`.
+the part of the repo touched: `items`, `rules`, `things`, `services`, `persistence`, `transform`, `spec`, `agents`.
 
 Descriptions are imperative and lowercase with no trailing period. Subject aims for 50 characters, capped
 at 72; body wraps at 72 and explains *why*, not what.
@@ -65,7 +65,7 @@ inconsistent and are not a guide. This written statement is the authority.
 | `system/` | Host-level system config tracked here for visibility/rollback, not read by OpenHAB from this path directly — see warnings below |
 | `transform/` | State transformation files (`.map` key→value maps, `.rb` Ruby transformers) |
 | `sitemaps/` | Web UI layout (`default.sitemap`) |
-| `spec/` | RSpec test suite for automation rules |
+| `spec/` | RSpec test suite for automation rules (`spec/lib/` for the libraries, `spec/support/` for harness workarounds) |
 | `html/`, `sounds/`, `icons/` | Static assets |
 | `Gemfile` / `Gemfile.lock` | Ruby gem dependencies |
 | `.rubocop.yml` | Linting configuration |
@@ -289,9 +289,12 @@ bundle exec rspec spec/kitchen_spec.rb          # run a single spec file
 
 Tests use `openhab/rspec` (from `openhab-scripting`) which provides a mocked OpenHAB runtime. `timecop` is available for
 testing time-dependent rules. Each spec file corresponds to a rule file: `spec/kitchen_spec.rb` tests
-`automation/ruby/kitchen.rb`.
+`automation/ruby/kitchen.rb`. Specs for the libraries in `automation/ruby/lib/` live in `spec/lib/`, named after the
+library: `spec/lib/weather_spec.rb` tests `automation/ruby/lib/weather.rb`. A rule spec is a bare
+`RSpec.describe "kitchen.rb"` (rule files define no class); a lib spec describes its module, which
+`RSpec/DescribeClass` enforces for `spec/lib/`.
 
-Use `spec/spec_helper.rb` as a template when creating new spec files.
+Use an existing spec, such as `spec/garage_spec.rb`, as a template when creating new spec files.
 
 Run specs under JRuby 10.1.1.0 (`chruby jruby-10.1.1.0`), ignoring `.ruby-version`. `.rspec` puts
 `automation/ruby/lib` on the load path so a spec can `require` a library at file level; the harness only adds it

@@ -17,5 +17,10 @@ Metrics:
 
 Style/Documentation:
   Enabled: false
+
+# Rule files define no class for a spec to describe, so only the specs under spec/lib/ (one per library) must name one.
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/*_spec.rb'
 Style/StringLiterals:
   EnforcedStyle: double_quotes
