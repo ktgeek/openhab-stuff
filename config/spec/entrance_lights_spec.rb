@@ -1,114 +1,213 @@
 # frozen_string_literal: true
 
 RSpec.describe "entrance_lights.rb" do
-  describe "Hall Lights" do
-    it "turns on all members of hall lights on when one is sent ON" do
-      All_Hall_Lights.members.first.update(ON)
+  before { Entrance_IgnoreLuminance_Switch.update(OFF) }
 
-      expect(All_Hall_Lights.members.all?(&:on?)).to be true
-    end
-
-    it "turns on all members of hall lights off when one is sent OFF" do
-      All_Hall_Lights.members.first.update(OFF)
-
-      expect(All_Hall_Lights.members.all?(&:off?)).to be true
+  def lights_on
+    suspend_rules do
+      Front_Yard_Lights.members.each { |light| light.update(ON) }
+      All_Hall_Lights.members.each { |light| light.update(ON) }
     end
   end
 
-  describe "luminance based rules" do
-    before { Entrance_IgnoreLuminance_Switch.update(OFF) }
+  # Mondays and Saturdays: July 10th, 2023 was a Monday
+  def freeze_at(day, hour, minute = 0)
+    Timecop.freeze(Time.local(2023, 7, day == :weekday ? 10 : 8, hour, minute, 0))
+  end
 
-    context "during a weekday" do
-      context "between 9am and 10:30pm" do
-        before { Timecop.freeze(Time.local(2023, 7, 10, 10, 0, 0)) }
+  describe "when the sun goes down" do
+    before { Sun_Status.update(SunStatus::UP) }
 
-        it "turns on the front yard lights when it is dark" do
-          Entrance_Luminance.update(150)
-
-          expect(Front_Yard_Lights.members.all?(&:on?)).to be true
-        end
-
-        it "turns off the front yard lights when it is light" do
-          Entrance_Luminance.update(200)
-
-          expect(Front_Yard_Lights.members.all?(&:off?)).to be true
-        end
-
-        it "turns on the hall lights when it is dark" do
-          Entrance_Luminance.update(150)
-
-          expect(All_Hall_Lights.members.all?(&:on?)).to be true
-        end
-
-        it "turns off the hall lights when it is light" do
-          Entrance_Luminance.update(200)
-
-          expect(All_Hall_Lights.members.all?(&:off?)).to be true
-        end
+    context "when it is a weekday between 9am and 10:30pm" do
+      before do
+        freeze_at(:weekday, 10)
+        Sun_Status.update(SunStatus::DOWN)
       end
 
-      context "between 5:35am and 9am" do
-        before { Timecop.freeze(Time.local(2023, 7, 10, 5, 40, 0)) }
+      it "turns on the front yard lights" do
+        expect(Front_Yard_Lights.members.all?(&:on?)).to be true
+      end
 
-        it "turns on the front yard lights when it is dark" do
-          Entrance_Luminance.update(150)
-
-          expect(Front_Yard_Lights.members.all?(&:on?)).to be true
-        end
-
-        it "turns off the front yard lights when it is light" do
-          Entrance_Luminance.update(200)
-
-          expect(Front_Yard_Lights.members.all?(&:off?)).to be true
-        end
-
-        it "does not turn on the hall lights when it is light" do
-          Entrance_Luminance.update(200)
-
-          expect(All_Hall_Lights.members.all?(&:off?)).to be true
-        end
+      it "turns on the hall lights" do
+        expect(All_Hall_Lights.members.all?(&:on?)).to be true
       end
     end
 
-    context "outside of 5:50am to 10:30pm" do
+    context "when it is a weekday between 5:35am and 9am" do
       before do
-        Timecop.freeze(Time.local(2023, 7, 10, 1, 0, 0))
-        Front_Yard_Lights.members.ensure.off
-        All_Hall_Lights.members.ensure.off
+        freeze_at(:weekday, 5, 40)
+        Sun_Status.update(SunStatus::DOWN)
       end
 
-      it "does not turn on the front yard lights" do
-        Entrance_Luminance.update(200)
+      it "turns on the front yard lights" do
+        expect(Front_Yard_Lights.members.all?(&:on?)).to be true
+      end
+
+      it "leaves the hall lights off until 9am" do
+        expect(All_Hall_Lights.members.none?(&:on?)).to be true
+      end
+    end
+
+    context "when it is a weekday before 5:35am" do
+      before do
+        freeze_at(:weekday, 5)
+        Sun_Status.update(SunStatus::DOWN)
+      end
+
+      it "leaves the front yard lights off" do
+        expect(Front_Yard_Lights.members.none?(&:on?)).to be true
+      end
+
+      it "leaves the hall lights off" do
+        expect(All_Hall_Lights.members.none?(&:on?)).to be true
+      end
+    end
+
+    context "when it is after 10:30pm" do
+      before do
+        freeze_at(:weekday, 23)
+        Sun_Status.update(SunStatus::DOWN)
+      end
+
+      it "leaves the front yard lights off" do
+        expect(Front_Yard_Lights.members.none?(&:on?)).to be true
+      end
+    end
+
+    context "when it is a weekend between 5:35am and 9am" do
+      before do
+        freeze_at(:weekend, 6)
+        Sun_Status.update(SunStatus::DOWN)
+      end
+
+      it "leaves the front yard lights off until 9am" do
+        expect(Front_Yard_Lights.members.none?(&:on?)).to be true
+      end
+
+      it "leaves the hall lights off until 9am" do
+        expect(All_Hall_Lights.members.none?(&:on?)).to be true
+      end
+    end
+
+    context "when it is a weekend between 9am and 10:30pm" do
+      before do
+        freeze_at(:weekend, 10)
+        Sun_Status.update(SunStatus::DOWN)
+      end
+
+      it "turns on the front yard lights" do
+        expect(Front_Yard_Lights.members.all?(&:on?)).to be true
+      end
+
+      it "turns on the hall lights" do
+        expect(All_Hall_Lights.members.all?(&:on?)).to be true
+      end
+    end
+
+    context "when luminance is being ignored" do
+      before do
+        Entrance_IgnoreLuminance_Switch.update(ON)
+        freeze_at(:weekday, 10)
+        Sun_Status.update(SunStatus::DOWN)
+      end
+
+      it "leaves the front yard lights off" do
+        expect(Front_Yard_Lights.members.none?(&:on?)).to be true
+      end
+
+      it "leaves the hall lights off" do
+        expect(All_Hall_Lights.members.none?(&:on?)).to be true
+      end
+    end
+  end
+
+  describe "when the sun comes up" do
+    before do
+      Sun_Status.update(SunStatus::DOWN)
+      lights_on
+    end
+
+    context "when it is a weekday between 5:35am and 10:30pm" do
+      before { freeze_at(:weekday, 10) }
+
+      it "turns off the front yard lights" do
+        Sun_Status.update(SunStatus::UP)
 
         expect(Front_Yard_Lights.members.all?(&:off?)).to be true
       end
 
-      it "does not turn on the hall lights" do
-        Entrance_Luminance.update(200)
+      it "turns off the hall lights" do
+        Sun_Status.update(SunStatus::UP)
 
         expect(All_Hall_Lights.members.all?(&:off?)).to be true
       end
+
+      it "turns off the outdoor decorations when there is a holiday" do
+        Holiday_Mode.update("Halloween")
+        Front_Yard_Outdoor_Decorations_Switch.update(ON)
+        Sun_Status.update(SunStatus::UP)
+
+        expect(Front_Yard_Outdoor_Decorations_Switch).to be_off
+      end
+
+      it "leaves the outdoor decorations alone when there is no holiday" do
+        Front_Yard_Outdoor_Decorations_Switch.update(ON)
+        Sun_Status.update(SunStatus::UP)
+
+        expect(Front_Yard_Outdoor_Decorations_Switch).to be_on
+      end
     end
 
-    context "during the weekend" do
-      context "between 5:50am and 9am" do
-        before do
-          Timecop.freeze(Time.local(2023, 7, 8, 6, 0, 0))
-          Front_Yard_Lights.members.ensure.off
-          All_Hall_Lights.members.ensure.off
-        end
+    context "when it is a weekday before 5:35am" do
+      before do
+        freeze_at(:weekday, 5)
+        Sun_Status.update(SunStatus::UP)
+      end
 
-        it "does not turn on the front yard lights" do
-          Entrance_Luminance.update(200)
+      it "leaves the front yard lights on" do
+        expect(Front_Yard_Lights.members.all?(&:on?)).to be true
+      end
 
-          expect(Front_Yard_Lights.members.all?(&:off?)).to be true
-        end
+      it "leaves the hall lights on" do
+        expect(All_Hall_Lights.members.all?(&:on?)).to be true
+      end
+    end
 
-        it "does not turn on the hall lights" do
-          Entrance_Luminance.update(200)
+    context "when it is after 10:30pm" do
+      before do
+        freeze_at(:weekday, 23)
+        Sun_Status.update(SunStatus::UP)
+      end
 
-          expect(All_Hall_Lights.members.all?(&:off?)).to be true
-        end
+      it "leaves the front yard lights on" do
+        expect(Front_Yard_Lights.members.all?(&:on?)).to be true
+      end
+    end
+
+    context "when it is a weekend before 9am" do
+      before do
+        freeze_at(:weekend, 6)
+        Sun_Status.update(SunStatus::UP)
+      end
+
+      it "leaves the front yard lights on" do
+        expect(Front_Yard_Lights.members.all?(&:on?)).to be true
+      end
+    end
+
+    context "when luminance is being ignored" do
+      before do
+        Entrance_IgnoreLuminance_Switch.update(ON)
+        freeze_at(:weekday, 10)
+        Sun_Status.update(SunStatus::UP)
+      end
+
+      it "leaves the front yard lights on" do
+        expect(Front_Yard_Lights.members.all?(&:on?)).to be true
+      end
+
+      it "leaves the hall lights on" do
+        expect(All_Hall_Lights.members.all?(&:on?)).to be true
       end
     end
   end

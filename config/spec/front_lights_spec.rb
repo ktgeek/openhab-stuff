@@ -1,6 +1,21 @@
 # frozen_string_literal: true
 
 RSpec.describe "front_lights.rb" do
+  describe "Hall Lights" do
+    it "turns on all the hall lights when one is turned on" do
+      All_Hall_Lights.members.first.update(ON)
+
+      expect(All_Hall_Lights.members.all?(&:on?)).to be true
+    end
+
+    it "turns off all the hall lights when one is turned off" do
+      suspend_rules { All_Hall_Lights.members.each { |light| light.update(ON) } }
+      All_Hall_Lights.members.first.update(OFF)
+
+      expect(All_Hall_Lights.members.all?(&:off?)).to be true
+    end
+  end
+
   describe "Front Yard Lights" do
     context "morning lights for bike rides" do
       it "turns on the front yard lights at 5am if the sun is down and its outdoor biking season" do
