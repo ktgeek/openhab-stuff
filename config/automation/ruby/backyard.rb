@@ -114,7 +114,7 @@ rule "Update bedroom weather overlay", id: "backyard_weather_overlay" do
     Backyard_Weather_Condition.update(coded || NULL)
 
     temp_f = Backyard_Temperature.state.to_f if Backyard_Temperature.state?
-    overlay = Weather.overlay_for(coded:, temp_f:)
-    Bedroom_AwtrixClock_Overlay.ensure.command(overlay || "")
+    overlay = Weather.overlay_for(coded:, temp_f:) || ""
+    [Bedroom_AwtrixClock_Overlay, Office_AwtrixClock_Overlay].each { |c| c.ensure.command(overlay) }
   end
 end
