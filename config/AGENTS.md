@@ -219,7 +219,7 @@ Check these before implementing new device logic — reuse existing abstractions
 | `night_off.rb` | Shared "turn off at 10:30pm, or when VisitorMode ends overnight" rule pattern (`evening_lights.rb`, `holiday.rb`) |
 | `nut_ups.rb` | NUT (Network UPS Tools) `ups.status` flag constants |
 | `sun_status.rb` | `UP`/`DOWN` states for the `Sun_Status` item, maintained by `sun.rb` |
-| `color.rb` | Common `HSBType` colors, plus `Color.for_temperature` (deep blue at -10°F, hue 185 at 32°F, red at 100°F) |
+| `color.rb` | Common `HSBType` colors, plus `Color.for_temperature` (deep blue at -10°F, hue 185 at 32°F, red at 100°F), snapped to 8-bit RGB so it equals the state the clocks report back |
 | `time_helpers.rb` | Time/schedule utility methods |
 
 ---
