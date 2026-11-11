@@ -27,7 +27,7 @@ RSpec.describe "basement_remote.rb" do
       Basement_BarLights.update(100)
 
       expect { Basement_NanomoteQuad_Scene_3.update(ZWave::Paddle::CLICK) }
-        .to change { Basement_TheaterLights.state }.to(100)
+        .to change(Basement_TheaterLights, :state).to(100)
     end
 
     it "sets bar lights to full if the bar lights are less when button 3 is pressed" do
@@ -35,7 +35,7 @@ RSpec.describe "basement_remote.rb" do
       Basement_BarLights.update(50)
 
       expect { Basement_NanomoteQuad_Scene_3.update(ZWave::Paddle::CLICK) }
-        .to change { Basement_BarLights.state }.to(100)
+        .to change(Basement_BarLights, :state).to(100)
     end
 
     it "turns off the theater and bar lights if both are full when button 3 is pressed" do
@@ -43,8 +43,8 @@ RSpec.describe "basement_remote.rb" do
       Basement_BarLights.update(100)
 
       expect { Basement_NanomoteQuad_Scene_3.update(ZWave::Paddle::CLICK) }
-        .to change { Basement_BarLights.state }.to(0)
-        .and change { Basement_TheaterLights.state }.to(0)
+        .to change(Basement_BarLights, :state).to(0)
+        .and change(Basement_TheaterLights, :state).to(0)
     end
 
     it "turns the theater and bar lights to full if both are less when button 3 is pressed" do
@@ -52,8 +52,8 @@ RSpec.describe "basement_remote.rb" do
       Basement_BarLights.update(50)
 
       expect { Basement_NanomoteQuad_Scene_3.update(ZWave::Paddle::CLICK) }
-        .to change { Basement_BarLights.state }.to(100)
-        .and change { Basement_TheaterLights.state }.to(100)
+        .to change(Basement_BarLights, :state).to(100)
+        .and change(Basement_TheaterLights, :state).to(100)
     end
 
     it "turns on the Basement Movie Mode Switch when button 4 is pressed" do
