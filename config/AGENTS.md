@@ -302,6 +302,11 @@ A rule spec says how the rule responds to whatever triggered it: one example per
 rule (an `only_if`, an unknown state, a time window). It never asserts that the rule ignores something it has no trigger
 for, such as a click type it doesn't handle, because that only restates the trigger list.
 
+`spec/profiles_spec.rb` drives a profile the way a binding would: it links an item (built in the example, with
+`autoupdate: false`) to a channel of a real thing the harness gave a mock handler, and sends a state through that
+handler's `callback.state_updated`. The harness gives each example its own `ProfileFactory`, so the spec `load`s
+`profiles.rb` first. The profile runs on openHAB's own threads, so the spec waits for the item to change.
+
 Run specs under JRuby 10.1.1.0 (`chruby jruby-10.1.1.0`), ignoring `.ruby-version`; rspec is the only thing here that
 needs JRuby (rubocop runs under MRI, see Linting). `.rspec` puts
 `automation/ruby/lib` on the load path so a spec can `require` a library at file level; the harness only adds it
