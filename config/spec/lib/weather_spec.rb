@@ -118,7 +118,10 @@ RSpec.describe Weather do
       "the simple heat index when it works out below 80" => [{ temp: 80, humidity: 40, wind_speed: 0 }, 79.8],
       "the full heat index when it works out at 80 or above" => [{ temp: 96, humidity: 65, wind_speed: 0 }, 121.0],
       "the full heat index on a hot, humid day, ignoring the wind" =>
-        [{ temp: 90, humidity: 70, wind_speed: 5 }, 105.9]
+        [{ temp: 90, humidity: 70, wind_speed: 5 }, 105.9],
+      "the heat index lowered for very dry air" => [{ temp: 95, humidity: 10, wind_speed: 0 }, 89.4],
+      "the heat index lowered for very dry air at the hottest" => [{ temp: 100, humidity: 5, wind_speed: 0 }, 92.5],
+      "the heat index raised for very humid air" => [{ temp: 85, humidity: 90, wind_speed: 0 }, 101.8]
     }.each do |description, (conditions, feels_like)|
       it "is #{description}" do
         expect(described_class.feels_like(**conditions)).to eq(feels_like)
