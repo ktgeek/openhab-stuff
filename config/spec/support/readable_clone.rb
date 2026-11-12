@@ -9,7 +9,7 @@ require "openhab/rspec/karaf"
 # can't help: the GraalPy runtime's `tmp/org.graalvm.python.vfsx*` (0700, renamed on every start) and
 # `openhab-start-level` (0600). So the clone is made by a Ruby copy that skips what it can't read instead.
 #
-# `InstanceService` below is openhab/openhab-jruby#588 (fixes #581), copied as it is at eff9e019d under this module's
+# `InstanceService` below is openhab/openhab-jruby#588 (fixes #581), copied as it is at 835d90446 under this module's
 # name so it can't clash with the gem's own once that ships; `CreateInstance` is the PR's `create_instance`. Remove this
 # file once a release with that PR ships, and copy the changes over again if the PR changes before then.
 module ReadableClone
@@ -92,8 +92,11 @@ module ReadableClone
       # Not Karaf: but not the userdata directory itself, whatever it is called, or nothing would be cloned
       return if !top_level && (IGNORED.match?(name) || BACKUP.match?(name))
 
-      # The userdata directory itself is not an entry to skip: without it there would be no clone
-      unless top_level || readable?(source)
+      if top_level
+        # The userdata directory itself is not an entry to skip: without it there would be no clone. One that can be
+        # listed but not searched would be cloned as nothing but tmp, so it raises like one that can't be listed.
+        raise Errno::EACCES, source if File.exist?(source) && !readable?(source)
+      elsif !readable?(source)
         warn "Not cloning #{source}: the user running the specs can't read it"
         return
       end
