@@ -188,6 +188,21 @@ RSpec.describe "office.rb" do
         end
       end
     end
+
+    context "when the slider gets a command that is not a number" do
+      before do
+        Office_Fan_Speed_Actual.update(1)
+        Office_Fan_Speed.command(INCREASE)
+      end
+
+      it "does not set a fan speed" do
+        expect(Office_Fan_Speed_Actual.state.to_i).to eq 1
+      end
+
+      it "does not make the rule fail" do
+        expect(spec_log_lines).not_to include(a_string_including("Failed to execute rule 'office"))
+      end
+    end
   end
 
   describe "UPS battery shutdown" do
