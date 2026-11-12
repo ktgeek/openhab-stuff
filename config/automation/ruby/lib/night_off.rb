@@ -4,9 +4,18 @@
 # - every night at 10:30pm, turn things off, unless VisitorMode is on
 # - if VisitorMode gets turned off between 10:30pm and 3am, turn things off immediately instead of waiting for 10:30pm
 module NightOff
-  # The turn-off blocks run with NightOff as self, so ensure_states, a global DSL method, has to be reachable from here.
-  # Extending OpenHAB::DSL instead would make its rule builder call NightOff.rule and recurse.
-  def self.ensure_states(&) = OpenHAB::DSL.ensure_states(&)
+  # The turn-off blocks run with NightOff as self, so the global DSL methods they use (ensure_states, items, ...) have
+  # to be reachable from here. Extending OpenHAB::DSL instead would make its rule builder call NightOff.rule and
+  # recurse, so anything NightOff doesn't define itself is forwarded to it.
+  def self.method_missing(name, ...)
+    return super unless OpenHAB::DSL.respond_to?(name)
+
+    OpenHAB::DSL.public_send(name, ...)
+  end
+
+  def self.respond_to_missing?(name, include_private = false)
+    OpenHAB::DSL.respond_to?(name) || super
+  end
 
   def self.rule(label, condition: -> { true }, reactivate: true, &turn_off)
     OpenHAB::DSL.rule "#{label}: turn off at night" do
