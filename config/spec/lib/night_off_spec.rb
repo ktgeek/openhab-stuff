@@ -89,5 +89,14 @@ RSpec.describe "NightOff" do
 
       expect(calls).to eq [:ensured]
     end
+
+    it "can use other global DSL methods" do
+      calls = self.calls
+      NightOff.rule("itemized") { calls << items["VisitorMode_Switch"].name }
+      VisitorMode_Switch.update(OFF)
+      rule_named("itemized: turn off at night").trigger
+
+      expect(calls).to eq ["VisitorMode_Switch"]
+    end
   end
 end
