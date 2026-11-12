@@ -2,8 +2,8 @@
 
 require "awtrix_ng"
 
-# Clock-neutral pieces shared by the Awtrix 3 and AWTRIX NG libraries, so rules describe a notification or an
-# indicator once and every clock shows it.
+# Clock-neutral pieces that AwtrixNg converts for the binding, so rules describe a notification or an indicator once
+# and every clock shows it.
 module Awtrix
   INDICATORS = {
     ::Garage_LargeDoor => 1,

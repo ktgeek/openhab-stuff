@@ -2,8 +2,8 @@
 
 require "forwardable"
 
-# Actions for an AWTRIX NG clock (the `mqtt.awtrixng` binding). Same public interface as Awtrix3, but the binding takes
-# "#RRGGBB" strings and a single params map for notifications.
+# Actions for an AWTRIX NG clock (the `mqtt.awtrixlight` actions), used for both the Office and the Bedroom clock. The
+# binding takes the colors as Java int arrays and a single params map for notifications.
 class AwtrixNg
   extend Forwardable
 

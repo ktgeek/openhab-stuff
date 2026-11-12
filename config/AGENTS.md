@@ -211,8 +211,7 @@ Check these before implementing new device logic — reuse existing abstractions
 | `kwikset.rb` | Kwikset smart lock keypad event parsing (Z-Wave based) |
 | `aqara_cube.rb` | Aqara Cube multi-action wireless controller |
 | `awtrix.rb` | Clock-neutral Awtrix pieces (`Color` as `[r, g, b]`, `INDICATORS`) and `Awtrix.all_clocks`, a `ClockGroup` that fans a notification or indicator out to every clock — rules call this, not a clock library directly |
-| `awtrix3.rb` | Awtrix 3 clock (Office) via the `mqtt.awtrixlight` actions; converts shared colors to Java `int[]` |
-| `awtrix_ng.rb` | AWTRIX NG clock (Bedroom) via the `awtrixng` actions; converts shared colors to `#RRGGBB` and builds the single notification params map |
+| `awtrix_ng.rb` | AWTRIX NG clocks (Office and Bedroom) via the `mqtt.awtrixlight` actions; converts shared colors to Java `int[]` and builds the single notification params map |
 | `tv_notification.rb` | Apple TV notification delivery |
 | `weather.rb` | Weather Underground / PWSWeather station uploads, plus Xweather present-weather lookup (`current_conditions`) and its mapping to AWTRIX NG overlays (`overlay_for`) |
 | `holidays.rb` | Holiday constants used by decoration lighting rules |
@@ -243,8 +242,7 @@ Check these before implementing new device logic — reuse existing abstractions
 | LG WebOS | WebOS binding | TV control |
 | Onkyo / Pioneer AVR | Dedicated bindings | Audio receiver control |
 | Xweather | REST API (`weather.rb`) | Present-weather codes polled every 10 minutes by `backyard.rb` into `Backyard_Weather_Condition`, then mapped to the Bedroom AWTRIX NG weather overlay (`Bedroom_AwtrixClock_Overlay`, cleared with an empty string). Conditions come only from Xweather; a failed lookup clears the overlay. Frost is the one exception and uses `Backyard_Temperature`. |
-| Awtrix3 | MQTT | Matrix notification display (Office clock) |
-| AWTRIX NG | MQTT, `awtrixng:clock` / `awtrixng:app` Things (custom `awtrix-ng` add-on build) | Matrix notification display (Bedroom clock); app names allow only letters, digits, `-` and `_`. The app `text-color` channel only accepts a color and can't be cleared, so `backyard.rb` colors the outdoor temp by feels-like temperature (`Color.for_temperature`) on both clocks, except that from 9:30pm to 7am the Bedroom app is set to the clock's own `Bedroom_AwtrixClock_TextColor` instead. |
+| AWTRIX NG | MQTT, `mqtt:awtrix-ng-clock` / `mqtt:awtrix-ng-app` Things | Matrix notification display (Office and Bedroom clocks); app names allow only letters, digits, `-` and `_`. The app `text-color` channel only accepts a color and can't be cleared, so `backyard.rb` colors the outdoor temp by feels-like temperature (`Color.for_temperature`) on both clocks, except that from 9:30pm to 7am the Bedroom app is set to the clock's own `Bedroom_AwtrixClock_TextColor` instead. |
 | OpenHAB Cloud | Cloud service | Remote access |
 
 > **Note:** Matter and HomeKit above bridge openHAB's item layer to Apple Home, bidirectionally — a command from Siri/the Home app becomes an openHAB item command, and item state changes are reported back out. Neither talks to underlying device hardware directly; a command arriving via Matter for a Z-Wave thermostat still gets sent to the device over Z-Wave JS, not Matter.
