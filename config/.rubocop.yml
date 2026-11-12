@@ -26,5 +26,6 @@ RSpec/DescribeClass:
 # A rule example sets up a few item states, triggers one change, then asserts, which doesn't fit in the default five.
 RSpec/ExampleLength:
   Max: 10
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
