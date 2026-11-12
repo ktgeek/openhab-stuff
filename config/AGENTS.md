@@ -315,14 +315,15 @@ minute; later runs reuse it. Karaf's clone fails with an NPE or `Permission deni
 rspec can't read in `/var/lib/openhab`, and openHAB creates such entries itself with explicit modes
 (`tmp/org.graalvm.python.vfsx*` is `0700`, `openhab-start-level` is `0600`), so a umask can't help. For the first
 clone `spec/support/readable_clone.rb` replaces Karaf's copy with a Ruby one that mirrors it, openhab-jruby#588's
-`InstanceService` copied as it is. It skips anything the user running rspec can't read, anything that is neither a file
-nor a directory, and anything that disappears while it is copied, each with a warning on stderr, so check that warning
-if a spec needs a file from there. It also leaves out the top-level `cache/`, `openhab-start-level`, hidden entries (the
-`openhab` user's home clutter, 2 GB of the old 2.6 GB clone) and any `*.bak` file, and makes `tmp/` empty. The harness
-deletes only `cache`, `jsondb/backup` and `marketplace` from the clone: its `rm_rf` of `tmp/*` and `logs/*` doesn't
-expand the globs. A clone is about 0.6 GB. Reported upstream as openhab/openhab-jruby#581; drop `readable_clone.rb`
-once a release with #588 ships, and copy the class over again if the PR changes before then. `nokogiri` is in the
-`Gemfile` because `openhab-scripting`'s rspec harness requires it without declaring it.
+`InstanceService` copied as it is, with #587's isolation (below) on top. It skips anything the user running rspec can't
+read, anything that is neither a file nor a directory, and anything that disappears while it is copied, each with a
+warning on stderr, so check that warning if a spec needs a file from there. It also leaves out the top-level `cache/`,
+`openhab-start-level`, hidden entries (the `openhab` user's home clutter, 2 GB of the old 2.6 GB clone) and any `*.bak`
+file, and makes `tmp/` empty. The harness deletes only `cache`, `jsondb/backup` and `marketplace` from the clone: its
+`rm_rf` of `tmp/*` and `logs/*` doesn't expand the globs. A clone is about 0.6 GB. Reported upstream as
+openhab/openhab-jruby#581; drop `readable_clone.rb` once a release with #588 and #587 ships (it holds both, see below),
+and copy the class over again if either PR changes before then. `nokogiri` is in the `Gemfile` because
+`openhab-scripting`'s rspec harness requires it without declaring it.
 
 A timer block that raises would otherwise hang the whole run: the harness never unregisters the timer and then loops
 on it forever while cleaning up. `spec/spec_helper.rb` drops such timers first, so the error shows up as a normal
@@ -345,15 +346,20 @@ without waiting for one. A spec that needs an addon's thing types can call `inst
 The clone also inherits production's ConfigAdmin store, where every config still names the production file it was
 loaded from (`felix.fileinstall.filename=file:/var/lib/openhab/etc/….cfg`). The harness updates a few configs on
 startup, and the clone's fileinstall saves each update to the file named, so a run could rewrite production's
-`org.openhab.addons.cfg` and make openHAB uninstall add-ons. `spec/support/production_isolation.rb`, openhab-jruby#587's
-methods copied as they are, deletes the clone's `*.config.bak` copies (ConfigAdmin falls back to them, and they name
-production too), rewrites the production paths in the rest to the clone's own, turns off fileinstall's config saving in
-the clone, and raises before Karaf starts if anything in the clone's `config/` or `etc/` still mentions
+`org.openhab.addons.cfg` and make openHAB uninstall add-ons. openhab-jruby#587's `isolate_clone`, a method of the
+`InstanceService` in `readable_clone.rb`, deletes the clone's `*.config.bak` copies (ConfigAdmin falls back to them, and
+they name production too), rewrites the production paths in the rest to the clone's own, turns off fileinstall's config
+saving in the clone, and raises before Karaf starts if anything in the clone's `config/` or `etc/` still mentions
 `/var/lib/openhab/`. It also refuses to change a file that leads outside the clone through a symlink, and a clone that
-is production's userdata or inside it. If it raises, something new is leaking production paths: fix that rather than
-loosening the check. Reported as openhab/openhab-jruby#580. Copy the methods over again if the PR changes before it
-ships, and even once a release has it, keep `production_isolation.rb` until a launch has been checked against hashes of
-production's files, since a regression here costs data, not a failing spec.
+is production's userdata or inside it (checked before anything is copied). The copy runs it when it makes the clone, and
+`spec/support/production_isolation.rb` runs it again on every launch, so a clone made earlier is covered too; the gem
+this runs against doesn't record production's userdata directory the way the PR does, so the hook uses
+`OPENHAB_USERDATA`. If it raises, something new is leaking production paths: fix that rather than loosening the check.
+Reported as openhab/openhab-jruby#580. `production_isolation.rb` depends on `readable_clone.rb`, so drop or rework them
+together: once a release has #587, the hook can call the gem's `OpenHAB::RSpec::InstanceService` instead. Copy the
+methods over again if the PR changes before it ships, and even once a release has it, keep `production_isolation.rb`
+until a launch has been checked against hashes of production's files, since a regression here costs data, not a failing
+spec.
 
 The harness's executor mock (the thread pool for every openHAB component) refers to `OpenHAB::Core.version`, but
 `OpenHAB::Core` doesn't exist until the harness requires `openhab/dsl` after startup. When a component such as
