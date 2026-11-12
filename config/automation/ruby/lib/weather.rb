@@ -145,9 +145,9 @@ module Weather
            (0.00683783 * temp * temp) - (0.05481717 * humidity * humidity) + (0.00122874 * temp * temp * humidity) +
            (0.00085282 * temp * humidity * humidity) - (0.00000199 * temp * temp * humidity * humidity)
       if humidity < 13 && temp.between?(80, 112)
-        hi -= (((13 - humidity) / 4) * Math.sqrt((17 - (temp - 95).abs) / 17))
+        hi -= (((13 - humidity) / 4.0) * Math.sqrt((17 - (temp - 95).abs) / 17))
       elsif humidity > 85 && temp.between?(80, 87)
-        hi += (((humidity - 85) / 10) * ((87 - temp) / 5))
+        hi += (((humidity - 85) / 10.0) * ((87 - temp) / 5))
       end
 
       hi
