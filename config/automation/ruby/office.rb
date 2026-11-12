@@ -77,6 +77,9 @@ end
 changed(Office_Fan_Speed_Actual) { |event| Office_Fan_Speed.ensure.update(fan_speed_to_percentage(event.item.state)) }
 
 received_command Office_Fan_Speed do |event|
+  # Only a number says a speed; INCREASE/DECREASE has no value to turn into one
+  next unless event.command.respond_to?(:to_f)
+
   speed = [((event.command.to_f / 25) - 1).ceil.to_i, 0].max
   Office_Fan_Speed_Actual.ensure.command(speed)
   # Ensure we bounce the UI to the highest 25% increment, so that the slider is always at a valid value.
