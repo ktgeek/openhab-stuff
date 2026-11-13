@@ -346,20 +346,21 @@ without waiting for one. A spec that needs an addon's thing types can call `inst
 The clone also inherits production's ConfigAdmin store, where every config still names the production file it was
 loaded from (`felix.fileinstall.filename=file:/var/lib/openhab/etc/….cfg`). The harness updates a few configs on
 startup, and the clone's fileinstall saves each update to the file named, so a run could rewrite production's
-`org.openhab.addons.cfg` and make openHAB uninstall add-ons. openhab-jruby#587's `isolate_clone`, a method of the
+`org.openhab.addons.cfg` and make openHAB uninstall add-ons. openhab-jruby#587's `isolate_clone`, a class method of the
 `InstanceService` in `readable_clone.rb`, deletes the clone's `*.config.bak` copies (ConfigAdmin falls back to them, and
-they name production too), rewrites the production paths in the rest to the clone's own, turns off fileinstall's config
-saving in the clone, and raises before Karaf starts if anything in the clone's `config/` or `etc/` still mentions
-`/var/lib/openhab/`. It also refuses to change a file that leads outside the clone through a symlink, and a clone that
-is production's userdata or inside it (checked before anything is copied). The copy runs it when it makes the clone, and
-`spec/support/production_isolation.rb` runs it again on every launch, so a clone made earlier is covered too; the gem
-this runs against doesn't record production's userdata directory the way the PR does, so the hook uses
-`OPENHAB_USERDATA`. If it raises, something new is leaking production paths: fix that rather than loosening the check.
-Reported as openhab/openhab-jruby#580. `production_isolation.rb` depends on `readable_clone.rb`, so drop or rework them
-together: once a release has #587, the hook can call the gem's `OpenHAB::RSpec::InstanceService` instead. Copy the
-methods over again if the PR changes before it ships, and even once a release has it, keep `production_isolation.rb`
-until a launch has been checked against hashes of production's files, since a regression here costs data, not a failing
-spec.
+they name production too), rewrites the production paths in the rest to the clone's own (only where a config value
+starts: after a quote, `file:` or `file://`), turns off fileinstall's config saving in the clone's `config.properties`
+and `custom.properties`, and raises before Karaf starts if anything in the clone's `config/` or `etc/` still mentions
+`/var/lib/openhab/`. It also refuses a clone with any symlink in its `config/`, and one that is production's userdata,
+inside it or around it (checked before anything is copied). The copy runs it when it makes the clone, and
+`spec/support/production_isolation.rb` runs it again on every launch, before the harness's own cleanup of the clone, so
+a clone made earlier is covered too; the gem this runs against doesn't record production's userdata directory the way
+the PR does, so the hook uses `OPENHAB_USERDATA`. If it raises, something new is leaking production paths: fix that
+rather than loosening the check. Reported as openhab/openhab-jruby#580. `production_isolation.rb` depends on
+`readable_clone.rb`, so drop or rework them together: once a release has #587, the hook can call the gem's
+`OpenHAB::RSpec::InstanceService` instead. Copy the methods over again if the PR changes before it ships, and even once
+a release has it, keep `production_isolation.rb` until a launch has been checked against hashes of production's files,
+since a regression here costs data, not a failing spec.
 
 The harness's executor mock (the thread pool for every openHAB component) refers to `OpenHAB::Core.version`, but
 `OpenHAB::Core` doesn't exist until the harness requires `openhab/dsl` after startup. When a component such as
