@@ -10,7 +10,7 @@ require_relative "readable_clone"
 # stop its fileinstall saving configs at all, and refuse to start if anything still points at production.
 #
 # The work is `ReadableClone::InstanceService.isolate_clone`, which is openhab/openhab-jruby#587 (fixes #580) as it is
-# at 986cc792f. That runs when the clone is made; this file runs it on every launch, the way the PR's `cleanup_instance`
+# at 95315b533. That runs when the clone is made; this file runs it on every launch, the way the PR's `cleanup_instance`
 # does, so a clone made earlier (or by the gem's own copy) is covered too. Remove this file once a release with that PR
 # ships, and copy the changes over again if the PR changes before then. Even then, keep it until a launch has been
 # checked against hashes of production's files, since a regression here costs data, not a failing spec.

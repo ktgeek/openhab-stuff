@@ -10,7 +10,7 @@ require "openhab/rspec/karaf"
 # `openhab-start-level` (0600). So the clone is made by a Ruby copy that skips what it can't read instead.
 #
 # `InstanceService` below is openhab/openhab-jruby#588 (fixes #581) with #587 (fixes #580) on top, copied as it is at
-# 986cc792f under this module's name so it can't clash with the gem's own once they ship; `CreateInstance` is the PR's
+# 95315b533 under this module's name so it can't clash with the gem's own once they ship; `CreateInstance` is the PR's
 # `create_instance`. It also isolates the clone from production (see production_isolation.rb), so this file and that one
 # are dropped or reworked together. Remove this file once a release with both PRs ships, and copy the changes over again
 # if #587 changes before then.
@@ -196,7 +196,7 @@ module ReadableClone
       #
       # This is also called for every launch of the clone, which repairs one made by an older version.
       def isolate_clone(location, clone_location)
-        location = File.expand_path(location)
+        location = absolute_path(location)
         refuse_nested_clone(location, clone_location)
         refuse_symlinks(clone_location)
         remove_config_backups(clone_location)
@@ -233,6 +233,11 @@ module ReadableClone
         raise ArgumentError, "Can't resolve #{path}: #{e.message}"
       end
 
+      # Not File.expand_path, which collapses a ".." before real_path can follow the symlink it comes after
+      def absolute_path(path)
+        java.nio.file.Paths.get(path).to_absolute_path.to_s
+      end
+
       def inside?(path, directory)
         path == directory || path.start_with?("#{directory}/")
       end
@@ -242,8 +247,7 @@ module ReadableClone
       # and the cleanup of the clone deletes in config/. So refuse to go on.
       def refuse_symlinks(clone_location)
         config = File.join(clone_location, "config")
-        entries = Dir.glob("**/*", File::FNM_DOTMATCH, base: config).map { |entry| File.join(config, entry) }
-        links = ([config] + entries).select { |entry| File.symlink?(entry) }
+        links = ([config] + entries_under(clone_location, "config")).select { |entry| File.symlink?(entry) }
         return if links.empty?
 
         raise "The instance clone has symlinks in its config store, which could lead to the instance it was cloned " \
@@ -265,13 +269,17 @@ module ReadableClone
         end
       end
 
+      # Every file, directory and symlink under them, as full paths
+      def entries_under(clone_location, *directories)
+        directories.flat_map do |directory|
+          base = File.join(clone_location, directory)
+          Dir.glob("**/*", File::FNM_DOTMATCH, base:).map { |entry| File.join(base, entry) }
+        end
+      end
+
       # Binary reads, since etc/ holds keystores
       def files_under(clone_location, *directories)
-        files = directories.flat_map do |directory|
-          base = File.join(clone_location, directory)
-          Dir.glob("**/*", File::FNM_DOTMATCH, base:).map { |file| File.join(base, file) }
-        end
-        files.select { |file| File.file?(file) }
+        entries_under(clone_location, *directories).select { |entry| File.file?(entry) }
       end
 
       # A config's value starts with a quote, and a file: URL after it, so that is where the real path is rewritten.
