@@ -38,3 +38,9 @@ String  FamilyRoom_TV_App    "Application"           (FamilyRoom_TV)  ["Status"]
 
 Switch  FamilyRoom_Receiver_Power         "Power"         {channel="onkyo:onkyoUnsupported:b0ef2e6f-006f-2eBB-b000-0009b0ef2e6f:zone1#power"}
 Number  FamilyRoom_Receiver_Input_Source  "Input source"  {channel="onkyo:onkyoUnsupported:b0ef2e6f-006f-2eBB-b000-0009b0ef2e6f:zone1#input"}
+
+Group   FamilyRoom_Harmony                       "Family Room Harmony Hub"            (FamilyRoom)          ["RemoteControl"]
+String  FamilyRoom_Harmony_Activity              "Family Room Harmony Activity [%s]"  (FamilyRoom_Harmony)  ["Status"]  {channel="harmonyhub:hub:HarmonyHub:currentActivity", timescaledb=" " [retentionDays="14"]}
+Switch  FamilyRoom_Harmony_WatchTV_Switch        "Family Room TV"                     (FamilyRoom_Harmony)  ["Switch"]  {autoupdate="false", matter="OnOffPlugInUnit" [label="Family Room TV", fixedLabels="room=Family Room"], timescaledb=" " [retentionDays="14"]}
+Switch  FamilyRoom_Harmony_WatchPC_Switch        "Family Room PC"                     (FamilyRoom_Harmony)  ["Switch"]  {autoupdate="false", matter="OnOffPlugInUnit" [label="Family Room PC", fixedLabels="room=Family Room"], timescaledb=" " [retentionDays="14"]}
+Switch  FamilyRoom_Harmony_ListenToMusic_Switch  "Family Room Music"                  (FamilyRoom_Harmony)  ["Switch"]  {autoupdate="false", matter="OnOffPlugInUnit" [label="Family Room Music", fixedLabels="room=Family Room"], timescaledb=" " [retentionDays="14"]}

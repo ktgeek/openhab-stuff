@@ -230,7 +230,7 @@ Check these before implementing new device logic — reuse existing abstractions
 | MQTT | MQTT broker (UUID: `26bcbec1ee`) | Tasmota devices, Zigbee2MQTT bridge (surfaced as `homeassistant:device:` Things via MQTT discovery), Awtrix, Homie |
 | Z-Wave JS | `zwavejs` binding (`zwavejs:gateway`) | Wall switches, thermostats, locks, smoke/leak sensors |
 | Zigbee | via zigbee2mqtt | Sensors, bulbs |
-| Matter | Matter binding (bridge role) | Bidirectionally links items with Apple Home over Matter: commands from Siri/the Home app/HomeKit automations arrive as item commands in openHAB, and openHAB item state changes are reported back out to Apple Home. Covers the thermostats, on/off and dimmable lights, color LED strips, and temperature/humidity/occupancy/contact sensors — the Matter bridge has no device type for garage door openers, smoke/CO alarms, leak sensors, the front door lock, outlets, fans, or generic virtual switches, so those stay on HomeKit below. It never talks to the Z-Wave radio or any device directly — Z-Wave JS (above) is still the actual device connection; Matter only bridges to/from openHAB's item layer. |
+| Matter | Matter binding (bridge role) | Bidirectionally links items with Apple Home over Matter: commands from Siri/the Home app/HomeKit automations arrive as item commands in openHAB, and openHAB item state changes are reported back out to Apple Home. Covers the thermostats, on/off and dimmable lights, color LED strips, and temperature/humidity/occupancy/contact sensors — the Matter bridge has no device type for garage door openers, smoke/CO alarms, leak sensors, the front door lock, outlets, fans, or generic virtual switches, so those stay on HomeKit below. The one exception is the three Harmony activity switches (`FamilyRoom_Harmony_{WatchTV,WatchPC,ListenToMusic}_Switch`), which use `OnOffPlugInUnit` so they appear as outlets, not lights, and "turn off the lights" leaves them alone. It never talks to the Z-Wave radio or any device directly — Z-Wave JS (above) is still the actual device connection; Matter only bridges to/from openHAB's item layer. |
 | ESPHome | ESPHome add-on (`esphome:device:`) | Native-API ESP devices: the Konnected perimeter contact zones (`konnected`), both garage door openers (`small-garage-door`, `large-garage-door`), and the front yard decoration mat (`jeff-mat`). These replaced the earlier MQTT/Home Assistant-discovery Things for the same hardware. |
 | Bond Home | Bond binding | Ceiling fans |
 | Hiome | REST API | Occupancy counting sensors |
@@ -238,7 +238,7 @@ Check these before implementing new device logic — reuse existing abstractions
 | HomeKit | HomeKit binding (bridge role) | Same bidirectional item-layer bridge as Matter above, via the legacy HomeKit Accessory Protocol — driven by item metadata rather than per-device Things. |
 | Alexa | Alexa binding | Amazon Echo devices |
 | Amazon Echo Control | `amazonechocontrol` binding | Echo / Echo Show devices |
-| Harmony Hub | `harmonyhub` binding | Family room Apple TV |
+| Harmony Hub | `harmonyhub` binding | Family room Apple TV. The hub's `currentActivity` channel feeds `FamilyRoom_Harmony_Activity`, and `family_room.rb` maps it to the "Family Room TV" / "Family Room PC" / "Family Room Music" Matter switches (Watch TV / Watch PC / Listen to Music): ON starts the activity, OFF sends `PowerOff` only if that activity is the one running, and the switches (`autoupdate="false"`) follow the hub's reported activity, so the remote stays in sync. The activity list isn't in openHAB; read it from the hub's local API (`:8088`, `getProvisionInfo` for the remote id, then the websocket `config` get). |
 | LG WebOS | WebOS binding | TV control |
 | Onkyo / Pioneer AVR | Dedicated bindings | Audio receiver control |
 | Xweather | REST API (`weather.rb`) | Present-weather codes polled every 10 minutes by `backyard.rb` into `Backyard_Weather_Condition`, then mapped to the Bedroom AWTRIX NG weather overlay (`Bedroom_AwtrixClock_Overlay`, cleared with an empty string). Conditions come only from Xweather; a failed lookup clears the overlay. Frost is the one exception and uses `Backyard_Temperature`. |
@@ -514,9 +514,10 @@ Compression activates after 45 days. Items not listed explicitly in `timescaledb
 39 long-lived sensor and energy items (listed in `timescaledb.persist`'s "Long-lived sensor and energy items"
 section) carry `timescaledb=" " [retentionDays="1095", aggregation="...", downsampleInterval="..."]` item metadata so
 the addon's nightly downsampling job actually aggregates them (`AVG`/`SUM`/`MAX` depending on the item — weather
-station items downsample every 5m, everything else every 1h). `Backyard_Last_Updated` is the one item explicitly
+station items downsample every 5m, everything else every 1h). `Backyard_Last_Updated` is explicitly
 special-cased *down* to `retentionDays="14"`, since as a near-continuous heartbeat timestamp it would otherwise
-dominate storage under the new 3-year default (93% of non-long-lived write volume in a 10-day sample).
+dominate storage under the new 3-year default (93% of non-long-lived write volume in a 10-day sample). The four
+`FamilyRoom_Harmony_*` items get the same 14-day cap, since their history isn't worth keeping.
 
 **Important structural note:** TimescaleDB's native retention/compression policies (`timescaledb_information.jobs` in
 Postgres) operate per-chunk on the whole `items` hypertable, not per-item — so the global `retentionDays` config value

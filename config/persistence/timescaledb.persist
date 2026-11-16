@@ -65,5 +65,6 @@ Items {
   // weather update (~every 10s) and alone accounted for 93% of non-long-lived write volume (82,632 of
   // 88,751 rows over a 10-day sample) — it carries its own `timescaledb=" " [retentionDays="14"]` item
   // metadata (see items/backyard.items) to cap it at 14 days instead of inheriting the 3-year default.
+  // The four FamilyRoom_Harmony_* items (activity and its three Apple Home switches) are capped the same way.
   * : strategy = everyChange, restoreOnStartup
 }
