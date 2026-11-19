@@ -14,7 +14,7 @@ Group  Front_Yard    "Front Yard"                   (Home)  ["Outdoor"]
 Group  Clear_Scenes  "Clear Scenes"
 
 // First Floor - Entrance
-Group:Switch:OR(ON,OFF)  All_Hall_Lights             "Hall Lights"       <lightbulb>  (Entrance)         {homekit="Lighting", alexa="Lighting"}
+Group:Switch:OR(ON,OFF)  All_Hall_Lights             "Hall Lights"       <lightbulb>  (Entrance)         {matter="OnOffLight" [label="Hall Lights", fixedLabels="room=Entrance"], alexa="Lighting"}
 Switch                   Entrance_Hall_Light_Switch  "Hall Table Light"  <lightbulb>  (All_Hall_Lights)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node8:binary-switch-value"}
 
 // Virtual test
