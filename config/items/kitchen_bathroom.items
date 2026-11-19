@@ -8,4 +8,4 @@ Group   KitchenBathroom_Light_Group   "Kitchen Bathroom Light Group"  (KitchenBa
 Switch  KitchenBathroom_Light_Switch  "Kitchen Bathroom Light "       (KitchenBathroom_Light_Group)  ["Switch", "Light"]  {matter="OnOffLight" [label="Kitchen Bathroom Light", fixedLabels="room=Kitchen Bathroom"], channel="zwavejs:node:c503e1bad6:node66:binary-switch-value"}
 
 Group   KitchenBathroom_Fan_Group   "Kitchen Bathroom Fan Group"  (KitchenBathroom)            ["Fan"]
-Switch  KitchenBathroom_Fan_Switch  "Kitchen Bathroom Fan"        (KitchenBathroom_Fan_Group)  ["Fan"]  {homekit="Fan", channel="zwavejs:node:c503e1bad6:node85:binary-switch-value"}
+Switch  KitchenBathroom_Fan_Switch  "Kitchen Bathroom Fan"        (KitchenBathroom_Fan_Group)  ["Fan"]  {matter="Fan, fanControl.fanMode" [fanControl-fanModeSequence=5, label="Kitchen Bathroom Fan", fixedLabels="room=Kitchen Bathroom"], channel="zwavejs:node:c503e1bad6:node85:binary-switch-value"}
