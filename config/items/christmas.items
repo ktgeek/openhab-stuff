@@ -43,5 +43,5 @@ Switch  LivingRoom_ChristmasTree_Switch  "Living Room Christmas Tree"  <powerout
 // Switch Front_Yard_Wolf_Decoration "Werewolf Jeff" (FF_Porch) ["Point"] { matter="OnOffPlugInUnit" [label="Werewolf Jeff", fixedLabels="room=Front Yard"], channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0xa4c1380f5a933544:switch" }
 
 Group         Upstairs_MiscDecoration_Outlet                                             (Upstairs)                             ["PowerOutlet"]
-Switch        SF_Hallway_MiscDecoration_Switch  "Misc Decoration"  <poweroutlet_us>      (Upstairs_MiscDecoration_Outlet)       ["Switch"]       {channel="esphome:device:misc-decoration:relay", homekit="Outlet", autoupdate="false"}
+Switch        SF_Hallway_MiscDecoration_Switch  "Misc Decoration"  <poweroutlet_us>      (Upstairs_MiscDecoration_Outlet)       ["Switch"]       {channel="esphome:device:misc-decoration:relay", matter="OnOffPlugInUnit" [label="Misc Decoration", fixedLabels="room=Upstairs"], autoupdate="false"}
 Number:Power  SF_Hallway_MiscDecoration_Watts   "Misc Decoration"                        (Upstairs_MiscDecoration_Outlet)       ["Power"]        {channel="esphome:device:misc-decoration:power", timescaledb=" " [retentionDays="1095", aggregation="AVG", downsampleInterval="1h"]}

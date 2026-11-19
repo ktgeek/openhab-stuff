@@ -1,6 +1,6 @@
 Group  Bedroom  "Bedroom"  <bedroom>  (SF)  ["Bedroom"]
 
-Switch  Bedroom_WallOutlet  "Bedroom Outlet"  <poweroutlet_us>  (Bedroom, Christmas_Lights, Christmas_Lights_All)  ["WallSwitch"]  {homekit="Outlet", channel="zwavejs:node:c503e1bad6:node62:binary-switch-value"}
+Switch  Bedroom_WallOutlet  "Bedroom Outlet"  <poweroutlet_us>  (Bedroom, Christmas_Lights, Christmas_Lights_All)  ["WallSwitch"]  {matter="OnOffPlugInUnit" [label="Bedroom Outlet", fixedLabels="room=Bedroom"], channel="zwavejs:node:c503e1bad6:node62:binary-switch-value"}
 
 Group   Bedroom_CeilingFan_With_Light  "Bedroom Ceiling Fan"                       (Bedroom)                        ["CeilingFan"]  {homekit="Fan,Lighting"}
 Dimmer  Bedroom_CeilingFan_Speed       "Bedroom Ceiling Fan Speed"  <fan_ceiling>  (Bedroom_CeilingFan_With_Light)  ["Control"]     {channel="homeassistant:device:26bcbec1ee:zigbee2mqtt_5F0x881a14fffe41c829:fan#speed", autoupdate="false", homekit="Fan.ActiveStatus, Fan.RotationSpeed"}
