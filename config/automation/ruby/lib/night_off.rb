@@ -4,24 +4,14 @@
 # - every night at 10:30pm, turn things off, unless VisitorMode is on
 # - if VisitorMode gets turned off between 10:30pm and 3am, turn things off immediately instead of waiting for 10:30pm
 module NightOff
-  # The turn-off blocks run with NightOff as self, so the global DSL methods they use (ensure_states, items, ...) have
-  # to be reachable from here. Extending OpenHAB::DSL instead would make its rule builder call NightOff.rule and
-  # recurse, so anything NightOff doesn't define itself is forwarded to it.
-  def self.method_missing(name, ...)
-    return super unless OpenHAB::DSL.respond_to?(name)
-
-    OpenHAB::DSL.public_send(name, ...)
-  end
-
-  def self.respond_to_missing?(name, include_private = false)
-    OpenHAB::DSL.respond_to?(name) || super
-  end
-
+  # `run(&turn_off)` would execute the block with NightOff as self, hiding the global DSL methods it uses
+  # (ensure_states, items, ...). Calling it from inside `run` leaves it with the self of the file that defined it.
+  # rubocop would turn this into `yield`, then into `run(&turn_off)`, so RedundantBlockCall is disabled on those lines.
   def self.rule(label, condition: -> { true }, reactivate: true, &turn_off)
     OpenHAB::DSL.rule "#{label}: turn off at night" do
       cron "0 30 22 ? * *"
 
-      run(&turn_off)
+      run { turn_off.call } # rubocop:disable Performance/RedundantBlockCall
 
       # VisitorMode has no channel and can be NULL after a restart; only an explicit ON should skip the turn-off
       only_if { !::VisitorMode_Switch.on? && condition.call }
@@ -32,7 +22,7 @@ module NightOff
     OpenHAB::DSL.rule "#{label}: turn off when VisitorMode ends for the night" do
       changed ::VisitorMode_Switch, to: ::OFF
 
-      run(&turn_off)
+      run { turn_off.call } # rubocop:disable Performance/RedundantBlockCall
 
       only_if { Time.now.between?("10:30pm".."3am") && condition.call }
     end
