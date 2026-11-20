@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-# No binding is installed in the harness, so no thing has its thing type, and openHAB holds such things back for a
-# minute or so before it initializes them. Force them to initialize once they're all registered. They get their (mock)
-# handlers a few seconds after that, and the harness doesn't wait, so the examples that happen to run first would see
-# things with no handler. Wait until the number of things with a handler is above zero and has stopped changing.
+# openHAB holds back a thing whose thing type isn't installed for a minute or so before it initializes it. The harness
+# installs production's bindings, so that is only the things of the add-ons it doesn't (the esphome and AWTRIX NG jars
+# for now). Force them to initialize once they're all registered. They get their (mock) handlers a few seconds after
+# that, and the harness doesn't wait, so the examples that happen to run first would see things with no handler. Wait
+# until the number of things with a handler is above zero and has stopped changing.
 module ThingInitialization
   POLL_INTERVAL = 0.5
   STABLE_FOR = 3

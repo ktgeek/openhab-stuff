@@ -327,14 +327,20 @@ for every example: a spec's `update` to the state an item already has is dropped
 `spec/spec_helper.rb` turns it off before each example. Rules keep the setting they were created with, so they still
 behave as in production. Reported as openhab/openhab-jruby#593; remove that hook once a fix ships.
 
-The harness clones production's addon settings into `.karaf/`, and at startup Karaf is asked to install them all in one
-request. That request fails as a whole (the jinja transformation can't resolve `javassist` in the harness's trimmed
-runtime), so no addon was ever installed and every run logged resolver errors. Installing production's bindings is
-also what the harness's maintainers advise against: they would be bundles in the runtime that must never start, and
-no spec needs one. `spec/support/karaf_addons.rb` hooks the harness's `cleanup_instance` and, on every launch, drops
-every addon setting from the clone. No binding is installed, so no thing has its thing type; the harness's mock
-handler factory accepts any thing type, and `spec/support/thing_initialization.rb` (below) makes things initialize
-without waiting for one. A spec that needs an addon's thing types can call `install_addon "binding-x"`.
+The harness clones production's addon settings into `.karaf/`. Its maintainers' guidance is to install the bindings but
+never start them: their XML and storage-based type providers give things their real shape, and the harness's mock
+handler factory stands in for the handlers. `spec/support/karaf_addons.rb` hooks the harness's `cleanup_instance` and,
+on every launch, rebuilds the clone's addon settings from production's: every category is dropped except `binding`,
+which is copied as production has it (the harness blocks the others from starting anyway). Installing the bindings
+needs their jars, and the clone's Maven repository (`tmp/mvn`) starts empty, so the same hook copies production's into
+it, only what is missing or changed in size, rather than have Karaf download about 140 MB. Pointing the clone's
+`org.ops4j.pax.url.mvn.cfg` at production's repository instead would put `/var/lib/openhab/` in `etc/`, which the
+harness's isolation check (below) refuses to start with.
+
+`spec/support/storage_type_providers.rb` is needed for zwavejs. The harness registers a generated provider under every
+interface the binding declares, including zwavejs's own `ZwaveJSChannelTypeProvider`, which the generated class can't
+implement, and OSGi rejects that registration and aborts startup. The file registers only the interfaces the generated
+class implements.
 
 The clone also inherits production's ConfigAdmin store, where every config still names the production file it was
 loaded from (`felix.fileinstall.filename=file:/var/lib/openhab/etc/….cfg`), and the clone's fileinstall saves each
@@ -345,10 +351,11 @@ if anything in the clone's `config/` or `etc/` still mentions `/var/lib/openhab/
 leaking production paths: fix that rather than loosening the check. Since a regression here costs data, not a failing
 spec, check a launch against hashes of production's `etc/*.cfg` and `config/org/openhab/*` after a harness upgrade.
 
-openHAB holds back a thing whose thing type isn't installed for about a minute, and no thing type is installed here.
-So `spec/support/thing_initialization.rb` first waits in `before(:suite)` until the number of registered things stops
-changing, then calls the harness's `initialize_missing_thing_types` to initialize them now. Things only get their mock
-handlers a few seconds after that, so it then waits until the number of things with a handler has stopped changing
+openHAB holds back a thing whose thing type isn't installed for about a minute. The harness installs production's
+bindings, so that is only the things of add-ons it doesn't install (the esphome and AWTRIX NG jars, until they're
+added). So `spec/support/thing_initialization.rb` first waits in `before(:suite)` until the number of registered things
+stops changing, then calls the harness's `initialize_missing_thing_types` to initialize them now. Things only get their
+mock handlers a few seconds after that, so it then waits until the number of things with a handler has stopped changing
 (about 6s); without that, examples that happen to run first see things with no handler. If no thing has a handler
 after 30s the launch is bad and it raises, so a flaky startup is one error instead of dozens of failures.
 
@@ -368,11 +375,11 @@ clocks stubs `Awtrix.all_clocks` itself, which takes precedence.
   it only at first install; the harness re-provisions on every launch.
 - 25 WARNs, `no ProfileFactory for basic-profiles:state-filter`: the harness blocks the `org.openhab.transform` bundle
   tree from starting, so profiles from `basicprofiles` don't exist.
-- About 420 `ThingManagerImpl` WARNs ("A thing handler factory claims to support … for more than 120s, but the thing
+- About 40 `ThingManagerImpl` WARNs ("A thing handler factory claims to support … for more than 120s, but the thing
   type can't be found in the registry", "Channel types or config descriptions for thing … are missing … for more than
-  120s", "Could not normalize configuration for … because the thing type was not found in registry"). No binding is
-  installed on purpose, so no thing has its thing type, and forcing the things to initialize makes openHAB say so
-  (the "120s" is the forced wait, not real time).
+  120s", "Could not normalize configuration for … because the thing type was not found in registry"), all for the
+  esphome and `mqtt:awtrix-ng-*` things, whose add-ons the harness doesn't install. Forcing the things to initialize
+  makes openHAB say so (the "120s" is the forced wait, not real time).
 - `A thing with UID ... is already tracked by ThingManager` ERRORs, in about 1 launch in 6 on 5.3.0.M4 (5 to 100 of the
   things): a race in openHAB core, where `ThingRegistryImpl` announces a thing twice while the `ThingManager` is
   registering as a tracker. Every thing still got its handler in the launches checked, so it isn't a sign of a bad
