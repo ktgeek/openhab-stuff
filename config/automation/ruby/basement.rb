@@ -45,20 +45,15 @@ end
 rule "when someone enters/leaves downstairs" do
   changed Basement_Total_Occupancy
 
-  run do |event|
-    timers.cancel(event.item)
-
-    if Basement_Total_Occupancy.state.positive?
-      if Basement_Total_Occupancy.previous_state(skip_equal: true) < Basement_Total_Occupancy.state
-        Basement_Stairs_Switch.ensure.on
-        TvNotification.notify(
-          message: "Someone has entered the basement",
-          only: Basement_TV_Toast,
-          avoid_appletv: false
-        )
-      end
-    else
-      after(120.seconds, id: event.item) { Basement_All_Lights.members.ensure.off }
+  run do
+    if Basement_Total_Occupancy.state.positive? &&
+       Basement_Total_Occupancy.previous_state(skip_equal: true) < Basement_Total_Occupancy.state
+      Basement_Stairs_Switch.ensure.on
+      TvNotification.notify(
+        message: "Someone has entered the basement",
+        only: Basement_TV_Toast,
+        avoid_appletv: false
+      )
     end
 
     ensure_states do
@@ -76,6 +71,8 @@ rule "when someone enters/leaves downstairs" do
   end
 end
 
+changed(Basement_Total_Occupancy, to: ..0, for: 120.seconds) { Basement_All_Lights.members.ensure.off }
+
 rule "when someone enters/leaves the exercise room" do
   changed ExerciseRoom_Hiome_Occupancy_Count
 
@@ -90,18 +87,12 @@ rule "when someone enters/leaves the exercise room" do
 end
 
 rule "when someone leaves the deadend" do
-  changed Basement_Deadend_Occupancy
+  changed Basement_Deadend_Occupancy, to: ..0, for: 90.seconds
 
-  run do |event|
-    timers.cancel(event.item)
-
-    if Basement_Deadend_Occupancy.state < 1
-      after(90.seconds, id: event.item) do
-        ensure_states do
-          ExerciseRoom_Light.off
-          ExerciseRoom_BikeTrainer_Switch.off
-        end
-      end
+  run do
+    ensure_states do
+      ExerciseRoom_Light.off
+      ExerciseRoom_BikeTrainer_Switch.off
     end
   end
 end
@@ -144,16 +135,6 @@ updated(ExerciseRoom_DimmerLights_Scene_2, to: ZWave::Paddle::THREE_CLICKS) do
   ExerciseRoom_BikeTrainer_Switch.ensure.off
 end
 
-rule "when someone enters the basement hallway" do
-  changed BasementHallway_Hiome_Occupancy_Count
+changed(BasementHallway_Hiome_Occupancy_Count, to: 1..) { Basement_Hallway_Lights_Switch.ensure.on }
 
-  run do |event|
-    timers.cancel(event.item)
-
-    if BasementHallway_Hiome_Occupancy_Count.state.positive?
-      Basement_Hallway_Lights_Switch.ensure.on
-    else
-      after(60.seconds, id: event.item) { Basement_Hallway_Lights_Switch.ensure.off }
-    end
-  end
-end
+changed(BasementHallway_Hiome_Occupancy_Count, to: ..0, for: 60.seconds) { Basement_Hallway_Lights_Switch.ensure.off }

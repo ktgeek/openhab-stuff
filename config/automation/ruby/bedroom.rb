@@ -28,14 +28,9 @@ changed Bedroom_KeithsCloset_ContactSensor do |event|
   Bedroom_KeithsCloset_Light.ensure.command(event.state == ON)
 end
 
-changed Bedroom_SarahsCloset_ContactSensor, to: ON do |event|
-  timers.cancel(event.item)
-  Bedroom_SarahsCloset_Light.ensure.on
-end
+changed(Bedroom_SarahsCloset_ContactSensor, to: ON) { Bedroom_SarahsCloset_Light.ensure.on }
 
-changed Bedroom_SarahsCloset_ContactSensor, to: OFF do |event|
-  after(30.seconds, id: event.item) { Bedroom_SarahsCloset_Light.ensure.off }
-end
+changed(Bedroom_SarahsCloset_ContactSensor, to: OFF, for: 30.seconds) { Bedroom_SarahsCloset_Light.ensure.off }
 
 # sarah right, keith left
 updated(Bedroom_Hallway_Light_Scene_1, to: ZWave::Paddle::CLICK) { Bedroom_TableLight_Switch.toggle }
