@@ -270,8 +270,10 @@ Follow this checklist when onboarding a new device:
 3. **Rule** — If automation is needed, add to the relevant `automation/ruby/*.rb` file (or create a new one); check
    `lib/` for reusable device abstractions first.
 4. **Library** — If a new device type needs reusable logic, add a helper module to `automation/ruby/lib/`.
-5. **Persistence** — Add the item to `persistence/timescaledb.persist` (or `timescaledb` item metadata for extended
-   retention) if state must be persisted or restored on startup beyond the catch-all default.
+5. **Persistence** — The catch-all in `persistence/timescaledb.persist` already stores and restores every item; add
+   `timescaledb` item metadata for extended retention. A one-shot item that shouldn't be restored (TTS, toast, clock
+   text) joins the `Persistence_NoRestore` group, and a scene trigger joins `Clear_Scenes`. Don't name an item in
+   `timescaledb.persist` — see Persistence below.
 6. **Transform** — Add a `.map` file to `transform/` if state mapping is needed (e.g., numeric codes → human-readable
    strings).
 
@@ -494,12 +496,19 @@ upgrade to confirm it's still a symlink.
   `restoreOnStartup`.
 
 Retention policy: 3-year (1095-day) global default (`services/timescaledb.cfg`), as of 2026-08-01 — was 30 days.
-Compression activates after 45 days. Items not listed explicitly in `timescaledb.persist` get
-`everyChange + restoreOnStartup` automatically via the catch-all `*` rule and inherit the 3-year default.
+Compression activates after 45 days. Every item gets `everyChange + restoreOnStartup` via the catch-all `*` rule and
+inherits the 3-year default, except the members of `Clear_Scenes` (scene triggers) and `Persistence_NoRestore`
+(one-shot command channels), which are stored with `everyChange` only.
 
-39 long-lived sensor and energy items (listed in `timescaledb.persist`'s "Long-lived sensor and energy items"
-section) carry `timescaledb=" " [retentionDays="1095", aggregation="...", downsampleInterval="..."]` item metadata so
-the addon's nightly downsampling job actually aggregates them (`AVG`/`SUM`/`MAX` depending on the item — weather
+Lines in an Items block of a `.persist` file are **additive**: an item gets the strategies of every line that matches
+it, and is stored once per matching `everyChange` line. Naming an item on its own line while `*` also matches it
+therefore stores every change twice (and still restores it), and an exclusion (`!Group*`) only applies to the line it
+is written on. Keep the item lists out of `timescaledb.persist`: put the exclusions on the `*` line and use groups.
+
+39 long-lived sensor and energy items (named in a comment in `timescaledb.persist`'s "Long-lived sensor and energy
+items" section, since `*` already covers them) carry
+`timescaledb=" " [retentionDays="1095", aggregation="...", downsampleInterval="..."]` item metadata so the addon's
+nightly downsampling job actually aggregates them (`AVG`/`SUM`/`MAX` depending on the item — weather
 station items downsample every 5m, everything else every 1h). `Backyard_Last_Updated` is explicitly
 special-cased *down* to `retentionDays="14"`, since as a near-continuous heartbeat timestamp it would otherwise
 dominate storage under the new 3-year default (93% of non-long-lived write volume in a 10-day sample). The four
@@ -522,6 +531,11 @@ Postgres, not in this repo, so re-apply it if the database is rebuilt.
 
 Items that must survive reboots (e.g., thermostat modes, switch states, LED indicator colors) are covered by the
 catch-all `restoreOnStartup` strategy — no explicit listing required unless the item needs extended retention.
+
+An item with no backing channel (a virtual switch) that rarely changes keeps a single row, which retention eventually
+prunes; the item is then NULL after the next restart, and `item.off?` is false for NULL. Rules that read such an item
+should treat NULL deliberately: `!item.on?` to default to off (as `entrance_lights.rb` and `night_off.rb` do), not
+`item.off?`.
 
 ---
 

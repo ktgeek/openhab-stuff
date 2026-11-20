@@ -13,6 +13,9 @@ Group  Front_Yard    "Front Yard"                   (Home)  ["Outdoor"]
 
 Group  Clear_Scenes  "Clear Scenes"
 
+// One-shot command channels (TTS, toasts, clock text); timescaledb.persist stores them but doesn't restore them
+Group  Persistence_NoRestore  "Persisted without restore"
+
 // First Floor - Entrance
 Group:Switch:OR(ON,OFF)  All_Hall_Lights             "Hall Lights"       <lightbulb>  (Entrance)         {matter="OnOffLight" [label="Hall Lights", fixedLabels="room=Entrance"], alexa="Lighting"}
 Switch                   Entrance_Hall_Light_Switch  "Hall Table Light"  <lightbulb>  (All_Hall_Lights)  ["Point"]      {channel="zwavejs:node:c503e1bad6:node8:binary-switch-value"}
@@ -27,7 +30,7 @@ Switch  Entrance_FrontDoor_Lock_Target            "Front Door Lock"             
 Number  Entrance_FrontDoor_Lock_Mode              "Front Door Lock Actual"                   <lock>     (Entrance_FrontDoor_Lock)                              {channel="zwavejs:node:c503e1bad6:node64:door-lock-mode", autoupdate="false"}
 Number  Entrance_FrontDoor_Lock_CurrentState      "Front Door Actual Homekit"                           (Entrance_FrontDoor_Lock)                              {homekit="Lock.LockCurrentState"}
 Number  Entrance_FrontDoor_Lock_Alarm_Type        "Front Door Lock Alarm Type"                          (Entrance_FrontDoor_Lock)  ["Point"]                   {channel="zwavejs:node:c503e1bad6:node64:notification-alarm-type"}
-String  Entrance_FrontDoor_Lock_Raw_Notification  "Raw notification"                                    (Entrance_FrontDoor_Lock)                              {channel="zwavejs:node:c503e1bad6:node64:notification-virtual"}
+String  Entrance_FrontDoor_Lock_Raw_Notification  "Raw notification"                                    (Entrance_FrontDoor_Lock, Persistence_NoRestore)                            {channel="zwavejs:node:c503e1bad6:node64:notification-virtual"}
 Number  Entrance_FrontDoor_Lock_Battery_Level     "Front Door Lock Battery level [%.1f %%]"  <battery>  (Entrance_FrontDoor_Lock)  ["Measurement"]  {channel="zwavejs:node:c503e1bad6:node64:battery-level"}
 Number  Entrance_FrontDoor_Lock_User_Code_4       "Front Door Lock User Code 4"                         (Entrance_FrontDoor_Lock)  ["Point"]                   {channel="zwavejs:node:c503e1bad6:node64:user-code-user-code-4"}
 Number  Entrance_FrontDoor_Lock_User_ID_Status_4  "Front Door Lock Code Status"                         (Entrance_FrontDoor_Lock)  ["Point"]                   {channel="zwavejs:node:c503e1bad6:node64:user-code-user-id-status-4"}

@@ -77,7 +77,7 @@ Switch         Basement_WallOutlet_In_Use  "Basement Wall Outlet In Use [RB(outl
 
 Group   Basement_TV        "Basement TV"        (Basement)     ["Television"]
 Switch  Basement_TV_Power  "Power"                 (Basement_TV)                  {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:power"}
-String  Basement_TV_Toast  "Basement TV Toast"  (Basement_TV)  ["Setpoint"]    {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:toast"}
+String  Basement_TV_Toast  "Basement TV Toast"  (Basement_TV, Persistence_NoRestore)["Setpoint"]    {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:toast"}
 String  Basement_TV_App    "Application"           (Basement_TV)  ["Status"]      {channel="lgwebos:WebOSTV:eefdd095-9e17-81df-3a93-1ae9e19e565e:appLauncher"}
 
 Group   Basement_Receiver               "Basement Receiver"                    (Basement)

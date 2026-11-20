@@ -54,6 +54,6 @@ Color                 Bedroom_AwtrixClock_TextColor       "Text Color"          
 
 Group   Bedroom_Awtrix_OutdoorTemp_App      "Awtrix NG Clock Outdoor Temp App"
 Switch  Bedroom_Awtrix_OutdoorTemp_Enabled  "Outdoor Temp Enabled"              (Bedroom_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-ng-app:26bcbec1ee:3076f56c75dc:Outdoor_Temp:enabled"}
-String  Bedroom_Awtrix_OutdoorTemp_Text     "Outdoor Temp Text"                 (Bedroom_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-ng-app:26bcbec1ee:3076f56c75dc:Outdoor_Temp:text"}
+String  Bedroom_Awtrix_OutdoorTemp_Text     "Outdoor Temp Text"                 (Bedroom_Awtrix_OutdoorTemp_App, Persistence_NoRestore){channel="mqtt:awtrix-ng-app:26bcbec1ee:3076f56c75dc:Outdoor_Temp:text"}
 Color   Bedroom_Awtrix_OutdoorTemp_Color    "Outdoor Temp Color"                (Bedroom_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-ng-app:26bcbec1ee:3076f56c75dc:Outdoor_Temp:text-color"}
-String  Bedroom_Awtrix_OutdoorTemp_Icon     "Outdoor Temp Icon"                 (Bedroom_Awtrix_OutdoorTemp_App)  {channel="mqtt:awtrix-ng-app:26bcbec1ee:3076f56c75dc:Outdoor_Temp:icon"}
+String  Bedroom_Awtrix_OutdoorTemp_Icon     "Outdoor Temp Icon"                 (Bedroom_Awtrix_OutdoorTemp_App, Persistence_NoRestore){channel="mqtt:awtrix-ng-app:26bcbec1ee:3076f56c75dc:Outdoor_Temp:icon"}

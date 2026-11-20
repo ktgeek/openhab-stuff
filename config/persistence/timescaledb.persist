@@ -3,62 +3,41 @@
 // item explicitly special-cased back down since it dominates non-long-lived write volume)
 // compressionAfterDays=45
 
+// Lines in an Items block are additive: an item gets the strategies of every line that matches it, and is stored once
+// per matching everyChange line. An item that must not fall under `*` therefore has to be excluded on the `*` line
+// itself (as the two groups below are); listing it on a line of its own as well would store every change twice.
 Items {
-  // Excluded: transitory scene triggers and one-shot command channels (no restoreOnStartup)
-  // Z-Wave central-scene buttons (Clear_Scenes group members)
-  Basement_BarLights_Scene_1, Basement_BarLights_Scene_2,
-  Basement_TheaterLights_Scene_1, Basement_TheaterLights_Scene_2,
-  Basement_NanomoteQuad_Scene_1, Basement_NanomoteQuad_Scene_2,
-  Basement_NanomoteQuad_Scene_3, Basement_NanomoteQuad_Scene_4,
-  Kitchen_Accent_Desk_Scene_1, Kitchen_Accent_Desk_Scene_2,
-  Kitchen_Accent_Sink_Scene_1, Kitchen_Accent_Sink_Scene_2,
-  Kitchen_Lights_Scene_1, Kitchen_Lights_Scene_2,
-  Kitchen_Table_Lights_Scene_1, Kitchen_Table_Lights_Scene_2,
-  Kitchen_Backyard_Lights_Scene_1, Kitchen_Backyard_Lights_Scene_2,
-  ExerciseRoom_DimmerLights_Scene_1, ExerciseRoom_DimmerLights_Scene_2,
-  LivingRoom_Scene_Switch_Scene_1, LivingRoom_Scene_Switch_Scene_2,
-  LivingRoom_Scene_Switch_Scene_3, LivingRoom_Scene_Switch_Scene_4,
-  LivingRoom_Scene_Switch_Scene_5, LivingRoom_Scene_Switch_Scene_6,
-  SideYard_Lights_Scene_1, SideYard_Lights_Scene_2,
-  Bedroom_Hallway_Light_Scene_1, Bedroom_Hallway_Light_Scene_2,
-  Bedroom_Hallway_Light_Scene_3, Bedroom_Hallway_Light_Scene_4,
-  Bedroom_Hallway_Light_Scene_5, Bedroom_Hallway_Light_Scene_6,
-  // Button action strings and one-shot command channels
-  Garage_FrontYardLights_Button_Action, Entrance_FrontYardLights_Button_Action,
-  Entrance_FrontDoor_Lock_Raw_Notification,
-  Bedroom_Echo_TTS, Basement_Echo_TTS, EvansRoom_Echo_TTS, Kitchen_Echo_TTS,
-  Basement_TV_Toast, FamilyRoom_TV_Toast,
-  Office_Awtrix_OutdoorTemp_Text, Office_Awtrix_OutdoorTemp_Icon,
-  Bedroom_Awtrix_OutdoorTemp_Text, Bedroom_Awtrix_OutdoorTemp_Icon
-      : strategy = everyChange
+  // Transitory triggers, stored but never restored, so a restart doesn't replay a stale scene click or one-shot
+  // command: the Z-Wave central-scene buttons (Clear_Scenes members) and the TTS, toast and clock-text channels
+  // (Persistence_NoRestore members). A new item of either kind joins its group rather than being named here.
+  Clear_Scenes*, Persistence_NoRestore* : strategy = everyChange
 
-  // Long-lived sensor and energy items (39): retentionDays=1095 (3-year) configured via item metadata.
-  // As of 2026-08-01 these also carry aggregation/downsampleInterval item metadata so the addon's nightly
-  // TimescaleDBDownsampleJob actually runs for them (previously a silent no-op for all 39 — neither key
-  // was set). NOTE: downsampled rows are written back into this same hypertable, so they are subject to
-  // the chunk-level retention policy (timescaledb_information.jobs job 1001, currently 1095 days). The
-  // job's raw-row DELETEs also reach compressed chunks, which requires the openhab Postgres role to have
-  // timescaledb.max_tuples_decompressed_per_dml_transaction raised (set to 0; see AGENTS.md).
-  Backyard_Temperature, Backyard_FeelsLike_Temperature, Backyard_Humidity,
-  Backyard_Barometric_Pressure, Backyard_Dew_Point,
-  Backyard_Wind_Direction, Backyard_Wind_Speed, Backyard_Windgust,
-  Backyard_Rain, Backyard_UV,
-  FF_Thermostat_CurrentTemp, FF_Thermostat_Humidity,
-  SF_Thermostat_CurrentTemp, SF_Thermostat_Humidity,
-  FamilyRoom_Sensor_Temperature, FamilyRoom_Sensor_Humidity,
-  Entrance_Temperature, Entrance_Luminance,
-  Basement_FloodSensor_Temperature,
-  FamilyRoom_WallOutlet_kWh, FamilyRoom_WallOutlet_Watts,
-  LivingRoom_WallOutlet_kWh, LivingRoom_WallOutlet_Watts,
-  Upstairs_WallOutlet_kWh, Upstairs_WallOutlet_Watts,
-  Basement_WallOutlet_kWh, Basement_WallOutlet_Watts,
-  ExerciseRoom_BikeTrainer_Current, ExerciseRoom_BikeTrainer_TotalActivePower,
-  Office_DiskArrayPlug_Current, Office_DiskArrayPlug_TotalActivePower,
-  Bedroom_TableLight_Watts, Bedroom_SarahLight_Watts,
-  LivingRoom_TableLight_Watts, Office_WindowDecorations_Watts,
-  DinahsRoom_Hall_Light_Watts, DiningRoom_Table_Watts, DiningRoom_Window_Watts,
-  SF_Hallway_MiscDecoration_Watts
-      : strategy = everyChange
+  // Long-lived sensor and energy items (39) need nothing here: `*` below stores them once with restoreOnStartup, and
+  // their 3-year retention (retentionDays=1095, aggregation and downsampleInterval) comes from their `timescaledb`
+  // item metadata, which is what makes the addon's nightly TimescaleDBDownsampleJob aggregate them. NOTE: downsampled
+  // rows are written back into this same hypertable, so they are subject to the chunk-level retention policy
+  // (timescaledb_information.jobs job 1001, currently 1095 days). The job's raw-row DELETEs also reach compressed
+  // chunks, which requires the openhab Postgres role to have
+  // timescaledb.max_tuples_decompressed_per_dml_transaction raised (set to 0; see AGENTS.md). The items:
+  //   Backyard_Temperature, Backyard_FeelsLike_Temperature, Backyard_Humidity,
+  //   Backyard_Barometric_Pressure, Backyard_Dew_Point,
+  //   Backyard_Wind_Direction, Backyard_Wind_Speed, Backyard_Windgust,
+  //   Backyard_Rain, Backyard_UV,
+  //   FF_Thermostat_CurrentTemp, FF_Thermostat_Humidity,
+  //   SF_Thermostat_CurrentTemp, SF_Thermostat_Humidity,
+  //   FamilyRoom_Sensor_Temperature, FamilyRoom_Sensor_Humidity,
+  //   Entrance_Temperature, Entrance_Luminance,
+  //   Basement_FloodSensor_Temperature,
+  //   FamilyRoom_WallOutlet_kWh, FamilyRoom_WallOutlet_Watts,
+  //   LivingRoom_WallOutlet_kWh, LivingRoom_WallOutlet_Watts,
+  //   Upstairs_WallOutlet_kWh, Upstairs_WallOutlet_Watts,
+  //   Basement_WallOutlet_kWh, Basement_WallOutlet_Watts,
+  //   ExerciseRoom_BikeTrainer_Current, ExerciseRoom_BikeTrainer_TotalActivePower,
+  //   Office_DiskArrayPlug_Current, Office_DiskArrayPlug_TotalActivePower,
+  //   Bedroom_TableLight_Watts, Bedroom_SarahLight_Watts,
+  //   LivingRoom_TableLight_Watts, Office_WindowDecorations_Watts,
+  //   DinahsRoom_Hall_Light_Watts, DiningRoom_Table_Watts, DiningRoom_Window_Watts,
+  //   SF_Hallway_MiscDecoration_Watts
 
   // All other items: everyChange + restoreOnStartup, 3-year (1095-day) default retention.
   // Exception: Backyard_Last_Updated is a station-heartbeat timestamp that changes on nearly every MQTT
@@ -66,5 +45,5 @@ Items {
   // 88,751 rows over a 10-day sample) — it carries its own `timescaledb=" " [retentionDays="14"]` item
   // metadata (see items/backyard.items) to cap it at 14 days instead of inheriting the 3-year default.
   // The four FamilyRoom_Harmony_* items (activity and its three Apple Home switches) are capped the same way.
-  * : strategy = everyChange, restoreOnStartup
+  *, !Clear_Scenes*, !Persistence_NoRestore* : strategy = everyChange, restoreOnStartup
 }
