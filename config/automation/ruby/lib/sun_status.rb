@@ -4,4 +4,12 @@
 module SunStatus
   UP = "UP"
   DOWN = "DOWN"
+
+  def self.up?
+    ::Sun_Status.state == UP
+  end
+
+  def self.down?
+    ::Sun_Status.state == DOWN
+  end
 end

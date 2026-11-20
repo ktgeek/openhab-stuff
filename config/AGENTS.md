@@ -215,10 +215,10 @@ Check these before implementing new device logic — reuse existing abstractions
 | `awtrix_ng.rb` | AWTRIX NG clocks (Office and Bedroom) via the `mqtt.awtrixlight` actions; converts shared colors to Java `int[]` for indicators and hex strings for notifications, and builds the single notification params map |
 | `tv_notification.rb` | Apple TV notification delivery |
 | `weather.rb` | Weather Underground / PWSWeather station uploads, plus Xweather present-weather lookup (`current_conditions`) and its mapping to AWTRIX NG overlays (`overlay_for`), and `sea_level_pressure` (station to sea-level pressure for the upload and the `sea_level_pressure` profile) |
-| `holidays.rb` | Holiday constants used by decoration lighting rules |
+| `holidays.rb` | Holiday constants used by decoration lighting rules, and `Holidays.current?` to test `Holiday_Mode` against one |
 | `night_off.rb` | `NightOff.rule`, the shared "turn off at 10:30pm, or when VisitorMode ends overnight" rule pattern (`evening_lights.rb`, `holiday.rb`) |
 | `nut_ups.rb` | NUT (Network UPS Tools) `ups.status` flag constants |
-| `sun_status.rb` | `UP`/`DOWN` states for the `Sun_Status` item, maintained by `sun.rb` |
+| `sun_status.rb` | `UP`/`DOWN` states for the `Sun_Status` item, maintained by `sun.rb`, and `SunStatus.up?`/`down?` to test it |
 | `color.rb` | Common `HSBType` colors, plus `Color.for_temperature` (deep blue at -10°F, hue 185 at 32°F, red at 100°F), snapped to 8-bit RGB so it equals the state the clocks report back |
 | `time_helpers.rb` | Time/schedule utility methods |
 

@@ -8,7 +8,7 @@ rule "when the laundry room door opens" do
 
   run { SideYard_Light_Color.ensure.on }
 
-  only_if { Sun_Status.state == SunStatus::DOWN }
+  only_if { SunStatus.down? }
 end
 
 changed(LaundryRoom_Door_Contact, to: CLOSED) { SideYard_Light_Color.ensure.off }

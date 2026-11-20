@@ -99,7 +99,7 @@ rule "christmas switch is turned on" do
     end
   end
 
-  only_if { Holiday_Mode.state == Holidays::CHRISTMAS }
+  only_if { Holidays.current?(Holidays::CHRISTMAS) }
 end
 
 # wolf_last_change = nil
