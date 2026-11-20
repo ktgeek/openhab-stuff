@@ -56,7 +56,7 @@ inconsistent and are not a guide. This written statement is the authority.
 
 | Path | Purpose |
 |------|---------|
-| `automation/ruby/` | Active automation rules (21 `.rb` files) and libraries (`lib/`, 19 files) |
+| `automation/ruby/` | Active automation rules (21 `.rb` files) and libraries (`lib/`, 20 files) |
 | `items/` | Item definitions (21 `.items` files, one per room/feature area) |
 | `things/` | DSL Thing definitions (mostly managed via UI; check here first) |
 | `rules/` | Legacy DSL rules directory — mostly empty; `automation/ruby/` is primary |
@@ -213,6 +213,7 @@ Check these before implementing new device logic — reuse existing abstractions
 | `aqara_cube.rb` | Aqara Cube multi-action wireless controller |
 | `awtrix.rb` | Clock-neutral Awtrix pieces (`Color` as `[r, g, b]`, `INDICATORS`) and `Awtrix.all_clocks`, a `ClockGroup` that fans a notification or indicator out to every clock — rules call this, not a clock library directly |
 | `awtrix_ng.rb` | AWTRIX NG clocks (Office and Bedroom) via the `mqtt.awtrixlight` actions; converts shared colors to Java `int[]` for indicators and hex strings for notifications, and builds the single notification params map |
+| `announce.rb` | `Announce.show`, one message on the TVs that are on (`TvNotification`) and on every clock (`Awtrix.all_clocks`), for the garage and lock rules; clock indicators stay in the rules |
 | `tv_notification.rb` | Apple TV notification delivery |
 | `weather.rb` | Weather Underground / PWSWeather station uploads, plus Xweather present-weather lookup (`current_conditions`) and its mapping to AWTRIX NG overlays (`overlay_for`), and `sea_level_pressure` (station to sea-level pressure for the upload and the `sea_level_pressure` profile) |
 | `holiday_decorations.rb` | `HolidayDecorations.rule`, one holiday's rules for `holiday.rb`: a sunset `on` proc, and a `NightOff.rule` around the `off` proc, both guarded by `Holidays.current?` |

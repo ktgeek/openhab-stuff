@@ -35,11 +35,11 @@ RSpec.describe "lock_rules.rb" do
       end
 
       it "notifies the TVs" do
-        expect(TvNotification).to have_received(:notify).with(message:)
+        expect(TvNotification).to have_received(:notify).with(message:, avoid_appletv: false)
       end
 
       it "notifies the clocks" do
-        expect(awtrix).to have_received(:show_custom_notification).with(message:, icon: "front_door_lock")
+        expect(awtrix).to have_received(:show_custom_notification).with(message:, icon: "front_door_lock", color: nil)
       end
 
       it "resets the item" do

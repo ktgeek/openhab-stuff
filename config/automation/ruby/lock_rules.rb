@@ -5,7 +5,7 @@ require "homekit"
 require "homeseer"
 require "kwikset"
 require "zwave"
-require "tv_notification"
+require "announce"
 require "awtrix"
 require "active_support/core_ext/hash/indifferent_access"
 
@@ -26,11 +26,7 @@ updated Entrance_FrontDoor_Lock_Raw_Notification do |event|
 
     logger.info(message)
     Notification.send(message)
-    TvNotification.notify(message:)
-    Awtrix.all_clocks.show_custom_notification(
-      message: message,
-      icon: "front_door_lock"
-    )
+    Announce.show(message:, icon: "front_door_lock")
   end
 
   event.item.ensure.update(NULL)
@@ -72,8 +68,7 @@ changed(House_Perimeter_Contacts, Entrance_FrontDoor_Lock_Target) do |event|
           end
   House_Perimeter_LEDs.members.ensure.command(color[:homeseer])
 
-  awtrix = Awtrix.all_clocks
-  awtrix.set_indicator_color(Awtrix::INDICATORS[House_Perimeter_Contacts], color[:awtrix])
+  Awtrix.all_clocks.set_indicator_color(Awtrix::INDICATORS[House_Perimeter_Contacts], color[:awtrix])
 
   print_state = case item
                 when Entrance_FrontDoor_Lock_Target
@@ -83,8 +78,7 @@ changed(House_Perimeter_Contacts, Entrance_FrontDoor_Lock_Target) do |event|
                 end
 
   message = "#{item.label} is now #{print_state}"
-  awtrix.show_custom_notification(message:, icon: "door", color: color[:awtrix])
-  TvNotification.notify(message:, avoid_appletv: (item == Entrance_FrontDoor_Lock_Target))
+  Announce.show(message:, icon: "door", color: color[:awtrix], avoid_appletv: item == Entrance_FrontDoor_Lock_Target)
 end
 
 # updated Entrance_FrontDoor_Lock_User_ID_Status_4 do |event|

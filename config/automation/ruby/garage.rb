@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+require "announce"
 require "homeseer"
-require "tv_notification"
 require "awtrix"
 
 GARAGE_STATE_INFO = {
@@ -14,14 +14,6 @@ GARAGE_STATE_INFO = {
   "CLOSED" => { target_state: OFF, blink_state: OFF, color: Homeseer::LedColor::GREEN,
                 awtrix_color: nil, awtrix_icon: "garageclosed" }
 }.freeze
-
-def awtrix_notifications(message:, info:, item:)
-  awtrix = Awtrix.all_clocks
-
-  awtrix.set_indicator_color(Awtrix::INDICATORS[item], info[:awtrix_color], blink: info[:blink_state] == ON)
-
-  awtrix.show_custom_notification(message:, icon: info[:awtrix_icon], color: info[:awtrix_color])
-end
 
 changed(Garage_SmallDoor_Current_Operation, Garage_LargeDoor_Current_Operation) do |event|
   group_name = event.item.groups.first.name
@@ -47,9 +39,11 @@ changed(Garage_SmallDoor_State, Garage_LargeDoor_State) do |event|
 
   items["#{group.name}_Target_State"].update(info[:target_state])
 
-  message = "#{group.label} #{state.humanize}"
-  TvNotification.notify(message:, avoid_appletv: true)
-  awtrix_notifications(message:, info:, item: group)
+  Awtrix.all_clocks.set_indicator_color(Awtrix::INDICATORS[group], info[:awtrix_color], blink: info[:blink_state] == ON)
+  Announce.show(
+    message: "#{group.label} #{state.humanize}", icon: info[:awtrix_icon], color: info[:awtrix_color],
+    avoid_appletv: true
+  )
 
   leds = items["#{group.name}_Open_LEDs"]
   blink_leds = items["#{group.name}_Open_LEDs_Blink"]
