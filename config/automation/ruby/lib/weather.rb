@@ -82,6 +82,19 @@ module Weather
       precipitation_overlay(weather, intensity)
     end
 
+    # Converts a station (absolute) pressure to the sea-level equivalent using the NWS altimeter setting formula, the
+    # reference weather services expect for a barometric pressure upload.
+    # https://www.weather.gov/media/epz/wxcalc/stationPressure.pdf
+    # @param station_hpa [Float] pressure measured at the sensor, in hPa
+    # @param elevation_m [Float] height of the sensor above sea level, in meters
+    # @return [Float] sea-level pressure in hPa
+    def sea_level_pressure(station_hpa:, elevation_m:)
+      adjusted = station_hpa - ALTIMETER_OFFSET_HPA
+      lapse = (((STANDARD_PRESSURE_HPA**ALTIMETER_EXPONENT) * STANDARD_LAPSE_RATE) / STANDARD_TEMP_K) * elevation_m
+
+      adjusted * ((1 + (lapse / (adjusted**ALTIMETER_EXPONENT)))**(1 / ALTIMETER_EXPONENT))
+    end
+
     def post_to_weather_services(params)
       station_id = secret("station_id")
       params[:ID] = station_id
@@ -96,6 +109,13 @@ module Weather
     # Constants used in the dew point calculation
     DP_B = 17.625
     DP_C = 243.04
+
+    # Constants used in the sea-level pressure calculation
+    ALTIMETER_OFFSET_HPA = 0.3
+    ALTIMETER_EXPONENT = 0.190284
+    STANDARD_PRESSURE_HPA = 1013.25
+    STANDARD_LAPSE_RATE = 0.0065 # K per meter
+    STANDARD_TEMP_K = 288
 
     private
 

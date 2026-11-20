@@ -68,6 +68,22 @@ RSpec.describe "profiles.rb" do
     end
   end
 
+  describe "sea_level_pressure" do
+    it "sends the sea-level equivalent of the station pressure for the configured elevation" do
+      item = link_item(:number, "ruby:sea_level_pressure", elevation: 244)
+      from_handler(item, QuantityType.new("995.3 hPa"))
+
+      expect((item.state | "hPa").to_f).to be_within(0.1).of(1024.2)
+    end
+
+    it "converts a station pressure that arrives in another unit" do
+      item = link_item(:number, "ruby:sea_level_pressure", elevation: 244)
+      from_handler(item, QuantityType.new("29.39 inHg"))
+
+      expect((item.state | "hPa").to_f).to be_within(0.1).of(1024.2)
+    end
+  end
+
   describe "number_channel_switch" do
     let(:item) { link_item(:switch, "ruby:number_channel_switch") }
 

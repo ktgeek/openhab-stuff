@@ -84,14 +84,13 @@ every 1.minute, id: "backyard_weather_monitor" do
 
   no_update_notification_sent = false
 
-  next unless [Backyard_Temperature, Backyard_Humidity, Backyard_Barometric_Pressure, Backyard_Wind_Direction,
+  next unless [Backyard_Temperature, Backyard_Humidity, Backyard_Wind_Direction,
                Backyard_Wind_Speed, Backyard_Dew_Point, Backyard_UV].all?(&:state?)
 
   params = {
     dateutc: Time.now.utc.strftime("%Y-%m-%d %H:%M:%S"),
     tempf: Backyard_Temperature.state.to_f,
     humidity: Backyard_Humidity.state.to_i,
-    baromin: Backyard_Barometric_Pressure.state.to_f,
     winddir: Backyard_Wind_Direction.state.to_i,
     windspeedmph: Backyard_Wind_Speed.state.to_f,
     windspdmph_avg2m: Backyard_Wind_Speed.average_since(2.minutes.ago).to_f,
@@ -101,6 +100,11 @@ every 1.minute, id: "backyard_weather_monitor" do
     dailyrainin: Backyard_Rain.sum_since(LocalTime::MIDNIGHT).to_i,
     UV: Backyard_UV.state.to_i
   }
+  # Pressure comes from a battery-powered Zigbee sensor; while it is offline the item keeps its last (restored) value,
+  # which would otherwise be uploaded as if it were current
+  if Backyard_Barometric_Pressure.state? && Backyard_Barometric_Pressure.thing&.online?
+    params[:baromin] = Backyard_Barometric_Pressure.state.to_f
+  end
   Weather.post_to_weather_services(params)
 end
 

@@ -185,6 +185,8 @@ thermostats.rb
 - `adjust_rainin_state` — Rain sensor calibration
 - `number_channel_switch` — Converts a 0/1 Number channel for a ON/OFF Switch Item
 - `is_low_state` — Converts a Number channel to a ON/OFF Switch Item given a threshold configuration
+- `sea_level_pressure` — Converts a station pressure channel to sea-level pressure given the sensor's `elevation` in
+  meters (`Weather.sea_level_pressure`); `Backyard_Barometric_Pressure` uses it with the house's 242 m
 
 **ESPHome-backed items:**
 
@@ -213,7 +215,7 @@ Check these before implementing new device logic — reuse existing abstractions
 | `awtrix.rb` | Clock-neutral Awtrix pieces (`Color` as `[r, g, b]`, `INDICATORS`) and `Awtrix.all_clocks`, a `ClockGroup` that fans a notification or indicator out to every clock — rules call this, not a clock library directly |
 | `awtrix_ng.rb` | AWTRIX NG clocks (Office and Bedroom) via the `mqtt.awtrixlight` actions; converts shared colors to Java `int[]` for indicators and hex strings for notifications, and builds the single notification params map |
 | `tv_notification.rb` | Apple TV notification delivery |
-| `weather.rb` | Weather Underground / PWSWeather station uploads, plus Xweather present-weather lookup (`current_conditions`) and its mapping to AWTRIX NG overlays (`overlay_for`) |
+| `weather.rb` | Weather Underground / PWSWeather station uploads, plus Xweather present-weather lookup (`current_conditions`) and its mapping to AWTRIX NG overlays (`overlay_for`), and `sea_level_pressure` (station to sea-level pressure for the upload and the `sea_level_pressure` profile) |
 | `holidays.rb` | Holiday constants used by decoration lighting rules |
 | `night_off.rb` | `NightOff.rule`, the shared "turn off at 10:30pm, or when VisitorMode ends overnight" rule pattern (`evening_lights.rb`, `holiday.rb`) |
 | `nut_ups.rb` | NUT (Network UPS Tools) `ups.status` flag constants |

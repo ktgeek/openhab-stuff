@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "json"
+require "weather"
 
 profile(:upcase_state) do |event, callback:, state:|
   next true unless event == :state_from_handler
@@ -22,6 +23,18 @@ profile(:adjust_rainin_state) do |event, callback:, state:|
   next true unless event == :state_from_handler
 
   callback.send_update(state.to_f - 0.05)
+
+  false
+end
+
+# Station pressure from a sensor to sea-level pressure; `elevation` is the sensor's height in meters
+profile(:sea_level_pressure) do |event, callback:, state:, configuration:|
+  next true unless event == :state_from_handler
+
+  sea_level_hpa = Weather.sea_level_pressure(
+    station_hpa: (state | "hPa").to_f, elevation_m: configuration.fetch("elevation").to_f
+  )
+  callback.send_update(QuantityType.new("#{sea_level_hpa} hPa"))
 
   false
 end

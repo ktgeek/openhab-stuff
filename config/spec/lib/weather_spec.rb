@@ -107,6 +107,18 @@ RSpec.describe Weather do
     end
   end
 
+  describe ".sea_level_pressure" do
+    # 995.3 hPa (29.39 inHg) is the station pressure Xweather reported at 244 m, where its altimeter setting was
+    # 30.26 inHg (about 1024.7 hPa)
+    it "raises the station pressure to its sea-level equivalent" do
+      expect(described_class.sea_level_pressure(station_hpa: 995.3, elevation_m: 244)).to be_within(0.5).of(1024.7)
+    end
+
+    it "only applies the altimeter offset at sea level" do
+      expect(described_class.sea_level_pressure(station_hpa: 1000.0, elevation_m: 0)).to be_within(0.01).of(999.7)
+    end
+  end
+
   describe ".feels_like" do
     # Expected values come from the NWS wind chill and heat index formulas and agree with the NWS tables
     {

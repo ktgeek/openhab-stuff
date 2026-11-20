@@ -227,6 +227,21 @@ RSpec.describe "backyard.rb" do
         )
       end
 
+      it "posts the other readings without baromin while the pressure sensor is not online" do
+        allow(Backyard_Barometric_Pressure).to receive(:thing)
+          .and_return(instance_double(OpenHAB::Core::Things::Thing, online?: false))
+        every_minute_rule.trigger
+        expect(Weather).to have_received(:post_to_weather_services)
+          .with(satisfy { |params| !params.key?(:baromin) && params[:tempf] == readings[:tempf] })
+      end
+
+      it "posts without baromin when the pressure is unknown" do
+        Backyard_Barometric_Pressure.update(NULL)
+        every_minute_rule.trigger
+        expect(Weather).to have_received(:post_to_weather_services)
+          .with(satisfy { |params| !params.key?(:baromin) })
+      end
+
       it "does not post when a reading is unknown" do
         Backyard_UV.update(NULL)
         every_minute_rule.trigger
