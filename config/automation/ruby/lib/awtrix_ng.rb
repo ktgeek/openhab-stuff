@@ -3,7 +3,8 @@
 require "forwardable"
 
 # Actions for an AWTRIX NG clock (the `mqtt.awtrixlight` actions), used for both the Office and the Bedroom clock. The
-# binding takes the colors as Java int arrays and a single params map for notifications.
+# binding takes indicator colors as Java int arrays, and a single params map for notifications in which colors are
+# hex strings.
 class AwtrixNg
   extend Forwardable
 
@@ -29,7 +30,7 @@ class AwtrixNg
     # The binding rejects the whole notification if it contains a key it doesn't know
     params = { "text" => message, "icon" => icon, "wakeup" => true, "stack" => true, "textCase" => "asTyped" }
     params.delete("textCase") if case_insensitive
-    params["textColor"] = java_color(color) if color
+    params["textColor"] = hex_color(color) if color
     params["name"] = name if name
 
     @actions.show_custom_notification(params)
@@ -52,5 +53,10 @@ class AwtrixNg
 
   def java_color(color)
     color.to_java(Java::int)
+  end
+
+  def hex_color(color)
+    red, green, blue = color
+    format("#%<red>02X%<green>02X%<blue>02X", red:, green:, blue:)
   end
 end

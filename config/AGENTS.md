@@ -211,7 +211,7 @@ Check these before implementing new device logic — reuse existing abstractions
 | `kwikset.rb` | Kwikset smart lock keypad event parsing (Z-Wave based) |
 | `aqara_cube.rb` | Aqara Cube multi-action wireless controller |
 | `awtrix.rb` | Clock-neutral Awtrix pieces (`Color` as `[r, g, b]`, `INDICATORS`) and `Awtrix.all_clocks`, a `ClockGroup` that fans a notification or indicator out to every clock — rules call this, not a clock library directly |
-| `awtrix_ng.rb` | AWTRIX NG clocks (Office and Bedroom) via the `mqtt.awtrixlight` actions; converts shared colors to Java `int[]` and builds the single notification params map |
+| `awtrix_ng.rb` | AWTRIX NG clocks (Office and Bedroom) via the `mqtt.awtrixlight` actions; converts shared colors to Java `int[]` for indicators and hex strings for notifications, and builds the single notification params map |
 | `tv_notification.rb` | Apple TV notification delivery |
 | `weather.rb` | Weather Underground / PWSWeather station uploads, plus Xweather present-weather lookup (`current_conditions`) and its mapping to AWTRIX NG overlays (`overlay_for`) |
 | `holidays.rb` | Holiday constants used by decoration lighting rules |

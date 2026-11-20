@@ -11,7 +11,7 @@ RSpec.describe AwtrixNg do
 
   before { allow(described_class).to receive(:actions).and_return(actions) }
 
-  # The binding takes the colors as Java int arrays
+  # The binding takes indicator colors as Java int arrays
   def color_matching(rgb)
     satisfy { |color| color.to_a == rgb }
   end
@@ -33,11 +33,10 @@ RSpec.describe AwtrixNg do
       expect(actions).to have_received(:show_custom_notification).with(default_params.except("textCase"))
     end
 
-    it "adds the text color when one is given" do
+    it "adds the text color as a hex string when one is given" do
       clock.show_custom_notification(message: "Door open", icon: "door", color: red)
 
-      expect(actions).to have_received(:show_custom_notification)
-        .with(hash_including("textColor" => color_matching(red)))
+      expect(actions).to have_received(:show_custom_notification).with(hash_including("textColor" => "#FF0000"))
     end
 
     it "adds the name when one is given" do
