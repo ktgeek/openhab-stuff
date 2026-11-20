@@ -22,6 +22,13 @@ RSpec.describe "NightOff" do
       expect(calls).to eq [:turned_off]
     end
 
+    it "runs the block when VisitorMode has no state" do
+      VisitorMode_Switch.update(NULL)
+      night_rule.trigger(consider_conditions: true)
+
+      expect(calls).to eq [:turned_off]
+    end
+
     it "does not run the block while VisitorMode is on" do
       VisitorMode_Switch.update(ON)
       night_rule.trigger(consider_conditions: true)

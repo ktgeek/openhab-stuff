@@ -119,6 +119,18 @@ RSpec.describe "entrance_lights.rb" do
         expect(All_Hall_Lights.members.none?(&:on?)).to be true
       end
     end
+
+    context "when the ignore-luminance switch has no state" do
+      before do
+        Entrance_IgnoreLuminance_Switch.update(NULL)
+        freeze_at(:weekday, 10)
+        Sun_Status.update(SunStatus::DOWN)
+      end
+
+      it "turns on the front yard lights" do
+        expect(Front_Yard_Lights.members.all?(&:on?)).to be true
+      end
+    end
   end
 
   describe "when the sun comes up" do
@@ -208,6 +220,18 @@ RSpec.describe "entrance_lights.rb" do
 
       it "leaves the hall lights on" do
         expect(All_Hall_Lights.members.all?(&:on?)).to be true
+      end
+    end
+
+    context "when the ignore-luminance switch has no state" do
+      before do
+        Entrance_IgnoreLuminance_Switch.update(NULL)
+        freeze_at(:weekday, 10)
+        Sun_Status.update(SunStatus::UP)
+      end
+
+      it "turns off the front yard lights" do
+        expect(Front_Yard_Lights.members.all?(&:off?)).to be true
       end
     end
   end

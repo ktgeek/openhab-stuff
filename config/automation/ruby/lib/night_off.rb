@@ -23,7 +23,8 @@ module NightOff
 
       run(&turn_off)
 
-      only_if { ::VisitorMode_Switch.off? && condition.call }
+      # VisitorMode has no channel and can be NULL after a restart; only an explicit ON should skip the turn-off
+      only_if { !::VisitorMode_Switch.on? && condition.call }
     end
 
     return unless reactivate
