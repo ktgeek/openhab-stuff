@@ -115,8 +115,6 @@ rule "when the exercise room door is closed" do
         Basement_Hallway_Lights_Switch.off
         ExerciseRoom_Light.off
         ExerciseRoom_BikeTrainer_Switch.off
-
-        Basement_Deadend_Occupancy_Counters.members.each { |i| timers.cancel(i) }
       end
 
       Basement_Stairs_Switch.off if Basement_Hiome_Occupancy_Count.state < 1
