@@ -342,6 +342,15 @@ interface the binding declares, including zwavejs's own `ZwaveJSChannelTypeProvi
 implement, and OSGi rejects that registration and aborts startup. The file registers only the interfaces the generated
 class implements.
 
+Two add-ons production runs from jars in `/usr/share/openhab/addons` rather than from a binding in the settings: the
+hand-installed AWTRIX NG build of the Awtrix3 add-on (until its PR merges) and the esphome add-on. The harness only lets
+fileinstall deploy `openhab-addons-*.kar`, so `karaf_addons.rb` copies the jars listed in `EXTRA_JARS` into
+`.karaf/spec-addons/` and points the clone's fileinstall at that directory, for their thing types. esphome sits outside
+every bundle tree the harness blocks, so `karaf_addons.rb` blocks it by name, and it needs `jakarta.validation-api`
+(also in `EXTRA_JARS`) to resolve and the `bluetooth` binding. The AWTRIX NG jar has the same symbolic name as the
+`mqtt` binding's own `awtrixlight` bundle, as in production, and adds the `awtrix-ng-*` thing types. If a jar isn't
+found the run prints a warning and the things that need it have no thing type, so openHAB holds them back.
+
 The clone also inherits production's ConfigAdmin store, where every config still names the production file it was
 loaded from (`felix.fileinstall.filename=file:/var/lib/openhab/etc/….cfg`), and the clone's fileinstall saves each
 config update to the file named. Left alone, a run could rewrite production's `org.openhab.addons.cfg` and make openHAB
@@ -351,13 +360,11 @@ if anything in the clone's `config/` or `etc/` still mentions `/var/lib/openhab/
 leaking production paths: fix that rather than loosening the check. Since a regression here costs data, not a failing
 spec, check a launch against hashes of production's `etc/*.cfg` and `config/org/openhab/*` after a harness upgrade.
 
-openHAB holds back a thing whose thing type isn't installed for about a minute. The harness installs production's
-bindings, so that is only the things of add-ons it doesn't install (the esphome and AWTRIX NG jars, until they're
-added). So `spec/support/thing_initialization.rb` first waits in `before(:suite)` until the number of registered things
-stops changing, then calls the harness's `initialize_missing_thing_types` to initialize them now. Things only get their
-mock handlers a few seconds after that, so it then waits until the number of things with a handler has stopped changing
-(about 6s); without that, examples that happen to run first see things with no handler. If no thing has a handler
-after 30s the launch is bad and it raises, so a flaky startup is one error instead of dozens of failures.
+Things only get their mock handlers a few seconds after Karaf reports started, so `spec/support/thing_initialization.rb`
+waits in `before(:suite)` until the number of things with a handler has stopped changing (about 6s); without that,
+examples that happen to run first see things with no handler. If no thing has a handler after 30s the launch is bad and
+it raises, so a flaky startup is one error instead of dozens of failures. Every thing has its thing type, so openHAB
+doesn't hold any back; before the esphome and AWTRIX NG jars were deployed, the wait had to force those to initialize.
 
 The harness runs against the live conf directory, and `services/runtime.cfg` re-applies production's default
 persistence service (`timescaledb`) after the harness has made its mock service the default. So
@@ -375,12 +382,7 @@ clocks stubs `Awtrix.all_clocks` itself, which takes precedence.
   it only at first install; the harness re-provisions on every launch.
 - 25 WARNs, `no ProfileFactory for basic-profiles:state-filter`: the harness blocks the `org.openhab.transform` bundle
   tree from starting, so profiles from `basicprofiles` don't exist.
-- About 40 `ThingManagerImpl` WARNs ("A thing handler factory claims to support … for more than 120s, but the thing
-  type can't be found in the registry", "Channel types or config descriptions for thing … are missing … for more than
-  120s", "Could not normalize configuration for … because the thing type was not found in registry"), all for the
-  esphome and `mqtt:awtrix-ng-*` things, whose add-ons the harness doesn't install. Forcing the things to initialize
-  makes openHAB say so (the "120s" is the forced wait, not real time).
-- `A thing with UID ... is already tracked by ThingManager` ERRORs, in about 1 launch in 6 on 5.3.0.M4 (5 to 100 of the
+- `A thing with UID ... is already tracked by ThingManager` ERRORs, in 7 of 25 launches on 5.3.0.M5 (7 to 22 of the
   things): a race in openHAB core, where `ThingRegistryImpl` announces a thing twice while the `ThingManager` is
   registering as a tracker. Every thing still got its handler in the launches checked, so it isn't a sign of a bad
   launch.
@@ -393,13 +395,14 @@ clocks stubs `Awtrix.all_clocks` itself, which takes precedence.
 - `Unknown lock state 254` WARN: a rule logging while a spec drives the lock.
 
 **Flaky launches.** The suite is expected to be green (seeds 17902 and 40648 both pass), but a launch can still hit a
-race in the harness's startup that can't be fixed from this repo, so rerun before chasing a failure. On 5.3.0.M4,
-25 launches of `spec/laundry_room_spec.rb` with no bindings installed had none of the signs below; with the bindings
-installed, 3 of 25 did (two hangs and one with failures). The signs are an error outside the examples
-(`NoMethodError`/`NameError` while loading `openhab/rspec` or `openhab/dsl`, "Bundle has been uninstalled"), the "no
-thing got a handler" error from `thing_initialization.rb`, or a launch that never finishes (run it under `timeout`; a
-healthy one takes about 90s). `.karaf/logs/openhab.log` accumulates across launches, so compare against its size
-before the run.
+race in the harness's startup that can't be fixed from this repo, so rerun before chasing a failure. On 5.3.0.M5, with
+the bindings and both jars installed, 25 launches of `spec/laundry_room_spec.rb` all passed in about 86s each; one
+earlier launch in 29 (the first after the jars were added) raised `$ir was not populated by the default script scope`
+from the harness's own wait, with `ConfigXmlConfigDescriptionProvider` "Timeout waiting for reg change" ERRORs in the
+log. The signs are an error outside the examples (`$ir was not populated`, `NoMethodError`/`NameError` while loading
+`openhab/rspec` or `openhab/dsl`, "Bundle has been uninstalled"), the "no thing got a handler" error from
+`thing_initialization.rb`, or a launch that never finishes (run it under `timeout`; a healthy one takes about 90s).
+`.karaf/logs/openhab.log` accumulates across launches, so compare against its size before the run.
 
 ### Linting
 

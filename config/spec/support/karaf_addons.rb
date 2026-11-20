@@ -24,6 +24,25 @@ module KarafAddons
     [*kept, *bindings].map { |line| line.end_with?("\n") ? line : "#{line}\n" }.join
   end
 
+  OPENHAB_HOME = ENV.fetch("OPENHAB_HOME", "/usr/share/openhab")
+  OPENHAB_RUNTIME = ENV.fetch("OPENHAB_RUNTIME", "#{OPENHAB_HOME}/runtime")
+
+  # Add-ons production runs from jars in its addons directory, not from the bindings in the settings above: the AWTRIX
+  # NG build of the Awtrix3 add-on (hand installed until its PR merges) and the esphome add-on. The harness only lets
+  # fileinstall deploy openhab-addons-*.kar, so neither would load, and their things would have no thing type. The jars
+  # are copied into a private directory that the clone's fileinstall watches instead.
+  EXTRA_JARS = [
+    "#{OPENHAB_HOME}/addons/org.openhab.binding.mqtt.awtrixlight-*.jar",
+    "#{OPENHAB_HOME}/addons/no.seime.openhab.binding.esphome-*.jar",
+    # esphome imports javax.validation.constraints, which production gets from the REST API's swagger feature, one of
+    # the things the harness's trimmed runtime base drops
+    "#{OPENHAB_RUNTIME}/system/jakarta/validation/jakarta.validation-api/2.0.2/jakarta.validation-api-2.0.2.jar"
+  ].freeze
+
+  # esphome isn't under any tree the harness blocks, so without this its real handler factory and mDNS discovery
+  # would start and talk to the devices. The other jars are in org.openhab.binding, which is already blocked.
+  BLOCKED_BUNDLES = %w[no.seime.openhab.binding.esphome].freeze
+
   # Runs on every launch, after the clone exists and before Karaf starts, so a fresh .karaf/ is covered too.
   module CleanupInstance
     # Relative to a userdata directory, production's and the clone's
@@ -40,6 +59,11 @@ module KarafAddons
 
       rewrite_addon_settings
       copy_maven_repository
+      deploy_extra_jars
+    end
+
+    def blocked_bundle?(bundle)
+      super || BLOCKED_BUNDLES.include?(bundle.symbolic_name)
     end
 
     # The harness records production's userdata before it points openhab.userdata at the clone
@@ -77,6 +101,30 @@ module KarafAddons
       rescue Errno::EACCES
         warn "Can't read #{from}; it will be downloaded if a binding needs it"
       end
+    end
+
+    def deploy_extra_jars
+      deploy_dir = File.join(path, "spec-addons")
+      FileUtils.rm_rf(deploy_dir)
+      FileUtils.mkdir_p(deploy_dir)
+      EXTRA_JARS.each do |pattern|
+        jars = Dir.glob(pattern)
+        warn "No jar matches #{pattern}; its things won't have a thing type in the specs" if jars.empty?
+        FileUtils.cp(jars, deploy_dir)
+      end
+
+      point_fileinstall_at(deploy_dir)
+    end
+
+    # The harness limits the filter to openhab-addons-*.kar on every launch, so this has to run after it
+    def point_fileinstall_at(deploy_dir)
+      file = File.join(path, "etc/org.apache.felix.fileinstall-deploy.cfg")
+      config = File.read(file)
+      updated = config.sub(/^(felix\.fileinstall\.dir\s+=)[^\n]+$/) { "#{Regexp.last_match(1)} #{deploy_dir}" }
+                      .sub(/^(felix\.fileinstall\.filter\s+=)[^\n]+$/) { "#{Regexp.last_match(1)} .*\\.jar" }
+      raise "no fileinstall dir or filter to rewrite in #{file}" if updated == config
+
+      File.write(file, updated)
     end
   end
 end
