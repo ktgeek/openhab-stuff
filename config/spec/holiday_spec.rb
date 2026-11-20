@@ -190,7 +190,7 @@ RSpec.describe "holiday.rb" do
 
     context "when it is St. Patty" do
       let(:holiday) { Holidays::STPATRICKS }
-      let(:label) { "St.Patty" }
+      let(:label) { "St. Patty" }
 
       it "turns off the office door LED" do
         expect(Office_DoorLED_Color).to be_off

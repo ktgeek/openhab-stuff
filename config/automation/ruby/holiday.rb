@@ -5,7 +5,7 @@ require "esphome/lc5050c"
 require "zigbee"
 require "holidays"
 require "sun_status"
-require "night_off"
+require "holiday_decorations"
 
 rule "its light out, turn off the holiday decorations" do
   changed Sun_Status, to: SunStatus::UP
@@ -21,10 +21,9 @@ rule "its light out, turn off the holiday decorations" do
   only_if { Holiday_Mode.state.present? }
 end
 
-rule "decorations on at sunset at Halloween" do
-  changed Sun_Status, to: SunStatus::DOWN
-
-  run do
+HolidayDecorations.rule(
+  "Halloween", Holidays::HALLOWEEN,
+  on: proc do
     ensure_states do
       Porch_Decorations_Switch.on
       Front_Yard_Side_Holiday_Decorations_Switch.on
@@ -37,55 +36,41 @@ rule "decorations on at sunset at Halloween" do
       Office_DoorLED_Color.command(Color::PURPLE)
       Office_DoorLED_LightEffects.command(Esphome::LC5050C::Effects::PURPLE_FADE)
     end
+  end,
+  off: proc do
+    ensure_states do
+      Porch_Decorations_Switch.off
+      Front_Yard_Side_Holiday_Decorations_Switch.off
+      Office_DoorLED_Color.off
+      HiddenRoom_HolidayLED_Power.off
+      DinahsRoom_HolidayLED_Power.off
+    end
   end
+)
 
-  only_if { Holiday_Mode.state == Holidays::HALLOWEEN }
-end
-
-rule "decorations on at sunset at St. Patty" do
-  changed Sun_Status, to: SunStatus::DOWN
-
-  run do
+HolidayDecorations.rule(
+  "St. Patty", Holidays::STPATRICKS,
+  reactivate: false,
+  on: proc do
     if Zoom_Active_Switch.off?
       Office_DoorLED_Color.on
       Office_DoorLED_Color.command(Color::GREEN)
     end
-  end
+  end,
+  off: proc { Office_DoorLED_Color.ensure.off }
+)
 
-  only_if { Holiday_Mode.state == Holidays::STPATRICKS }
-end
-
-NightOff.rule(
-  "decorations at St.Patty",
-  condition: -> { Holiday_Mode.state == Holidays::STPATRICKS },
-  reactivate: false
-) { Office_DoorLED_Color.ensure.off }
-
-rule "decorations on at sunset at Christmas" do
-  changed Sun_Status, to: SunStatus::DOWN
-
-  run do
+HolidayDecorations.rule(
+  "Christmas", Holidays::CHRISTMAS,
+  on: proc do
     Christmas_Outside.members.ensure.on
     Christmas_Lights.members.ensure.on
+  end,
+  off: proc do
+    Christmas_Outside.members.ensure.off
+    Christmas_Lights_All.members.ensure.off
   end
-
-  only_if { Holiday_Mode.state == Holidays::CHRISTMAS }
-end
-
-NightOff.rule("decorations at Halloween", condition: -> { Holiday_Mode.state == Holidays::HALLOWEEN }) do
-  ensure_states do
-    Porch_Decorations_Switch.off
-    Front_Yard_Side_Holiday_Decorations_Switch.off
-    Office_DoorLED_Color.off
-    HiddenRoom_HolidayLED_Power.off
-    DinahsRoom_HolidayLED_Power.off
-  end
-end
-
-NightOff.rule("decorations at Christmas", condition: -> { Holiday_Mode.state == Holidays::CHRISTMAS }) do
-  Christmas_Outside.members.ensure.off
-  Christmas_Lights_All.members.ensure.off
-end
+)
 
 rule "christmas switch is turned on" do
   changed Christmas_Lights, from: OFF, to: ON
