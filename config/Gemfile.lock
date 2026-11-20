@@ -1,7 +1,13 @@
 PATH
-  remote: vendor/openhab-stub
+  remote: /home/kgarner/openhab-dev/openhab-jruby
   specs:
-    openhab (5.3.0)
+    openhab-scripting (5.52.1)
+      bigdecimal (~> 4.0)
+      bundler (>= 2.2, < 5.0)
+      csv (~> 3.0)
+      marcel (>= 1.0, < 3.0)
+      method_source (~> 1.0)
+      openhab (>= 5.0.0, < 5.4)
 
 GEM
   remote: https://rubygems.org/
@@ -23,6 +29,8 @@ GEM
     base64 (0.3.0)
     bigdecimal (4.1.3)
     bigdecimal (4.1.3-java)
+    bundler-openhab-stub (1.0.1)
+      bundler (~> 4.1)
     concurrent-ruby (1.3.8)
     connection_pool (3.0.2)
     csv (3.3.7)
@@ -37,18 +45,16 @@ GEM
     logger (1.7.0)
     marcel (1.2.1)
     method_source (1.1.0)
+    mini_portile2 (2.8.9)
     minitest (5.27.0)
+    nokogiri (1.19.7)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.19.7-java)
       racc (~> 1.4)
     nokogiri (1.19.7-x86_64-linux-gnu)
       racc (~> 1.4)
-    openhab-scripting (5.52.0)
-      bigdecimal (~> 4.0)
-      bundler (>= 2.2, < 5.0)
-      csv (~> 3.0)
-      marcel (~> 1.0)
-      method_source (~> 1.0)
-      openhab (>= 5.0.0, < 5.4)
+    openhab (5.3.0.M5)
     parallel (2.1.0)
     parser (3.3.12.0)
       ast (~> 2.4.1)
@@ -113,10 +119,10 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport (~> 8.1)
+  bundler-openhab-stub
   minitest (~> 5)
   nokogiri
-  openhab!
-  openhab-scripting (~> 5.52)
+  openhab-scripting (~> 5.52)!
   rspec (~> 3.11)
   rubocop
   rubocop-openhab-scripting
@@ -128,4 +134,4 @@ RUBY VERSION
   ruby 4.0.0 (jruby 10.1.1.0)
 
 BUNDLED WITH
-  4.0.24
+  4.1.0

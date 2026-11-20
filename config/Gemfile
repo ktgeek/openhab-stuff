@@ -5,15 +5,11 @@ source "https://rubygems.org"
 # JRuby 10.1 implements Ruby 4.0
 ruby "~> 4.0"
 
+# openhab-scripting depends on an "openhab" gem that the live openHAB JVM provides and rubygems.org doesn't have; this
+# plugin stands in for it outside the JVM, taking the version from OPENHAB_USERDATA's version.properties
+plugin "bundler-openhab-stub"
+
 group(:test) do
-  # openhab-scripting >= 5.45 depends on a sentinel "openhab" gem pinned to the running core
-  # version; that gem is normally injected by the live openHAB JVM and isn't resolvable from
-  # rubygems.org outside it. This local stub (matching our installed core, 5.3.0) satisfies it
-  # for `bundle install`/rspec/rubocop. Bump the stub's version if openHAB core is upgraded.
-  gem "openhab", path: "vendor/openhab-stub"
-  gem "openhab-scripting", "~> 5.52"
-  # openhab-scripting's rspec harness requires nokogiri (openhab/osgi.rb) without declaring it
-  gem "nokogiri"
   gem "rspec", "~> 3.11"
   gem "rubocop"
   gem "rubocop-openhab-scripting"
@@ -22,10 +18,10 @@ group(:test) do
   gem "timecop", "~> 0.9"
 end
 
-group(:rules) do
-  # include any gems you reference from `gemfile` calls in your rules so that
-  # they'll already be available in the rules, and won't need to be
-  # re-installed on every run, slowing down spec runs considerably
+group(:openhab) do
   gem "activesupport", "~> 8.1", require: false
   gem "minitest", "~> 5", require: false
+  gem "openhab-scripting", "~> 5.52", path: "/home/kgarner/openhab-dev/openhab-jruby"
+  # openhab-scripting's rspec harness requires nokogiri (openhab/osgi.rb) without declaring it
+  gem "nokogiri"
 end
