@@ -219,4 +219,12 @@ RSpec.describe "holiday.rb" do
       end
     end
   end
+
+  describe "clear_holiday_mode" do
+    it "sets Holiday_Mode back to no holiday" do
+      Holiday_Mode.update(Holidays::CHRISTMAS)
+      rules.scripts["clear_holiday_mode"].run
+      expect(Holiday_Mode.state).to eq ""
+    end
+  end
 end

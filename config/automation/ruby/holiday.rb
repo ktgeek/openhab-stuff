@@ -87,6 +87,11 @@ rule "christmas switch is turned on" do
   only_if { Holidays.current?(Holidays::CHRISTMAS) }
 end
 
+# Run by the Overview page's Holiday Mode "None" button (Main UI can't send an empty command), so keep the id stable.
+script "Clear Holiday Mode", id: "clear_holiday_mode" do
+  Holiday_Mode.update("")
+end
+
 # wolf_last_change = nil
 
 # updated(Front_Yard_Decoration_Mat_Contact, to: ON) do
